@@ -20,7 +20,7 @@ The project follows **Clean Architecture** principles decoupled into four core l
 ```
 Setara/
 ├── App/                     # App lifecycle & Navigation
-│   ├── SetaraApp.swift      # Entry point & DI container
+│   ├── MetraApp.swift       # Entry point & DI container
 │   ├── AppCoordinator.swift # Centralized navigation router & view factory
 │   ├── AppRoutes.swift      # Enum of app navigation routes
 │   └── ContentView.swift    # Root container hosting NavigationStack
