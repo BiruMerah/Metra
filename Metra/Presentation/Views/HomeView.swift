@@ -16,6 +16,10 @@ struct HomeView: View {
             Text("Hello, This is HomeView!")
                 .font(.title2)
             
+            Button("Take Photos") {
+                coordinator.navigate(to: .camera)
+            }
+            
             Button("Go to Saved Materials") {
                 coordinator.navigate(to: .savedMaterialList)
             }
@@ -26,7 +30,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView(coordinator: AppCoordinator(
-        cameraService: CameraService(),
+        cameraService: CameraService(cameraManager: CameraManager()),
         mathMaterialService: MathMaterialRepository(
             modelContext: ModelContext(try! ModelContainer(for: DatabaseSchema.schema))
         )
