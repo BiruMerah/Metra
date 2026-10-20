@@ -61,11 +61,17 @@ final class AppCoordinator {
          CameraView(viewModel: viewModel)
          */
         switch route {
-        case .camera:
-            EmptyView()
-            
         case .home:
-            EmptyView()
+            HomeView(coordinator: self)
+            
+        case .camera:
+            CameraView()
+            
+        case .importDocument:
+            ImportDocumentView()
+            
+        case .importPhoto:
+            ImportPhotoView()
             
         case .savedMaterialList:
             let viewModel = SavedMaterialViewModel(coordinator: self, mathMaterialService: mathMaterialService)
