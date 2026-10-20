@@ -34,7 +34,7 @@ struct HomeView: View {
             ActionButton(title: "Unggah Foto", accessibilityLabel: "Unggah foto yang berisi materi atau soal matematika", height: 45) {
                 coordinator.navigate(to: .importPhoto)
             }
-           
+            
             ActionButton(title: "Buka Materi Tersimpan", accessibilityLabel: "Buka halaman materi matematika yang tersimpan", height: 45) {
                 coordinator.navigate(to: .savedMaterialList)
             }

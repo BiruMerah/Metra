@@ -30,7 +30,8 @@ final class CameraViewModel {
 
         switch result {
         case .ready:
-            break // The guidance handler supplies the live status.
+            // The guidance handler supplies the live status
+            break
         case .permissionDenied:
             statusText = "Akses kamera ditolak. Izinkan kamera melalui Pengaturan."
             guidanceAnnouncer.announce(statusText)

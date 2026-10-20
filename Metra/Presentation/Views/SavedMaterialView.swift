@@ -51,11 +51,3 @@ struct SavedMaterialView: View {
         }
     }
 }
-
-//#Preview {
-//    let config = ModelConfiguration(isStoredInMemoryOnly: false)
-//    let container = try! ModelContainer(for: DatabaseSchema.schema, configurations: config)
-//    
-//    return SavedMaterialView()
-//        .modelContainer(container)
-//}

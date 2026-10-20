@@ -11,17 +11,15 @@ struct CameraView: View {
             CameraPreviewView(session: session)
                 .ignoresSafeArea()
                 .accessibilityHidden(true)
+            
             VStack() {
                 Spacer()
             
-                
                 Text(viewModel.statusText)
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .padding()
                     .background(.black.opacity(0.72), in: RoundedRectangle(cornerRadius: 16))
-              
-                
             }
             .padding(.bottom,100)
         }
@@ -32,17 +30,6 @@ struct CameraView: View {
             viewModel.stopCamera()
         }
     }
-}
-
-
-
-#Preview {
-    let cameraService = CameraService(cameraManager: CameraManager())
-    CameraView(
-        viewModel: CameraViewModel(cameraService: cameraService),
-        session: cameraService.previewSession,
-        onClose: {}
-    )
 }
 
 private struct CameraPreviewView: UIViewRepresentable {
@@ -68,4 +55,13 @@ private final class PreviewUIView: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer {
         layer as! AVCaptureVideoPreviewLayer
     }
+}
+
+#Preview {
+    let cameraService = CameraService(cameraManager: CameraManager())
+    CameraView(
+        viewModel: CameraViewModel(cameraService: cameraService),
+        session: cameraService.previewSession,
+        onClose: {}
+    )
 }
