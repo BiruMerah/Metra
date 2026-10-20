@@ -53,6 +53,9 @@ final class AppCoordinator {
     @ViewBuilder
     func buildView(route: AppRoutes) -> some View {
         switch route {
+        case .home:
+            HomeView(coordinator: self)
+            
         case .camera:
             let viewModel = CameraViewModel(cameraService: cameraService)
             CameraView(
@@ -61,8 +64,11 @@ final class AppCoordinator {
                 onClose: { self.navigateBack() }
             )
             
-        case .home:
-            EmptyView()
+        case .importDocument:
+            ImportDocumentView()
+            
+        case .importPhoto:
+            ImportPhotoView()
             
         case .savedMaterialList:
             let viewModel = SavedMaterialViewModel(coordinator: self, mathMaterialService: mathMaterialService)
