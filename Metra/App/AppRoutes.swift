@@ -10,6 +10,8 @@ import Foundation
 enum AppRoutes: Hashable {
     case home
     case camera
+    case importDocument
+    case importPhoto
     case savedMaterialList
     case mathMaterial // TODO: Define the params
     case mathTopicMaterial // TODO: Define the params
