@@ -13,20 +13,42 @@ struct HomeView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            Text("Hello, This is HomeView!")
-                .font(.title2)
+            HStack {
+                Text("Home")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .accessibilityLabel("Kamu saat ini berada dihalaman awal, halaman beranda")
+                
+                Spacer()
+            }
+            .padding(.bottom, 96)
             
-            Button("Go to Saved Materials") {
+            ActionButton(title: "Ambil Gambar", accessibilityLabel: "Ambil gambar dari materi atau soal matematika", height: 45) {
+                coordinator.navigate(to: .camera)
+            }
+            
+            ActionButton(title: "Unggah Dokumen", accessibilityLabel: "Unggah dokumen materi atau soal matematika", height: 45) {
+                coordinator.navigate(to: .importDocument)
+            }
+            
+            ActionButton(title: "Unggah Foto", accessibilityLabel: "Unggah foto yang berisi materi atau soal matematika", height: 45) {
+                coordinator.navigate(to: .importPhoto)
+            }
+           
+            ActionButton(title: "Buka Materi Tersimpan", accessibilityLabel: "Buka halaman materi matematika yang tersimpan", height: 45) {
                 coordinator.navigate(to: .savedMaterialList)
             }
-            .buttonStyle(.glassProminent)
+            .padding(.top, 48)
+            
+            Spacer()
         }
+        .padding(.horizontal, 24)
     }
 }
 
 #Preview {
     HomeView(coordinator: AppCoordinator(
-        cameraService: CameraService(),
+        cameraService: CameraService(cameraManager: CameraManager()),
         mathMaterialService: MathMaterialRepository(
             modelContext: ModelContext(try! ModelContainer(for: DatabaseSchema.schema))
         )
