@@ -25,9 +25,8 @@ struct MetraApp: App {
         }
         let mathMaterialRepository = MathMaterialRepository(modelContext: modelContainer.mainContext)
         
-        // MARK: - Camera setup
-        let cameraManager = CameraManager()
-        let cameraService = CameraService(cameraManager: cameraManager)
+        // MARK: - Domain Layer setup
+        let cameraService = CameraService()
         
         // MARK: - Presentation Layer setup
         let initialCoordinator = AppCoordinator(
