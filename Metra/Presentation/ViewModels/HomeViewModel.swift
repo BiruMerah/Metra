@@ -66,16 +66,14 @@ final class HomeViewModel {
             }
             
             let fileType: SelectedFileType
-            if utType.conforms(to: .pdf) {
-                fileType = .pdf
-            } else if utType.conforms(to: .image) {
+            if utType.conforms(to: .image) {
                 fileType = .image
             } else {
-                self.errorMessage = "Format file tidak didukung. Harap pilih PDF atau Gambar."
+                self.errorMessage = "Format file tidak didukung. Harap pilih File dengan format jpeg atau png."
                 return
             }
             
-            let mimeType = utType.preferredMIMEType ?? (fileType == .pdf ? "application/pdf" : "image/jpeg")
+            let mimeType = utType.preferredMIMEType ?? "image/jpeg"
             self.selectedDocument = SelectedDocumentPayload(
                 fileName: fileName,
                 fileType: fileType,

@@ -16,8 +16,8 @@ struct HomeView: View {
     @Bindable var viewModel: HomeViewModel
     
     // MARK: - State variable of document picker
-    @State private var isImportingDocument = false
-    @State private var selectedDocumentURL: URL?
+    @State private var isImportingPhoto = false
+    @State private var selectedPhotoURL: URL?
     
     var body: some View {
         VStack(spacing: 24) {
@@ -32,24 +32,24 @@ struct HomeView: View {
             .padding(.bottom, 96)
             
             ActionButton(
-                title: "Ambil Gambar",
-                accessibilityLabel: "Ambil gambar dari materi atau soal matematika",
+                title: "Ambil Foto",
+                accessibilityLabel: "Ambil foto dari materi atau soal matematika",
                 height: 45
             ) {
                 coordinator.navigate(to: .camera)
             }
             
             ActionButton(
-                title: "Unggah Dokumen",
-                accessibilityLabel: "Unggah dokumen materi atau soal matematika",
+                title: "Unggah Foto",
+                accessibilityLabel: "Unggah foto yang berisi materi atau soal matematika",
                 height: 45
             ) {
-                isImportingDocument = true
+                isImportingPhoto = true
             }
             
             ActionButton(
-                title: "Unggah Foto",
-                accessibilityLabel: "Unggah foto yang berisi materi atau soal matematika",
+                title: "Unggah Dokumen",
+                accessibilityLabel: "Unggah dokumen materi atau soal matematika",
                 height: 45
             ) {
                 coordinator.navigate(to: .importPhoto)
@@ -68,18 +68,18 @@ struct HomeView: View {
         }
         .padding(.horizontal, 24)
         .fileImporter(
-            isPresented: $isImportingDocument,
-            allowedContentTypes: [.pdf, .image],
+            isPresented: $isImportingPhoto,
+            allowedContentTypes: [.image],
             allowsMultipleSelection: false
         ) { result in
-            // MARK: - Getting document logic
+            // MARK: - Getting photo file logic
             switch result {
             case .success(let urls):
                 guard let url = urls.first else { return }
                 viewModel.handleDocument(at: url)
                 
             case .failure(let error):
-                print("Failed to pick document: \(error.localizedDescription)")
+                print("Failed to pick photo: \(error.localizedDescription)")
             }
         }
         .overlay {
@@ -90,7 +90,7 @@ struct HomeView: View {
                         ProgressView()
                             .scaleEffect(1.5)
                             .tint(.white)
-                        Text("Menganalisis dokumen...")
+                        Text("Menganalisis foto...")
                             .foregroundStyle(.white)
                             .font(.headline)
                     }
@@ -103,7 +103,7 @@ struct HomeView: View {
             get: { viewModel.errorMessage != nil },
             set: { if !$0 { viewModel.errorMessage = nil } }
         )) {
-            Button("OK", role: .cancel) { }
+            Button("Ok", role: .cancel) { }
         } message: {
             Text(viewModel.errorMessage ?? "")
         }

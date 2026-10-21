@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImportPhotoView: View {
     var body: some View {
-        Text("Hello, This is ImportPhotoView!")
+        Text("Hello, This is ImportDocumentView!")
     }
 }
 
