@@ -47,14 +47,16 @@ final class AppCoordinator {
     // MARK: - View Factories
     @ViewBuilder
     func buildHome() -> some View {
-        HomeView(coordinator: self)
+        let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService)
+        HomeView(coordinator: self, viewModel: viewModel)
     }
     
     @ViewBuilder
     func buildView(route: AppRoutes) -> some View {
         switch route {
         case .home:
-            HomeView(coordinator: self)
+            let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService)
+            HomeView(coordinator: self, viewModel: viewModel)
             
         case .camera:
             let viewModel = CameraViewModel(cameraService: cameraService)
@@ -63,9 +65,6 @@ final class AppCoordinator {
                 session: cameraService.previewSession,
                 onClose: { self.navigateBack() }
             )
-            
-        case .importDocument:
-            ImportDocumentView()
             
         case .importPhoto:
             ImportPhotoView()
