@@ -13,12 +13,15 @@ import SwiftUI
 @MainActor
 final class AppCoordinator {
     var path = NavigationPath()
+    
     let cameraService: CameraService
     let mathMaterialService: MathMaterialProtocol
+    let aiManager: AIServiceProtocol
     
-    init(cameraService: CameraService, mathMaterialService: MathMaterialProtocol) {
+    init(cameraService: CameraService, mathMaterialService: MathMaterialProtocol, aiManager: AIServiceProtocol) {
         self.cameraService = cameraService
         self.mathMaterialService = mathMaterialService
+        self.aiManager = aiManager
     }
     
     func navigate(to route: AppRoutes) {
@@ -47,14 +50,16 @@ final class AppCoordinator {
     // MARK: - View Factories
     @ViewBuilder
     func buildHome() -> some View {
-        HomeView(coordinator: self)
+        let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService, aiManager: aiManager)
+        HomeView(coordinator: self, viewModel: viewModel)
     }
     
     @ViewBuilder
     func buildView(route: AppRoutes) -> some View {
         switch route {
         case .home:
-            HomeView(coordinator: self)
+            let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService, aiManager: aiManager)
+            HomeView(coordinator: self, viewModel: viewModel)
             
         case .camera:
             let viewModel = CameraViewModel(cameraService: cameraService)
@@ -62,9 +67,6 @@ final class AppCoordinator {
                 viewModel: viewModel,
                 session: cameraService.previewSession
             )
-            
-        case .importDocument:
-            ImportDocumentView()
             
         case .importPhoto:
             ImportPhotoView()

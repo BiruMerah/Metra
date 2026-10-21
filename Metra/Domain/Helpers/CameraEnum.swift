@@ -21,16 +21,35 @@ enum CameraGuidanceState: Equatable {
 
     var message: String {
         switch self {
-        case .searching: "Arahkan kamera ke lembar. Pastikan tepi kertas terlihat dan cahaya cukup."
-        case .moveLeft: "Geser kamera sedikit ke kiri."
-        case .moveRight: "Geser kamera sedikit ke kanan."
-        case .moveUp: "Arahkan kamera sedikit ke atas."
-        case .moveDown: "Arahkan kamera sedikit ke bawah."
-        case .moveCloser: "Dekatkan kamera sedikit."
-        case .moveFarther: "Jauhkan kamera sedikit."
-        case .straighten: "Luruskan kamera."
-        case .holdStill: "Lembar terdeteksi. Tahan kamera tetap diam."
-        case .ready: "Lembar siap difoto. Ketuk dua kali di layar untuk mengambil foto."
+        case .searching:
+            return "Arahkan kamera ke lembar. Pastikan tepi kertas terlihat dan cahaya cukup."
+            
+        case .moveLeft:
+            return "Geser kamera sedikit ke kiri."
+            
+        case .moveRight:
+            return "Geser kamera sedikit ke kanan."
+            
+        case .moveUp:
+            return "Arahkan kamera sedikit ke atas."
+            
+        case .moveDown:
+            return "Arahkan kamera sedikit ke bawah."
+            
+        case .moveCloser:
+            return "Dekatkan kamera sedikit."
+            
+        case .moveFarther:
+            return "Jauhkan kamera sedikit."
+            
+        case .straighten:
+            return "Luruskan kamera."
+            
+        case .holdStill:
+            return "Lembar terdeteksi. Tahan kamera tetap diam."
+            
+        case .ready:
+            return "Lembar siap difoto. Ketuk dua kali di layar untuk mengambil foto."
         }
     }
 }
@@ -52,15 +71,19 @@ enum CameraCaptureError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .permissionDenied:
-            "Akses kamera ditolak. Izinkan kamera melalui Pengaturan."
+            return "Akses kamera ditolak. Izinkan kamera melalui Pengaturan."
+            
         case .cameraUnavailable:
-            "Kamera belakang tidak tersedia."
+            return "Kamera belakang tidak tersedia."
+            
         case .cameraNotReady:
-            "Kamera belum siap. Coba lagi sebentar."
+            return "Kamera belum siap. Coba lagi sebentar."
+            
         case .documentNotReady:
-            "Lembar belum siap difoto. Ikuti petunjuk kamera."
+            return "Lembar belum siap difoto. Ikuti petunjuk kamera."
+            
         case .photoDataUnavailable:
-            "Foto tidak dapat diproses. Coba ambil ulang."
+            return "Foto tidak dapat diproses. Coba ambil ulang."
         }
     }
 }

@@ -5,7 +5,7 @@
 //  Created by Andito Rizkyka Rianto on 20/10/26.
 //
 
-import AVFoundation
+@preconcurrency import AVFoundation
 
 @MainActor
 final class CameraManager: NSObject {
@@ -30,10 +30,13 @@ final class CameraManager: NSObject {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             return true
+            
         case .notDetermined:
             return await AVCaptureDevice.requestAccess(for: .video)
+            
         case .denied, .restricted:
             return false
+            
         @unknown default :
             return false
         }

@@ -62,14 +62,17 @@ final class CameraViewModel {
 
     func capturePhoto() async {
         guard !isCapturing, capturedPhotoURL == nil else { return }
+        
         guard isCameraReady else {
             guidanceAnnouncer.announce(statusText, force: true)
             return
         }
+        
         guard isReady else {
             guidanceAnnouncer.announce("Lembar belum siap difoto. \(statusText)", force: true)
             return
         }
+        
         isCapturing = true
         statusText = "Mengambil foto..."
         defer { isCapturing = false }

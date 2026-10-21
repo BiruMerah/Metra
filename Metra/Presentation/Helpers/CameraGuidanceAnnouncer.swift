@@ -6,6 +6,7 @@ final class CameraGuidanceAnnouncer {
     private var pendingMessage: String?
     private var lastAnnouncedMessage: String?
     private var lastAnnouncementTime = Date.distantPast
+    
     // Space out changing camera instructions so VoiceOver can finish reading.
     private let announcementInterval: TimeInterval = 0.9
 
