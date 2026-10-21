@@ -10,22 +10,9 @@
 		5FDAA23C3084E66A00242B25 /* Metra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0746AA81308614AF00B8C4E7 /* Exceptions for "Metra" folder in "Metra" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 5FDAA23B3084E66A00242B25 /* Metra */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5FDAA23E3084E66A00242B25 /* Metra */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0746AA81308614AF00B8C4E7 /* Exceptions for "Metra" folder in "Metra" target */,
-			);
 			path = Metra;
 			sourceTree = "<group>";
 		};
@@ -256,13 +243,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJ25JWH9X6;
+				DEVELOPMENT_TEAM = 96SXDK9ZFJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Metra/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Metra;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Aplikasi membutuhkan akses kamera untuk memindai dokumen.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -292,13 +275,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJ25JWH9X6;
+				DEVELOPMENT_TEAM = 96SXDK9ZFJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Metra/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Metra;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Aplikasi membutuhkan akses kamera untuk memindai dokumen.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
