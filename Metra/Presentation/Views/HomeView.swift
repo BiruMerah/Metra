@@ -76,21 +76,36 @@ struct HomeView: View {
             switch result {
             case .success(let urls):
                 guard let url = urls.first else { return }
-                
-                guard url.startAccessingSecurityScopedResource() else {
-                    print("Permission to access file is denied")
-                    return
-                }
-                defer { url.stopAccessingSecurityScopedResource() }
-                
-                self.selectedDocumentURL = url
-                print("Picked document at: \(url)")
-                
-                // TODO - Processing logic code
+                viewModel.handleDocument(at: url)
                 
             case .failure(let error):
                 print("Failed to pick document: \(error.localizedDescription)")
             }
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ZStack {
+                    Color.black.opacity(0.4).ignoresSafeArea()
+                    VStack(spacing: 12) {
+                        ProgressView()
+                            .scaleEffect(1.5)
+                            .tint(.white)
+                        Text("Menganalisis dokumen...")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                    }
+                    .padding(24)
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+                }
+            }
+        }
+        .alert("Error", isPresented: .init(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
         }
     }
 }
@@ -100,13 +115,15 @@ struct HomeView: View {
     let mathMaterialService = MathMaterialRepository(
         modelContext: ModelContext(try! ModelContainer(for: DatabaseSchema.schema))
     )
+    let aiManager = AIManager()
     let coordinator = AppCoordinator(
         cameraService: cameraService,
-        mathMaterialService: mathMaterialService
+        mathMaterialService: mathMaterialService,
+        aiManager: aiManager
     )
     
     HomeView(
         coordinator: coordinator,
-        viewModel: HomeViewModel(coordinator: coordinator, mathMaterialService: mathMaterialService)
+        viewModel: HomeViewModel(coordinator: coordinator, mathMaterialService: mathMaterialService, aiManager: aiManager)
     )
 }

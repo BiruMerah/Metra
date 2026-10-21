@@ -24,6 +24,7 @@ struct MetraApp: App {
             modelContainer = try! ModelContainer(for: DatabaseSchema.schema, configurations: fallbackConfig)
         }
         let mathMaterialRepository = MathMaterialRepository(modelContext: modelContainer.mainContext)
+        let aiManager = AIManager()
         
         // MARK: - Camera setup
         let cameraManager = CameraManager()
@@ -32,7 +33,8 @@ struct MetraApp: App {
         // MARK: - Presentation Layer setup
         let initialCoordinator = AppCoordinator(
             cameraService: cameraService,
-            mathMaterialService: mathMaterialRepository
+            mathMaterialService: mathMaterialRepository,
+            aiManager: aiManager
         )
         _coordinator = State(wrappedValue: initialCoordinator)
     }

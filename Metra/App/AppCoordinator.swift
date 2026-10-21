@@ -15,10 +15,12 @@ final class AppCoordinator {
     var path = NavigationPath()
     let cameraService: CameraService
     let mathMaterialService: MathMaterialProtocol
+    let aiManager: AIServiceProtocol
     
-    init(cameraService: CameraService, mathMaterialService: MathMaterialProtocol) {
+    init(cameraService: CameraService, mathMaterialService: MathMaterialProtocol, aiManager: AIServiceProtocol) {
         self.cameraService = cameraService
         self.mathMaterialService = mathMaterialService
+        self.aiManager = aiManager
     }
     
     func navigate(to route: AppRoutes) {
@@ -47,7 +49,7 @@ final class AppCoordinator {
     // MARK: - View Factories
     @ViewBuilder
     func buildHome() -> some View {
-        let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService)
+        let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService, aiManager: aiManager)
         HomeView(coordinator: self, viewModel: viewModel)
     }
     
@@ -55,7 +57,7 @@ final class AppCoordinator {
     func buildView(route: AppRoutes) -> some View {
         switch route {
         case .home:
-            let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService)
+            let viewModel = HomeViewModel(coordinator: self, mathMaterialService: mathMaterialService, aiManager: aiManager)
             HomeView(coordinator: self, viewModel: viewModel)
             
         case .camera:
