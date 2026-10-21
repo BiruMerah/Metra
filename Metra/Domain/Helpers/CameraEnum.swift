@@ -21,7 +21,7 @@ enum CameraGuidanceState: Equatable {
 
     var message: String {
         switch self {
-        case .searching: "Arahkan kamera ke halaman."
+        case .searching: "Arahkan kamera ke lembar. Pastikan tepi kertas terlihat dan cahaya cukup."
         case .moveLeft: "Geser kamera sedikit ke kiri."
         case .moveRight: "Geser kamera sedikit ke kanan."
         case .moveUp: "Arahkan kamera sedikit ke atas."
@@ -29,8 +29,8 @@ enum CameraGuidanceState: Equatable {
         case .moveCloser: "Dekatkan kamera sedikit."
         case .moveFarther: "Jauhkan kamera sedikit."
         case .straighten: "Luruskan kamera."
-        case .holdStill: "Posisi sudah baik. Tahan kamera."
-        case .ready: "Halaman siap untuk difoto."
+        case .holdStill: "Lembar terdeteksi. Tahan kamera tetap diam."
+        case .ready: "Lembar siap difoto. Ketuk dua kali di layar untuk mengambil foto."
         }
     }
 }
@@ -40,4 +40,27 @@ enum CameraPreparationResult {
     case permissionDenied
     case cameraUnavailable
     case cancelled
+}
+
+enum CameraCaptureError: LocalizedError {
+    case permissionDenied
+    case cameraUnavailable
+    case cameraNotReady
+    case documentNotReady
+    case photoDataUnavailable
+
+    var errorDescription: String? {
+        switch self {
+        case .permissionDenied:
+            "Akses kamera ditolak. Izinkan kamera melalui Pengaturan."
+        case .cameraUnavailable:
+            "Kamera belakang tidak tersedia."
+        case .cameraNotReady:
+            "Kamera belum siap. Coba lagi sebentar."
+        case .documentNotReady:
+            "Lembar belum siap difoto. Ikuti petunjuk kamera."
+        case .photoDataUnavailable:
+            "Foto tidak dapat diproses. Coba ambil ulang."
+        }
+    }
 }

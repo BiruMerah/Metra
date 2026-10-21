@@ -60,8 +60,7 @@ final class AppCoordinator {
             let viewModel = CameraViewModel(cameraService: cameraService)
             CameraView(
                 viewModel: viewModel,
-                session: cameraService.previewSession,
-                onClose: { self.navigateBack() }
+                session: cameraService.previewSession
             )
             
         case .importDocument:
