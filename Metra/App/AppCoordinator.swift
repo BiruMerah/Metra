@@ -13,6 +13,7 @@ import SwiftUI
 @MainActor
 final class AppCoordinator {
     var path = NavigationPath()
+    
     let cameraService: CameraService
     let mathMaterialService: MathMaterialProtocol
     let aiManager: AIServiceProtocol
@@ -64,8 +65,7 @@ final class AppCoordinator {
             let viewModel = CameraViewModel(cameraService: cameraService)
             CameraView(
                 viewModel: viewModel,
-                session: cameraService.previewSession,
-                onClose: { self.navigateBack() }
+                session: cameraService.previewSession
             )
             
         case .importPhoto:

@@ -1,4 +1,5 @@
 import AVFoundation
+import Foundation
 
 @MainActor
 final class CameraService: CameraProtocol {
@@ -51,6 +52,23 @@ final class CameraService: CameraProtocol {
         guidanceService.reset()
         lastGuidanceState = nil
         cameraManager.stopCamera()
+    }
+
+    func capturePhoto() async throws -> URL {
+        guard isActive else { throw CameraCaptureError.cameraNotReady }
+        guard lastGuidanceState == .ready else { throw CameraCaptureError.documentNotReady }
+        let data = try await cameraManager.capturePhoto()
+        let directory = FileManager.default.urls(
+            for: .applicationSupportDirectory,
+            in: .userDomainMask
+        )[0].appendingPathComponent("CapturedPhotos", isDirectory: true)
+        try FileManager.default.createDirectory(
+            at: directory,
+            withIntermediateDirectories: true
+        )
+        let url = directory.appendingPathComponent(UUID().uuidString).appendingPathExtension("jpg")
+        try data.write(to: url, options: .atomic)
+        return url
     }
 
     private func process(_ pixelBuffer: CVPixelBuffer) {
