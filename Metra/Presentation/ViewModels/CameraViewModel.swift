@@ -41,17 +41,20 @@ final class CameraViewModel {
         case .ready:
             isCameraReady = true
             cameraPermissionDenied = false
+          
         case .permissionDenied:
             isCameraReady = false
             isReady = false
             cameraPermissionDenied = true
             statusText = "Akses kamera ditolak. Izinkan kamera melalui Pengaturan."
             guidanceAnnouncer.announce(statusText)
+          
         case .cameraUnavailable:
             isCameraReady = false
             isReady = false
             statusText = "Kamera belakang tidak tersedia."
             guidanceAnnouncer.announce(statusText)
+          
         case .cancelled:
             break
         }
@@ -75,17 +78,20 @@ final class CameraViewModel {
             capturedPhotoURL = try await cameraService.capturePhoto()
             statusText = "Foto tersimpan di aplikasi. Gunakan tombol Kembali untuk keluar."
             guidanceAnnouncer.announce(statusText)
+          
         } catch CameraCaptureError.permissionDenied {
             cameraPermissionDenied = true
             isCameraReady = false
             isReady = false
             statusText = CameraCaptureError.permissionDenied.localizedDescription
             guidanceAnnouncer.announce(statusText)
+          
         } catch CameraCaptureError.documentNotReady {
             isReady = false
             guidanceState = .searching
             statusText = CameraCaptureError.documentNotReady.localizedDescription
             guidanceAnnouncer.announce(statusText)
+          
         } catch {
             statusText = "Gagal mengambil foto: \(error.localizedDescription)"
             guidanceAnnouncer.announce(statusText)

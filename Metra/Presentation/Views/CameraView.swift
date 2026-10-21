@@ -124,16 +124,6 @@ struct CameraView: View {
     }
 }
 
-
-
-#Preview {
-    let cameraService = CameraService(cameraManager: CameraManager())
-    CameraView(
-        viewModel: CameraViewModel(cameraService: cameraService),
-        session: cameraService.previewSession
-    )
-}
-
 private struct CameraPreviewView: UIViewRepresentable {
     let session: AVCaptureSession
 
@@ -157,4 +147,12 @@ private final class PreviewUIView: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer {
         layer as! AVCaptureVideoPreviewLayer
     }
+}
+
+#Preview {
+    let cameraService = CameraService(cameraManager: CameraManager())
+    CameraView(
+        viewModel: CameraViewModel(cameraService: cameraService),
+        session: cameraService.previewSession
+    )
 }
