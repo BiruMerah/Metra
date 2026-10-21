@@ -21,7 +21,7 @@ enum CameraGuidanceState: Equatable {
 
     var message: String {
         switch self {
-        case .searching: "Arahkan kamera ke halaman."
+        case .searching: "Arahkan kamera ke lembar. Pastikan tepi kertas terlihat dan cahaya cukup."
         case .moveLeft: "Geser kamera sedikit ke kiri."
         case .moveRight: "Geser kamera sedikit ke kanan."
         case .moveUp: "Arahkan kamera sedikit ke atas."

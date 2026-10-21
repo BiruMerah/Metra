@@ -24,9 +24,10 @@ final class VisionDocumentAnalyzer {
 
         visionQueue.async { [weak self] in
             let request = VNDetectRectanglesRequest()
-            request.minimumConfidence = 0.6
-            request.minimumSize = 0.2
-            request.maximumObservations = 1
+            request.minimumConfidence = 0.35
+            request.minimumSize = 0.1
+            request.minimumAspectRatio = 0.3
+            request.maximumObservations = 4
 
             // Matches the portrait back-camera orientation used by the POC.
             let handler = VNImageRequestHandler(
@@ -38,8 +39,13 @@ final class VisionDocumentAnalyzer {
             let geometry: DocumentGeometry?
             do {
                 try handler.perform([request])
-                geometry = request.results?.first.map(Self.makeGeometry)
+                geometry = request.results?
+                    .map(Self.makeGeometry)
+                    .max(by: { $0.coverage < $1.coverage })
             } catch {
+                #if DEBUG
+                print("Vision document detection failed: \(error)")
+                #endif
                 geometry = nil
             }
 
