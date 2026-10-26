@@ -1,0 +1,30 @@
+{
+  "schema": "metra-local-model-assets-v1",
+  "source_build": "29",
+  "files": [
+    {
+      "source": "MetraPipelinePoC/Resources/PP-DocLayout-L.onnx",
+      "destination": "Resources/PP-DocLayout-L.onnx",
+      "bytes": 129523577,
+      "sha256": "95730824e39491e1a56b40560c4288ca8ca96caea77ff16ebbfa289adb8c9b7a"
+    },
+    {
+      "source": "MetraPipelinePoC/Resources/UniMERNet/decoder_model.onnx",
+      "destination": "Resources/UniMERNet/decoder_model.onnx",
+      "bytes": 325975220,
+      "sha256": "1c8912bac33cf3abbb07097f954f2030b64ddcb0badef30062471b6f6789a233"
+    },
+    {
+      "source": "MetraPipelinePoC/Resources/UniMERNet/decoder_with_past_model.onnx",
+      "destination": "Resources/UniMERNet/decoder_with_past_model.onnx",
+      "bytes": 325978820,
+      "sha256": "331c8a61eb2483f8cc610e0c17ab842b856a0c936be263048ca67ba7f378a359"
+    },
+    {
+      "source": "MetraPipelinePoC/Resources/UniMERNet/encoder_model.onnx",
+      "destination": "Resources/UniMERNet/encoder_model.onnx",
+      "bytes": 105876820,
+      "sha256": "b1c03135fd8ffa264b3b4e477d6f2a1929b95ef531df03c1f62fd3068845d8ce"
+    }
+  ]
+}

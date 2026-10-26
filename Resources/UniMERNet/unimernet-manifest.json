@@ -1,0 +1,708 @@
+{
+  "modelID": "wanderkid/unimernet_tiny",
+  "revision": "3f09ac4b1cd583be47ea20a7d7daef839473028a",
+  "checkpointSHA256": "6f7608624e2d7549c7f0f05fcfbe073ae521328cf70f1d46374d96f9881d7371",
+  "checkpointBytes": 430075701,
+  "precision": "FP32",
+  "opset": 18,
+  "layers": 8,
+  "bosTokenID": 0,
+  "eosTokenID": 2,
+  "padTokenID": 1,
+  "maxNewTokens": 512,
+  "decoding": "greedy argmax EOS; max 512 tokens in build 7, raised from historical 256 after multiline truncation",
+  "tools": {
+    "unimernet": "0.2.3",
+    "torch": "2.5.1",
+    "transformers": "4.46.3",
+    "tokenizers": "0.20.3",
+    "onnx": "1.17.0"
+  },
+  "encoderOutputShape": [
+    1,
+    126,
+    512
+  ],
+  "cacheShapes": [
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ],
+    [
+      1,
+      16,
+      1,
+      16
+    ],
+    [
+      1,
+      16,
+      1,
+      32
+    ]
+  ],
+  "files": {
+    "decoder_with_past_model.onnx": {
+      "sha256": "331c8a61eb2483f8cc610e0c17ab842b856a0c936be263048ca67ba7f378a359",
+      "bytes": 325978820,
+      "inputs": [
+        {
+          "name": "input_ids",
+          "type": 7,
+          "shape": [
+            "batch",
+            "dec_seq"
+          ]
+        },
+        {
+          "name": "encoder_hidden_states",
+          "type": 1,
+          "shape": [
+            "batch",
+            "enc_seq",
+            512
+          ]
+        },
+        {
+          "name": "past_key_0",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_0",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_1",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_1",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_2",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_2",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_3",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_3",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_4",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_4",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_5",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_5",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_6",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_6",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        },
+        {
+          "name": "past_key_7",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            16
+          ]
+        },
+        {
+          "name": "past_value_7",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "past_seq",
+            32
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "logits",
+          "type": 1,
+          "shape": [
+            "batch",
+            "dec_seq",
+            50000
+          ]
+        },
+        {
+          "name": "present_key_0",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_0",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_1",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_1",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_2",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_2",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_3",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_3",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_4",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_4",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_5",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_5",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_6",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_6",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        },
+        {
+          "name": "present_key_7",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            16
+          ]
+        },
+        {
+          "name": "present_value_7",
+          "type": 1,
+          "shape": [
+            "batch",
+            16,
+            "present_seq",
+            32
+          ]
+        }
+      ]
+    },
+    "decoder_model.onnx": {
+      "sha256": "1c8912bac33cf3abbb07097f954f2030b64ddcb0badef30062471b6f6789a233",
+      "bytes": 325975220,
+      "inputs": [
+        {
+          "name": "input_ids",
+          "type": 7,
+          "shape": [
+            "batch",
+            "dec_seq"
+          ]
+        },
+        {
+          "name": "encoder_hidden_states",
+          "type": 1,
+          "shape": [
+            "batch",
+            "enc_seq",
+            512
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "logits",
+          "type": 1,
+          "shape": [
+            "batch",
+            "dec_seq",
+            50000
+          ]
+        },
+        {
+          "name": "present_key_0",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_0_dim_1",
+            "present_seq",
+            "Transposepresent_key_0_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_0",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_0_dim_1",
+            "present_seq",
+            "Transposepresent_value_0_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_1",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_1_dim_1",
+            "present_seq",
+            "Transposepresent_key_1_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_1",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_1_dim_1",
+            "present_seq",
+            "Transposepresent_value_1_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_2",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_2_dim_1",
+            "present_seq",
+            "Transposepresent_key_2_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_2",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_2_dim_1",
+            "present_seq",
+            "Transposepresent_value_2_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_3",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_3_dim_1",
+            "present_seq",
+            "Transposepresent_key_3_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_3",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_3_dim_1",
+            "present_seq",
+            "Transposepresent_value_3_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_4",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_4_dim_1",
+            "present_seq",
+            "Transposepresent_key_4_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_4",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_4_dim_1",
+            "present_seq",
+            "Transposepresent_value_4_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_5",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_5_dim_1",
+            "present_seq",
+            "Transposepresent_key_5_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_5",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_5_dim_1",
+            "present_seq",
+            "Transposepresent_value_5_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_6",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_6_dim_1",
+            "present_seq",
+            "Transposepresent_key_6_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_6",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_6_dim_1",
+            "present_seq",
+            "Transposepresent_value_6_dim_3"
+          ]
+        },
+        {
+          "name": "present_key_7",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_key_7_dim_1",
+            "present_seq",
+            "Transposepresent_key_7_dim_3"
+          ]
+        },
+        {
+          "name": "present_value_7",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Transposepresent_value_7_dim_1",
+            "present_seq",
+            "Transposepresent_value_7_dim_3"
+          ]
+        }
+      ]
+    },
+    "encoder_model.onnx": {
+      "sha256": "b1c03135fd8ffa264b3b4e477d6f2a1929b95ef531df03c1f62fd3068845d8ce",
+      "bytes": 105876820,
+      "inputs": [
+        {
+          "name": "pixel_values",
+          "type": 1,
+          "shape": [
+            "batch",
+            1,
+            192,
+            672
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "encoder_hidden_states",
+          "type": 1,
+          "shape": [
+            "batch",
+            "Addencoder_hidden_states_dim_1",
+            "Addencoder_hidden_states_dim_2"
+          ]
+        }
+      ]
+    }
+  },
+  "tokenizerSHA256": "02c318d9cfa95bf323371762b8f838a82709530274d36dba6eca880f0add6cc4",
+  "preprocess": "crop grayscale minmax<200 foreground bounds; aspect fit 192x672; center black padding; grayscale /255; (x-0.7931)/0.1738",
+  "resizeDifference": "iOS CoreGraphics high interpolation instead of PIL resize+thumbnail; numerical parity unmeasured",
+  "stateDictStrictLoad": "pass",
+  "onnxChecker": "pass",
+  "deviceInference": "pending",
+  "lineageNote": "tiny confirmed by legacy notebook; historical exact checkpoint revision unavailable, current original revision pinned"
+}

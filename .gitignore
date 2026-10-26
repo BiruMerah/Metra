@@ -1,3 +1,15 @@
 .DS_Store
 *.xcuserstate
 xcuserdata/
+
+# Prepared on-device models: keep metadata and the preparation script in Git.
+Resources/*.onnx
+Resources/UniMERNet/*.onnx
+Resources/**/*.partial-*
+Resources/Qwen3-VL-2B-4bit/
+Resources/Qwen3-VL-2B-4bit.partial-*/
+Resources/Qwen3-VL-2B-4bit.previous-*/
+*.safetensors
+.build/
+DerivedData/
+Integration/verification/

@@ -1,0 +1,77 @@
+{
+  "schema": "metra-unit-power-status-v1",
+  "recorded_at_utc": "2026-10-26T03:30:36.257203+00:00",
+  "branch": "feat/poc-integration",
+  "app_build": "10",
+  "bundle_id": "id.birumerah.Metra",
+  "build": {
+    "signed": true,
+    "status": "succeeded",
+    "log": "verification/unit-powers-v1/build-10-signed-recorded.log",
+    "installed_on_iphone": true,
+    "install_log": "verification/unit-powers-v1/install-build10.json"
+  },
+  "baseline": {
+    "run_id": "50f16b6d-aadf-4ffe-af6c-80623ccfdaff",
+    "app_build": "9",
+    "source_sha256": "44ae7503ee560c6582171b4c33ea006ad69a656759a2495873d2ee409b4d5f9d",
+    "ocr_examples": [
+      "154 cm2",
+      "324 cmг",
+      "616 cmг",
+      "1.028 cm2",
+      "616 m2",
+      "770 mг",
+      "1.386 m-",
+      "1.540 m'"
+    ],
+    "observed_old_image_outputs": [
+      "; m ^ { 2 }",
+      "1 m ^ { 2 }"
+    ],
+    "evidence": "verification/unit-powers-v1/baseline-run"
+  },
+  "implementation": {
+    "proposal_version": "vision_length_unit_power_proposal_v1",
+    "validation_version": "image_length_unit_consistency_v1",
+    "units": [
+      "mm",
+      "cm",
+      "dm",
+      "m",
+      "dam",
+      "hm",
+      "km"
+    ],
+    "scope": "Whole number and length unit with explicit/flattened/corrupt power suffix in text regions; plain units and overlapping PP formula proposals remain on existing paths.",
+    "crop_margin": "horizontal max(2px,0.05*height); vertical max(3px,0.25*height)",
+    "acceptance": "Exactly matching source number and unit, exactly one image-recognized msup with exponent 2 or 3, no extra tokens; explicit/observed digit power conflicts withheld.",
+    "speech_origin": "UniMERNet image recognition → MathJax → native MathCAT; no invented exponent or replacement speech.",
+    "artifact": "pages/<page>/formulas/<formula>/unit-consistency.json"
+  },
+  "verification": {
+    "source_build_matches_recorded_hashes": true,
+    "app_launched_by_agent": false,
+    "device_inference_run_by_agent": false,
+    "debug_probe_added": true,
+    "debug_probe_executed": false,
+    "test_suite_added_or_run": false,
+    "device_result": "pending_user_run",
+    "device_checks": null,
+    "device_metrics": null,
+    "user_preference": "Tetap saya jalankan sendiri",
+    "manual_next_step": "Import the same page as a NEW material in build10; inspect four cm² and four m² answers for correct number/unit/power and absence of extra semicolon/digit. Existing saved material is not reprocessed."
+  },
+  "original_poc_modified": false,
+  "old_runs_preserved": true,
+  "model_runtime_pins_changed": false,
+  "swiftdata_schema_changed": false,
+  "limitations": [
+    "Build/install success does not establish recognition accuracy. No new unit inference or fixtures were executed.",
+    "The route depends on Vision range boxes and a recognizable source number/unit/suffix. Missed OCR patterns or PP overlap may prevent a supplemental crop.",
+    "Strict validation may withhold legitimate image output when source OCR digits/separators disagree; source and raw model output remain intact.",
+    "Actual MathCAT pronunciation of multi-letter units and numeric separators still requires the user-run check."
+  ],
+  "committed": false,
+  "pushed": false
+}

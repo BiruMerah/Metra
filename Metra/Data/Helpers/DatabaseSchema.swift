@@ -11,6 +11,7 @@ import SwiftData
 struct DatabaseSchema {
     static let schema = Schema([
         MathMaterialEntity.self,
-        MathTopicEntity.self
+        MathTopicEntity.self,
+        MathChunkEntity.self
     ])
 }

@@ -26,6 +26,10 @@ final class SavedMaterialViewModel {
     }
     
     // MARK: - Functions
+    func openMaterial(_ material: MathMaterialModel) {
+        coordinator.navigate(to: .mathMaterial(material.id))
+    }
+
     func loadMaterials() {
         isLoading = true
         errorMessage = nil
@@ -37,15 +41,7 @@ final class SavedMaterialViewModel {
         isLoading = false
     }
     
-    func addSavedMaterial() {
-        let newMaterial = MathMaterialModel(title: "Math Topic #\(materials.count + 1)")
-        do {
-            try mathMaterialService.addSavedMaterial(material: newMaterial)
-            loadMaterials() // Refresh list
-        } catch {
-            self.errorMessage = error.localizedDescription
-        }
-    }
+    func addMaterial() { coordinator.navigate(to: .camera) }
     
     func deleteMaterial(at offsets: IndexSet) {
         for index in offsets {

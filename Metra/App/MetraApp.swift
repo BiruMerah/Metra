@@ -10,36 +10,61 @@ import SwiftData
 
 @main
 struct MetraApp: App {
-    @State private var coordinator: AppCoordinator
-    private let modelContainer: ModelContainer
+    @State private var coordinator: AppCoordinator?
+    private let modelContainer: ModelContainer?
+    private let storageError: String?
     
     init() {
         // MARK: - Data Layer setup
         do {
             let config = ModelConfiguration(schema: DatabaseSchema.schema, isStoredInMemoryOnly: false)
-            modelContainer = try ModelContainer(for: DatabaseSchema.schema, configurations: config)
+            let container = try ModelContainer(for: DatabaseSchema.schema, configurations: config)
+            modelContainer = container
+            storageError = nil
+            let repository = MathMaterialRepository(modelContext: container.mainContext)
+            _coordinator = State(initialValue: AppCoordinator(
+                cameraService: CameraService(), mathMaterialService: repository,
+                extractionService: OnDeviceExtractionService()
+            ))
         } catch {
-            print("SwiftData migration error: \(error). Falling back to in-memory store.")
-            let fallbackConfig = ModelConfiguration(schema: DatabaseSchema.schema, isStoredInMemoryOnly: false)
-            modelContainer = try! ModelContainer(for: DatabaseSchema.schema, configurations: fallbackConfig)
+            // Keep the existing store and run files. An in-memory fallback must
+            // not report that material was saved persistently.
+            modelContainer = nil
+            storageError = error.localizedDescription
+            _coordinator = State(initialValue: nil)
         }
-        let mathMaterialRepository = MathMaterialRepository(modelContext: modelContainer.mainContext)
-        
-        // MARK: - Domain Layer setup
-        let cameraService = CameraService()
-        
-        // MARK: - Presentation Layer setup
-        let initialCoordinator = AppCoordinator(
-            cameraService: cameraService,
-            mathMaterialService: mathMaterialRepository
-        )
-        _coordinator = State(wrappedValue: initialCoordinator)
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView(coordinator: coordinator)
-                .modelContainer(modelContainer)
+            if let coordinator, let modelContainer {
+                ContentView(coordinator: coordinator).modelContainer(modelContainer)
+                    .task {
+                        #if DEBUG
+                        // Explicit device experiment: open an existing material;
+                        // no new OCR run, arbitrary paths, or synthetic content.
+                        let args = ProcessInfo.processInfo.arguments
+                        if let position = args.firstIndex(of: "--metra-unit-replay"), args.indices.contains(position + 1) {
+                            await UnitPowerDeviceProbe.run(sourceRunID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(where: { ["--metra-formula-audit", "--metra-formula-replay"].contains($0) }),
+                           args.indices.contains(position + 1), UUID(uuidString: args[position + 1]) != nil {
+                            await FormulaMergeDeviceProbe.run(sourceRunID: args[position + 1],
+                                replay: args[position] == "--metra-formula-replay", coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-topic-experiment"),
+                           args.indices.contains(position + 1), let id = UUID(uuidString: args[position + 1]) {
+                            TopicNavigationDeviceProbe.capture(materialID: id, coordinator: coordinator)
+                            coordinator.navigate(to: .mathMaterial(id))
+                        }
+                        #endif
+                    }
+            } else {
+                ContentUnavailableView("Penyimpanan belum dapat dibuka", systemImage: "externaldrive",
+                                       description: Text(storageError ?? "Coba buka kembali aplikasi."))
+            }
         }
     }
 }

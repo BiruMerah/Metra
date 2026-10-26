@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 protocol MathMaterialProtocol {
-    // TODO: Define list of functions
     func fetchSavedMaterials() throws -> [MathMaterialModel]
+    func fetchSavedMaterial(id: UUID) throws -> MathMaterialModel?
     
     func addSavedMaterial(material: MathMaterialModel) throws
     

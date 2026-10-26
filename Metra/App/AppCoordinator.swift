@@ -16,10 +16,13 @@ final class AppCoordinator {
     
     let cameraService: CameraProtocol
     let mathMaterialService: MathMaterialProtocol
+    let extractionService: MaterialExtractionProtocol
     
-    init(cameraService: CameraProtocol, mathMaterialService: MathMaterialProtocol) {
+    init(cameraService: CameraProtocol, mathMaterialService: MathMaterialProtocol,
+         extractionService: MaterialExtractionProtocol) {
         self.cameraService = cameraService
         self.mathMaterialService = mathMaterialService
+        self.extractionService = extractionService
     }
     
     func navigate(to route: AppRoutes) {
@@ -36,13 +39,12 @@ final class AppCoordinator {
         path.removeLast(path.count)
     }
     
-    func finishCamera(with data: MathMaterialModel) {
+    func finishExtraction(materialID: UUID) {
         if !path.isEmpty {
             path.removeLast()
         }
         
-        // TODO: Define the params
-        path.append(AppRoutes.mathMaterial)
+        path.append(AppRoutes.mathMaterial(materialID))
     }
     
     // MARK: - View Factories
@@ -53,29 +55,28 @@ final class AppCoordinator {
     
     @ViewBuilder
     func buildView(route: AppRoutes) -> some View {
-        // TODO: Define the view on each case
-        
-        // Examples:
-        /*
-         let viewModel = CameraViewModel(coordinator: self, cameraService: cameraService)
-         CameraView(viewModel: viewModel)
-         */
         switch route {
         case .camera:
-            EmptyView()
+            let viewModel = MaterialImportViewModel(coordinator: self, extractionService: extractionService,
+                                                    materialService: mathMaterialService)
+            MaterialImportView(viewModel: viewModel)
             
         case .home:
-            EmptyView()
+            buildHome()
             
         case .savedMaterialList:
             let viewModel = SavedMaterialViewModel(coordinator: self, mathMaterialService: mathMaterialService)
             SavedMaterialView(viewModel: viewModel)
             
-        case .mathMaterial:
-            EmptyView()
+        case .mathMaterial(let id):
+            let viewModel = MathMaterialViewModel(materialID: id, materialService: mathMaterialService,
+                                                  extractionService: extractionService, coordinator: self)
+            MathMaterialView(viewModel: viewModel)
             
-        case .mathTopicMaterial:
-            EmptyView()
+        case .mathTopicMaterial(let materialID, let topicID):
+            let viewModel = MathTopicReaderViewModel(materialID: materialID, topicID: topicID,
+                materialService: mathMaterialService, extractionService: extractionService)
+            MathTopicReaderView(viewModel: viewModel)
         }
     }
 }

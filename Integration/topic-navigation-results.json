@@ -1,0 +1,132 @@
+{
+  "schema": "metra-topic-navigation-results-v1",
+  "recorded_at_utc": "2026-10-26T02:20:47.802974+00:00",
+  "branch": "feat/poc-integration",
+  "app_build": "6",
+  "installed_on_device": true,
+  "input": "materi_003.png; reused existing iPhone extraction build 3",
+  "source_sha256": "fc083f938fef33bb968f2332be51380b87e1f4cf5eb69c1b8231f11be2962c38",
+  "normalized_sha256": "e5865496bd02d96729a9f4886d60c7ffefa70cd66dca73076e2a246b446e78fc",
+  "device": {
+    "hardware": "iPhone18,3",
+    "ios": "27.0.1"
+  },
+  "material_id": "34134240-d310-4b64-ad3c-debb45ab3360",
+  "canonical_chunks": 26,
+  "body_chunks": 24,
+  "auxiliary_chunks": 2,
+  "final_policy": "qwen_topic_navigation_v3",
+  "approach": "Source topical headings set window boundaries; Qwen produces titles and contiguous group membership within each window. Text-only use of the existing VLM.",
+  "topics": [
+    {
+      "title": "Contoh 1.1: Menyelesaikan Persamaan Linear Dua Variabel",
+      "chunk_count": 13,
+      "title_source": "qwen_generated"
+    },
+    {
+      "title": "Penyelesaian Persamaan Linear Dua Variabel",
+      "chunk_count": 11,
+      "title_source": "qwen_generated"
+    }
+  ],
+  "checks": {
+    "canonical_fields_unchanged_after_save_reopen": true,
+    "original_ready_byte_identical": true,
+    "body_membership_exact_order": true,
+    "body_membership_unique": true,
+    "stored_index_equals_generated_index": true,
+    "no_new_generation_on_reopen": true,
+    "review_annotations_absent_in_reader": true,
+    "coverageValid": true,
+    "forwardNavigationValid": true,
+    "backwardNavigationValid": true,
+    "endpointButtonsValid": true
+  },
+  "attempts": [
+    {
+      "policy": "qwen_topic_navigation_v1",
+      "build": "4",
+      "attempt_id": "1fc49b88-e31a-48fc-82d9-40837eecd30a",
+      "status": "complete",
+      "topic_count": 1,
+      "request_count": 1,
+      "spans_ms": {
+        "generation": 7531.882374896668,
+        "model_load": 1015.1428749086335,
+        "prepare": 24.681500042788684,
+        "stage_wall": 8639.720958424732
+      },
+      "memory": {
+        "interval_ms": 200,
+        "sampled_peak_bytes": 2482441568,
+        "scope": "app_process_only; WebContent excluded"
+      },
+      "thermal": {
+        "final": "nominal",
+        "initial": "nominal"
+      }
+    },
+    {
+      "policy": "qwen_topic_navigation_v2",
+      "build": "5",
+      "attempt_id": "ae0a8a0f-d0d3-4846-8de8-8b5710eae06e",
+      "status": "complete",
+      "topic_count": 1,
+      "request_count": 1,
+      "spans_ms": {
+        "generation": 4561.719541670755,
+        "model_load": 1080.7225833414122,
+        "prepare": 32.06995828077197,
+        "stage_wall": 5719.72041670233
+      },
+      "memory": {
+        "interval_ms": 200,
+        "sampled_peak_bytes": 2569784672,
+        "scope": "app_process_only; WebContent excluded"
+      },
+      "thermal": {
+        "final": "nominal",
+        "initial": "nominal"
+      }
+    },
+    {
+      "policy": "qwen_topic_navigation_v3",
+      "build": "6",
+      "attempt_id": "de967ee0-a2e1-4bee-a7ba-a7ac3cc9345b",
+      "status": "complete",
+      "topic_count": 2,
+      "request_count": 2,
+      "spans_ms": {
+        "generation": 5585.2141248760745,
+        "model_load": 961.9884999701753,
+        "prepare": 27.961166691966355,
+        "stage_wall": 6623.931041685864
+      },
+      "memory": {
+        "interval_ms": 200,
+        "sampled_peak_bytes": 2530938232,
+        "scope": "app_process_only; WebContent excluded"
+      },
+      "thermal": {
+        "final": "nominal",
+        "initial": "nominal"
+      }
+    }
+  ],
+  "voiceover_interaction_tested": false,
+  "semantic_quality_status": "not_assessed; titles and original OCR/math remain reviewable internally",
+  "new_image_extraction_tested": false,
+  "fault_injection_tested": false,
+  "test_suite_added_or_run": false,
+  "model_runtime_pins_changed": false,
+  "original_poc_source_changed": false,
+  "committed": false,
+  "pushed": false,
+  "evidence_directory": "verification/topic-navigation-v1",
+  "limitations": [
+    "Single existing page only; not proof of semantic quality on other material.",
+    "Navigation probe checks ViewModel transitions, not VoiceOver gestures, audible speech, or actual focus movement.",
+    "Stage time excludes model hash verification and original OCR/formula extraction; memory peak covers the app process only.",
+    "Legacy-store migration, cross-page continuation, and cancellation/fallback fault injection are not tested."
+  ]
+}

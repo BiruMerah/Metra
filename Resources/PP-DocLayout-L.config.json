@@ -1,0 +1,76 @@
+{
+  "modelID": "PaddlePaddle/PP-DocLayout-L",
+  "sourceRevision": "ca760c3336d922ee63cdbff85003181222e3911c",
+  "sourceFiles": {
+    "inference.json": {
+      "bytes": 1081389,
+      "sha256": "d25813273051801894d97c11725a246b529be6d3f0556298ac27a37305d2f21b"
+    },
+    "inference.pdiparams": {
+      "bytes": 129021913,
+      "sha256": "4df69115349e1e6215629d058e3bc7f087cad7a0d2776ef40c463daf73c38982"
+    },
+    "inference.yml": {
+      "bytes": 1871,
+      "sha256": "fbdbb903efd3d82db5800f9ae3e2477d2d84525956ef410ffe8e64bbaad02fa5"
+    },
+    "config.json": {
+      "bytes": 6134,
+      "sha256": "f2dae4643151c4b236c5173ef3d960e2b0f7a5471f1615a96ca9a6fe0ba5568a"
+    }
+  },
+  "exportFile": "PP-DocLayout-L.onnx",
+  "exportSHA256": "95730824e39491e1a56b40560c4288ca8ca96caea77ff16ebbfa289adb8c9b7a",
+  "exportBytes": 129523577,
+  "precision": "FP32; no quantization",
+  "opset": 17,
+  "exportTools": {
+    "paddlepaddle": "3.3.0",
+    "paddle2onnx": "2.1.0",
+    "onnx": "1.17.0",
+    "onnxoptimizer": "0.3.13"
+  },
+  "labels": [
+    "paragraph_title",
+    "image",
+    "text",
+    "number",
+    "abstract",
+    "content",
+    "figure_title",
+    "formula",
+    "table",
+    "table_title",
+    "reference",
+    "doc_title",
+    "footnote",
+    "header",
+    "algorithm",
+    "footer",
+    "seal",
+    "chart_title",
+    "chart",
+    "formula_number",
+    "header_image",
+    "footer_image",
+    "aside_text"
+  ],
+  "inputNames": [
+    "im_shape",
+    "image",
+    "scale_factor"
+  ],
+  "boxesOutputName": "fetch_name_0",
+  "countOutputName": "fetch_name_1",
+  "preprocessing": "RGB uint8 -> bilinear half-pixel 640x640 rounded uint8 -> float32 NCHW /255 (PaddleX is_scale=True default, mean=0 std=1); im_shape=[640,640]; scale_factor=[640/H,640/W]",
+  "iosResizeDifference": "Swift bilinear/sRGB decode instead of OpenCV INTER_LINEAR; numerical parity not measured",
+  "scoreThreshold": 0.5,
+  "nmsSameClassIOU": 0.6,
+  "nmsDifferentClassIOU": 0.98,
+  "mergeMode": "union; retain nested formulas",
+  "validation": {
+    "onnxChecker": "pass",
+    "deviceInference": "not_measured",
+    "paddleOnnxParity": "not_measured"
+  }
+}

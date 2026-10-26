@@ -1,0 +1,88 @@
+{
+  "schema": "metra-formula-overlap-results-v1",
+  "recorded_at_utc": "2026-10-26T03:30:36.257203+00:00",
+  "branch": "feat/poc-integration",
+  "app_build": "9",
+  "build_status": "succeeded",
+  "signed": true,
+  "installed_on_iphone": true,
+  "latest_build_device_launch": "not_attempted; user chose to run independently",
+  "source_run": "5bfd9b18-7078-48fe-8fd7-6d18d82eb217",
+  "source_build": "6",
+  "source_sha256": "44ae7503ee560c6582171b4c33ea006ad69a656759a2495873d2ee409b4d5f9d",
+  "normalized_sha256": "2bdc53e8b0a23a6014e16dcef2806a0967d40e14a86cc8ff6fdb0bb95901edd8",
+  "resolver_policy": "whole_occurrence_utf16_v3",
+  "chunk_policy": "sentence_atomic_math_headings_v3",
+  "internal_id_fix": {
+    "status": "passed_on_cached_iPhone_artifact_build7",
+    "source_preview": "[perlu review: p0001.formula.0008]",
+    "reader_text": "Rumus belum dapat dibaca.",
+    "literal_m_n_and_nested_brackets_preserved": true
+  },
+  "nested_merge_fix": {
+    "status": "observed_ready_and_deduplicated_in_user_build9_run; one page only",
+    "first_audit_build": "7",
+    "first_audit_status": "failed; no fresh inference launched",
+    "first_audit_checks": {
+      "angle_AOB_ready": false,
+      "angle_COD_ready": false,
+      "AOB_read_once": true,
+      "COD_read_once": true,
+      "detected_formula_records_retained": true,
+      "disagreeing_image_mathml_not_aliased": true,
+      "enclosing_detection_not_read_twice": false,
+      "enclosing_detection_retained_as_alias": false,
+      "legacy_internal_id_becomes_neutral_message": true,
+      "literal_m_n_preserved": true,
+      "nested_source_brackets_preserved": true,
+      "no_internal_formula_id_in_reader": true,
+      "ocr_L_alone_does_not_authorize_angle": true,
+      "source_ocr_preserved": false,
+      "unproven_nesting_not_aliased": true
+    },
+    "failure_detail": "Raw MathJax leaf uses U+2218 whereas canonical MathCAT has U+00B0. Build8+ uses canonical only for an angle equality when all other tokens agree. Build9 limits alias eligibility to PP-DocLayout and whole-token matches.",
+    "latest_positive_checks": {
+      "angle_AOB_status": "ready",
+      "angle_COD_status": "ready",
+      "enclosing_detection_status": "duplicate_detection",
+      "enclosing_detection_covered_by": [
+        "p0001.formula.0006",
+        "p0001.formula.0008"
+      ],
+      "canonical_formula_source_slice_counts": {
+        "p0001.formula.0006": 1,
+        "p0001.formula.0007": 0,
+        "p0001.formula.0008": 1
+      },
+      "evidence": "verification/unit-powers-v1/observed-user-build9-angle-output.json"
+    },
+    "fresh_inference_run": {
+      "id": "50f16b6d-aadf-4ffe-af6c-80623ccfdaff",
+      "build": "9",
+      "initiated_by": "user",
+      "automatic_agent_inference": false
+    }
+  },
+  "launch_blocker": {
+    "build8": "iOS rejected launch because iPhone was locked",
+    "user_steering": "Nanti saya jalankan sendiri; no further automatic launch/inference"
+  },
+  "old_run_preserved": true,
+  "old_saved_material_not_remerged": true,
+  "new_swiftdata_schema_change": false,
+  "model_runtime_pins_changed": false,
+  "original_poc_source_changed": false,
+  "diagrams_changed": false,
+  "source_files_match_compiled_build": true,
+  "test_suite_added_or_run": false,
+  "debug_safety_probe_added_and_run": true,
+  "evidence_directory": "verification/formula-overlap-v1",
+  "limitations": [
+    "Positive evidence is from one user-run build9 page; repeated-run stability and full source accuracy remain unassessed.",
+    "First build7 merge audit failed; its raw/source/report are preserved.",
+    "Geometry is still unsupported by the existing relation contract.",
+    "Legacy material requires processing the image again to obtain the new merge; presentation-only ID handling works on saved previews."
+  ],
+  "committed": false,
+  "pushed": false
+}

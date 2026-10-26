@@ -1,0 +1,166 @@
+{
+  "source_project": "Approach-Latest-Metra/MetraPipelinePoC",
+  "source_build": "29",
+  "target_base_commit": "5c5a785",
+  "files": [
+    {
+      "source": "MetraPipelinePoC/Adapters/MathCATAdapter.swift",
+      "destination": "Metra/Data/Extraction/Engine/Adapters/MathCATAdapter.swift",
+      "source_sha256": "c74f5cc11ccd897533f6231a42f371f1a8502f687e8f1250474ef0993a4e5ed6",
+      "integrated_sha256": "c74f5cc11ccd897533f6231a42f371f1a8502f687e8f1250474ef0993a4e5ed6"
+    },
+    {
+      "source": "MetraPipelinePoC/Adapters/MathJaxBridge.swift",
+      "destination": "Metra/Data/Extraction/Engine/Adapters/MathJaxBridge.swift",
+      "source_sha256": "adf1602712a485d0f436641ae9738acb010e0dd481d6b9cbb991937a7db95be5",
+      "integrated_sha256": "adf1602712a485d0f436641ae9738acb010e0dd481d6b9cbb991937a7db95be5"
+    },
+    {
+      "source": "MetraPipelinePoC/Adapters/PPDocLayoutRuntime.swift",
+      "destination": "Metra/Data/Extraction/Engine/Adapters/PPDocLayoutRuntime.swift",
+      "source_sha256": "af28309957dac8c88d7ca82da523e410427bd4674d37da7b0b1324979906a2e8",
+      "integrated_sha256": "af28309957dac8c88d7ca82da523e410427bd4674d37da7b0b1324979906a2e8"
+    },
+    {
+      "source": "MetraPipelinePoC/Adapters/QwenDiagramRuntime.swift",
+      "destination": "Metra/Data/Extraction/Engine/Adapters/QwenDiagramRuntime.swift",
+      "source_sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f",
+      "integrated_sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f"
+    },
+    {
+      "source": "MetraPipelinePoC/Adapters/UniMERNetRuntime.swift",
+      "destination": "Metra/Data/Extraction/Engine/Adapters/UniMERNetRuntime.swift",
+      "source_sha256": "a152b84305f9fc03be61f9f67abb412ad9ed9e3c1f4d367ab0c16f34bae3e270",
+      "integrated_sha256": "a152b84305f9fc03be61f9f67abb412ad9ed9e3c1f4d367ab0c16f34bae3e270"
+    },
+    {
+      "source": "MetraPipelinePoC/Adapters/VisionOCRAdapter.swift",
+      "destination": "Metra/Data/Extraction/Engine/Adapters/VisionOCRAdapter.swift",
+      "source_sha256": "662cefcde18776abf4763e07c7653492112b87b97effb0b7647901ffdfd70c3f",
+      "integrated_sha256": "662cefcde18776abf4763e07c7653492112b87b97effb0b7647901ffdfd70c3f"
+    },
+    {
+      "source": "MetraPipelinePoC/Contracts/FinalExtraction.swift",
+      "destination": "Metra/Data/Extraction/Engine/Contracts/FinalExtraction.swift",
+      "source_sha256": "43c411f6cfee3c9bfb167ac6a40aecec5efd3dee6d2b754bd0e727c9b35b5739",
+      "integrated_sha256": "47155bd6a6cbc82ec42448fac41d40d2ca4e1c253d584119950e057e0f5cb921"
+    },
+    {
+      "source": "MetraPipelinePoC/Contracts/PipelineContracts.swift",
+      "destination": "Metra/Data/Extraction/Engine/Contracts/PipelineContracts.swift",
+      "source_sha256": "d3218177b935f0a02e9a67206727c7fbfd7a0c60b2c4628fc6d4075968a83d8c",
+      "integrated_sha256": "10f3fbf502125e6d31091381b1267c22482b13fc86f6b778c0c198f74c40b502"
+    },
+    {
+      "source": "MetraPipelinePoC/Contracts/ReadyExtraction.swift",
+      "destination": "Metra/Data/Extraction/Engine/Contracts/ReadyExtraction.swift",
+      "source_sha256": "b0c7022a500e47a4876f5775d4a09b4234b7cce6be88349bb13d3363b2ce8e98",
+      "integrated_sha256": "2272dc814415b6c61e4734c05cd227d8bd087172e153721228382f59b4d96bdb"
+    },
+    {
+      "source": "MetraPipelinePoC/Instrumentation/RunMetrics.swift",
+      "destination": "Metra/Data/Extraction/Engine/Instrumentation/RunMetrics.swift",
+      "source_sha256": "d22afb5fa9b8645e8503c200f54f6c40b6ae4e16e51e18f0393c263edc315ce6",
+      "integrated_sha256": "d22afb5fa9b8645e8503c200f54f6c40b6ae4e16e51e18f0393c263edc315ce6"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/DiagramLabelGrouper.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/DiagramLabelGrouper.swift",
+      "source_sha256": "858b4d5baea20980c3d290c9365ef2505261ac966d7523117b6e654fe4c34761",
+      "integrated_sha256": "858b4d5baea20980c3d290c9365ef2505261ac966d7523117b6e654fe4c34761"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/DiagramProbeService.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/DiagramProbeService.swift",
+      "source_sha256": "ace8006325a3c7fc42f70e5e613b3f640be76df16758e262e657d2d69c63af10",
+      "integrated_sha256": "ace8006325a3c7fc42f70e5e613b3f640be76df16758e262e657d2d69c63af10"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/FormulaPipeline.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/FormulaPipeline.swift",
+      "source_sha256": "9bdb16f2fe27d958305c7c10dff68827c55d89bd6b366917d8f16da0b8e88358",
+      "integrated_sha256": "0cad7a8be9a2e1014bdf72c3e832a87dd892f49462b0c47abf17ce8d9f7da82a"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/FormulaSpanResolver.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/FormulaSpanResolver.swift",
+      "source_sha256": "6978d7f4eb33e8d1a207918cfb3d34475ecdec6a314a3c6a07b9acbea585f98d",
+      "integrated_sha256": "128c9f30c2a24b4dc66ee50be42fda28a02906e67fbe282ef2a0bc17d18da781"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/HeadingTopicBuilder.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/HeadingTopicBuilder.swift",
+      "source_sha256": "2aabaf9bae3162a87ec11915bbb9830b302628f5def28af284a516918a4ea0c0",
+      "integrated_sha256": "2aabaf9bae3162a87ec11915bbb9830b302628f5def28af284a516918a4ea0c0"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/LayoutMerge.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/LayoutMerge.swift",
+      "source_sha256": "20be282dec5205477e62efbe3448f52905d2415d6f1824f8e2c9b5dd755ddada",
+      "integrated_sha256": "c00b18dcd0caa07fecafb15406edc01b984682a6dc0e8ee632d3f01c157cc0cf"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/OCRMathROIProposer.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/OCRMathROIProposer.swift",
+      "source_sha256": "fba1b37a9555ea7592bd1eca3526bcf5070fb6ecd50fc5a85ac846c966902e3b",
+      "integrated_sha256": "f8eccaff89c83390d5ec859729a7d9ffd70e68064200d4824b0a1365df3437d8"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/RunCoordinator.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/RunCoordinator.swift",
+      "source_sha256": "6b3b6935519369e608a45a95c2374627d637c96ea0bff7031dd2b663b37de2fa",
+      "integrated_sha256": "6b3b6935519369e608a45a95c2374627d637c96ea0bff7031dd2b663b37de2fa"
+    },
+    {
+      "source": "MetraPipelinePoC/Pipeline/TopicGroupingService.swift",
+      "destination": "Metra/Data/Extraction/Engine/Pipeline/TopicGroupingService.swift",
+      "source_sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d",
+      "integrated_sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d"
+    },
+    {
+      "source": "MetraPipelinePoC/Storage/ImageIngestor.swift",
+      "destination": "Metra/Data/Extraction/Engine/Storage/ImageIngestor.swift",
+      "source_sha256": "714af430a3c40a50073e0cca76ca994b8ed041e96d0214d6ba65627dd94e634c",
+      "integrated_sha256": "47754b06a0f2c8e4cd725511af9b4e256f9eb914fc5858a3c4a01f445c5c737c"
+    },
+    {
+      "source": "MetraPipelinePoC/Storage/ModelAssetManager.swift",
+      "destination": "Metra/Data/Extraction/Engine/Storage/ModelAssetManager.swift",
+      "source_sha256": "047403f2feecadf61125e3f81d1faa9caeef6efcdbb0fd3bf9851753092e514c",
+      "integrated_sha256": "ab82717f4e58448086fb720b6cad562bcb7e0c06507b05c1b0c5e8bd9ec9430c"
+    },
+    {
+      "source": "MetraPipelinePoC/Storage/RunRepository.swift",
+      "destination": "Metra/Data/Extraction/Engine/Storage/RunRepository.swift",
+      "source_sha256": "c921ebd4f4f885f06a3fae02af689005adf98b6c2d9044d2811bb0e3ed8233b8",
+      "integrated_sha256": "ea6e4a6499bad1221ab51cb3865310b0f67447723a0931b1ce620e78e97d99f5"
+    }
+  ],
+  "integration_adaptations": {
+    "Storage/ImageIngestor.swift": "Accept already encoded camera JPEG bytes without a second re-encode.",
+    "Storage/ModelAssetManager.swift": "Async import plus pinned bundled checkpoint selection; background full-file verification once before use; direct read without an Application Support copy.",
+    "Pipeline/FormulaSpanResolver.swift": "v3: align L/Z only at a pre-existing image MathML angle operator within a complete equality/degree match; resolve explicitly nested, disjoint, token-equivalent enclosing predictions as aliases. Other overlaps remain withheld.",
+    "Pipeline/LayoutMerge.swift": "Record enclosing duplicate detections as coveredByFormulaIDs with no second OCR source range or speech.",
+    "Contracts/PipelineContracts.swift": "Optional coveredByFormulaIDs on derived TextSegment; old artifacts decode with nil.",
+    "Contracts/FinalExtraction.swift": "Preserve every detected formula and alias references to ready disjoint children, all OCR source slices, and the optional unit_consistency artifact.",
+    "Contracts/ReadyExtraction.swift": "v3 chunk builder omits proven duplicate-detection aliases from reading while validating coverage through their child references.",
+    "Pipeline/OCRMathROIProposer.swift": "Whole numeric measurement plus length unit with explicit/flattened/corrupt power suffix; Vision range union and power-preserving margins; hint does not supply exponent or replacement text.",
+    "Pipeline/FormulaPipeline.swift": "For supplemental length-unit proposals, validate image MathML number/unit/power and absence of extra tokens before allowing merge; retain raw output and unit-consistency.json.",
+    "Storage/RunRepository.swift": "Record length-unit proposal scope, crop margins and strict image measurement validation in config snapshots."
+  },
+  "mathcat_static_library": {
+    "source_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701",
+    "integrated_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701"
+  },
+  "mathcat_header": {
+    "source_sha256": "a740949f86ac5d7e602dfd288d9a7b20b9e59f88c3baada23f5ebdf87a220c86",
+    "integrated_sha256": "a740949f86ac5d7e602dfd288d9a7b20b9e59f88c3baada23f5ebdf87a220c86"
+  },
+  "integration_additions": [
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/LengthUnitRecognition.swift",
+      "sha256": "ba0fb9459395dd8ab367dd9bd381956e8337c0ec3b47fc273406ddb2dcffd9db",
+      "purpose": "Crop proposals and strict validation only; no text-to-math or generated replacement speech."
+    }
+  ]
+}

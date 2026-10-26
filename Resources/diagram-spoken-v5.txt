@@ -1,0 +1,7 @@
+Describe only the visible STRUCTURE of this image for a blind reader, in Indonesian.
+Return one JSON object with keys visual_type, description, uncertainties.
+visual_type: pie_chart, bar_chart, line_graph, geometry, illustration, or other.
+description: exactly ONE short sentence ending with a full stop, at most 300 characters. Describe shapes, arrangement, shading, lines or arrows that are directly visible.
+Do not transcribe text, names, labels, values, numbers, equations or units. Apple Vision and MathCAT read these separately. Do not mention sector labels. Do not answer the exercise, calculate, rank values, or infer unmarked geometry properties.
+uncertainties: an array of zero to three codes chosen ONLY from blurred, cropped, ambiguous_structure, unreadable_labels. No free text in this array. Use [] if none.
+Only JSON, no Markdown. Do not repeat phrases. Stop after the object.

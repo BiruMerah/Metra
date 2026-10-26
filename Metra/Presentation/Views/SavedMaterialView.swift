@@ -6,13 +6,8 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct SavedMaterialView: View {
-    // MARK: - Test SwiftData implementation purpose only
-    @Environment(\.modelContext) private var modelContext
-    @Query private var materials: [MathMaterialEntity]
-    
     // MARK: - Dependencies
     @Bindable var viewModel: SavedMaterialViewModel
     
@@ -20,18 +15,16 @@ struct SavedMaterialView: View {
         List {
             if viewModel.materials.isEmpty {
                 ContentUnavailableView(
-                    "No Materials Yet",
+                    "Belum ada materi",
                     systemImage: "tray",
-                    description: Text("Tap 'Add Test Item' to test SwiftData insertion.")
+                    description: Text("Tambahkan halaman dari galeri atau kamera.")
                 )
             } else {
                 ForEach(viewModel.materials) { item in
-                    VStack(alignment: .leading) {
-                        Text(item.title)
-                            .font(.headline)
-                        Text(item.id.uuidString)
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
+                    Button { viewModel.openMaterial(item) } label: {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(item.title).font(.headline)
+                        }.foregroundStyle(.primary)
                     }
                 }
                 .onDelete { offsets in
@@ -40,15 +33,18 @@ struct SavedMaterialView: View {
                 }
             }
         }
-        .navigationTitle("Saved Materials")
+        .navigationTitle("Materi tersimpan")
         .toolbar {
-            Button("Add Test Item") {
-                viewModel.addSavedMaterial()
+            Button("Tambah materi") {
+                viewModel.addMaterial()
             }
         }
         .task {
             viewModel.loadMaterials()
         }
+        .alert("Materi belum dapat dibuka", isPresented: Binding(
+            get: { viewModel.errorMessage != nil }, set: { if !$0 { viewModel.errorMessage = nil } }
+        )) { Button("OK", role: .cancel) {} } message: { Text(viewModel.errorMessage ?? "") }
     }
 }
 

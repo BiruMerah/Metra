@@ -1,0 +1,16 @@
+[package]
+name = "metra_mathcat"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+libmathcat = { package = "mathcat", path = "../../tools/mathcat-build/source/mathcat-0.7.5" }
+serde_json = "1.0"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

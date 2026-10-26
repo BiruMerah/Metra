@@ -13,14 +13,21 @@ struct HomeView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            Text("Hello, This is HomeView!")
-                .font(.title2)
+            Text("Belajar dari materi matematika Anda")
+                .font(.title2.bold())
+                .multilineTextAlignment(.center)
+            Text("Tambahkan foto halaman untuk menyusun bacaan matematika di iPhone.")
+                .foregroundStyle(.secondary).multilineTextAlignment(.center)
+
+            Button { coordinator.navigate(to: .camera) } label: {
+                Label("Tambah materi", systemImage: "camera")
+            }.buttonStyle(.glassProminent)
             
-            Button("Go to Saved Materials") {
+            Button("Materi tersimpan") {
                 coordinator.navigate(to: .savedMaterialList)
             }
             .buttonStyle(.glassProminent)
-        }
+        }.padding().navigationTitle("Metra")
     }
 }
 
@@ -29,6 +36,7 @@ struct HomeView: View {
         cameraService: CameraService(),
         mathMaterialService: MathMaterialRepository(
             modelContext: ModelContext(try! ModelContainer(for: DatabaseSchema.schema))
-        )
+        ),
+        extractionService: OnDeviceExtractionService()
     ))
 }

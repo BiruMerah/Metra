@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    window.MathJax = {
+      startup: { typeset: false },
+      loader: { load: ["[tex]/boldsymbol"], paths: { tex: "./MathJaxExtensions" } },
+      tex: { packages: { "[-]": ["autoload", "noundefined"], "[+]": ["boldsymbol"] } }
+    };
+  </script>
+  <script src="tex-mml-chtml-nofont.js"></script>
+  <script>
+    MathJax.startup.promise.then(() => {
+      window.webkit.messageHandlers.metra.postMessage({ kind: "ready" });
+    }).catch(error => {
+      window.webkit.messageHandlers.metra.postMessage({ kind: "ready-error", error: String(error) });
+    });
+
+    window.metraConvert = async ([requestID, formulaID, latex]) => {
+      try {
+        const mathml = await MathJax.tex2mmlPromise(latex);
+        const parsed = new DOMParser().parseFromString(mathml, "application/xml");
+        const hasMathErrorNode = parsed.getElementsByTagName("merror").length > 0;
+        window.webkit.messageHandlers.metra.postMessage({
+          requestID,
+          formulaID,
+          ok: !hasMathErrorNode,
+          mathml,
+          hasMathErrorNode,
+          error: hasMathErrorNode ? "MathJax returned an merror node." : null
+        });
+      } catch (error) {
+        window.webkit.messageHandlers.metra.postMessage({ requestID, ok: false, error: String(error) });
+      }
+    };
+  </script>
+</head>
+<body></body>
+</html>

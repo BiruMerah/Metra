@@ -1,0 +1,985 @@
+{
+  "schema": "metra-ios-model-manifest-v1",
+  "created_at": "2026-10-24",
+  "target": "physical_iphone_ios",
+  "inference_location": "on_device_only",
+  "components": [
+    {
+      "name": "apple_vision_ocr",
+      "role": "all_text_transcription",
+      "model": "Apple Vision VNRecognizeTextRequest",
+      "revision": "OS-managed",
+      "runtime": "Vision.framework",
+      "backend_observation": "OS-managed; backend not exposed",
+      "configuration": {
+        "recognitionLevel": "accurate",
+        "usesLanguageCorrection": false,
+        "requestedLanguages": [
+          "id-ID",
+          "en-US"
+        ],
+        "numeric_recovery": "3x whole-visual context plus native padded and 3x grayscale contrast 1.15 numeric ROI; each raw/transform saved; >=2 confidence>=0.8 literal readings agree without valid conflict"
+      },
+      "status": "device_executed_numeric_quality_needs_review",
+      "device_evidence": {
+        "run_id": "e75674bb-ab4a-4cd9-b437-bdf6e9c7a029",
+        "path": "verification/diagram-relations-v1/device-output/pages/p0001",
+        "working_observations": 61,
+        "numeric_labels": 15,
+        "numeric_values_allowed_for_merge": 0
+      }
+    },
+    {
+      "name": "qwen3_vl_diagram_observation",
+      "role": "pie_chart_label_value_reference_association",
+      "repository": "mlx-community/Qwen3-VL-2B-Instruct-4bit",
+      "revision": "9c4f5209e57b31f4b9dfba735de3fb983739c9cc",
+      "source_runtime": "mlx-vlm (Python reference only)",
+      "ios_runtime": "MLXVLM Swift",
+      "ios_runtime_version": "mlx-swift-lm 3.32.3",
+      "weights": {
+        "file": "model.safetensors",
+        "bytes": 1782040921,
+        "sha256": "4750d95a2162829e127a94e83ac350d498d02070aab216c4687da48804a06ffb",
+        "local_source": "/Users/miuura/.cache/huggingface/hub/models--mlx-community--Qwen3-VL-2B-Instruct-4bit/snapshots/9c4f5209e57b31f4b9dfba735de3fb983739c9cc"
+      },
+      "configuration": {
+        "max_tokens": 2048,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "seed": 0,
+        "max_image_side_px": 1008,
+        "image_resize": "preserve_aspect_ratio_no_upscale",
+        "mlx_cache_limit_bytes": 268435456,
+        "quantization": {
+          "bits": 4,
+          "group_size": 64,
+          "mode": "affine"
+        },
+        "vision_config_present": true,
+        "image_input_required": true,
+        "prompt": "diagram-relations-v3.txt",
+        "prompt_sha256": "16610e29834439a53d959619237df438a2129f5c994b6e9b040e907946eaf110",
+        "schema_policy": "per input reference enums; raw schema and SHA saved per diagram generation"
+      },
+      "parameter_mapping": {
+        "main_pipeline": "MLXVLM image preparation + MLXGuidedGeneration.GuidedGenerationLoop",
+        "sampling": "greedy argmax under JSON Schema mask; source temperature=0/top_p=1, seed unused by greedy sampler",
+        "max_tokens": 2048,
+        "mlx_cache_limit_bytes": 268435456,
+        "app_image_max_side_px": 1008,
+        "processor": "checkpoint native processor; internal patch resize/tensor shape not separately recorded",
+        "request_deadline_after_load_seconds": 180,
+        "constraint": "fresh grammar/matcher per crop; immutable grammar tokenizer vocabulary cache",
+        "stagnation": "five consecutive repeats of 1-6 words or 160 whitespace characters; raw retained and rejected",
+        "raw_text_budget_chars": 4096,
+        "whitespace_bias": "pinned WhitespaceTokenBias -200 after 3 consecutive whitespace-only sampled tokens; no closing bias"
+      },
+      "status": "device_build24_executed_partial_content_needs_review",
+      "legacy_parameter_mapping": {
+        "provider": "MLXVLM Swift adapter",
+        "temperature": "GenerateParameters.temperature",
+        "top_p": "GenerateParameters.topP",
+        "seed": "GenerateParameters.seed",
+        "max_tokens": "GenerateParameters.maxTokens",
+        "max_image_side_px": "resize input crop before UserInput.Image.url",
+        "cache_limit_bytes": "MLX.Memory.cacheLimit"
+      },
+      "guided_runtime": {
+        "product": "MLXGuidedGeneration",
+        "package": "mlx-swift-lm 3.32.3",
+        "xgrammar": "v0.1.30",
+        "upstream_sha": "d476a48dcd8fa3b5afeddbe850e73bb3b1dcf505",
+        "unsupported": "matcher clone/fork shim; not used"
+      },
+      "previous_caption_v5": {
+        "role": "visual_structure_caption_with_code_owned_vision_labels_and_mathcat",
+        "configuration": {
+          "max_tokens": 2048,
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "seed": 0,
+          "max_image_side_px": 1008,
+          "image_resize": "preserve_aspect_ratio_no_upscale",
+          "mlx_cache_limit_bytes": 268435456,
+          "quantization": {
+            "bits": 4,
+            "group_size": 64,
+            "mode": "affine"
+          },
+          "vision_config_present": true,
+          "image_input_required": true,
+          "prompt": "diagram-relations-v1.txt",
+          "prompt_sha256": "ecd9620f7aca8f656ef435d720cc098c55bf8e8f3eaffd9e1554c4c41aec9cac",
+          "schema_policy": "per input reference enums; raw schema and SHA saved per diagram generation"
+        },
+        "status": "device_executed_partial_content_needs_review",
+        "device_evidence": {
+          "run_id": "83fac4c5-d849-4fd2-b77a-c4bb0c1ce929",
+          "build": "20 Debug",
+          "path": "verification/diagram-chunks-v2/device-output",
+          "caption_accepted": 2,
+          "caption_attempted": 3,
+          "third_stop": "repetitive_output",
+          "full_diagram_speech_ready": 0,
+          "content_quality": "needs_review",
+          "source_coverage": "not_assessed"
+        }
+      },
+      "device_evidence": {
+        "run_id": "e75674bb-ab4a-4cd9-b437-bdf6e9c7a029",
+        "build": "24 Debug",
+        "path": "verification/diagram-relations-v1/device-output",
+        "requests": 3,
+        "validated_reference_pairs": 15,
+        "model_uncertainty": "ambiguous_attachment on all three",
+        "full_diagram_speech_ready": 0,
+        "content_quality": "needs_review",
+        "source_coverage": "not_assessed"
+      }
+    },
+    {
+      "name": "pp_doclayout_l",
+      "role": "page_layout",
+      "configuration_reference": {
+        "path": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/research/Math-LaTeX/PP-DocLayout-S-inference/.venv/lib/python3.9/site-packages/paddlex/configs/modules/layout_detection/PP-DocLayout-L.yaml",
+        "sha256": "00407e50ee869e6e0627577b35c5dd56058c4254502ca6cb2134c51a069c6f5b"
+      },
+      "weights": {
+        "inference.json": {
+          "bytes": 1081389,
+          "sha256": "d25813273051801894d97c11725a246b529be6d3f0556298ac27a37305d2f21b"
+        },
+        "inference.pdiparams": {
+          "bytes": 129021913,
+          "sha256": "4df69115349e1e6215629d058e3bc7f087cad7a0d2776ef40c463daf73c38982"
+        },
+        "inference.yml": {
+          "bytes": 1871,
+          "sha256": "fbdbb903efd3d82db5800f9ae3e2477d2d84525956ef410ffe8e64bbaad02fa5"
+        },
+        "config.json": {
+          "bytes": 6134,
+          "sha256": "f2dae4643151c4b236c5173ef3d960e2b0f7a5471f1615a96ca9a6fe0ba5568a"
+        }
+      },
+      "export": {
+        "file": "PP-DocLayout-L.onnx",
+        "sha256": "95730824e39491e1a56b40560c4288ca8ca96caea77ff16ebbfa289adb8c9b7a",
+        "bytes": 129523577,
+        "opset": 17,
+        "precision": "FP32; no quantization",
+        "tools": {
+          "paddlepaddle": "3.3.0",
+          "paddle2onnx": "2.1.0",
+          "onnx": "1.17.0",
+          "onnxoptimizer": "0.3.13"
+        }
+      },
+      "status": "device_executed_single_page_quality_not_assessed",
+      "repository": "PaddlePaddle/PP-DocLayout-L",
+      "revision": "ca760c3336d922ee63cdbff85003181222e3911c",
+      "ios_runtime": "ONNX Runtime 1.24.2 CPUExecutionProvider, intraOpThreads=2",
+      "labels": [
+        "paragraph_title",
+        "image",
+        "text",
+        "number",
+        "abstract",
+        "content",
+        "figure_title",
+        "formula",
+        "table",
+        "table_title",
+        "reference",
+        "doc_title",
+        "footnote",
+        "header",
+        "algorithm",
+        "footer",
+        "seal",
+        "chart_title",
+        "chart",
+        "formula_number",
+        "header_image",
+        "footer_image",
+        "aside_text"
+      ],
+      "configuration": {
+        "preprocessing": "RGB uint8 -> bilinear half-pixel 640x640 rounded uint8 -> float32 NCHW /255 (PaddleX is_scale=True default, mean=0 std=1); im_shape=[640,640]; scale_factor=[640/H,640/W]",
+        "score_threshold": 0.5,
+        "nms_same_class_iou": 0.6,
+        "nms_different_class_iou": 0.98,
+        "merge_mode": "union",
+        "resize_difference": "Swift bilinear/sRGB decode instead of OpenCV INTER_LINEAR; numerical parity not measured"
+      },
+      "device_evidence": {
+        "run_id": "9af496de-4f84-4a44-a009-e7fda22890de",
+        "report": "verification/layout-device-pilot-v2-2026-10-25/report.json",
+        "build": "3 Debug",
+        "device": "iPhone17,2 iOS 27.0.1",
+        "formula_regions": 15
+      }
+    },
+    {
+      "name": "formula_mfd",
+      "role": "inline_and_block_formula_detection",
+      "candidate": "PDF-Extract-Kit YOLOv8 formula detector",
+      "weights": null,
+      "export": null,
+      "status": "additional_detector_deferred_pending_pp_doclayout_recall_audit",
+      "current_route": "PP-DocLayout-L formula label, classID 7"
+    },
+    {
+      "name": "unimernet_formula_recognition",
+      "role": "formula_crop_to_latex",
+      "historical_candidate": "wanderkid/unimernet_tiny",
+      "configuration_reference": {
+        "path": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Math-LaTeX/PP-DocLayout-S-inference/.venv/lib/python3.9/site-packages/paddlex/configs/modules/formula_recognition/UniMERNet.yaml",
+        "sha256": "135392cb67cf498c8c540e73fd00cb50c8713e30e5885ddff3ca57510850956a"
+      },
+      "weights": {
+        "file": "unimernet_tiny.pth",
+        "sha256": "6f7608624e2d7549c7f0f05fcfbe073ae521328cf70f1d46374d96f9881d7371",
+        "bytes": 430075701
+      },
+      "tokenizer": {
+        "file": "UniMERNet/tokenizer.json",
+        "sha256": "02c318d9cfa95bf323371762b8f838a82709530274d36dba6eca880f0add6cc4",
+        "runtime": "exact BPE vocabulary and ByteLevel decode; no encode; no ftfy"
+      },
+      "export": {
+        "decoder_with_past_model.onnx": {
+          "sha256": "331c8a61eb2483f8cc610e0c17ab842b856a0c936be263048ca67ba7f378a359",
+          "bytes": 325978820,
+          "inputs": [
+            {
+              "name": "input_ids",
+              "type": 7,
+              "shape": [
+                "batch",
+                "dec_seq"
+              ]
+            },
+            {
+              "name": "encoder_hidden_states",
+              "type": 1,
+              "shape": [
+                "batch",
+                "enc_seq",
+                512
+              ]
+            },
+            {
+              "name": "past_key_0",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_0",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_1",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_1",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_2",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_2",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_3",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_3",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_4",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_4",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_5",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_5",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_6",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_6",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            },
+            {
+              "name": "past_key_7",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                16
+              ]
+            },
+            {
+              "name": "past_value_7",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "past_seq",
+                32
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "logits",
+              "type": 1,
+              "shape": [
+                "batch",
+                "dec_seq",
+                50000
+              ]
+            },
+            {
+              "name": "present_key_0",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_0",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_1",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_1",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_2",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_2",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_3",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_3",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_4",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_4",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_5",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_5",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_6",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_6",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            },
+            {
+              "name": "present_key_7",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                16
+              ]
+            },
+            {
+              "name": "present_value_7",
+              "type": 1,
+              "shape": [
+                "batch",
+                16,
+                "present_seq",
+                32
+              ]
+            }
+          ]
+        },
+        "decoder_model.onnx": {
+          "sha256": "1c8912bac33cf3abbb07097f954f2030b64ddcb0badef30062471b6f6789a233",
+          "bytes": 325975220,
+          "inputs": [
+            {
+              "name": "input_ids",
+              "type": 7,
+              "shape": [
+                "batch",
+                "dec_seq"
+              ]
+            },
+            {
+              "name": "encoder_hidden_states",
+              "type": 1,
+              "shape": [
+                "batch",
+                "enc_seq",
+                512
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "logits",
+              "type": 1,
+              "shape": [
+                "batch",
+                "dec_seq",
+                50000
+              ]
+            },
+            {
+              "name": "present_key_0",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_0_dim_1",
+                "present_seq",
+                "Transposepresent_key_0_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_0",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_0_dim_1",
+                "present_seq",
+                "Transposepresent_value_0_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_1",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_1_dim_1",
+                "present_seq",
+                "Transposepresent_key_1_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_1",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_1_dim_1",
+                "present_seq",
+                "Transposepresent_value_1_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_2",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_2_dim_1",
+                "present_seq",
+                "Transposepresent_key_2_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_2",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_2_dim_1",
+                "present_seq",
+                "Transposepresent_value_2_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_3",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_3_dim_1",
+                "present_seq",
+                "Transposepresent_key_3_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_3",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_3_dim_1",
+                "present_seq",
+                "Transposepresent_value_3_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_4",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_4_dim_1",
+                "present_seq",
+                "Transposepresent_key_4_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_4",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_4_dim_1",
+                "present_seq",
+                "Transposepresent_value_4_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_5",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_5_dim_1",
+                "present_seq",
+                "Transposepresent_key_5_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_5",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_5_dim_1",
+                "present_seq",
+                "Transposepresent_value_5_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_6",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_6_dim_1",
+                "present_seq",
+                "Transposepresent_key_6_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_6",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_6_dim_1",
+                "present_seq",
+                "Transposepresent_value_6_dim_3"
+              ]
+            },
+            {
+              "name": "present_key_7",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_key_7_dim_1",
+                "present_seq",
+                "Transposepresent_key_7_dim_3"
+              ]
+            },
+            {
+              "name": "present_value_7",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Transposepresent_value_7_dim_1",
+                "present_seq",
+                "Transposepresent_value_7_dim_3"
+              ]
+            }
+          ]
+        },
+        "encoder_model.onnx": {
+          "sha256": "b1c03135fd8ffa264b3b4e477d6f2a1929b95ef531df03c1f62fd3068845d8ce",
+          "bytes": 105876820,
+          "inputs": [
+            {
+              "name": "pixel_values",
+              "type": 1,
+              "shape": [
+                "batch",
+                1,
+                192,
+                672
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "encoder_hidden_states",
+              "type": 1,
+              "shape": [
+                "batch",
+                "Addencoder_hidden_states_dim_1",
+                "Addencoder_hidden_states_dim_2"
+              ]
+            }
+          ]
+        }
+      },
+      "status": "device_executed_single_page_needs_review",
+      "repository": "wanderkid/unimernet_tiny",
+      "revision": "3f09ac4b1cd583be47ea20a7d7daef839473028a",
+      "precision": "FP32",
+      "runtime": "ONNX Runtime iOS 1.24.2 CPU, 2 threads",
+      "configuration": {
+        "max_new_tokens": 512,
+        "temperature": 0,
+        "decoding": "greedy argmax EOS",
+        "preprocess": "crop grayscale minmax<200 foreground bounds; aspect fit 192x672; center black padding; grayscale /255; (x-0.7931)/0.1738",
+        "resize_difference": "iOS CoreGraphics high interpolation instead of PIL resize+thumbnail; numerical parity unmeasured",
+        "token_limit_change": "256→512 after observed multiline truncation, build 7"
+      },
+      "device_evidence": {
+        "run_id": "effdc3ef-c506-4016-a625-e966c8b70927",
+        "build": "10 Debug",
+        "report": "verification/formula-device-pilot-build10/report.json"
+      }
+    },
+    {
+      "name": "mathjax_tex_to_mathml",
+      "role": "local_latex_to_mathml",
+      "version": "4.1.3",
+      "source": "@mathjax/src local NPM package",
+      "runtime": "WKWebView JavaScript only; no Node runtime in app",
+      "bundle": "MetraPipelinePoC/Resources/MathJax/tex-mml-chtml-nofont.js",
+      "bundle_sha256": "1c63e38228c6ed110f36de6061552fbdd74c40a431c24cf2c88119a896237541",
+      "bridge": "WKWebView local file resource; one request at a time; original MathML retained with merror status",
+      "status": "device_executed_single_page_needs_review",
+      "device_evidence": {
+        "run_id": "effdc3ef-c506-4016-a625-e966c8b70927",
+        "build": "10 Debug",
+        "report": "verification/formula-device-pilot-build10/report.json"
+      }
+    },
+    {
+      "name": "mathcat_indonesian",
+      "role": "mathml_to_spoken_text",
+      "target_profile": {
+        "language": "id",
+        "rules": "SimpleSpeak",
+        "verbosity": "Medium",
+        "TTS": "None",
+        "DecimalSeparator": ",",
+        "BlockSeparators": ". NBSP NNBSP"
+      },
+      "runtime": "Rust staticlib aarch64-apple-ios via C ABI; one fixed OS thread; no await inside transaction",
+      "status": "device_executed_single_page_needs_review",
+      "version": "0.7.5",
+      "rules_sha256_tree": "8bc06e1444089f35be99c94e63c6e4527d987809ae305220a68c5c07fce971a2",
+      "native_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701",
+      "device_evidence": {
+        "run_id": "effdc3ef-c506-4016-a625-e966c8b70927",
+        "build": "10 Debug",
+        "report": "verification/formula-device-pilot-build10/report.json"
+      }
+    },
+    {
+      "name": "table_structure",
+      "role": "simple_ruled_table_detection",
+      "weights": null,
+      "status": "unsupported_until_verified_detector"
+    },
+    {
+      "name": "vision_math_roi_proposals",
+      "role": "isolated Latin variable and numeric tuple proposals outside existing formula regions",
+      "runtime": "Swift regex + Vision character range boxes + source crop; no generative text used",
+      "status": "candidate_regions_require_source_review"
+    },
+    {
+      "name": "qwen3_vl_topic_grouping",
+      "role": "topic_titles_and_chunk_id_membership_only",
+      "repository": "mlx-community/Qwen3-VL-2B-Instruct-4bit",
+      "revision": "9c4f5209e57b31f4b9dfba735de3fb983739c9cc",
+      "weights": {
+        "file": "model.safetensors",
+        "bytes": 1782040921,
+        "sha256": "4750d95a2162829e127a94e83ac350d498d02070aab216c4687da48804a06ffb",
+        "local_source": "/Users/miuura/.cache/huggingface/hub/models--mlx-community--Qwen3-VL-2B-Instruct-4bit/snapshots/9c4f5209e57b31f4b9dfba735de3fb983739c9cc"
+      },
+      "weights_shared_with": "qwen3_vl_diagram_observation",
+      "runtime": "MLXVLM Swift 3.32.3",
+      "configuration": {
+        "input_mode": "text_only",
+        "vision_encoder_executed": false,
+        "precision": "4-bit affine group_size=64",
+        "chunk_policy": "sentence_atomic_math_v1",
+        "prompt": "topic-v1.txt",
+        "prompt_sha256": "acbc836c09d8ff02e4bbfac5001d34cf4db9f150d65e356ccebc72d8110e1cb6",
+        "max_tokens": 2048,
+        "max_prompt_tokens": 6000,
+        "temperature": 0,
+        "top_p": 1,
+        "seed": 0,
+        "cache_limit_bytes": 268435456,
+        "max_chunks_per_request": 32,
+        "max_characters_per_request": 12000,
+        "max_requests": 32,
+        "retries": 0
+      },
+      "status": "historical_device_executed_currently_deferred",
+      "active_in_main_pipeline": false,
+      "evidence": "verification/topic-v1/device-output",
+      "note": "User deferred grouping; main pipeline produces ordered chunks and makes zero text-only topic requests."
+    }
+  ],
+  "updated_at": "2026-10-25T07:39:45.048537+00:00",
+  "post_execution_update": {
+    "scope": "evidence metadata only after build24 pilot; no code/prompt/runtime changed",
+    "installed_binary_and_run_snapshot": "build24/source-build24 and model-manifest.snapshot.json retain pre-execution status and prior build23 evidence",
+    "actual_run_evidence": "verification/diagram-relations-v1/device-output/report.json",
+    "source_updated_for_future_builds": true
+  },
+  "active_pilot": {
+    "build": "24 Debug",
+    "prompt": "diagram-relations-v3",
+    "numeric_route": "Vision literal -> presentation MathML -> MathCAT; OCR agreement required; complex/unparsed remain UniMERNet",
+    "status": "device_executed_partial_content_needs_review",
+    "historical_evidence": "previous_caption_v5 remains separate",
+    "build21_failure": "112e1521-9f04-478a-8669-3d2a2a613577; 3 whitespace-stopped generations; 15 held numeric proposals; all raw preserved",
+    "build22_result": "4e321d35-e3d3-48ef-8d6e-ec1fbe05a9bc; 3 complete model responses, 15 proposed links, 9 accepted by source/box validation, 6 rejected evidence boxes, 15 numeric speech held",
+    "build23_change": "Model selects reference IDs only; evidence bbox union derived from existing source boxes; source-distance/unique-ref validation retained. Literal MathCAT low-confidence candidate visible only in marked review preview.",
+    "build23_result": "7f82526d-230c-4a41-8494-312ec32b0961; 3 stop responses, 15 validated reference pairs, all 15 numeric values held, 8 marked literal MathCAT candidates",
+    "build24_change": "Correct legacy ROI derivation text that still said one pixel; actual numeric margin already max(3px,0.25*height) since build21. Add margin policy to config. No inference algorithm, model or prompt change.",
+    "run_id": "e75674bb-ab4a-4cd9-b437-bdf6e9c7a029",
+    "reference_pairs_validated": 15,
+    "diagram_attempts": 3,
+    "full_diagram_spoken_ready": 0,
+    "literal_mathcat_review_candidates": 8,
+    "withheld_numeric_values": 15,
+    "source_coverage": "not_assessed"
+  },
+  "clear_input_comparison": {
+    "build": "25 Debug",
+    "path": "verification/clear-diagram-v1/README.md",
+    "same_algorithm_prompt_threshold_as_build24": true,
+    "persen": {
+      "run_id": "0dd3890d-145c-44e4-b540-2491332db4e6",
+      "literal_numeric_matches_source_agent": 5,
+      "literal_numeric_count": 5,
+      "safe_numeric_merge": 3,
+      "validated_reference_pairs": 5,
+      "full_diagram_spoken_ready": 0
+    },
+    "derajat": {
+      "run_id": "f9f6ba17-fc2a-4fcc-beb2-f465fea7b13a",
+      "literal_numeric_matches_source_agent": 4,
+      "literal_numeric_count": 4,
+      "safe_numeric_merge": 0,
+      "validated_reference_pairs": 1,
+      "pair_is_fragment_not_complete_category": true,
+      "full_diagram_spoken_ready": 0
+    },
+    "quality": "needs_review; confidence gate and multiline labels remain limiting",
+    "source_metadata_updated_after_build25": true,
+    "as_built_snapshot": "verification/clear-diagram-v1/source-build25"
+  }
+}

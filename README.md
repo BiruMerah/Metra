@@ -1,15 +1,19 @@
 ## 📌 Project Overview
 
+### Integrasi PoC aktif
+
+Branch `feat/poc-integration` membawa engine PoC build 29 ke alur galeri/kamera, daftar topik, pembaca chunk untuk VoiceOver dan penyimpanan SwiftData. Siapkan aset lokal dengan `python3 Tools/prepare-poc-assets.py`, lalu buka `Metra.xcodeproj`. Qwen disertakan sejak build 3 dan dikenali otomatis, tanpa impor model di iPhone. Navigasi topik build 6 memakai checkpoint yang sama. Hasil pengguna build 9 menunjukkan merge kedua sudut dan deduplikasi pada satu halaman; [status formula](Integration/FORMULA-MERGE.md). Build 10 menambahkan crop nilai+satuan berpangkat dan validasi hasil, sudah build/install, menunggu uji pengguna; [status satuan](Integration/UNIT-POWERS.md). [Arsitektur, persiapan aset, build dan batas bukti](Integration/README.md).
+
 **Metra** is developed as part of **Apple Developer Academy (Final Project)**. An intuitive, accessibility-first iOS application that helps blind students to learn and understand math materials easily. 
 
 ### 🛠 Tech Stack & Requirements
-* **Platform:** iOS 17.0+
+* **Platform:** iOS 27.0+ pada deployment target project saat ini
 * **Language:** Swift 5.9+ / Swift 6 compatible
 * **UI Framework:** SwiftUI
 * **State Management:** Observation Framework (`@Observable`)
 * **Persistence:** SwiftData
 * **Architecture:** Clean Architecture + MVVM + Coordinator Pattern
-* **IDE:** Xcode 15.0 or later
+* **IDE:** Xcode 27 untuk dependency pipeline saat ini
 
 ---
 
@@ -192,7 +196,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 ### 3. Pull Request (PR) & Review Process
 1. Before pushing:
    - Ensure the app builds without errors or warnings (`Cmd + B`).
-   - Test on an iOS 17+ Simulator (`Cmd + R`).
+   - For the extraction integration, verify on a physical iOS 27+ iPhone; the packaged MathCAT library has no simulator slice. Run tests when requested for the task.
    - Run `git status` to ensure accidental files (e.g., `.DS_Store`, local user schemes) are not staged.
 2. Open a Pull Request:
    - Provide a concise description of what was changed and why.
@@ -217,7 +221,7 @@ open Metra.xcodeproj
 ```
 
 ### 3. Build & Run
-1. Select an iOS Simulator running **iOS 17.0+** (e.g., iPhone 15 Pro / iPhone 16).
+1. Select a physical iPhone running **iOS 27.0+**, then choose an available signing team. The packaged MathCAT native library targets iOS device arm64.
 2. Press `Cmd + R` or click the **Play** button in Xcode.
 
 > [!NOTE]
