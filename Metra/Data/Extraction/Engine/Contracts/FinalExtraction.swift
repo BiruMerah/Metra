@@ -30,6 +30,7 @@ struct FinalPage: Codable, Identifiable, Sendable {
     let blocks: [FinalBlock]
     let formulas: [FinalFormula]
     var diagrams: [FinalDiagram]? = nil
+    var readingNormalization: QuestionReadingNormalizer.Report? = nil
 }
 
 struct FinalBlock: Codable, Identifiable, Sendable {
@@ -39,6 +40,10 @@ struct FinalBlock: Codable, Identifiable, Sendable {
     let readingOrder: Int
     let status: String
     let segments: [FinalSegment]
+    var questionID: String? = nil
+    var questionNumber: String? = nil
+    var choiceLabel: String? = nil
+    var sourceBlockIDs: [String]? = nil
 }
 
 struct OCRSourceReference: Codable, Hashable, Sendable {
@@ -58,6 +63,7 @@ struct FinalSegment: Codable, Identifiable, Sendable {
     /// Explicit derived whitespace for line/boundary joins; raw slices stay exact.
     let joinBefore: String?
     let joinReason: String?
+    var readingRole: String? = nil
 }
 
 struct FinalFormula: Codable, Identifiable, Sendable {
@@ -156,7 +162,16 @@ enum FinalExtractionBuilder {
                         if let path = stage.rawArtifact, ["mathjax", "mathcat"].contains(stage.component) { artifacts[stage.component] = path }
                         if let path = stage.rawArtifact, stage.component == "vision_numeric_corroboration" { artifacts["numeric_merge_decision"] = path }
                         if let path = stage.rawArtifact, stage.component == "formula_exponent_consistency" { artifacts["exponent_consistency"] = path }
+                        if let path = stage.rawArtifact, stage.component == "formula_degree_expression_consistency" { artifacts["degree_expression_consistency"] = path }
                         if let path = stage.rawArtifact, stage.component == "formula_unit_consistency" { artifacts["unit_consistency"] = path }
+                        if let path = stage.rawArtifact, stage.component == "formula_unit_normalization" {
+                            artifacts["unit_normalization"] = path
+                        }
+                        if let path = stage.rawArtifact, stage.component == "mathcat_unit_normalized" {
+                            artifacts["normalized_mathcat"] = path
+                            artifacts["normalized_mathml"] = "pages/\(page.id)/formulas/\(formula.id)/mathml.unit-normalized.xml"
+                        }
+                        if let path = stage.rawArtifact, stage.component == "mfd_crop_provenance" { artifacts["crop_merge"] = path }
                     }
                     var reasons = inputs.compactMap(\.mergeNote)
                     if let reason = formula.sourceConsistencyMessage, formula.spokenMergeAllowed == false { reasons.append(reason) }
@@ -215,6 +230,9 @@ enum FinalExtractionBuilder {
                       return child.coveredByFormulaIDs == nil && child.status == "ready" && !child.sourceText.isEmpty
                   }) else { throw FinalExportError.invalidFormulaReference }
         }
+        let normalization = try QuestionReadingNormalizer.normalize(pageID: page.id, blocks: finalBlocks,
+            formulas: finalFormulas, observations: page.rawOCR, pageWidth: page.source.normalizedWidth)
+        finalBlocks = normalization.blocks
         let finalRefs = finalBlocks.flatMap(\.segments).flatMap(\.sourceRefs)
         let originalRefs = sourceRefs(segments)
         guard finalRefs.count == originalRefs.count, Set(finalRefs) == Set(originalRefs) else { throw FinalExportError.sourceCoverageChanged }
@@ -223,7 +241,8 @@ enum FinalExtractionBuilder {
                          imageArtifact: "pages/\(page.id)/normalized.png", width: page.source.normalizedWidth, height: page.source.normalizedHeight,
                          runtimeStatus: page.runtimeStatus, sourceCoverageStatus: page.sourceCoverageStatus,
                          contentQualityStatus: hasReview ? .needsReview : page.contentQualityStatus,
-                         readingOrderMethod: page.readingOrderMethod, blocks: finalBlocks, formulas: finalFormulas, diagrams: finalDiagrams)
+                         readingOrderMethod: page.readingOrderMethod + "; " + QuestionReadingNormalizer.version,
+                         blocks: finalBlocks, formulas: finalFormulas, diagrams: finalDiagrams, readingNormalization: normalization.report)
     }
 
     private static func shouldInsertSpace(_ previous: String, _ next: String) -> Bool {

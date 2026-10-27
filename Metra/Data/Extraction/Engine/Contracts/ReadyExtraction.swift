@@ -18,6 +18,16 @@ struct ReadyExtractionDocument: Codable, Sendable {
     let reportArtifact: String
     var chunks: [ReadyChunk]? = nil
     var topicIndex: ReadyTopicIndex? = nil
+    var questions: [ReadyQuestionReference]? = nil
+}
+
+struct ReadyQuestionReference: Codable, Sendable {
+    struct Choice: Codable, Sendable { let label: String; let chunkID: String }
+    let id: String
+    let number: String
+    let pageID: String
+    let stemChunkIDs: [String]
+    let choices: [Choice]
 }
 
 struct ReadyTopic: Codable, Identifiable, Sendable {
@@ -44,6 +54,9 @@ struct ReadyChunk: Codable, Identifiable, Sendable {
     var imageArtifact: String? = nil
     var uncertainties: [String]? = nil
     var diagramPairs: [DiagramRenderedPair]? = nil
+    var questionID: String? = nil
+    var choiceLabel: String? = nil
+    var sourceBlockIDs: [String]? = nil
 }
 
 struct ChunkSourceSlice: Codable, Equatable, Sendable {
@@ -63,7 +76,7 @@ struct ChunkCandidate: Codable, Sendable {
 }
 
 enum ReadingChunkBuilder {
-    static let version = "sentence_atomic_math_headings_v3"
+    static let version = "sentence_atomic_math_question_choices_v4"
 
     private struct Atom {
         let mask: String
@@ -93,7 +106,8 @@ enum ReadingChunkBuilder {
                     let chunk = ReadyChunk(id:id,kind:"diagram",pageID:page.id,status:diagram.status,sourceText:source,
                         spokenText:diagram.spokenText,spokenPreview:diagram.spokenPreview,
                         unresolvedFormulaIDs:diagram.unresolvedFormulaIDs,sourceRef:"\(artifactPrefix)/chunks/\(id).json",
-                        diagramID:diagram.id,imageArtifact:diagram.artifacts["crop"],uncertainties:diagram.uncertainties,diagramPairs:diagram.pairs)
+                        diagramID:diagram.id,imageArtifact:diagram.artifacts["crop"],uncertainties:diagram.uncertainties,diagramPairs:diagram.pairs,
+                        questionID:block.questionID,sourceBlockIDs:block.sourceBlockIDs)
                     candidates.append(ChunkCandidate(chunk:chunk,blockID:block.id,readingOrder:block.readingOrder,sourceSlices:slices,isAuxiliary:false,
                         derivation:"visual_chunk_projection_v2: copy the existing FinalDiagram speech, pairs and status into one visual chunk; no diagram inference during reading export; source slices retained"))
                     continue
@@ -105,6 +119,12 @@ enum ReadingChunkBuilder {
                     }
                     if let id = segment.formulaID {
                         guard let formula = formulas[id] else { throw FinalExportError.invalidFormulaReference }
+                        if segment.readingRole == "source_choice_marker", let label = block.choiceLabel,
+                           formula.sourceText.count == 1, QuestionReadingNormalizer.normalizedLabel(formula.sourceText) == label {
+                            atoms.append(Atom(mask:formula.sourceText,source:formula.sourceText,speech:label,preview:label,
+                                slice:ChunkSourceSlice(segmentID:segment.id,textRangeUTF16:nil,formulaID:id),unresolvedFormulaID:nil))
+                            continue
+                        }
                         atoms.append(Atom(mask: "\u{FFFC}", source: formula.sourceText, speech: formula.spokenText,
                                           preview: formula.spokenText ?? "[perlu review: \(formula.sourceText.isEmpty ? id : formula.sourceText)]",
                                           slice: ChunkSourceSlice(segmentID: segment.id, textRangeUTF16: nil, formulaID: id),
@@ -119,7 +139,7 @@ enum ReadingChunkBuilder {
                     }
                 }
                 let masked = atoms.map(\.mask).joined()
-                let preserveBlock = ["doc_title", "paragraph_title", "heading", "header", "footer", "number", "formula", "table", "image", "diagram"].contains(block.kind)
+                let preserveBlock = ["doc_title", "paragraph_title", "heading", "header", "footer", "number", "formula", "table", "image", "diagram", "answer_choice"].contains(block.kind)
                 var sentenceEnds: [Int] = []
                 if !preserveBlock, !masked.isEmpty {
                     let tokenizer = NLTokenizer(unit: .sentence)
@@ -143,16 +163,17 @@ enum ReadingChunkBuilder {
                 for (index, items) in groups.enumerated() {
                     let id = "\(block.id).c\(String(format: "%04d", index + 1))"
                     let source = items.map(\.source).joined().trimmingCharacters(in: .whitespacesAndNewlines)
-                    let preview = items.map(\.preview).joined().trimmingCharacters(in: .whitespacesAndNewlines)
+                    let preview = choicePrefix(items.map(\.preview).joined().trimmingCharacters(in: .whitespacesAndNewlines), label:block.choiceLabel)
                     let unsupported = block.status == "unsupported"
                     let missing = Array(Set(items.compactMap(\.unresolvedFormulaID))).sorted()
                     let complete = !unsupported && items.allSatisfy { $0.speech != nil }
-                    let speech = complete ? items.compactMap(\.speech).joined().trimmingCharacters(in: .whitespacesAndNewlines) : nil
+                    let speech = complete ? choicePrefix(items.compactMap(\.speech).joined().trimmingCharacters(in: .whitespacesAndNewlines), label:block.choiceLabel) : nil
                     let chunk = ReadyChunk(id: id, kind: preserveBlock ? block.kind : "sentence", pageID: page.id,
                                            status: unsupported ? "unsupported" : (complete ? "ready" : "needs_review"),
                                            sourceText: source, spokenText: speech,
                                            spokenPreview: complete ? nil : (unsupported && preview.isEmpty ? "[isi \(block.kind) belum tersedia]" : preview),
-                                           unresolvedFormulaIDs: missing, sourceRef: "\(artifactPrefix)/chunks/\(id).json")
+                                           unresolvedFormulaIDs: missing, sourceRef: "\(artifactPrefix)/chunks/\(id).json",
+                                           questionID:block.questionID,choiceLabel:block.choiceLabel,sourceBlockIDs:block.sourceBlockIDs)
                     var slices: [ChunkSourceSlice] = []
                     for slice in items.compactMap(\.slice) {
                         if let last = slices.last, last.segmentID == slice.segmentID,
@@ -162,7 +183,7 @@ enum ReadingChunkBuilder {
                     }
                     candidates.append(ChunkCandidate(chunk: chunk, blockID: block.id, readingOrder: block.readingOrder, sourceSlices: slices,
                                                      isAuxiliary: ["footer", "header", "number"].contains(block.kind),
-                                                     derivation: "\(version): NLTokenizer sentence boundaries on prose; each formula occurrence is atomic; existing joins retained; outer chunk whitespace trimmed in reading view only"))
+                                                     derivation: "\(version): sentence boundaries on prose; each formula occurrence atomic; a confirmed answer_choice is one reading chunk including its source marker, even when the marker was separately proposed as math; marker homoglyph mapping is limited to choice context; original slices and payload retained"))
                 }
             }
         }
@@ -188,7 +209,7 @@ enum ReadingChunkBuilder {
                 guard slices.count == 1, slices[0].formulaID == formulaID else { throw FinalExportError.sourceCoverageChanged }
             } else {
                 var cursor = 0
-                for slice in slices {
+                for slice in slices.sorted(by:{ ($0.textRangeUTF16?.first ?? -1) < ($1.textRangeUTF16?.first ?? -1) }) {
                     guard let range = slice.textRangeUTF16, range[0] == cursor, range[1] >= cursor else { throw FinalExportError.sourceCoverageChanged }
                     cursor = range[1]
                 }
@@ -196,12 +217,19 @@ enum ReadingChunkBuilder {
             }
         }
     }
+
+    private static func choicePrefix(_ text: String, label: String?) -> String {
+        guard let label, text.count >= 2, let first = text.first,
+              QuestionReadingNormalizer.normalizedLabel(String(first)) == label,
+              ".)".contains(text[text.index(after:text.startIndex)]) else { return text }
+        return label + ". " + text.dropFirst(2).trimmingCharacters(in:.whitespacesAndNewlines)
+    }
 }
 
 // v1 topic artifacts remain decodable; new exports have one top-level chunks array.
 extension ReadyExtractionDocument {
     private enum CodingKeys: String, CodingKey {
-        case schema,id,groupingAttemptID,exportID,status,groupingStatus,topicQualityStatus,sourceCoverageStatus,contentQualityStatus,createdAt,sourceArtifact,topics,ungroupedChunks,auxiliaryChunks,reportArtifact,chunks,topicIndex
+        case schema,id,groupingAttemptID,exportID,status,groupingStatus,topicQualityStatus,sourceCoverageStatus,contentQualityStatus,createdAt,sourceArtifact,topics,ungroupedChunks,auxiliaryChunks,reportArtifact,chunks,topicIndex,questions
     }
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy:CodingKeys.self)
@@ -221,6 +249,7 @@ extension ReadyExtractionDocument {
         reportArtifact = try c.decode(String.self,forKey:.reportArtifact)
         chunks = try c.decodeIfPresent([ReadyChunk].self,forKey:.chunks)
         topicIndex = try c.decodeIfPresent(ReadyTopicIndex.self,forKey:.topicIndex)
+        questions = try c.decodeIfPresent([ReadyQuestionReference].self,forKey:.questions)
     }
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy:CodingKeys.self)
@@ -233,6 +262,7 @@ extension ReadyExtractionDocument {
             try c.encode(groupingAttemptID,forKey:.exportID)
             try c.encode(chunks,forKey:.chunks)
             try c.encodeIfPresent(topicIndex,forKey:.topicIndex)
+            try c.encodeIfPresent(questions,forKey:.questions)
             if topicIndex != nil { try c.encode(topicQualityStatus,forKey:.topicQualityStatus) }
         } else {
             try c.encode(groupingAttemptID,forKey:.groupingAttemptID)
@@ -255,22 +285,34 @@ enum OrderedChunkExport {
         let topicIndex = try HeadingTopicBuilder.build(candidates)
         let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
         for candidate in candidates { try encoder.encode(candidate).write(to:paths.root.appendingPathComponent(candidate.chunk.sourceRef),options:.atomic) }
-        let result = ReadyExtractionDocument(schema:"metra-ready-chunks-v3",id:document.id,groupingAttemptID:exportID,
+        var result = ReadyExtractionDocument(schema:"metra-ready-chunks-v4",id:document.id,groupingAttemptID:exportID,
             status:candidates.contains { !["ready","generated"].contains($0.chunk.status) } || topicIndex.topics.contains { $0.status == "needs_review" } ? "needs_review" : "draft",
             groupingStatus:topicIndex.membershipStatus,topicQualityStatus:.notAssessed,sourceCoverageStatus:document.sourceCoverageStatus,
             contentQualityStatus:document.contentQualityStatus,createdAt:ISO8601DateFormatter().string(from:Date()),
             sourceArtifact:"\(prefix)/input.final-extraction.json",topics:[],ungroupedChunks:[],auxiliaryChunks:[],reportArtifact:"\(prefix)/report.json",
             chunks:candidates.map(\.chunk),topicIndex:topicIndex)
+        var seenQuestions: Set<String> = []
+        result.questions = candidates.compactMap { candidate -> ReadyQuestionReference? in
+            guard let id = candidate.chunk.questionID, seenQuestions.insert(id).inserted,
+                  let block = document.pages.flatMap(\.blocks).first(where:{ $0.questionID == id }),
+                  let number = block.questionNumber else { return nil }
+            let members = candidates.filter { $0.chunk.questionID == id }
+            return ReadyQuestionReference(id:id,number:number,pageID:candidate.chunk.pageID,
+                stemChunkIDs:members.filter { $0.chunk.choiceLabel == nil }.map { $0.chunk.id },
+                choices:members.compactMap { member in member.chunk.choiceLabel.map { .init(label:$0,chunkID:member.chunk.id) } })
+        }
         try encoder.encode(document).write(to:directory.appendingPathComponent("input.final-extraction.json"),options:.atomic)
         let data = try encoder.encode(result)
         try data.write(to:directory.appendingPathComponent("final_ready.json"),options:.atomic)
-        let report: [String:Any] = ["schema":"metra-chunk-export-report-v3","run_id":document.id,"export_id":exportID,
+        let report: [String:Any] = ["schema":"metra-chunk-export-report-v4","run_id":document.id,"export_id":exportID,
             "chunk_builder":ReadingChunkBuilder.version,"grouping_status":topicIndex.membershipStatus,"qwen_topic_requests":0,
             "topic_policy":topicIndex.policy,"topics":topicIndex.topics.count,"topic_quality_status":"not_assessed",
             "build":BuildIdentity.metadata,"input_mode":"existing_final_extraction_no_inference",
             "diagram_inference_requests":0,"source_snapshot":result.sourceArtifact,
             "generic_topics":topicIndex.topics.filter { $0.titleSource == "application_fallback" }.count,
             "chunks":candidates.count,"diagram_chunks":candidates.filter { $0.chunk.diagramID != nil }.count,
+            "reading_normalization":QuestionReadingNormalizer.version,"questions":result.questions?.count ?? 0,
+            "answer_choices":candidates.filter { $0.chunk.kind == "answer_choice" }.count,
             "wall_ms":(ProcessInfo.processInfo.systemUptime-started)*1000,
             "source_coverage_status":"not_assessed","human_approved":false,"tts_approved":false,
             "redundant_detection_aliases":document.pages.flatMap(\.formulas).filter { $0.coveredByFormulaIDs != nil }.count,

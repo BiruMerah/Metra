@@ -25,7 +25,10 @@
       "source": "MetraPipelinePoC/Adapters/QwenDiagramRuntime.swift",
       "destination": "Metra/Data/Extraction/Engine/Adapters/QwenDiagramRuntime.swift",
       "source_sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f",
-      "integrated_sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f"
+      "integrated_sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f",
+      "active_in_app": false,
+      "archived_destination": "Integration/legacy-qwen-build16/Metra/Data/Extraction/Engine/Adapters/QwenDiagramRuntime.swift",
+      "archived_sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f"
     },
     {
       "source": "MetraPipelinePoC/Adapters/UniMERNetRuntime.swift",
@@ -43,7 +46,7 @@
       "source": "MetraPipelinePoC/Contracts/FinalExtraction.swift",
       "destination": "Metra/Data/Extraction/Engine/Contracts/FinalExtraction.swift",
       "source_sha256": "43c411f6cfee3c9bfb167ac6a40aecec5efd3dee6d2b754bd0e727c9b35b5739",
-      "integrated_sha256": "47155bd6a6cbc82ec42448fac41d40d2ca4e1c253d584119950e057e0f5cb921"
+      "integrated_sha256": "7c5c23d499ad1e23d602c49f9d761e16a68c61e6408aeda94a0b5656fb7877c5"
     },
     {
       "source": "MetraPipelinePoC/Contracts/PipelineContracts.swift",
@@ -55,7 +58,7 @@
       "source": "MetraPipelinePoC/Contracts/ReadyExtraction.swift",
       "destination": "Metra/Data/Extraction/Engine/Contracts/ReadyExtraction.swift",
       "source_sha256": "b0c7022a500e47a4876f5775d4a09b4234b7cce6be88349bb13d3363b2ce8e98",
-      "integrated_sha256": "2272dc814415b6c61e4734c05cd227d8bd087172e153721228382f59b4d96bdb"
+      "integrated_sha256": "711ae7e628dde90433fb742c80c92d85bdddeaec3b3b763ec700ec046a5016aa"
     },
     {
       "source": "MetraPipelinePoC/Instrumentation/RunMetrics.swift",
@@ -73,19 +76,19 @@
       "source": "MetraPipelinePoC/Pipeline/DiagramProbeService.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/DiagramProbeService.swift",
       "source_sha256": "ace8006325a3c7fc42f70e5e613b3f640be76df16758e262e657d2d69c63af10",
-      "integrated_sha256": "ace8006325a3c7fc42f70e5e613b3f640be76df16758e262e657d2d69c63af10"
+      "integrated_sha256": "b653afc4597e90266cb1369712963f87b9608501ca10df0002f1002e1a3e5f2f"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/FormulaPipeline.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/FormulaPipeline.swift",
       "source_sha256": "9bdb16f2fe27d958305c7c10dff68827c55d89bd6b366917d8f16da0b8e88358",
-      "integrated_sha256": "0cad7a8be9a2e1014bdf72c3e832a87dd892f49462b0c47abf17ce8d9f7da82a"
+      "integrated_sha256": "fd9b156d935de3b03af50ff0ceb710d935ccd4a4fb35c5b067a21dd0486f0965"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/FormulaSpanResolver.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/FormulaSpanResolver.swift",
       "source_sha256": "6978d7f4eb33e8d1a207918cfb3d34475ecdec6a314a3c6a07b9acbea585f98d",
-      "integrated_sha256": "128c9f30c2a24b4dc66ee50be42fda28a02906e67fbe282ef2a0bc17d18da781"
+      "integrated_sha256": "006394e4b867a4f56614b5c67c0e9dadb3ae98e5e3adc7dd3c4c817e5d749d46"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/HeadingTopicBuilder.swift",
@@ -97,25 +100,28 @@
       "source": "MetraPipelinePoC/Pipeline/LayoutMerge.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/LayoutMerge.swift",
       "source_sha256": "20be282dec5205477e62efbe3448f52905d2415d6f1824f8e2c9b5dd755ddada",
-      "integrated_sha256": "c00b18dcd0caa07fecafb15406edc01b984682a6dc0e8ee632d3f01c157cc0cf"
+      "integrated_sha256": "77efedfafb1d59d60f48b5924a89c794afa5c46b117deea511056898547ba5c1"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/OCRMathROIProposer.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/OCRMathROIProposer.swift",
       "source_sha256": "fba1b37a9555ea7592bd1eca3526bcf5070fb6ecd50fc5a85ac846c966902e3b",
-      "integrated_sha256": "f8eccaff89c83390d5ec859729a7d9ffd70e68064200d4824b0a1365df3437d8"
+      "integrated_sha256": "063e522be80de77b8c670510f2f7f28f6de9f1a268269f28dd8eeed980919fc9"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/RunCoordinator.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/RunCoordinator.swift",
       "source_sha256": "6b3b6935519369e608a45a95c2374627d637c96ea0bff7031dd2b663b37de2fa",
-      "integrated_sha256": "6b3b6935519369e608a45a95c2374627d637c96ea0bff7031dd2b663b37de2fa"
+      "integrated_sha256": "1baae8973b20f0593e8f9b8db7334e13734b5730a9b754464cd119eb12ecc87e"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/TopicGroupingService.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/TopicGroupingService.swift",
       "source_sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d",
-      "integrated_sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d"
+      "integrated_sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d",
+      "active_in_app": false,
+      "archived_destination": "Integration/legacy-qwen-build16/Metra/Data/Extraction/Engine/Pipeline/TopicGroupingService.swift",
+      "archived_sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d"
     },
     {
       "source": "MetraPipelinePoC/Storage/ImageIngestor.swift",
@@ -127,26 +133,29 @@
       "source": "MetraPipelinePoC/Storage/ModelAssetManager.swift",
       "destination": "Metra/Data/Extraction/Engine/Storage/ModelAssetManager.swift",
       "source_sha256": "047403f2feecadf61125e3f81d1faa9caeef6efcdbb0fd3bf9851753092e514c",
-      "integrated_sha256": "ab82717f4e58448086fb720b6cad562bcb7e0c06507b05c1b0c5e8bd9ec9430c"
+      "integrated_sha256": "913955f5215e75f06507d424f12b1bb8dd1533eade7050a46efe26679b0b14bf"
     },
     {
       "source": "MetraPipelinePoC/Storage/RunRepository.swift",
       "destination": "Metra/Data/Extraction/Engine/Storage/RunRepository.swift",
       "source_sha256": "c921ebd4f4f885f06a3fae02af689005adf98b6c2d9044d2811bb0e3ed8233b8",
-      "integrated_sha256": "ea6e4a6499bad1221ab51cb3865310b0f67447723a0931b1ce620e78e97d99f5"
+      "integrated_sha256": "d9fc6a6714e92818ffc9a69aebe8a306a9b69eeb39fac0e6ec7c308940061edc"
     }
   ],
   "integration_adaptations": {
     "Storage/ImageIngestor.swift": "Accept already encoded camera JPEG bytes without a second re-encode.",
-    "Storage/ModelAssetManager.swift": "Async import plus pinned bundled checkpoint selection; background full-file verification once before use; direct read without an Application Support copy.",
-    "Pipeline/FormulaSpanResolver.swift": "v3: align L/Z only at a pre-existing image MathML angle operator within a complete equality/degree match; resolve explicitly nested, disjoint, token-equivalent enclosing predictions as aliases. Other overlaps remain withheld.",
-    "Pipeline/LayoutMerge.swift": "Record enclosing duplicate detections as coveredByFormulaIDs with no second OCR source range or speech.",
+    "Storage/ModelAssetManager.swift": "System Foundation model availability and vision capability; no external checkpoint import or Qwen load.",
+    "Pipeline/FormulaSpanResolver.swift": "Exact observation/range unit suffix anchors may align existing image exponent only; all remaining expression tokens and geometry must agree.",
+    "Pipeline/LayoutMerge.swift": "Retain coveredByFormulaIDs and optional raw proposalSourceIDs on derived crops; raw detectors stay separate.",
     "Contracts/PipelineContracts.swift": "Optional coveredByFormulaIDs on derived TextSegment; old artifacts decode with nil.",
-    "Contracts/FinalExtraction.swift": "Preserve every detected formula and alias references to ready disjoint children, all OCR source slices, and the optional unit_consistency artifact.",
-    "Contracts/ReadyExtraction.swift": "v3 chunk builder omits proven duplicate-detection aliases from reading while validating coverage through their child references.",
+    "Contracts/FinalExtraction.swift": "Question-scoped A–E choice order and marker/value joins; explicit source role/provenance and normalization report; all segment payloads/source refs preserved.",
+    "Contracts/ReadyExtraction.swift": "v4 one choice per chunk, structural source-marker speech, question and source-block references; strict source coverage retained.",
     "Pipeline/OCRMathROIProposer.swift": "Whole numeric measurement plus length unit with explicit/flattened/corrupt power suffix; Vision range union and power-preserving margins; hint does not supply exponent or replacement text.",
-    "Pipeline/FormulaPipeline.swift": "For supplemental length-unit proposals, validate image MathML number/unit/power and absence of extra tokens before allowing merge; retain raw output and unit-consistency.json.",
-    "Storage/RunRepository.swift": "Record length-unit proposal scope, crop margins and strict image measurement validation in config snapshots."
+    "Pipeline/FormulaPipeline.swift": "Explicit OCR degree literals to MathCAT; complete image degree-expression token check; source-anchored embedded unit normalization. Raw artifacts retained.",
+    "Storage/RunRepository.swift": "Record canonical request-encoding version and per-request fingerprint path, alongside native model/runtime and independent formula policies.",
+    "Pipeline/RunCoordinator.swift": "Serial Foundation diagram pipeline after existing on-device detectors/recognizer; independent text/math paths continue if native model unavailable.",
+    "Pipeline/LengthUnitRecognition.swift": "Source-anchored grouping of known unit letters and one existing image power, exact numeric/separator checks, derived unit-intent MathML; raw validation/MathML/MathCAT preserved separately.",
+    "Pipeline/DiagramProbeService.swift": "Production delegates Foundation v2; legacy result contracts decode without loading Qwen."
   },
   "mathcat_static_library": {
     "source_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701",
@@ -159,8 +168,46 @@
   "integration_additions": [
     {
       "path": "Metra/Data/Extraction/Engine/Pipeline/LengthUnitRecognition.swift",
-      "sha256": "ba0fb9459395dd8ab367dd9bd381956e8337c0ec3b47fc273406ddb2dcffd9db",
-      "purpose": "Crop proposals and strict validation only; no text-to-math or generated replacement speech."
+      "sha256": "8349b8369d824abb7908837a6bf3fdd19d834c6a7324f63397d171ce8b7c8ed2"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/Pix2TextMFDRuntime.swift",
+      "sha256": "6640cc37a6cc09a88e76889ade8e993b83acca85f746ef69489923035586094f"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FormulaCropMerger.swift",
+      "sha256": "a13ce62d528583000c0badf0c5c921cfdd987650569249f4d4a9244ecdf45004"
+    },
+    {
+      "path": "Metra/App/FoundationModelsDeviceProbe.swift",
+      "sha256": "acd3d30d74dc3609e0ef232e507fd4722597188b682eda41f895f33e75525fad"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/QuestionReadingNormalizer.swift",
+      "sha256": "68515c03fd23c4f10e62b2cee15c572d78cb47e0285e40eb568f909313fa9371"
+    },
+    {
+      "path": "Metra/App/ReadingNormalizationDeviceChecks.swift",
+      "sha256": "b30faa64df90887228c9bf20ebde9f18cc557a73fd83be2883d37527f1c4b5fa"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/FoundationDiagramRuntime.swift",
+      "sha256": "12289c3341845c6f5645622309cd74d4c239c6ef365755f964c63db6043f6135"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FoundationDiagramService.swift",
+      "sha256": "300908f0b8124f82c5934315fb2074ddbc0766f54211ed4e3ab610837036f1f3"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/MathMLSourceTree.swift",
+      "sha256": "36f183a9567de55b8f4e75ea0490e1bf974762c9fe04851dca89f0b809af1a7b"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/EmbeddedLengthUnitNormalizer.swift",
+      "sha256": "9670a233c35bb0f3cff279bb9094b178eb31726f9723e138217d096ff7548592"
     }
-  ]
+  ],
+  "foundation_diagram_migration_results": "Integration/foundation-diagram-results.json",
+  "legacy_qwen_archive": "Integration/legacy-qwen-build16; weights local/ignored; not a target resource",
+  "consistency_fix_results": "Integration/consistency-fix-results.json"
 }

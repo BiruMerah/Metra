@@ -6,7 +6,6 @@ import UniformTypeIdentifiers
 struct MaterialImportView: View {
     @State private var viewModel: MaterialImportViewModel
     @State private var selectedPhotos: [PhotosPickerItem] = []
-    @State private var showModelFolder = false
 
     init(viewModel: MaterialImportViewModel) {
         _viewModel = State(initialValue: viewModel)
@@ -72,15 +71,8 @@ struct MaterialImportView: View {
                 DisclosureGroup("Pengaturan gambar dan diagram") {
                     Label(viewModel.diagramModelIsAvailable ? "Model diagram tersedia" : "Model diagram belum tersedia",
                           systemImage: viewModel.diagramModelIsAvailable ? "checkmark.circle" : "square.and.arrow.down")
-                    if viewModel.diagramModelIsBundled {
-                        Text("Model diagram sudah disertakan dalam aplikasi dan dapat digunakan secara offline.")
-                            .font(.footnote).foregroundStyle(.secondary)
-                    } else {
-                        Text("Teks dan rumus dapat diproses tanpa model diagram. Model tambahan dapat dipilih dari folder lokal.")
-                            .font(.footnote).foregroundStyle(.secondary)
-                        Button("Impor folder model Qwen") { showModelFolder = true }.disabled(viewModel.isBusy)
-                    }
-                    if viewModel.isImportingModel { ProgressView("Mengimpor model diagram…") }
+                    Text(viewModel.diagramModelStatus)
+                        .font(.footnote).foregroundStyle(.secondary)
                 }
             }
         }
@@ -91,12 +83,6 @@ struct MaterialImportView: View {
         }
         .sheet(isPresented: $viewModel.showCamera) {
             CameraPicker(onImage: viewModel.addCameraImage, onCancel: {}).ignoresSafeArea()
-        }
-        .fileImporter(isPresented: $showModelFolder, allowedContentTypes: [.folder]) { result in
-            switch result {
-            case .success(let folder): Task { await viewModel.importDiagramModel(from: folder) }
-            case .failure(let error): viewModel.errorMessage = error.localizedDescription
-            }
         }
         .alert("Materi belum selesai", isPresented: Binding(
             get: { viewModel.errorMessage != nil }, set: { if !$0 { viewModel.errorMessage = nil } }

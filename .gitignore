@@ -13,3 +13,6 @@ Resources/Qwen3-VL-2B-4bit.previous-*/
 .build/
 DerivedData/
 Integration/verification/
+
+# Historical Qwen weights are preserved locally, excluded from all app builds.
+Integration/legacy-qwen-build16/local-model/

@@ -49,11 +49,18 @@ final class FormulaPipeline {
             do {
                 try Task.checkCancellation()
                 try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+                if regions.first(where: { $0.id == formulas[index].layoutRegionID })?.detectionSource == Pix2TextMFDRuntime.proposalVersion {
+                    stages.append(ComponentResult(component:"mfd_crop_provenance",status:"succeeded",errorCode:nil,
+                        message:"Recognition crop selected by supplemental MFD merge; raw detector and Vision crops retained",
+                        rawArtifact:"pages/\(pageID)/mfd-crop-merge.json",metrics:[:]))
+                }
                 if let region=regions.first(where: { $0.id == formulas[index].layoutRegionID }),
-                   region.detectionSource == "vision_visual_numeric_proposal_v2",
+                   ["vision_visual_numeric_proposal_v2","vision_degree_literal_proposal_v1"].contains(region.detectionSource ?? ""),
                    let text=region.proposalText, let literal=VisualNumericLiteral.parse(text) {
                     let observation=observations.first { $0.id == region.sourceObservationID }
-                    let decision = observation?.numericEvidence?.mergeDecision(selectedLiteral: literal) ??
+                    let decision = region.detectionSource == "vision_degree_literal_proposal_v1" ?
+                        VisualNumericMergeDecision(version:"explicit_ocr_degree_literal_v1",allowed:true,
+                            reason:"Exact OCR number and explicit degree glyph; speech normalization only; OCR photo accuracy unassessed",evidenceArtifact:"\(artifactPrefix)/vision-literal.json") : observation?.numericEvidence?.mergeDecision(selectedLiteral: literal) ??
                         VisualNumericMergeDecision(version:"numeric_corroboration_merge_v2",allowed:false,
                             reason:"Numeric OCR corroboration unavailable; speech withheld",evidenceArtifact:"")
                     let allowed = decision.allowed
@@ -131,7 +138,11 @@ final class FormulaPipeline {
                 stages.append(ComponentResult(component:"mathjax",status:parsed.hasMathErrorNode ? "failed" : "succeeded",errorCode:parsed.hasMathErrorNode ? "mathml_merror" : nil,message:parsed.parseError,rawArtifact:"\(artifactPrefix)/mathml.xml",metrics:["parse_ms":parsed.parseMilliseconds]))
                 guard !parsed.hasMathErrorNode else { throw MathJaxBridgeError.parseFailed(parsed.parseError ?? "merror") }
                 currentStage = "mathcat"
-                let spoken = try await MathCATAdapter.shared.speak(mathML:parsed.mathML)
+                let rawSpoken = try await MathCATAdapter.shared.speak(mathML:parsed.mathML)
+                var spoken = rawSpoken
+                let rawEncoder = JSONEncoder(); rawEncoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                try rawEncoder.encode(rawSpoken).write(to: directory.appendingPathComponent("mathcat.raw.json"), options: .atomic)
+                stages.append(ComponentResult(component:"mathcat",status:"succeeded",errorCode:nil,message:"\(rawSpoken.version); raw image MathML speech retained separately from unit normalization",rawArtifact:"\(artifactPrefix)/mathcat.raw.json",metrics:["inference_ms":rawSpoken.milliseconds]))
                 formulas[index].spokenText = spoken.spokenText
                 formulas[index].canonicalMathML = spoken.canonicalMathML
                 formulas[index].mathCATProfile = spoken.profile
@@ -142,9 +153,57 @@ final class FormulaPipeline {
                 let containedOCR = observations.filter { target.intersection($0.bboxPageXYXY)/max(1,$0.bboxPageXYXY.area) >= 0.8 }
                     .sorted { $0.rawOrder < $1.rawOrder }.map(\.selectedText).joined(separator:"\n")
                 let structureSource = sourceRegion?.proposalText ?? containedOCR
-                if sourceRegion?.detectionSource == LengthUnitSource.version {
-                    let check = LengthUnitImageCheck.check(source: structureSource, mathML: parsed.mathML)
+                if sourceRegion?.detectionSource == "vision_degree_expression_proposal_v1" {
+                    let recognizedTokens = MathMLSourceTree.read(parsed.mathML).map { MathMLSourceTree.compact($0.tokens) }
+                    let expectedTokens = MathMLSourceTree.compact(structureSource)
+                    let allowed = recognizedTokens == expectedTokens
+                    formulas[index].spokenMergeAllowed = allowed
+                    formulas[index].sourceConsistencyStatus = allowed ? "complete_degree_expression_agrees" : "needs_review"
+                    formulas[index].sourceConsistencyMessage = "Complete parentheses, digits, operators and degree must agree; extra or missing tokens are withheld"
+                    try rawEncoder.encode(["source":structureSource,"image_tokens":recognizedTokens ?? "","allowed":String(allowed)])
+                        .write(to:directory.appendingPathComponent("degree-expression-consistency.json"),options:.atomic)
+                    stages.append(ComponentResult(component:"formula_degree_expression_consistency",status:allowed ? "succeeded" : "needs_review",
+                        errorCode:allowed ? nil : "complete_degree_expression_mismatch",message:formulas[index].sourceConsistencyMessage,
+                        rawArtifact:"\(artifactPrefix)/degree-expression-consistency.json",metrics:[:]))
+                }
+                let embedded = EmbeddedLengthUnitNormalizer.normalize(mathML:parsed.mathML,target:target,observations:observations)
+                let wholeUnitRoute = sourceRegion?.detectionSource == LengthUnitSource.version ||
+                    (sourceRegion?.detectionSource == Pix2TextMFDRuntime.proposalVersion && LengthUnitSource.parse(structureSource) != nil)
+                if !wholeUnitRoute, let normalized = embedded.mathML {
+                    try rawEncoder.encode(embedded).write(to:directory.appendingPathComponent("unit-normalization.json"),options:.atomic)
+                    stages.append(ComponentResult(component:"formula_unit_normalization",status:"succeeded",errorCode:nil,message:EmbeddedLengthUnitNormalizer.version,
+                        rawArtifact:"\(artifactPrefix)/unit-normalization.json",metrics:[:]))
+                    try normalized.write(to:directory.appendingPathComponent("mathml.unit-normalized.xml"),atomically:true,encoding:.utf8)
+                    spoken = try await MathCATAdapter.shared.speak(mathML:normalized)
+                    try rawEncoder.encode(spoken).write(to:directory.appendingPathComponent("mathcat.unit-normalized.json"),options:.atomic)
+                    formulas[index].spokenText = spoken.spokenText
+                    formulas[index].canonicalMathML = spoken.canonicalMathML
+                    formulas[index].mathCATProfile = spoken.profile
+                    formulas[index].unitPowerAnchors = embedded.anchors
+                    formulas[index].derivations = (formulas[index].derivations ?? []) + ["\(EmbeddedLengthUnitNormalizer.version): exact source quantity and image subtree; raw math preserved"]
+                    stages.append(ComponentResult(component:"mathcat_unit_normalized",status:"succeeded",errorCode:nil,message:spoken.version,rawArtifact:"\(artifactPrefix)/mathcat.unit-normalized.json",metrics:["inference_ms":spoken.milliseconds]))
+                }
+                if sourceRegion?.detectionSource == LengthUnitSource.version ||
+                    (sourceRegion?.detectionSource == Pix2TextMFDRuntime.proposalVersion && LengthUnitSource.parse(structureSource) != nil) {
+                    let normalized = LengthUnitNormalizer.normalize(source: structureSource, mathML: parsed.mathML)
+                    let check = normalized.normalizedValidation ?? normalized.rawValidation
                     let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                    try encoder.encode(normalized).write(to: directory.appendingPathComponent("unit-normalization.json"), options: .atomic)
+                    stages.append(ComponentResult(component:"formula_unit_normalization",status:normalized.allowed ? "succeeded" : "needs_review",
+                        errorCode:normalized.allowed ? nil : "unit_normalization_withheld",message:normalized.reason,
+                        rawArtifact:"\(artifactPrefix)/unit-normalization.json",metrics:[:]))
+                    if normalized.allowed, let mathML = normalized.normalizedMathML {
+                        try mathML.write(to:directory.appendingPathComponent("mathml.unit-normalized.xml"),atomically:true,encoding:.utf8)
+                        currentStage = "mathcat_unit_normalized"
+                        spoken = try await MathCATAdapter.shared.speak(mathML:mathML)
+                        try encoder.encode(spoken).write(to:directory.appendingPathComponent("mathcat.unit-normalized.json"),options:.atomic)
+                        formulas[index].spokenText = spoken.spokenText
+                        formulas[index].canonicalMathML = spoken.canonicalMathML
+                        formulas[index].mathCATProfile = spoken.profile
+                        formulas[index].derivations = (formulas[index].derivations ?? []) + ["\(LengthUnitNormalizer.version): \(normalized.operation ?? "unit_intent"); complete source and image power checks recorded; raw MathML/MathCAT remain separate"]
+                        stages.append(ComponentResult(component:"mathcat_unit_normalized",status:"succeeded",errorCode:nil,
+                            message:spoken.version,rawArtifact:"\(artifactPrefix)/mathcat.unit-normalized.json",metrics:["inference_ms":spoken.milliseconds]))
+                    }
                     try encoder.encode(check).write(to: directory.appendingPathComponent("unit-consistency.json"), options: .atomic)
                     formulas[index].sourceConsistencyStatus = check.allowed ? "image_length_unit_consistent" : "needs_review"
                     formulas[index].sourceConsistencyMessage = check.reason
@@ -152,7 +211,7 @@ final class FormulaPipeline {
                     stages.append(ComponentResult(component: "formula_unit_consistency", status: check.allowed ? "succeeded" : "needs_review",
                         errorCode: check.allowed ? nil : "unit_measurement_requires_review", message: check.reason,
                         rawArtifact: "\(artifactPrefix)/unit-consistency.json", metrics: [:]))
-                } else if !structureSource.isEmpty, FormulaExponentCheck.needsCheck(structureSource,mathML:parsed.mathML) {
+                } else if sourceRegion?.detectionSource != "vision_degree_expression_proposal_v1", !structureSource.isEmpty, FormulaExponentCheck.needsCheck(structureSource,mathML:parsed.mathML) {
                     let check = FormulaExponentCheck.check(source:structureSource,mathML:parsed.mathML)
                     let checkURL = directory.appendingPathComponent("exponent-consistency.json")
                     let checkEncoder = JSONEncoder(); checkEncoder.outputFormatting = [.prettyPrinted,.sortedKeys]
@@ -178,8 +237,6 @@ final class FormulaPipeline {
                     formulas[index].spokenMergeAllowed = check.allowed && formulas[index].spokenMergeAllowed != false
                 }
                 let encoder=JSONEncoder();encoder.outputFormatting=[.prettyPrinted,.sortedKeys]
-                try encoder.encode(spoken).write(to:directory.appendingPathComponent("mathcat.raw.json"),options:.atomic)
-                stages.append(ComponentResult(component:"mathcat",status:"succeeded",errorCode:nil,message:"\(spoken.version); id SimpleSpeak; source/spoken quality not assessed",rawArtifact:"\(artifactPrefix)/mathcat.raw.json",metrics:["inference_ms":spoken.milliseconds]))
             } catch {
                 formulas[index].status = error is CancellationError ? "cancelled" : "unresolved"
                 formulas[index].errorCode = error is CancellationError ? "run_cancelled" : "formula_pipeline_failed"
@@ -200,7 +257,7 @@ final class FormulaPipeline {
         await runtime.unload()
         await gate.release()
         let summaries = ["unimernet","mathjax","mathcat","vision_numeric_mathml"].map { name -> ComponentResult in
-            let values=stageResults.filter{$0.component==name && $0.status != "skipped_by_route"}
+            let values=stageResults.filter{($0.component==name || (name=="mathcat" && $0.component=="mathcat_unit_normalized")) && $0.status != "skipped_by_route"}
             let success=values.filter{$0.status=="succeeded"}.count
             let metricKeys=Set(values.flatMap{$0.metrics.keys})
             var metrics:[String:Double?]=["attempted":Double(values.count),"succeeded":Double(success)]

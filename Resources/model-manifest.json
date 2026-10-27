@@ -1,6 +1,6 @@
 {
   "schema": "metra-ios-model-manifest-v1",
-  "created_at": "2026-10-24",
+  "created_at": "2026-10-26",
   "target": "physical_iphone_ios",
   "inference_location": "on_device_only",
   "components": [
@@ -27,115 +27,6 @@
         "working_observations": 61,
         "numeric_labels": 15,
         "numeric_values_allowed_for_merge": 0
-      }
-    },
-    {
-      "name": "qwen3_vl_diagram_observation",
-      "role": "pie_chart_label_value_reference_association",
-      "repository": "mlx-community/Qwen3-VL-2B-Instruct-4bit",
-      "revision": "9c4f5209e57b31f4b9dfba735de3fb983739c9cc",
-      "source_runtime": "mlx-vlm (Python reference only)",
-      "ios_runtime": "MLXVLM Swift",
-      "ios_runtime_version": "mlx-swift-lm 3.32.3",
-      "weights": {
-        "file": "model.safetensors",
-        "bytes": 1782040921,
-        "sha256": "4750d95a2162829e127a94e83ac350d498d02070aab216c4687da48804a06ffb",
-        "local_source": "/Users/miuura/.cache/huggingface/hub/models--mlx-community--Qwen3-VL-2B-Instruct-4bit/snapshots/9c4f5209e57b31f4b9dfba735de3fb983739c9cc"
-      },
-      "configuration": {
-        "max_tokens": 2048,
-        "temperature": 0.0,
-        "top_p": 1.0,
-        "seed": 0,
-        "max_image_side_px": 1008,
-        "image_resize": "preserve_aspect_ratio_no_upscale",
-        "mlx_cache_limit_bytes": 268435456,
-        "quantization": {
-          "bits": 4,
-          "group_size": 64,
-          "mode": "affine"
-        },
-        "vision_config_present": true,
-        "image_input_required": true,
-        "prompt": "diagram-relations-v3.txt",
-        "prompt_sha256": "16610e29834439a53d959619237df438a2129f5c994b6e9b040e907946eaf110",
-        "schema_policy": "per input reference enums; raw schema and SHA saved per diagram generation"
-      },
-      "parameter_mapping": {
-        "main_pipeline": "MLXVLM image preparation + MLXGuidedGeneration.GuidedGenerationLoop",
-        "sampling": "greedy argmax under JSON Schema mask; source temperature=0/top_p=1, seed unused by greedy sampler",
-        "max_tokens": 2048,
-        "mlx_cache_limit_bytes": 268435456,
-        "app_image_max_side_px": 1008,
-        "processor": "checkpoint native processor; internal patch resize/tensor shape not separately recorded",
-        "request_deadline_after_load_seconds": 180,
-        "constraint": "fresh grammar/matcher per crop; immutable grammar tokenizer vocabulary cache",
-        "stagnation": "five consecutive repeats of 1-6 words or 160 whitespace characters; raw retained and rejected",
-        "raw_text_budget_chars": 4096,
-        "whitespace_bias": "pinned WhitespaceTokenBias -200 after 3 consecutive whitespace-only sampled tokens; no closing bias"
-      },
-      "status": "device_build24_executed_partial_content_needs_review",
-      "legacy_parameter_mapping": {
-        "provider": "MLXVLM Swift adapter",
-        "temperature": "GenerateParameters.temperature",
-        "top_p": "GenerateParameters.topP",
-        "seed": "GenerateParameters.seed",
-        "max_tokens": "GenerateParameters.maxTokens",
-        "max_image_side_px": "resize input crop before UserInput.Image.url",
-        "cache_limit_bytes": "MLX.Memory.cacheLimit"
-      },
-      "guided_runtime": {
-        "product": "MLXGuidedGeneration",
-        "package": "mlx-swift-lm 3.32.3",
-        "xgrammar": "v0.1.30",
-        "upstream_sha": "d476a48dcd8fa3b5afeddbe850e73bb3b1dcf505",
-        "unsupported": "matcher clone/fork shim; not used"
-      },
-      "previous_caption_v5": {
-        "role": "visual_structure_caption_with_code_owned_vision_labels_and_mathcat",
-        "configuration": {
-          "max_tokens": 2048,
-          "temperature": 0.0,
-          "top_p": 1.0,
-          "seed": 0,
-          "max_image_side_px": 1008,
-          "image_resize": "preserve_aspect_ratio_no_upscale",
-          "mlx_cache_limit_bytes": 268435456,
-          "quantization": {
-            "bits": 4,
-            "group_size": 64,
-            "mode": "affine"
-          },
-          "vision_config_present": true,
-          "image_input_required": true,
-          "prompt": "diagram-relations-v1.txt",
-          "prompt_sha256": "ecd9620f7aca8f656ef435d720cc098c55bf8e8f3eaffd9e1554c4c41aec9cac",
-          "schema_policy": "per input reference enums; raw schema and SHA saved per diagram generation"
-        },
-        "status": "device_executed_partial_content_needs_review",
-        "device_evidence": {
-          "run_id": "83fac4c5-d849-4fd2-b77a-c4bb0c1ce929",
-          "build": "20 Debug",
-          "path": "verification/diagram-chunks-v2/device-output",
-          "caption_accepted": 2,
-          "caption_attempted": 3,
-          "third_stop": "repetitive_output",
-          "full_diagram_speech_ready": 0,
-          "content_quality": "needs_review",
-          "source_coverage": "not_assessed"
-        }
-      },
-      "device_evidence": {
-        "run_id": "e75674bb-ab4a-4cd9-b437-bdf6e9c7a029",
-        "build": "24 Debug",
-        "path": "verification/diagram-relations-v1/device-output",
-        "requests": 3,
-        "validated_reference_pairs": 15,
-        "model_uncertainty": "ambiguous_attachment on all three",
-        "full_diagram_speech_ready": 0,
-        "content_quality": "needs_review",
-        "source_coverage": "not_assessed"
       }
     },
     {
@@ -895,43 +786,50 @@
       "status": "candidate_regions_require_source_review"
     },
     {
-      "name": "qwen3_vl_topic_grouping",
-      "role": "topic_titles_and_chunk_id_membership_only",
-      "repository": "mlx-community/Qwen3-VL-2B-Instruct-4bit",
-      "revision": "9c4f5209e57b31f4b9dfba735de3fb983739c9cc",
+      "name": "pix2text_mfd",
+      "role": "supplemental_image_formula_crop_proposals",
+      "repository": "breezedeus/pix2text-mfd",
+      "revision": "fc3797af79391c32ed0d56f8b5f437b5a49271be",
       "weights": {
-        "file": "model.safetensors",
-        "bytes": 1782040921,
-        "sha256": "4750d95a2162829e127a94e83ac350d498d02070aab216c4687da48804a06ffb",
-        "local_source": "/Users/miuura/.cache/huggingface/hub/models--mlx-community--Qwen3-VL-2B-Instruct-4bit/snapshots/9c4f5209e57b31f4b9dfba735de3fb983739c9cc"
+        "file": "Pix2Text-MFD.onnx",
+        "sha256": "51a8854743b17ae654729af8db82a630c1ccfa06debf4856c8b28055f87d02c1",
+        "bytes": 44573224
       },
-      "weights_shared_with": "qwen3_vl_diagram_observation",
-      "runtime": "MLXVLM Swift 3.32.3",
+      "runtime": "ONNX Runtime 1.24.2 CPU, 2 intra-op threads",
+      "precision": "FP32",
+      "configuration_artifact": "Pix2Text-MFD.config.json",
+      "status": "single_image_detector_device_executed; crop_merge_integration_validation_pending",
+      "device_evidence": {
+        "attempt_id": "271c7caa-1b5e-46c4-9f30-7534a3a9a8fd",
+        "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+        "detected_regions": 14,
+        "inference_ms": 244.11612504627556,
+        "note": "No complete cm²/m² answer expression detected in this pilot; letter/option candidates also present; no accuracy claim."
+      }
+    },
+    {
+      "name": "apple_foundation_models_diagram",
+      "role": "image_evidence_description_with_source_references",
+      "model": "SystemLanguageModel.default",
+      "revision": "OS-managed; no exposed checkpoint hash",
+      "runtime": "FoundationModels.framework",
+      "execution": "on_device_only",
+      "cloud_fallback": false,
       "configuration": {
-        "input_mode": "text_only",
-        "vision_encoder_executed": false,
-        "precision": "4-bit affine group_size=64",
-        "chunk_policy": "sentence_atomic_math_v1",
-        "prompt": "topic-v1.txt",
-        "prompt_sha256": "acbc836c09d8ff02e4bbfac5001d34cf4db9f150d65e356ccebc72d8110e1cb6",
-        "max_tokens": 2048,
-        "max_prompt_tokens": 6000,
-        "temperature": 0,
-        "top_p": 1,
-        "seed": 0,
-        "cache_limit_bytes": 268435456,
-        "max_chunks_per_request": 32,
-        "max_characters_per_request": 12000,
-        "max_requests": 32,
-        "retries": 0
+        "vision_capability_required": true,
+        "supported_locale_id_ID_is_not_gate": true,
+        "sampling": "greedy",
+        "max_response_tokens": 1536,
+        "request_deadline_seconds": 60,
+        "policy": "foundation_diagram_evidence_v3",
+        "angle_validation": "three source point names; vertex and value corroborated by adjacent source angle annotation; MathCAT owns value speech",
+        "quality": "image topology remains a model candidate; no unmarked center assumptions",
+        "request_encoding": "foundation_request_sorted_keys_v1"
       },
-      "status": "historical_device_executed_currently_deferred",
-      "active_in_main_pipeline": false,
-      "evidence": "verification/topic-v1/device-output",
-      "note": "User deferred grouping; main pipeline produces ordered chunks and makes zero text-only topic requests."
+      "status": "runtime availability and quality recorded per run; native generation observed in prior device pilots"
     }
   ],
-  "updated_at": "2026-10-25T07:39:45.048537+00:00",
+  "updated_at": "2026-10-26T09:08:07.986771+00:00",
   "post_execution_update": {
     "scope": "evidence metadata only after build24 pilot; no code/prompt/runtime changed",
     "installed_binary_and_run_snapshot": "build24/source-build24 and model-manifest.snapshot.json retain pre-execution status and prior build23 evidence",
@@ -981,5 +879,6 @@
     "quality": "needs_review; confidence gate and multiline labels remain limiting",
     "source_metadata_updated_after_build25": true,
     "as_built_snapshot": "verification/clear-diagram-v1/source-build25"
-  }
+  },
+  "legacy_qwen_archive": "Integration/legacy-qwen-build16; not bundled or loaded"
 }

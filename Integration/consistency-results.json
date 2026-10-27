@@ -1,0 +1,896 @@
+{
+  "schema": "metra-small-consistency-results-v1",
+  "date": "2026-10-26",
+  "job_id": "4c61dda0-4cb9-46df-bd6d-a0c7c071a9d2",
+  "app_build": "19",
+  "device": {
+    "model": "iPhone 16 Pro Max",
+    "hardware": "iPhone17,2",
+    "udid_suffix": "2801C",
+    "os": "Version 27.0.1 (Build 24A446)"
+  },
+  "input_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+  "trials": [
+    {
+      "trial": 1,
+      "attempt_id": "20153e16-2822-40de-810e-2c4fb391aa3e",
+      "run_id": "55d492dd-2a31-4421-a770-e959c1c31c19",
+      "saved_material_id": "55D492DD-2A31-4421-A770-E959C1C31C19",
+      "runtime_completed": true,
+      "runtime_status": "partial",
+      "app_build": "19",
+      "started_at": "2026-10-26T16:22:24Z",
+      "completed_at": "2026-10-26T16:22:48Z",
+      "scope": "fresh app process; OS model cache/cold state not controllable; no output cache",
+      "OCR_observations": 43,
+      "formula_regions": 35,
+      "final_formula_statuses": {
+        "needs_review": 19,
+        "ready": 16
+      },
+      "chunk_count": 49,
+      "canonical_question_count": 5,
+      "canonical_choice_count": 20,
+      "topic_count": 1,
+      "powered_units_inspected": 9,
+      "powered_units_ready": 9,
+      "foundation_request_ms": 12389.448999999331,
+      "foundation_usage": {
+        "prompt_tokens": 2675,
+        "output_tokens": 287
+      },
+      "foundation_available": "available",
+      "foundation_vision": true,
+      "diagram_status": "needs_review",
+      "source_segments_preserved_once": true,
+      "source_heading_topic_policy": "source_headings_per_page_v1",
+      "diagram_raw_plan": {
+        "angles": [
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "D"
+            ],
+            "valueID": "v001"
+          },
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "D"
+            ],
+            "valueID": "v002"
+          }
+        ],
+        "connections": [
+          {
+            "pointNames": [
+              "D",
+              "P"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "D"
+            ]
+          }
+        ],
+        "overview": "Lingkaran berisi titik-titik yang saling terhubung dengan garis lurus.",
+        "uncertainties": [
+          "Hubungan titik tidak jelas"
+        ],
+        "visiblePointNames": [
+          "D",
+          "F",
+          "E",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P",
+          "D",
+          "P"
+        ],
+        "visualType": "geometry"
+      },
+      "diagram_validation": {
+        "acceptedFacts": [
+          "image_overview_candidate",
+          "image_connection_candidate:D-P"
+        ],
+        "rejectedFacts": [
+          "invalid_angle_reference",
+          "invalid_angle_reference"
+        ],
+        "sourceValueIDs": [
+          "v001",
+          "v002"
+        ],
+        "spoken": "Gambar geometri. Lingkaran berisi titik-titik yang saling terhubung dengan garis lurus. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Nilai yang terbaca pada gambar atau keterangannya: buka kurung, 3 x tambah 4, tutup kurung derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+        "uncertainties": [
+          "relation_unconfirmed",
+          "visual_symbols_unresolved",
+          "model_reported_visual_uncertainty"
+        ],
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0031"
+        ],
+        "version": "foundation_diagram_evidence_v2",
+        "visualType": "geometry"
+      },
+      "native_prompt_sha256": "b035073df3d916267ebaf17a4a33ac2a0f72404e38222f0ddbda19934b4314eb",
+      "native_evidence_semantic_sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee"
+    },
+    {
+      "trial": 2,
+      "attempt_id": "7187bcfa-dc1e-4582-9b26-420544dd716a",
+      "run_id": "99bfd715-ad38-45b4-a1aa-eaca63748263",
+      "saved_material_id": "99BFD715-AD38-45B4-A1AA-EACA63748263",
+      "runtime_completed": true,
+      "runtime_status": "partial",
+      "app_build": "19",
+      "started_at": "2026-10-26T16:23:27Z",
+      "completed_at": "2026-10-26T16:23:47Z",
+      "scope": "fresh app process; OS model cache/cold state not controllable; no output cache",
+      "OCR_observations": 43,
+      "formula_regions": 35,
+      "final_formula_statuses": {
+        "needs_review": 19,
+        "ready": 16
+      },
+      "chunk_count": 49,
+      "canonical_question_count": 5,
+      "canonical_choice_count": 20,
+      "topic_count": 1,
+      "powered_units_inspected": 9,
+      "powered_units_ready": 9,
+      "foundation_request_ms": 8439.032124999358,
+      "foundation_usage": {
+        "prompt_tokens": 2675,
+        "output_tokens": 145
+      },
+      "foundation_available": "available",
+      "foundation_vision": true,
+      "diagram_status": "needs_review",
+      "source_segments_preserved_once": true,
+      "source_heading_topic_policy": "source_headings_per_page_v1",
+      "diagram_raw_plan": {
+        "angles": [
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "E"
+            ],
+            "valueID": "v001"
+          },
+          {
+            "pointNames": [
+              "P",
+              "E",
+              "D"
+            ],
+            "valueID": "v002"
+          }
+        ],
+        "connections": [
+          {
+            "pointNames": [
+              "D",
+              "P"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "E"
+            ]
+          },
+          {
+            "pointNames": [
+              "E",
+              "F"
+            ]
+          }
+        ],
+        "overview": "Bentuk berbentuk lingkaran dengan titik-titik yang saling terhubung.",
+        "uncertainties": [
+          "Terdapat kemungkinan kesalahan dalam membaca koneksi tertentu."
+        ],
+        "visiblePointNames": [
+          "D",
+          "F",
+          "E",
+          "P"
+        ],
+        "visualType": "geometry"
+      },
+      "diagram_validation": {
+        "acceptedFacts": [
+          "image_overview_candidate",
+          "image_connection_candidate:D-P",
+          "image_connection_candidate:E-P",
+          "image_connection_candidate:E-F"
+        ],
+        "rejectedFacts": [
+          "angle_vertex_or_value_not_corroborated:DPE",
+          "angle_vertex_or_value_not_corroborated:PED"
+        ],
+        "sourceValueIDs": [
+          "v001",
+          "v002"
+        ],
+        "spoken": "Gambar geometri. Bentuk berbentuk lingkaran dengan titik-titik yang saling terhubung. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Ruas garis menghubungkan P dan E. Ruas garis menghubungkan E dan F. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Nilai yang terbaca pada gambar atau keterangannya: buka kurung, 3 x tambah 4, tutup kurung derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+        "uncertainties": [
+          "relation_unconfirmed",
+          "visual_symbols_unresolved",
+          "model_reported_visual_uncertainty"
+        ],
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0031"
+        ],
+        "version": "foundation_diagram_evidence_v2",
+        "visualType": "geometry"
+      },
+      "native_prompt_sha256": "88a30353c99056cd1d99cdffad1f29f19268bb690ff820c44ee0650bb4a7995b",
+      "native_evidence_semantic_sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee"
+    },
+    {
+      "trial": 3,
+      "attempt_id": "5bb96759-e083-4a04-9b80-fd9954df8d5a",
+      "run_id": "7a6cc3dc-ebbb-461c-93b2-d49fdc9298a5",
+      "saved_material_id": "7A6CC3DC-EBBB-461C-93B2-D49FDC9298A5",
+      "runtime_completed": true,
+      "runtime_status": "partial",
+      "app_build": "19",
+      "started_at": "2026-10-26T16:25:11Z",
+      "completed_at": "2026-10-26T16:25:32Z",
+      "scope": "fresh app process; OS model cache/cold state not controllable; no output cache",
+      "OCR_observations": 43,
+      "formula_regions": 35,
+      "final_formula_statuses": {
+        "needs_review": 19,
+        "ready": 16
+      },
+      "chunk_count": 49,
+      "canonical_question_count": 5,
+      "canonical_choice_count": 20,
+      "topic_count": 1,
+      "powered_units_inspected": 9,
+      "powered_units_ready": 9,
+      "foundation_request_ms": 8356.580833333282,
+      "foundation_usage": {
+        "prompt_tokens": 2676,
+        "output_tokens": 147
+      },
+      "foundation_available": "available",
+      "foundation_vision": true,
+      "diagram_status": "needs_review",
+      "source_segments_preserved_once": true,
+      "source_heading_topic_policy": "source_headings_per_page_v1",
+      "diagram_raw_plan": {
+        "angles": [
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "E"
+            ],
+            "valueID": "v001"
+          },
+          {
+            "pointNames": [
+              "P",
+              "E",
+              "D"
+            ],
+            "valueID": "v002"
+          }
+        ],
+        "connections": [
+          {
+            "pointNames": [
+              "D",
+              "P"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "E"
+            ]
+          },
+          {
+            "pointNames": [
+              "E",
+              "F"
+            ]
+          }
+        ],
+        "overview": "Bentuk berbentuk lingkaran dengan titik-titik yang saling terhubung.",
+        "uncertainties": [
+          "Hubungan antara titik tidak jelas"
+        ],
+        "visiblePointNames": [
+          "D",
+          "F",
+          "E",
+          "P"
+        ],
+        "visualType": "geometry"
+      },
+      "diagram_validation": {
+        "acceptedFacts": [
+          "image_overview_candidate",
+          "image_connection_candidate:D-P",
+          "image_connection_candidate:E-P",
+          "image_connection_candidate:E-F"
+        ],
+        "rejectedFacts": [
+          "angle_vertex_or_value_not_corroborated:DPE",
+          "angle_vertex_or_value_not_corroborated:PED"
+        ],
+        "sourceValueIDs": [
+          "v001",
+          "v002"
+        ],
+        "spoken": "Gambar geometri. Bentuk berbentuk lingkaran dengan titik-titik yang saling terhubung. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Ruas garis menghubungkan P dan E. Ruas garis menghubungkan E dan F. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Nilai yang terbaca pada gambar atau keterangannya: buka kurung, 3 x tambah 4, tutup kurung derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+        "uncertainties": [
+          "relation_unconfirmed",
+          "visual_symbols_unresolved",
+          "model_reported_visual_uncertainty"
+        ],
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0031"
+        ],
+        "version": "foundation_diagram_evidence_v2",
+        "visualType": "geometry"
+      },
+      "native_prompt_sha256": "800da1a2ff063858162443886fb35494d3a8e002f0ecdac46f89139103f20213",
+      "native_evidence_semantic_sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee"
+    }
+  ],
+  "comparisons": {
+    "source_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "normalized_image_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "6aa2cd681c4aff180b149fb03eeea71ee29ae896af8afe220a9a8975c8de9dd0",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "config": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "46efada1a5c8b96893e33f372ad6fea5ff4193d7bdd0e87b2fbe9a23a60f6c15",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "model_manifest": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "efdccb4ac9c9a8905f843f5c25428812abd0421d07d8af820145135515dfb252",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "layout_raw_tensor": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1bded3c5a8bd613d692ab0103daa01beea639ff12ff4bb9f9d7a936135a5b8fb",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "layout_regions": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "d7928b417df958e96985827ff705448e1d9736b5144fdeefbeae9ba8503f56c4",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "mfd_raw_tensor": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "6dabf3a9ef8db9797438662332c5c2a1e10e57d7a01b43f5ee13f564287d4acd",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "mfd_regions": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1a46d7ab89ee8b72311d1d56bfa9a3cd1fa3b57315b247485291b034901dda32",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "mfd_merge": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "7cd7ea04360b02ab1ea0c61c7109146cda9a58f08b8c989c595736b8032c8e08",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "working_OCR": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a1c4778f1baa98013b53e0cfdf345e0d4afb4df4e0b82f767fda98f989d3d1ee",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "formula_core": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "39d0e31fc5a6de6740c5ca418bf8cda08e2700a9c4a12ef972331d633698c537",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "formula_latex": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "525b7f38bbd1d7da83362904a22d0540aa9b14a44581e4e5f95fab1aeca3bd30",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "formula_speech_and_gate": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "c03abe1e29367735ef97c07f3f402f80b91b26c663c2817de714a1f00bc1e663",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "crop_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "ef8fce089409a86498cc0727d6b3fdbd62aaed7c27821c0f70f0ca78c2034e99",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "chunk_structure": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "5e0b464022f75807470e61da28c78e94bd84756146c6ce7fffd808cdac201833",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "non_visual_chunks": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "281f52e61d917fbd89e24b6c15c0892521244b7dbcc5ef05582d958d229a7dab",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "questions": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a327db8e1083785753a5cc100bf62b2423ca2463ac36515ef5bedc7bb1e06cc5",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "source_heading_topicIndex": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "0dbaf779e9e0aa52011e5e804c4e6e7dfeeccbd3d501cf2e8c8a41c1dd7249c4",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_prompt_sha256": {
+      "all_equal": false,
+      "unique_count": 3,
+      "groups": [
+        {
+          "sha256": "b035073df3d916267ebaf17a4a33ac2a0f72404e38222f0ddbda19934b4314eb",
+          "trials": [
+            1
+          ]
+        },
+        {
+          "sha256": "88a30353c99056cd1d99cdffad1f29f19268bb690ff820c44ee0650bb4a7995b",
+          "trials": [
+            2
+          ]
+        },
+        {
+          "sha256": "800da1a2ff063858162443886fb35494d3a8e002f0ecdac46f89139103f20213",
+          "trials": [
+            3
+          ]
+        }
+      ]
+    },
+    "native_prompt_prefix_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1886f1ee8b1e8c4df8f85a2c1604e299748947587da5c060044590f8cb74f8de",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_instructions_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "f34df26f68152b132fa25018ac745311a5fdbfcec798914dc82608aa4cfd29c0",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_evidence_semantic": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_image_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a975cc23bd454532949f2f75c624b1fbae2930c278b68c438d9aa6de22236757",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_environment": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "6d34ae081e7bacad37791682ceefb3adc3259a984b69c04be18b1b5534553e38",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_plan": {
+      "all_equal": false,
+      "unique_count": 3,
+      "groups": [
+        {
+          "sha256": "1e3752821762123eddf507db262252c0c2ca33b8d38d5d678a925f481781da61",
+          "trials": [
+            1
+          ]
+        },
+        {
+          "sha256": "6e082856bd423cb84da06c410a7608476d724d362806736a755e49ecd3185af0",
+          "trials": [
+            2
+          ]
+        },
+        {
+          "sha256": "e3fa788f0078919e777f8e3a35a41fa718d6f3052182c75d32b5a3a8d11e13c0",
+          "trials": [
+            3
+          ]
+        }
+      ]
+    },
+    "native_fact_sets": {
+      "all_equal": false,
+      "unique_count": 2,
+      "groups": [
+        {
+          "sha256": "56d82db15917a864c65cdc7bab16dc9e82344a226b4e1a7a15f765f6615f23b8",
+          "trials": [
+            1
+          ]
+        },
+        {
+          "sha256": "f04642813008f3ef959bed0804d941a0ea27ec301afe789587bcb7883f4646d0",
+          "trials": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "diagram_validated": {
+      "all_equal": false,
+      "unique_count": 2,
+      "groups": [
+        {
+          "sha256": "e6b380138dcda4538b5e82461b067c4ef03d922d76a097a9b211632ac3e2aa0d",
+          "trials": [
+            1
+          ]
+        },
+        {
+          "sha256": "33bf5d5b8790ffdd2a64f33edde8f12a56c1998aaf2a04c442e1815e50c7c617",
+          "trials": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "diagram_spoken": {
+      "all_equal": false,
+      "unique_count": 2,
+      "groups": [
+        {
+          "sha256": "4a67a5fde663da0dbf504741dc27326491a075612e71301a639e56bd0f845e77",
+          "trials": [
+            1
+          ]
+        },
+        {
+          "sha256": "c2c7f81dabb1fb7fdfbd6f821d59a5385267a871b48877861fb8d8044c2c016d",
+          "trials": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "final_ready_content": {
+      "all_equal": false,
+      "unique_count": 2,
+      "groups": [
+        {
+          "sha256": "f3983074a8436247cf05802d5a91fb35991f303ee55b30d797c5f709e972787c",
+          "trials": [
+            1
+          ]
+        },
+        {
+          "sha256": "cf25df0f4a1e0e80e1008b4898cb1fb98b036eec43ea92c6c43290cdb69f7bc4",
+          "trials": [
+            2,
+            3
+          ]
+        }
+      ]
+    }
+  },
+  "execution_checks": {
+    "three_new_runtime_completions": true,
+    "three_distinct_run_ids": true,
+    "same_build19": true,
+    "same_source_and_normalized_image": true,
+    "same_config_and_model_inventory": true,
+    "every_trial_saved": true,
+    "source_segments_preserved": true,
+    "sources_still_match_compiled_build": true
+  },
+  "verdict": "fixed-image end-to-end content is not fully consistent; see stage comparisons",
+  "native_input_finding": "Evidence JSON values and instructions are equal, but JSON property order changes prompt bytes across fresh app launches. This is not a same-exact-prompt test of greedy determinism.",
+  "causality_limit": "Prompt serialization variation is observed. No isolated experiment proves it is the sole cause of output variation; model/session/schema factors are not excluded.",
+  "scope_limits": [
+    "One real image, one iPhone, three serial fresh-app runs; not all devices or camera captures.",
+    "Equal incorrect recognition is repeatable, not correct. Existing unresolved notation/crop and footer limitations remain.",
+    "Topic comparison covers source-heading index in final_ready; no semantic Foundation topic generation was executed.",
+    "Model checkpoint hash is not exposed by Apple. OS and available metadata were recorded; OS model cache state was not controlled.",
+    "UUIDs/timestamps and telemetry excluded from content equality; timings are descriptive, not a performance benchmark. Two completed run folders were transferred while the third inference ran."
+  ],
+  "next_experiment": "Canonicalize JSON prompt serialization, freeze exact prompt/image/schema, then repeat under one build; not changed in this measurement.",
+  "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-v1/4c61dda0-4cb9-46df-bd6d-a0c7c071a9d2",
+  "production_source_changed": false
+}

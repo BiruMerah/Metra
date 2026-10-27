@@ -1,0 +1,215 @@
+{
+  "schema": "metra-foundation-diagram-results-v1",
+  "date": "2026-10-26",
+  "branch": "feat/poc-integration",
+  "app_build": "19",
+  "execution": "physical_iphone_only; Mac used for build/transfer/artifact audit",
+  "device": {
+    "hardware": "iPhone17,2",
+    "name": "iPhone 16 Pro Max",
+    "os": "27.0.1",
+    "os_build": "24A446",
+    "udid_suffix": "2801C"
+  },
+  "input_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+  "attempts": [
+    {
+      "build": "17",
+      "attempt_id": "6dea8590-2729-496f-ac23-99c6746c466e",
+      "run_id": "ece37704-fa62-4e44-aedb-20f8a242989c",
+      "foundation": "modelNotReady; independent paths completed"
+    },
+    {
+      "build": "18",
+      "attempt_id": "4777f3d8-c327-441c-afa6-09fbe976ff68",
+      "run_id": "8dea568a-bcd5-4e22-851f-06afbc600391",
+      "foundation": "Indonesian response; phantom D-E edge and invalid value references; preserved as failed quality evidence"
+    },
+    {
+      "build": "19",
+      "attempt_id": "0a55231b-43f2-4d1b-8c37-9de2f3a9ef82",
+      "run_id": "08dde9ed-7b8e-4c36-8c20-627ed8c2abf1",
+      "foundation": "schema valid; wrong 47 degree DPE relation rejected; correct DPE expression source-corroborated; overall partial"
+    }
+  ],
+  "bundle": {
+    "build": "19",
+    "bundle_id": "id.birumerah.Metra",
+    "executable": "Metra",
+    "bundle_bytes": 986756647,
+    "onnx_bytes": 931927661,
+    "qwen_or_mlx_paths": []
+  },
+  "historical_build16_bundle_bytes": 2869097519,
+  "foundation": {
+    "availability": "available",
+    "vision": true,
+    "supports_id_ID": false,
+    "indonesian_response_observed": true,
+    "metrics": {
+      "output_tokens": 145,
+      "prompt_tokens": 2671,
+      "request_wall_ms": 9526.917208333543,
+      "session_setup_ms": 0.09579166635376168
+    },
+    "policy": "foundation_diagram_evidence_v2",
+    "cloud_fallback": false,
+    "checkpoint_hash_exposed": false,
+    "quality": "partial; image plus adjacent source context, not image-only understanding"
+  },
+  "artifact_checks": {
+    "source_hash_matches_request": true,
+    "question32_choices_ABCD": true,
+    "question32_degrees_spoken": true,
+    "question34_all_area_choices_spoken": true,
+    "source_segments_preserved_once": true,
+    "each_final_formula_has_one_segment": true,
+    "wrong_47_degree_vertex_withheld": true,
+    "correct_DPE_expression_in_spoken": true,
+    "diagram_partial_status_retained": true,
+    "no_Qwen_or_MLX_in_bundle": true,
+    "current_sources_match_compiled_hashes": true,
+    "all_final_source_ranges_valid": true,
+    "raw_OCR_unchanged_from_build18": true,
+    "raw_latex_unchanged_common_regions": true
+  },
+  "units": [
+    {
+      "id": "p0001.formula.0010",
+      "sourceText": "AOB = 314 cm'",
+      "spokenText": "huruf besar a  huruf besar o  huruf besar b; sama dengan, 314 senti-meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0017",
+      "sourceText": "616 cm2",
+      "spokenText": "616 senti-meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0016",
+      "sourceText": "154 cm2",
+      "spokenText": "154 senti-meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0019",
+      "sourceText": "324 cm2",
+      "spokenText": "324 senti-meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0018",
+      "sourceText": "1.028 cm2",
+      "spokenText": "1028 senti-meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0023",
+      "sourceText": "616 m2",
+      "spokenText": "616 meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0024",
+      "sourceText": "1.386 młął",
+      "spokenText": "1386 meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0026",
+      "sourceText": "770 mг",
+      "spokenText": "770 meter kuadrat",
+      "status": "ready"
+    },
+    {
+      "id": "p0001.formula.0025",
+      "sourceText": "1.540 m2",
+      "spokenText": "1540 meter kuadrat",
+      "status": "ready"
+    }
+  ],
+  "question32": [
+    {
+      "chunkID": "p0001.ocrmath.10.3.c0001",
+      "label": "A",
+      "spoken": "A. 30 derajat"
+    },
+    {
+      "chunkID": "p0001.ocrmath.12.3.c0001",
+      "label": "B",
+      "spoken": "B. 40 derajat"
+    },
+    {
+      "chunkID": "p0001.layout.0033.c0001",
+      "label": "C",
+      "spoken": "C. 50 derajat"
+    },
+    {
+      "chunkID": "p0001.layout.0015.c0001",
+      "label": "D",
+      "spoken": "D. 60 derajat"
+    }
+  ],
+  "question34": [
+    {
+      "chunkID": "p0001.layout.0038.c0001",
+      "label": "A",
+      "spoken": "A. 616 meter kuadrat"
+    },
+    {
+      "chunkID": "p0001.layout.0027.c0001",
+      "label": "B",
+      "spoken": "B. 770 meter kuadrat"
+    },
+    {
+      "chunkID": "p0001.layout.0031.c0001",
+      "label": "C",
+      "spoken": "C. 1386 meter kuadrat"
+    },
+    {
+      "chunkID": "p0001.layout.0023.c0001",
+      "label": "D",
+      "spoken": "D. 1540 meter kuadrat"
+    }
+  ],
+  "diagram_validation": {
+    "acceptedFacts": [
+      "image_overview_candidate",
+      "image_connection_candidate:D-P",
+      "image_connection_candidate:E-P",
+      "image_connection_candidate:E-F",
+      "source_corroborated_angle:DPE=v002"
+    ],
+    "rejectedFacts": [
+      "angle_vertex_or_value_not_corroborated:DPE"
+    ],
+    "sourceValueIDs": [
+      "v001",
+      "v002"
+    ],
+    "spoken": "Gambar geometri. Bentuk berbentuk lingkaran dengan titik-titik yang saling terhubung. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Ruas garis menghubungkan P dan E. Ruas garis menghubungkan E dan F. sudut,   d   p   e; sama dengan; buka kurung, 3 x tambah 4, tutup kurung derajat. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+    "uncertainties": [
+      "relation_unconfirmed",
+      "visual_symbols_unresolved",
+      "model_reported_visual_uncertainty"
+    ],
+    "unresolvedFormulaIDs": [
+      "p0001.formula.0031"
+    ],
+    "version": "foundation_diagram_evidence_v2",
+    "visualType": "geometry"
+  },
+  "canonical_questions": 5,
+  "canonical_choices": 20,
+  "remaining": [
+    "Prose crop of (3x+4) degree still has extra model token and is withheld; diagram crop succeeds",
+    "Diagram 47 degree vertex wrong in raw response; source validator rejects; D-F connection omitted",
+    "Footer OCR prevents question36 structural normalization; four choice chunks remain in source order",
+    "No general diagram benchmark, multi-page test, new camera capture, VoiceOver audio or restart/reopen proof in this task"
+  ],
+  "evidence_root": "Integration/verification/foundation-diagram-v1/0a55231b-43f2-4d1b-8c37-9de2f3a9ef82",
+  "saved_material_title": "Materi — diagram Apple v2",
+  "original_poc_and_old_experiments_preserved": true,
+  "pushed": false
+}

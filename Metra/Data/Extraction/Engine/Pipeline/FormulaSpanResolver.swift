@@ -13,7 +13,7 @@ struct FormulaSourceSpan {
 /// Resolves an entire occurrence before any OCR characters are replaced. Vision may
 /// return the same word box for several characters; a box is only an alignment anchor.
 enum FormulaSpanResolver {
-    static let version = "whole_occurrence_utf16_v3"
+    static let version = "whole_occurrence_utf16_v4"
 
     struct Resolution {
         let spans: [FormulaSourceSpan]
@@ -78,10 +78,17 @@ enum FormulaSpanResolver {
                 for start in 0...(glyphs.count - pattern.count) {
                     guard pattern.indices.allSatisfy({ position in
                         let expected = pattern[position], actual = glyphs[start + position].value
-                        return expected == actual || (angleAlignment && expected == "∠" && ["L", "Z"].contains(actual))
+                        let glyph = glyphs[start + position]
+                        let unitAnchor = (formula.unitPowerAnchors ?? []).contains {
+                            $0.observationID == glyph.observationID && $0.suffixRangeUTF16 == [glyph.lower,glyph.upper] &&
+                            $0.exponent == String(expected) && $0.sourceSuffix == String(actual)
+                        }
+                        return expected == actual || unitAnchor || (angleAlignment && expected == "∠" && ["L", "Z"].contains(actual))
                     }) else { continue }
                     let slice = Array(glyphs[start..<(start + pattern.count)])
-                    let usedAngleAlignment = pattern.indices.contains { pattern[$0] != slice[$0].value }
+                    let usedAngleAlignment = pattern.indices.contains { pattern[$0] == "∠" && pattern[$0] != slice[$0].value }
+                    let usedUnitAlignment = !usedAngleAlignment && pattern.indices.contains { pattern[$0] != slice[$0].value }
+                    let matchMethod = usedAngleAlignment ? "image_angle_mathml_ocr_alignment" : (usedUnitAlignment ? "source_anchored_unit_power_alignment" : "mathml_token_match_with_geometry")
                     let box = union(slice.map(\.box))
                     // A whole textual match must also occupy the detected formula location.
                     let score = target.intersection(box) / max(1, box.area)
@@ -94,9 +101,9 @@ enum FormulaSpanResolver {
                     var spans: [FormulaSourceSpan] = []
                     for glyph in slice {
                         if let previous = spans.last, previous.observationID == glyph.observationID {
-                            spans[spans.count - 1] = FormulaSourceSpan(observationID: previous.observationID, lower: previous.lower, upper: glyph.upper, formulaID: formula.id, method: usedAngleAlignment ? "image_angle_mathml_ocr_alignment" : "mathml_token_match_with_geometry", allowsSpeech: true)
+                            spans[spans.count - 1] = FormulaSourceSpan(observationID: previous.observationID, lower: previous.lower, upper: glyph.upper, formulaID: formula.id, method: matchMethod, allowsSpeech: true)
                         } else {
-                            spans.append(FormulaSourceSpan(observationID: glyph.observationID, lower: glyph.lower, upper: glyph.upper, formulaID: formula.id, method: usedAngleAlignment ? "image_angle_mathml_ocr_alignment" : "mathml_token_match_with_geometry", allowsSpeech: true))
+                            spans.append(FormulaSourceSpan(observationID: glyph.observationID, lower: glyph.lower, upper: glyph.upper, formulaID: formula.id, method: matchMethod, allowsSpeech: true))
                         }
                     }
                     matches.append(Match(spans: spans, score: score, offset: start))
@@ -207,7 +214,10 @@ enum FormulaSpanResolver {
         // MathJax's \\circ leaf is U+2218; MathCAT's canonical angle expression
         // uses U+00B0. Use the engine's existing canonical output only if every
         // other token is identical. No OCR/LaTeX/MathML/speech is rewritten.
-        if raw.contains("∠"), raw.contains("="), canonical.contains("°"), raw.count == canonical.count,
+        let angle = raw.contains("∠") && raw.contains("=")
+        let numericDegree = raw.last == "∘" && raw.dropLast().contains(where: { $0.isNumber }) &&
+            raw.dropLast().allSatisfy { $0.isNumber || [".",",","+","-"].contains($0) }
+        if (angle || numericDegree), canonical.contains("°"), raw.count == canonical.count,
            zip(raw, canonical).allSatisfy({ $0.0 == $0.1 || ($0.0 == "∘" && $0.1 == "°") }) {
             return canonical
         }

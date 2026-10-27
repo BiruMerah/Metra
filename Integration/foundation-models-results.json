@@ -1,0 +1,200 @@
+{
+  "schema": "metra-foundation-models-pilot-results-v1",
+  "attempt_id": "04cce97b-4dec-4f5f-bda7-4d358e15d319",
+  "completed_at": "2026-10-26T10:01:40Z",
+  "build": {
+    "app_version": "1.0",
+    "build_number": "15",
+    "bundle_id": "id.birumerah.Metra",
+    "configuration": "Debug",
+    "debugger_attached": null
+  },
+  "device": {
+    "hardware_model_identifier": "iPhone18,3",
+    "os_version_string": "Version 27.0.1 (Build 24A446)",
+    "system_version": "27.0.1"
+  },
+  "model": "FoundationModels.SystemLanguageModel.default",
+  "execution": "on_device",
+  "cloud_fallback": false,
+  "availability": "available",
+  "locale": "en_ID",
+  "preferred_languages": [
+    "en-ID",
+    "id-ID"
+  ],
+  "supported_languages": [
+    "da",
+    "de",
+    "en",
+    "en-AU",
+    "en-GB",
+    "en-IN",
+    "es",
+    "es-419",
+    "es-US",
+    "fr",
+    "fr-CA",
+    "it",
+    "ja",
+    "ko",
+    "nb",
+    "nl",
+    "pt",
+    "pt-PT",
+    "sv",
+    "tr",
+    "vi",
+    "zh",
+    "zh-HK",
+    "zh-TW"
+  ],
+  "supports_id_ID": false,
+  "vision_capability": true,
+  "generation": {
+    "execution_order": "serial",
+    "guardrails": "default",
+    "maximum_response_tokens": 1024,
+    "request_deadline_seconds": 60,
+    "sampling": "greedy",
+    "session_per_case": "fresh"
+  },
+  "source_run_id": "e54cb8be-a426-472f-9b74-26155e2d9d0b",
+  "source_chunk_count": 53,
+  "chunks_sha256": "7c8434bbbd14ee99218cc90c60fb333f02301c57da75276431b79ab3de075651",
+  "diagram_sha256": "40001ae676457192c08df7c7e0b47659691235c789b5047c2333d3b8b1a06e9f",
+  "cases": [
+    {
+      "id": "english_control",
+      "raw_response": "The radius of a circle is the distance from its center to any point on its edge. It is half the length of the diameter.",
+      "request_wall_ms": 3965.7624582760036,
+      "status": "succeeded",
+      "total_wall_ms": 3995.151083334349,
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 87,
+        "output_tokens": 35,
+        "reasoning_tokens": 0
+      }
+    },
+    {
+      "id": "english_prompt_indonesian_output",
+      "raw_response": "Radius sebuah lingkaran adalah garis lurus yang menghubungkan pusat lingkaran dengan titik pada kelilingnya. Ukurannya menentukan besarnya lingkaran.",
+      "request_wall_ms": 1815.0327500188723,
+      "status": "succeeded",
+      "total_wall_ms": 1819.5286249974743,
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 93,
+        "output_tokens": 35,
+        "reasoning_tokens": 0
+      }
+    },
+    {
+      "id": "indonesian_prompt_indonesian_output",
+      "raw_response": "Jari-jari lingkaran adalah jarak dari pusat lingkaran ke batas lingkaran. Ukurannya menentukan luas dan luas lingkaran.",
+      "request_wall_ms": 1349.02916662395,
+      "status": "succeeded",
+      "total_wall_ms": 1352.549499948509,
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 90,
+        "output_tokens": 27,
+        "reasoning_tokens": 0
+      }
+    },
+    {
+      "id": "indonesian_topics",
+      "raw_response": "{\"topics\": [{\"lastChunkID\": \"p0001.layout.0002.c0001\", \"firstChunkID\": \"p0001.layout.0001.c0001\", \"title\": \"Suhu sudut pada lingkaran\"}, {\"lastChunkID\": \"p0001.layout.0007.c0001\", \"title\": \"Panjang busur pada lingkaran\", \"firstChunkID\": \"p0001.layout.0006.c0001\"}, {\"lastChunkID\": \"p0001.layout.0005.c0001\", \"title\": \"Luas lingkaran\", \"firstChunkID\": \"p0001.layout.0004.c0001\"}, {\"lastChunkID\": \"p0001.layout.0004.c0003\", \"title\": \"Keliling dan luas lingkaran\", \"firstChunkID\": \"p0001.layout.0003.c0001\"}, {\"title\": \"Luas daerah di sekitar lingkaran\", \"firstChunkID\": \"p0001.layout.0002.c0001\", \"lastChunkID\": \"p0001.layout.0003.c0003\"}, {\"lastChunkID\": \"p0001.layout.0010.c0002\", \"title\": \"Putaran roda\", \"firstChunkID\": \"p0001.layout.0009.c0001\"}, {\"title\": \"Suhu sudut pada segitiga\", \"lastChunkID\": \"p0001.layout.0012.c0001\", \"firstChunkID\": \"p0001.layout.0011.c0001\"}]}",
+      "request_wall_ms": 12049.329750007018,
+      "status": "succeeded",
+      "topic_validation": {
+        "content_rewritten": false,
+        "errors": [
+          "topic_count_out_of_bounds",
+          "gap_overlap_or_out_of_order",
+          "gap_overlap_or_out_of_order",
+          "invalid_or_unknown_chunk_range",
+          "invalid_or_unknown_chunk_range",
+          "invalid_or_unknown_chunk_range",
+          "invalid_or_unknown_chunk_range",
+          "incomplete_coverage"
+        ],
+        "source_chunk_count": 53,
+        "title_semantics": "requires_human_review",
+        "topic_count": 7,
+        "valid": false
+      },
+      "total_wall_ms": 12053.420624928549,
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 2805,
+        "output_tokens": 521,
+        "reasoning_tokens": 0
+      }
+    },
+    {
+      "id": "indonesian_diagram",
+      "raw_response": "{\"spokenDescription\": \"Gambar menunjukkan lingkaran dengan titik tengah P. Di lingkaran terdapat tiga titik: D, E, dan F. Sudut di titik F adalah 47 derajat. Sudut di titik E adalah (3x + 4) derajat. Sudut di titik D tidak diketahui.\", \"visibleLabels\": [\"P\", \"D\", \"E\", \"F\", \"47°\", \"(3x + 4)°\"], \"relationships\": [\"Titik D, E, dan F berada di lingkaran.\", \"Sudut di titik F dan sudut di titik E adalah sudut yang menghadap garis yang sama.\"], \"uncertainties\": [\"Nilai sudut di titik D tidak diketahui.\", \"Hubungan sudut di titik D dengan sudut di titik E atau F tidak dapat ditentukan.\"]}",
+      "request_wall_ms": 6065.469000022858,
+      "status": "succeeded",
+      "total_wall_ms": 6070.675999973901,
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 412,
+        "output_tokens": 203,
+        "reasoning_tokens": 0
+      }
+    }
+  ],
+  "artifact_checks": {
+    "canonical_projection_unchanged": true,
+    "chunks.json_hash_matches_device": true,
+    "chunks.json_transfer_identical": true,
+    "diagram.png_hash_matches_device": true,
+    "diagram.png_transfer_identical": true,
+    "source_files_match_compiled_build": true,
+    "original_poc_fingerprints_unchanged": true,
+    "no_cloud_provider_in_probe": true
+  },
+  "manual_observations": {
+    "indonesian_generation": {
+      "requested": 2,
+      "succeeded": 2,
+      "unsupported_language_error_observed": false,
+      "verdict": "Indonesian responses succeeded despite supportsLocale(id_ID) returning false; evidence limited to these prompts and this OS/device"
+    },
+    "prose_quality": "English-prompt Indonesian response is readable. Indonesian-prompt response repeats luas dan luas; successful generation is not a quality guarantee.",
+    "topics": {
+      "accepted": false,
+      "reason": "7 topics instead of requested 1-6; overlapping/reversed ranges, an unknown chunk ID, and incomplete coverage; title Suhu sudut is also poor wording",
+      "raw_source_note": "53 canonical sourceText chunks copied unchanged, including empty/incorrect OCR and footer. Reading order was not normalized before this experiment."
+    },
+    "diagram": {
+      "accepted": false,
+      "labels_read": [
+        "D",
+        "E",
+        "F",
+        "P",
+        "47°",
+        "(3x + 4)°"
+      ],
+      "observed_error": "Description places (3x + 4)° at E; source arc marks angle DPE at P. It also asserts P is the center without explicit textual confirmation in the crop.",
+      "verdict": "Image input and Indonesian structured output run successfully; geometry relationship accuracy is insufficient for direct reading."
+    }
+  },
+  "measurement_scope": "Request wall time includes system preparation; load and inference are not separately observable. Memory sampler measures Metra process, excluding separately hosted system-model service. No performance comparison to Qwen.",
+  "production_pipeline_model_changed": false,
+  "saved_material_modified": false,
+  "evidence_root": "Integration/verification/foundation-models-v1/04cce97b-4dec-4f5f-bda7-4d358e15d319",
+  "report_artifact": "Integration/verification/foundation-models-v1/04cce97b-4dec-4f5f-bda7-4d358e15d319/device-output/report.json",
+  "test_suite_added_or_run": false,
+  "limitations": [
+    "Five serial requests in one device session; no repeated stability measurement.",
+    "No identical-prompt Qwen benchmark, no general speed/quality comparison.",
+    "No real learning-assistant conversation or broad diagram dataset tested.",
+    "OS owns model assets; no independently pinned checkpoint revision or measured system-service memory.",
+    "Production Qwen adapters and current unit/choice-order issues are unchanged."
+  ]
+}

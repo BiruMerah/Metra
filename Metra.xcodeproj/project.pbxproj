@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B20000000000000000000001 /* MathJaxBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000001 /* MathJaxBridge.html */; };
-		B20000000000000000000002 /* diagram-v1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000002 /* diagram-v1.txt */; };
 		B20000000000000000000003 /* model-manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000003 /* model-manifest.json */; };
 		B20000000000000000000004 /* tex-mml-chtml-nofont.js in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000004 /* tex-mml-chtml-nofont.js */; };
 		B20000000000000000000005 /* PP-DocLayout-L.onnx in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000005 /* PP-DocLayout-L.onnx */; };
@@ -16,33 +15,14 @@
 		B20000000000000000000007 /* UniMERNet in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000007 /* UniMERNet */; };
 		B20000000000000000000008 /* MathCATRules in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000008 /* MathCATRules */; };
 		B20000000000000000000009 /* MathJaxExtensions in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000009 /* MathJaxExtensions */; };
-		B20000000000000000000010 /* topic-v1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000010 /* topic-v1.txt */; };
-		B20000000000000000000011 /* diagram-spoken-v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000011 /* diagram-spoken-v2.txt */; };
-		B20000000000000000000012 /* diagram-spoken-v3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000012 /* diagram-spoken-v3.txt */; };
-		B20000000000000000000013 /* diagram-spoken-v4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000013 /* diagram-spoken-v4.txt */; };
-		B20000000000000000000014 /* diagram-spoken-v5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000014 /* diagram-spoken-v5.txt */; };
-		B20000000000000000000015 /* diagram-relations-v1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000015 /* diagram-relations-v1.txt */; };
-		B20000000000000000000016 /* diagram-relations-v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000016 /* diagram-relations-v2.txt */; };
-		B20000000000000000000017 /* diagram-relations-v3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000017 /* diagram-relations-v3.txt */; };
-		B20000000000000000000018 /* diagram-relations-v4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000018 /* diagram-relations-v4.txt */; };
-		B20000000000000000000019 /* Qwen3-VL-2B-4bit in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000019 /* Qwen3-VL-2B-4bit */; };
-		B20000000000000000000020 /* topic-navigation-v1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000020 /* topic-navigation-v1.txt */; };
-		B20000000000000000000021 /* topic-navigation-v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000021 /* topic-navigation-v2.txt */; };
-		B20000000000000000000022 /* topic-navigation-v3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000022 /* topic-navigation-v3.txt */; };
-		B30000000000000000000001 /* MLX in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000001 /* MLX */; };
-		B30000000000000000000002 /* MLXVLM in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000002 /* MLXVLM */; };
-		B30000000000000000000003 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000003 /* MLXLMCommon */; };
-		B30000000000000000000004 /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000004 /* MLXHuggingFace */; };
-		B30000000000000000000005 /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000005 /* Tokenizers */; };
-		B30000000000000000000006 /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000006 /* HuggingFace */; };
+		B20000000000000000000023 /* Pix2Text-MFD.onnx in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000023 /* Pix2Text-MFD.onnx */; };
+		B20000000000000000000024 /* Pix2Text-MFD.config.json in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000024 /* Pix2Text-MFD.config.json */; };
 		B30000000000000000000007 /* onnxruntime in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000007 /* onnxruntime */; };
-		B30000000000000000000008 /* MLXGuidedGeneration in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000008 /* MLXGuidedGeneration */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5FDAA23C3084E66A00242B25 /* Metra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20000000000000000000001 /* MathJaxBridge.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MathJaxBridge.html; sourceTree = "<group>"; };
-		F20000000000000000000002 /* diagram-v1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-v1.txt"; sourceTree = "<group>"; };
 		F20000000000000000000003 /* model-manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "model-manifest.json"; sourceTree = "<group>"; };
 		F20000000000000000000004 /* tex-mml-chtml-nofont.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tex-mml-chtml-nofont.js"; sourceTree = "<group>"; };
 		F20000000000000000000005 /* PP-DocLayout-L.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PP-DocLayout-L.onnx"; sourceTree = "<group>"; };
@@ -50,19 +30,8 @@
 		F20000000000000000000007 /* UniMERNet */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UniMERNet; sourceTree = "<group>"; };
 		F20000000000000000000008 /* MathCATRules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MathCATRules; sourceTree = "<group>"; };
 		F20000000000000000000009 /* MathJaxExtensions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MathJaxExtensions; sourceTree = "<group>"; };
-		F20000000000000000000010 /* topic-v1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "topic-v1.txt"; sourceTree = "<group>"; };
-		F20000000000000000000011 /* diagram-spoken-v2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-spoken-v2.txt"; sourceTree = "<group>"; };
-		F20000000000000000000012 /* diagram-spoken-v3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-spoken-v3.txt"; sourceTree = "<group>"; };
-		F20000000000000000000013 /* diagram-spoken-v4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-spoken-v4.txt"; sourceTree = "<group>"; };
-		F20000000000000000000014 /* diagram-spoken-v5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-spoken-v5.txt"; sourceTree = "<group>"; };
-		F20000000000000000000015 /* diagram-relations-v1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-relations-v1.txt"; sourceTree = "<group>"; };
-		F20000000000000000000016 /* diagram-relations-v2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-relations-v2.txt"; sourceTree = "<group>"; };
-		F20000000000000000000017 /* diagram-relations-v3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-relations-v3.txt"; sourceTree = "<group>"; };
-		F20000000000000000000018 /* diagram-relations-v4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "diagram-relations-v4.txt"; sourceTree = "<group>"; };
-		F20000000000000000000019 /* Qwen3-VL-2B-4bit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Qwen3-VL-2B-4bit"; sourceTree = "<group>"; };
-		F20000000000000000000020 /* topic-navigation-v1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "topic-navigation-v1.txt"; sourceTree = "<group>"; };
-		F20000000000000000000021 /* topic-navigation-v2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "topic-navigation-v2.txt"; sourceTree = "<group>"; };
-		F20000000000000000000022 /* topic-navigation-v3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "topic-navigation-v3.txt"; sourceTree = "<group>"; };
+		F20000000000000000000023 /* Pix2Text-MFD.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pix2Text-MFD.onnx"; sourceTree = "<group>"; };
+		F20000000000000000000024 /* Pix2Text-MFD.config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Pix2Text-MFD.config.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -77,13 +46,6 @@
 		5FDAA2393084E66A00242B25 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				B30000000000000000000008 /* MLXGuidedGeneration in Frameworks */,
-				B30000000000000000000001 /* MLX in Frameworks */,
-				B30000000000000000000002 /* MLXVLM in Frameworks */,
-				B30000000000000000000003 /* MLXLMCommon in Frameworks */,
-				B30000000000000000000004 /* MLXHuggingFace in Frameworks */,
-				B30000000000000000000005 /* Tokenizers in Frameworks */,
-				B30000000000000000000006 /* HuggingFace in Frameworks */,
 				B30000000000000000000007 /* onnxruntime in Frameworks */,
 			);
 		};
@@ -110,26 +72,14 @@
 		D10000000000000000000008 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F20000000000000000000019 /* Qwen3-VL-2B-4bit */,
+				F20000000000000000000023 /* Pix2Text-MFD.onnx */,
+				F20000000000000000000024 /* Pix2Text-MFD.config.json */,
 				F20000000000000000000009 /* MathJaxExtensions */,
-				F20000000000000000000010 /* topic-v1.txt */,
-				F20000000000000000000020 /* topic-navigation-v1.txt */,
-				F20000000000000000000021 /* topic-navigation-v2.txt */,
-				F20000000000000000000022 /* topic-navigation-v3.txt */,
-				F20000000000000000000011 /* diagram-spoken-v2.txt */,
-				F20000000000000000000012 /* diagram-spoken-v3.txt */,
-				F20000000000000000000013 /* diagram-spoken-v4.txt */,
-				F20000000000000000000014 /* diagram-spoken-v5.txt */,
-				F20000000000000000000015 /* diagram-relations-v1.txt */,
-				F20000000000000000000016 /* diagram-relations-v2.txt */,
-				F20000000000000000000017 /* diagram-relations-v3.txt */,
-				F20000000000000000000018 /* diagram-relations-v4.txt */,
 				F20000000000000000000008 /* MathCATRules */,
 				F20000000000000000000007 /* UniMERNet */,
 				F20000000000000000000006 /* PP-DocLayout-L.config.json */,
 				F20000000000000000000005 /* PP-DocLayout-L.onnx */,
 				F20000000000000000000001 /* MathJaxBridge.html */,
-				F20000000000000000000002 /* diagram-v1.txt */,
 				F20000000000000000000003 /* model-manifest.json */,
 				D10000000000000000000009 /* MathJax */,
 			);
@@ -162,14 +112,7 @@
 			);
 			name = Metra;
 			packageProductDependencies = (
-				A40000000000000000000001 /* MLX */,
-				A40000000000000000000002 /* MLXVLM */,
-				A40000000000000000000003 /* MLXLMCommon */,
-				A40000000000000000000004 /* MLXHuggingFace */,
-				A40000000000000000000005 /* Tokenizers */,
-				A40000000000000000000006 /* HuggingFace */,
 				A40000000000000000000007 /* onnxruntime */,
-				A40000000000000000000008 /* MLXGuidedGeneration */,
 			);
 			productName = Metra;
 			productReference = 5FDAA23C3084E66A00242B25 /* Metra.app */;
@@ -200,10 +143,6 @@
 			mainGroup = 5FDAA2333084E66A00242B25;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				A30000000000000000000001 /* XCRemoteSwiftPackageReference "mlx-swift" */,
-				A30000000000000000000002 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
-				A30000000000000000000003 /* XCRemoteSwiftPackageReference "swift-transformers" */,
-				A30000000000000000000004 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
 				A30000000000000000000005 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -220,21 +159,9 @@
 		5FDAA23A3084E66A00242B25 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				B20000000000000000000019 /* Qwen3-VL-2B-4bit in Resources */,
-				B20000000000000000000018 /* diagram-relations-v4.txt in Resources */,
-				B20000000000000000000017 /* diagram-relations-v3.txt in Resources */,
-				B20000000000000000000016 /* diagram-relations-v2.txt in Resources */,
-				B20000000000000000000015 /* diagram-relations-v1.txt in Resources */,
-				B20000000000000000000014 /* diagram-spoken-v5.txt in Resources */,
-				B20000000000000000000013 /* diagram-spoken-v4.txt in Resources */,
-				B20000000000000000000012 /* diagram-spoken-v3.txt in Resources */,
-				B20000000000000000000011 /* diagram-spoken-v2.txt in Resources */,
-				B20000000000000000000010 /* topic-v1.txt in Resources */,
-				B20000000000000000000020 /* topic-navigation-v1.txt in Resources */,
-				B20000000000000000000021 /* topic-navigation-v2.txt in Resources */,
-				B20000000000000000000022 /* topic-navigation-v3.txt in Resources */,
+				B20000000000000000000023 /* Pix2Text-MFD.onnx in Resources */,
+				B20000000000000000000024 /* Pix2Text-MFD.config.json in Resources */,
 				B20000000000000000000001 /* MathJaxBridge.html in Resources */,
-				B20000000000000000000002 /* diagram-v1.txt in Resources */,
 				B20000000000000000000003 /* model-manifest.json in Resources */,
 				B20000000000000000000004 /* tex-mml-chtml-nofont.js in Resources */,
 				B20000000000000000000005 /* PP-DocLayout-L.onnx in Resources */,
@@ -382,7 +309,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = U3CC574JGM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -433,7 +360,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = U3CC574JGM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -500,38 +427,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A30000000000000000000001 /* XCRemoteSwiftPackageReference "mlx-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ml-explore/mlx-swift";
-			requirement = {
-				kind = exactVersion;
-				version = 0.32.3;
-			};
-		};
-		A30000000000000000000002 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm";
-			requirement = {
-				kind = exactVersion;
-				version = 3.32.3;
-			};
-		};
-		A30000000000000000000003 /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/huggingface/swift-transformers";
-			requirement = {
-				kind = exactVersion;
-				version = 1.3.5;
-			};
-		};
-		A30000000000000000000004 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/huggingface/swift-huggingface";
-			requirement = {
-				kind = exactVersion;
-				version = 0.13.0;
-			};
-		};
 		A30000000000000000000005 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/microsoft/onnxruntime-swift-package-manager";
@@ -543,45 +438,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A40000000000000000000001 /* MLX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000001 /* XCRemoteSwiftPackageReference "mlx-swift" */;
-			productName = MLX;
-		};
-		A40000000000000000000002 /* MLXVLM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000002 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXVLM;
-		};
-		A40000000000000000000003 /* MLXLMCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000002 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXLMCommon;
-		};
-		A40000000000000000000004 /* MLXHuggingFace */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000002 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXHuggingFace;
-		};
-		A40000000000000000000005 /* Tokenizers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000003 /* XCRemoteSwiftPackageReference "swift-transformers" */;
-			productName = Tokenizers;
-		};
-		A40000000000000000000006 /* HuggingFace */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000004 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
-			productName = HuggingFace;
-		};
 		A40000000000000000000007 /* onnxruntime */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A30000000000000000000005 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */;
 			productName = onnxruntime;
-		};
-		A40000000000000000000008 /* MLXGuidedGeneration */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A30000000000000000000002 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
-			productName = MLXGuidedGeneration;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

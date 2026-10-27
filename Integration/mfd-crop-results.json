@@ -1,0 +1,455 @@
+{
+  "schema": "metra-mfd-crop-integration-results-v1",
+  "recorded_at_utc": "2026-10-26T09:23:39.392888+00:00",
+  "branch": "feat/poc-integration",
+  "app_build": "14",
+  "signed_build": "succeeded",
+  "installed_on_iphone": true,
+  "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+  "source_dimensions": [
+    1127,
+    1600
+  ],
+  "model": {
+    "modelID": "breezedeus/pix2text-mfd",
+    "sourceRevision": "fc3797af79391c32ed0d56f8b5f437b5a49271be",
+    "sourceFile": "mfd-v20240618.onnx",
+    "sha256": "51a8854743b17ae654729af8db82a630c1ccfa06debf4856c8b28055f87d02c1",
+    "bytes": 44573224,
+    "precision": "FP32, verified ONNX initializer type float",
+    "opset": 17,
+    "inputName": "images",
+    "outputName": "output0",
+    "labels": [
+      "embedding",
+      "isolated"
+    ],
+    "tensorLayout": "[1,6,N]: center_x,center_y,width,height,embedding_score,isolated_score; no objectness channel",
+    "targetWidth": 768,
+    "maxInputSide": 1536,
+    "stride": 32,
+    "scoreThreshold": 0.25,
+    "nmsSameClassIOU": 0.7,
+    "maxDetections": 300,
+    "paddingValue": 114,
+    "preprocessing": "Aspect-preserving width-768 target, stride-32 ceil canvas, half-pixel bilinear RGB rounded uint8, centered padding 114, float32 NCHW /255. Cap canvas long side at1536. Swift decode/resize parity with OpenCV not measured.",
+    "preprocessingReference": "Pix2Text text_formula_ocr.py computes H/W-scaled target width768; CnSTD YoloDetector delegates to Ultralytics. Explicit static canvas and no additional CnSTD dedup_boxes containment deletion.",
+    "licenseMetadata": {
+      "huggingFaceModelCard": "mit",
+      "embeddedOnnx": "AGPL-3.0 License (https://ultralytics.com/license)",
+      "note": "Both declarations retained verbatim as provenance; redistribution compatibility not assessed."
+    }
+  },
+  "device": {
+    "hardware_model_identifier": "iPhone18,3",
+    "model": "iPhone",
+    "physical_memory_bytes": 8045641728,
+    "system_name": "iOS",
+    "system_version": "27.0.1"
+  },
+  "execution_scope": "One independent MFD detector pilot (build12), one initial integrated run (build13), and one corrected integrated run (build14), all on physical iPhone. Mac preparation/build/transfer/report inspection only.",
+  "detector_pilot": {
+    "attempt_id": "271c7caa-1b5e-46c4-9f30-7534a3a9a8fd",
+    "build": {
+      "app_version": "1.0",
+      "build_number": "12",
+      "bundle_id": "id.birumerah.Metra",
+      "configuration": "Debug",
+      "debugger_attached": null
+    },
+    "completed_at": "2026-10-26T09:00:25Z",
+    "counts_by_label": [
+      {
+        "class_id": 0,
+        "count": 14
+      }
+    ],
+    "device": {
+      "hardware_model_identifier": "iPhone18,3",
+      "system_version": "27.0.1"
+    },
+    "layout_artifact": "pages/p0001/mfd.raw.json",
+    "metrics_ms": {
+      "artifact_write_ms": 25.010625016875565,
+      "inference_ms": 244.11612504627556,
+      "model_load_ms": 96.7574167298153,
+      "postprocess_ms": 25.633916608057916,
+      "preprocess_ms": 322.8380415821448,
+      "queue_wait_ms": 0.027416623197495937,
+      "total_ms": 714.356750017032
+    },
+    "model_was_warm": false,
+    "normalized_sha256": "6aa2cd681c4aff180b149fb03eeea71ee29ae896af8afe220a9a8975c8de9dd0",
+    "overlay_artifact": "pages/p0001/mfd-overlay.png",
+    "page_size": [
+      1127,
+      1600
+    ],
+    "raw_box_count": 17640,
+    "region_count": 14,
+    "saved_material_modified": false,
+    "schema": "metra-mfd-only-device-v1",
+    "scope": "One image, Pix2Text-MFD only; no recognizer or other model inference",
+    "source_accuracy": "not_assessed",
+    "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+    "started_at": "2026-10-26T09:00:24Z",
+    "status": "completed"
+  },
+  "initial_integration": {
+    "build": "13",
+    "run_id": "2f37fb69-df92-4c0c-810c-d25e709ead19",
+    "active_mfd_regions": 7,
+    "failure_observed": "Plain 88 was incorrectly recognized as an orphan superscript and reached final speech. Unit validator also rejected empty mspace. All failing raw/source artifacts retained."
+  },
+  "final_integration": {
+    "build": "14",
+    "attempt_id": "21151a45-efed-4841-9135-03f79691a83a",
+    "run_id": "e54cb8be-a426-472f-9b74-26155e2d9d0b",
+    "saved_material_title": "Materi — uji crop gabungan",
+    "raw_mfd_regions": 14,
+    "active_mfd_crops": 2,
+    "merge_decisions_by_action": {
+      "withheld_overlap_with_vision_proposals": 5,
+      "added_gap_crop": 1,
+      "covered_or_withheld_by_existing_doclayout_roi": 2,
+      "withheld_plain_source_literal": 5,
+      "fused_with_explicit_vision_range": 1
+    },
+    "mfd_final_formulas": [
+      {
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.mfd.05304.combined.png",
+          "crop_merge": "pages/p0001/mfd-crop-merge.json",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0012/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0012/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0012/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0012/unimernet.raw.json",
+          "unit_consistency": "pages/p0001/formulas/p0001.formula.0012/unit-consistency.json"
+        },
+        "bboxPageXYXY": {
+          "xmax": 358,
+          "xmin": 250,
+          "ymax": 647,
+          "ymin": 601
+        },
+        "id": "p0001.formula.0012",
+        "latex": "1 5 4 \\, { \\mathsf { c m } } ^ { 2 }",
+        "mergeMethods": [
+          "explicit_ocr_proposal_range"
+        ],
+        "recognitionRoute": [
+          "pix2text_mfd_image_proposal_v1",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "recognitionStatus": "spoken_generated",
+        "reviewReasons": [],
+        "segmentID": "p0001.layout.0039.s0002",
+        "sourceConsistencyStatus": "image_length_unit_consistent",
+        "sourceText": "154 cm2",
+        "spokenText": "154 c m kuadrat",
+        "status": "ready"
+      },
+      {
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.mfd.10245.combined.png",
+          "crop_merge": "pages/p0001/mfd-crop-merge.json",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0024/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0024/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0024/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0024/unimernet.raw.json"
+        },
+        "bboxPageXYXY": {
+          "xmax": 837,
+          "xmin": 788,
+          "ymax": 1249,
+          "ymin": 1207
+        },
+        "id": "p0001.formula.0024",
+        "latex": "4 7 ^ { \\circ }",
+        "mergeMethods": [
+          "mathml_token_match_with_geometry"
+        ],
+        "recognitionRoute": [
+          "pix2text_mfd_image_proposal_v1",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "recognitionStatus": "spoken_generated",
+        "reviewReasons": [],
+        "segmentID": "p0001.layout.0007.s0002",
+        "sourceConsistencyStatus": "not_assessed",
+        "sourceText": "47°",
+        "spokenText": "47 derajat",
+        "status": "ready"
+      }
+    ],
+    "unit_ranges": 8,
+    "unit_ranges_ready": 6,
+    "unit_results": [
+      {
+        "id": "p0001.formula.0012",
+        "region_id": "p0001.mfd.05304",
+        "source": "154 cm2",
+        "latex": "1 5 4 \\, { \\mathsf { c m } } ^ { 2 }",
+        "status": "ready",
+        "spoken": "154 c m kuadrat",
+        "unit_check": {
+          "allowed": true,
+          "expected": {
+            "number": "154",
+            "rawSuffix": "2",
+            "unit": "cm"
+          },
+          "reason": "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "154",
+          "recognizedSuffix": "",
+          "recognizedUnit": "cm",
+          "source": "154 cm2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0013",
+        "region_id": "p0001.ocrmath.16.3",
+        "source": "616 cm2",
+        "latex": "6 1 6 c m ^ { 2 }",
+        "status": "needs_review",
+        "spoken": null,
+        "unit_check": {
+          "allowed": false,
+          "expected": {
+            "number": "616",
+            "rawSuffix": "2",
+            "unit": "cm"
+          },
+          "reason": "Withheld: number/unit mismatch, extra model token, missing/unsupported power, or explicit exponent conflict; raw model and source retained unchanged",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "616c",
+          "recognizedSuffix": "",
+          "recognizedUnit": "m",
+          "source": "616 cm2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0014",
+        "region_id": "p0001.ocrmath.18.3",
+        "source": "1.028 cm2",
+        "latex": "1 . 0 2 8 \\, \\mathsf { c m } ^ { 2 }",
+        "status": "ready",
+        "spoken": "1028 c m kuadrat",
+        "unit_check": {
+          "allowed": true,
+          "expected": {
+            "number": "1.028",
+            "rawSuffix": "2",
+            "unit": "cm"
+          },
+          "reason": "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "1.028",
+          "recognizedSuffix": "",
+          "recognizedUnit": "cm",
+          "source": "1.028 cm2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0015",
+        "region_id": "p0001.ocrmath.19.3",
+        "source": "324 cm2",
+        "latex": "3 2 4 c m ^ { 2 }",
+        "status": "needs_review",
+        "spoken": null,
+        "unit_check": {
+          "allowed": false,
+          "expected": {
+            "number": "324",
+            "rawSuffix": "2",
+            "unit": "cm"
+          },
+          "reason": "Withheld: number/unit mismatch, extra model token, missing/unsupported power, or explicit exponent conflict; raw model and source retained unchanged",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "324c",
+          "recognizedSuffix": "",
+          "recognizedUnit": "m",
+          "source": "324 cm2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0019",
+        "region_id": "p0001.ocrmath.23.3",
+        "source": "616 m2",
+        "latex": "6 1 6 m ^ { 2 }",
+        "status": "ready",
+        "spoken": "616 m kuadrat",
+        "unit_check": {
+          "allowed": true,
+          "expected": {
+            "number": "616",
+            "rawSuffix": "2",
+            "unit": "m"
+          },
+          "reason": "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "616",
+          "recognizedSuffix": "",
+          "recognizedUnit": "m",
+          "source": "616 m2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0020",
+        "region_id": "p0001.ocrmath.24.3",
+        "source": "1.386 m2",
+        "latex": "1 . 3 8 6 \\, \\mathsf { m } ^ { 2 }",
+        "status": "ready",
+        "spoken": "1386 m kuadrat",
+        "unit_check": {
+          "allowed": true,
+          "expected": {
+            "number": "1.386",
+            "rawSuffix": "2",
+            "unit": "m"
+          },
+          "reason": "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "1.386",
+          "recognizedSuffix": "",
+          "recognizedUnit": "m",
+          "source": "1.386 m2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0021",
+        "region_id": "p0001.ocrmath.25.3",
+        "source": "770 mг",
+        "latex": "7 7 0 m ^ { 2 }",
+        "status": "ready",
+        "spoken": "770 m kuadrat",
+        "unit_check": {
+          "allowed": true,
+          "expected": {
+            "number": "770",
+            "rawSuffix": "г",
+            "unit": "m"
+          },
+          "reason": "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "770",
+          "recognizedSuffix": "",
+          "recognizedUnit": "m",
+          "source": "770 mг",
+          "version": "image_length_unit_consistency_v2"
+        }
+      },
+      {
+        "id": "p0001.formula.0022",
+        "region_id": "p0001.ocrmath.26.3",
+        "source": "1.540 m2",
+        "latex": "1 . 5 4 0 \\, \\mathrm { m } ^ { 2 }",
+        "status": "ready",
+        "spoken": "1540 m kuadrat",
+        "unit_check": {
+          "allowed": true,
+          "expected": {
+            "number": "1.540",
+            "rawSuffix": "2",
+            "unit": "m"
+          },
+          "reason": "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed",
+          "recognizedExponent": "2",
+          "recognizedPrefix": "1.540",
+          "recognizedSuffix": "",
+          "recognizedUnit": "m",
+          "source": "1.540 m2",
+          "version": "image_length_unit_consistency_v2"
+        }
+      }
+    ],
+    "formula_counts": {
+      "count_scope": "Active DocLayout, Vision and MFD crop proposals after conservative merge; raw MFD and retired Vision proposals remain in separate artifacts. Counts are not unique correct source formulas.",
+      "detected": 32,
+      "detected_in_successful_pages": 32,
+      "literal_numeric_parsed": 2,
+      "mfd_active_crop_proposals": 2,
+      "missed_on_reviewed_pages": null,
+      "pp_doclayout_formula_regions": 5,
+      "recognized": 32,
+      "recognized_count_scope": "successful UniMERNet or literal Vision numeric parsing, not source correctness",
+      "source_consistency_flags": 19,
+      "spoken": 32,
+      "spoken_merge_allowed": 13,
+      "unimernet_recognized": 30,
+      "unresolved": 0,
+      "vision_math_roi_proposals": 25
+    },
+    "mfd_metrics_ms": {
+      "artifact_write_ms": 24.105791584588587,
+      "inference_ms": 196.74791663419455,
+      "model_load_ms": 59.430916677229106,
+      "postprocess_ms": 25.503041688352823,
+      "preprocess_ms": 365.38454168476164,
+      "queue_wait_ms": 0.004791771061718464,
+      "total_ms": 671.1726665962487
+    },
+    "merge_checks_on_saved_device_artifacts": {
+      "same_attached_source": true,
+      "every_mfd_region_has_one_decision": true,
+      "retired_vision_source_not_recognized_twice": true,
+      "mfd_formula_source_slice_counts": {
+        "p0001.formula.0012": 1,
+        "p0001.formula.0024": 1
+      },
+      "all_active_mfd_formulas_ready_once": true,
+      "ordinary_88_proposal_withheld": true,
+      "ordinary_88_source_and_spoken_identical": true,
+      "cm_unit_with_separate_c_and_raised_m_still_withheld": true
+    },
+    "raw_output_comparison_build13_to14": {
+      "common_active_region_count": 32,
+      "identical_raw_latex_count": 32,
+      "all_common_raw_latex_identical": true,
+      "same_mfd_predictions": true
+    },
+    "full_run_memory": {
+      "interval_ms": 200,
+      "sampled_peak_bytes": 2685702072,
+      "sampler": "task_info(TASK_VM_INFO).phys_footprint",
+      "scope": "app process only; WebContent excluded"
+    }
+  },
+  "policies": {
+    "crop_merge": "supplemental_mfd_crop_merge_v2",
+    "source_alignment": "whole_occurrence_utf16_v4",
+    "unit_validation": "image_length_unit_consistency_v2"
+  },
+  "limitations": [
+    "One page, not a full-page accuracy audit or stability benchmark. MFD alone did not detect all eight complete squared-unit answer expressions.",
+    "154 cm² uses the full pre-existing Vision quantity crop corroborated by a smaller MFD numeric box; six accepted unit results are not six new MFD detections.",
+    "324 cm² and 616 cm² remain withheld: model MathML places c outside the raised m. No reinterpretation or replacement speech was generated.",
+    "Diagram-region MFD integration remains withheld; geometry understanding is unchanged. Existing unrelated OCR/recognition issues remain visible in raw and final artifacts.",
+    "No full baseline extraction without MFD on identical pixels was run; no general accuracy gain claimed.",
+    "Empty mspace is ignored only during validation. Numeric-degree alignment uses existing MathCAT canonical output only when all other tokens agree. Raw OCR/LaTeX/MathML/speech remain intact.",
+    "VoiceOver gestures/audio, camera inputs, multiple pages and cancellation were not tested in this pilot."
+  ],
+  "existing_checkpoints_and_generation_parameters_changed": false,
+  "original_poc_untouched": true,
+  "old_experiments_preserved": true,
+  "test_suite_added_or_run": false,
+  "committed": false,
+  "pushed": false,
+  "artifacts": {
+    "final_run": "Integration/verification/pix2text-mfd-v1/271c7caa-1b5e-46c4-9f30-7534a3a9a8fd/replay-build14/21151a45-efed-4841-9135-03f79691a83a/run",
+    "initial_run": "Integration/verification/pix2text-mfd-v1/271c7caa-1b5e-46c4-9f30-7534a3a9a8fd/run-build13",
+    "overlay": "Integration/verification/pix2text-mfd-v1/271c7caa-1b5e-46c4-9f30-7534a3a9a8fd/replay-build14/21151a45-efed-4841-9135-03f79691a83a/run/pages/p0001/combined-layout-overlay.png",
+    "compiled_source_sha256": "Integration/verification/pix2text-mfd-v1/271c7caa-1b5e-46c4-9f30-7534a3a9a8fd/compiled-build14-sha256.json"
+  }
+}

@@ -15,15 +15,14 @@ final class MaterialImportViewModel {
     var pages: [MaterialImageInput] = []
     var isLoadingPhotos = false
     var isProcessing = false
-    var isImportingModel = false
     var showCamera = false
     var progressText = ""
     var errorMessage: String?
     var diagramModelIsAvailable = false
-    var diagramModelIsBundled = false
+    var diagramModelUsesSystem = false
     var diagramModelStatus = ""
     var hasResultToSave: Bool { pendingMaterial != nil }
-    var isBusy: Bool { isLoadingPhotos || isProcessing || isImportingModel }
+    var isBusy: Bool { isLoadingPhotos || isProcessing }
 
     // MARK: - Dependencies
     private unowned let coordinator: AppCoordinator
@@ -151,17 +150,9 @@ final class MaterialImportViewModel {
         extractionService.cancel()
     }
 
-    func importDiagramModel(from folder: URL) async {
-        guard !isBusy else { return }
-        isImportingModel = true
-        defer { isImportingModel = false; refreshModelStatus() }
-        do { try await extractionService.importDiagramModel(from: folder) }
-        catch { errorMessage = error.localizedDescription }
-    }
-
     private func refreshModelStatus() {
         diagramModelIsAvailable = extractionService.diagramModelIsAvailable
-        diagramModelIsBundled = extractionService.diagramModelIsBundled
+        diagramModelUsesSystem = extractionService.diagramModelUsesSystem
         diagramModelStatus = extractionService.diagramModelStatus
     }
 }

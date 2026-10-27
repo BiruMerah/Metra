@@ -41,9 +41,24 @@ struct MetraApp: App {
                 ContentView(coordinator: coordinator).modelContainer(modelContainer)
                     .task {
                         #if DEBUG
-                        // Explicit device experiment: open an existing material;
-                        // no new OCR run, arbitrary paths, or synthetic content.
+                        // Device experiments run only with an explicit launch flag.
                         let args = ProcessInfo.processInfo.arguments
+                        if let position = args.firstIndex(of: "--metra-foundation-probe"), args.indices.contains(position + 1) {
+                            await FoundationModelsDeviceProbe.run(attemptID: args[position + 1])
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-mfd-replay"), args.indices.contains(position + 1) {
+                            await MFDCropIntegrationDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-mfd-only"), args.indices.contains(position + 1) {
+                            await LayoutOnlyDeviceProbe.run(attemptID: args[position + 1], mfdOnly: true)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-layout-only"), args.indices.contains(position + 1) {
+                            await LayoutOnlyDeviceProbe.run(attemptID: args[position + 1])
+                            return
+                        }
                         if let position = args.firstIndex(of: "--metra-unit-replay"), args.indices.contains(position + 1) {
                             await UnitPowerDeviceProbe.run(sourceRunID: args[position + 1], coordinator: coordinator)
                             return

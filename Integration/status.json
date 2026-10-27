@@ -1,27 +1,24 @@
 {
   "schema": "metra-poc-integration-status-v1",
-  "recorded_at_utc": "2026-10-26T03:30:36.257203+00:00",
+  "recorded_at_utc": "2026-10-26T16:53:50.237258+00:00",
   "branch": "feat/poc-integration",
   "base_commit": "5c5a785",
   "poc_source_build": "29",
   "app_bundle": "id.birumerah.Metra",
-  "app_build": "10",
+  "app_build": "20",
   "build": {
-    "sdk": "iphoneos27.0",
-    "configuration": "Debug",
     "status": "succeeded",
     "signed": true,
     "device_installation": "succeeded",
-    "log": "verification/unit-powers-v1/build-10-signed-recorded.log",
-    "warnings": [
-      "2026-10-26 10:26:44.196 appintentsmetadataprocessor[94244:4346317] warning: Metadata extraction skipped, no AppIntents.framework dependency found"
-    ]
+    "configuration": "Debug",
+    "sdk": "iphoneos27.0",
+    "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-fix-v1/5cd51b38-9941-4d38-a618-0acd74a40b63/build20.log"
   },
   "bundle_resources_verified": true,
   "bundle_info": {
     "CFBundleIdentifier": "id.birumerah.Metra",
     "CFBundleExecutable": "Metra",
-    "CFBundleVersion": "10",
+    "CFBundleVersion": "20",
     "MinimumOSVersion": "27.0",
     "NSCameraUsageDescription": "Metra memakai kamera untuk mengambil foto halaman matematika yang Anda pilih.",
     "UIFileSharingEnabled": true,
@@ -29,30 +26,26 @@
     "MetraBuildConfiguration": "Debug"
   },
   "source_poc_untouched": true,
-  "model_runtime_pins_changed": false,
-  "device_inference": "Historical topic/navigation and build7 audit evidence retained; user-generated build9 extraction inspected from existing reports. No automatic build10 app launch/inference.",
+  "model_runtime_pins_changed": true,
+  "device_inference": "three new one-image physical-device extractions; Foundation generation succeeded in builds18/19; quality partial",
   "swiftdata_migration_and_reopen": "existing build-3 material saved and reopened with identical canonical fields and persisted v3 topic index; legacy schema migration not tested",
-  "tests_added_or_run": true,
+  "tests_added_or_run": "User-authorized three new full on-device extractions for canonical request fix, stage comparisons, request-integrity checks and baseline core regression audit; no general test suite",
   "onnx_models_ignored_by_git": true,
   "untracked_files_over_50MiB": [],
   "committed": false,
   "pushed": false,
   "limitations": [
-    "Single existing materi_003 page was used; topic semantic quality and source accuracy remain unassessed.",
-    "ViewModel navigation and presentation snapshots were checked on iPhone; actual VoiceOver focus/gestures/audio were not tested.",
-    "No new image extraction, legacy-store migration, cross-page continuity or fallback/cancellation fault injection was performed in this pilot.",
-    "Bundled Qwen was exercised text-only; the integrated diagram vision path was not rerun here.",
-    "MathCAT simulator slice is not bundled.",
-    "Saved old material is not automatically remerged; process the image again.",
-    "Build10 unit recognition is pending the user-run check; no new unit inference or fixtures were executed.",
-    "Length-unit matching may withhold output for OCR digit/separator conflicts; no exponent or speech is fabricated."
+    "Prose crop of (3x+4) degree still has extra model token and is withheld; diagram crop succeeds",
+    "Diagram 47 degree vertex wrong in raw response; source validator rejects; D-F connection omitted",
+    "Footer OCR prevents question36 structural normalization; four choice chunks remain in source order",
+    "No general diagram benchmark, multi-page test, new camera capture, VoiceOver audio or restart/reopen proof in this task"
   ],
   "native_mathcat_binary_unchanged": true,
   "diff_whitespace_check": "passed",
-  "qwen_bundled": true,
-  "qwen_bundle_files_verified": true,
+  "qwen_bundled": false,
+  "qwen_bundle_files_verified": "absent_in_fresh_bundle",
   "iphone_model_import_required": false,
-  "qwen_loading_from_bundle_on_device": "succeeded for text-only topic inference",
+  "qwen_loading_from_bundle_on_device": "removed from production",
   "topic_navigation_results": "topic-navigation-results.json",
   "topic_navigation_checks": "passed exact coverage, unchanged content, save/reopen, no rerun on reopen, and forward/backward ViewModel transitions",
   "voiceover_interaction_tested": false,
@@ -62,5 +55,112 @@
   "test_suite_added_or_run": false,
   "device_safety_probe_added_and_run": true,
   "unit_powers_results": "unit-powers-status.json",
-  "unit_powers_device_validation": "pending_user_run; build10 signed and installed; app not launched by agent"
+  "unit_powers_device_validation": "Build10 original user-run check remains separate; related build14 pilot on a different resolution of the same content recorded in mfd-crop-results.json.",
+  "model_inventory_changed": true,
+  "existing_model_runtime_pins_changed": "ONNX and MathCAT unchanged; MLX packages removed; OS-managed Foundation model replaces Qwen",
+  "additional_model": "breezedeus/pix2text-mfd at fc3797af79391c32ed0d56f8b5f437b5a49271be",
+  "mfd_crop_results": "mfd-crop-results.json",
+  "mfd_crop_verification": {
+    "same_attached_source": true,
+    "every_mfd_region_has_one_decision": true,
+    "retired_vision_source_not_recognized_twice": true,
+    "mfd_formula_source_slice_counts": {
+      "p0001.formula.0012": 1,
+      "p0001.formula.0024": 1
+    },
+    "all_active_mfd_formulas_ready_once": true,
+    "ordinary_88_proposal_withheld": true,
+    "ordinary_88_source_and_spoken_identical": true,
+    "cm_unit_with_separate_c_and_raised_m_still_withheld": true
+  },
+  "source_files_match_last_compiled_build": true,
+  "previous_build_evidence": {
+    "sdk": "iphoneos27.0",
+    "configuration": "Debug",
+    "status": "succeeded",
+    "signed": true,
+    "device_installation": "succeeded",
+    "log": "verification/foundation-models-v1/04cce97b-4dec-4f5f-bda7-4d358e15d319/build15.log",
+    "warnings": [
+      "Metadata extraction skipped, no AppIntents.framework dependency found"
+    ]
+  },
+  "foundation_models_results": "foundation-models-results.json",
+  "foundation_models_pilot": {
+    "status": "five_requests_completed_on_device",
+    "indonesian_generation": "2/2 succeeded with English-primary language settings",
+    "topics": "rejected invalid ranges and coverage",
+    "diagram": "rejected incorrect angle location",
+    "production_model_changed": false,
+    "normal_launch_restored": true
+  },
+  "reading_normalization_results": "reading-normalization-results.json",
+  "reading_normalization_verification": "Build19: question32 degrees, question34 4/4 area units and 9/9 inspected powered units ready. 5 canonical questions/20 choices; question36 footer guard retains original chunks. Prior build16 results remain historical.",
+  "production_qwen_bundle_bytes": 0,
+  "debug_app_bundle_bytes": 986776726,
+  "historical_build16_state": {
+    "app_build": "16",
+    "build": {
+      "sdk": "iphoneos27.0",
+      "configuration": "Debug",
+      "status": "succeeded",
+      "signed": true,
+      "device_installation": "succeeded",
+      "log": "verification/reading-normalization-v1/ac8419aa-3997-443f-8483-1942f70758d3/build16.log",
+      "warnings": [
+        "Metadata extraction skipped, no AppIntents.framework dependency found"
+      ]
+    },
+    "qwen_bundled": true,
+    "production_qwen_bundle_bytes": 1798024119,
+    "debug_app_bundle_bytes": 2869097519,
+    "reading_normalization_verification": {
+      "one_real_image": true,
+      "guard_checks_passed": 14,
+      "questions": 6,
+      "choices_ready_ABCD": 24,
+      "powered_units_ready": 8,
+      "source_and_raw_latex_unchanged": true,
+      "saved_material_id": "D1BC57D4-45D0-41A3-9BD9-13584FF0D7AB"
+    }
+  },
+  "foundation_diagram_results": "foundation-diagram-results.json",
+  "consistency_results": "consistency-results.json",
+  "consistency_pilot": {
+    "date": "2026-10-26",
+    "app_build": "19",
+    "trials": 3,
+    "same_installed_build_and_image": true,
+    "OCR_formula_and_structure": "identical in all three; 43 observations, 35 formula regions and 49 chunks",
+    "heading_topic_index": "identical; one generic group, not semantic Foundation grouping",
+    "diagram": "3 distinct raw plans, 2 final spoken descriptions",
+    "prompt_bytes": "3 distinct hashes; evidence values identical but JSON property order varies",
+    "limitation": "Not an isolated same-byte-prompt proof of Foundation greedy determinism; repeatability is not correctness",
+    "production_code_changed": false,
+    "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-v1/4c61dda0-4cb9-46df-bd6d-a0c7c071a9d2"
+  },
+  "historical_build19_consistency": {
+    "date": "2026-10-26",
+    "app_build": "19",
+    "trials": 3,
+    "same_installed_build_and_image": true,
+    "OCR_formula_and_structure": "identical in all three; 43 observations, 35 formula regions and 49 chunks",
+    "heading_topic_index": "identical; one generic group, not semantic Foundation grouping",
+    "diagram": "3 distinct raw plans, 2 final spoken descriptions",
+    "prompt_bytes": "3 distinct hashes; evidence values identical but JSON property order varies",
+    "limitation": "Not an isolated same-byte-prompt proof of Foundation greedy determinism; repeatability is not correctness",
+    "production_code_changed": false,
+    "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-v1/4c61dda0-4cb9-46df-bd6d-a0c7c071a9d2"
+  },
+  "consistency_fix_results": "consistency-fix-results.json",
+  "consistency_fix_verification": {
+    "app_build": "20",
+    "trials": 3,
+    "all_recorded_requests_equal": true,
+    "parsed_diagram_plans_equal": true,
+    "final_ready_content_equal_excluding_run_metadata": true,
+    "baseline19_core_regressions_passed": true,
+    "quality": "diagram remains partial; wrong angle relations withheld",
+    "scope": "one image/device; no guarantee for all inputs or OS versions"
+  }
 }

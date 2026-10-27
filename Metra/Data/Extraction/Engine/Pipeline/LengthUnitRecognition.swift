@@ -9,7 +9,7 @@ struct LengthUnitSource: Codable, Sendable {
     let rawSuffix: String
 
     static let version = "vision_length_unit_power_proposal_v1"
-    private static let body = #"([0-9]+(?:[.,][0-9]+)*)[ \t]*(dam|km|hm|dm|cm|mm|m)[ \t]*([⁰¹²³⁴⁵⁶⁷⁸⁹]+|\^[ \t]*(?:\{[ \t]*[0-9]+[ \t]*\}|[0-9]+)|[23]|[гr'’′?]|-(?=[ \t]*$))"#
+    private static let body = #"([0-9]+(?:[.,][0-9]+)*)[ \t]*(dam|km|hm|dm|cm|mm|m)[ \t]*([⁰¹²³⁴⁵⁶⁷⁸⁹]+|\^[ \t]*(?:\{[ \t]*[0-9]+[ \t]*\}|[0-9]+)|[23]|[гr'’′?]|[\p{L}\p{M}]{1,3}|-(?=[ \t]*$))"#
 
     static func matches(in text: String) throws -> [NSTextCheckingResult] {
         let regex = try NSRegularExpression(pattern: #"(?<![\p{L}\p{N}_])"# + body + #"(?![\p{L}\p{N}_])"#)
@@ -46,6 +46,8 @@ final class LengthUnitImageCheck: NSObject, XMLParserDelegate {
         let recognizedExponent: String?
         let recognizedSuffix: String
         let reason: String
+        var structureSupported: Bool? = nil
+        var structuredPowerCount: Int? = nil
     }
 
     private final class Node {
@@ -70,12 +72,14 @@ final class LengthUnitImageCheck: NSObject, XMLParserDelegate {
             text.filter { !$0.isWhitespace && !["\u{2061}", "\u{2062}", "\u{2063}", "\u{2064}"].contains(String($0)) }
         }
         func plain(_ node: Node, leaves: Set<String>) -> Bool {
+            if node.name == "mspace" { return node.children.isEmpty && node.text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty }
             if ["mrow", "mstyle"].contains(node.name) { return node.children.allSatisfy { plain($0, leaves: leaves) } }
             if node.name == "mo" { return compact(node.leaf).isEmpty }
             return leaves.contains(node.name) && node.children.isEmpty
         }
         func walk(_ node: Node) {
             if node.name == "annotation" || node.name == "annotation-xml" { return }
+            if node.name == "mspace", node.children.isEmpty, node.text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty { return }
             if node.name == "msup" {
                 powerCount += 1
                 guard node.children.count == 2,
@@ -101,10 +105,11 @@ final class LengthUnitImageCheck: NSObject, XMLParserDelegate {
             ["2", "3"].contains(exponent ?? "") &&
             (expected?.explicitExponent == nil || exponent == expected?.explicitExponent) &&
             (!["2", "3"].contains(expected?.rawSuffix ?? "") || exponent == expected?.rawSuffix)
-        return .init(version: "image_length_unit_consistency_v1", allowed: allowed, source: source, expected: expected,
+        return .init(version: "image_length_unit_consistency_v2", allowed: allowed, source: source, expected: expected,
                      recognizedPrefix: prefix, recognizedUnit: unit, recognizedExponent: exponent, recognizedSuffix: suffix,
                      reason: allowed ? "Whole image-recognized measurement matches the source number/unit with one structured power; no OCR power was invented; photo fidelity remains unassessed" :
-                        "Withheld: number/unit mismatch, extra model token, missing/unsupported power, or explicit exponent conflict; raw model and source retained unchanged")
+                        "Withheld: number/unit mismatch, extra model token, missing/unsupported power, or explicit exponent conflict; raw model and source retained unchanged",
+                     structureSupported: parsed && !unsupported, structuredPowerCount: powerCount)
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
@@ -115,5 +120,49 @@ final class LengthUnitImageCheck: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) { stack.last?.text += string }
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if !stack.isEmpty { stack.removeLast() }
+    }
+}
+
+/// A typed measurement derivation with explicit provenance. Source unit letters
+/// may be grouped only when the image supplies one final power and every digit,
+/// unit letter and exponent agrees. A corrupt OCR suffix never supplies a power.
+enum LengthUnitNormalizer {
+    static let version = "source_anchored_length_unit_normalization_v1"
+    struct Result: Codable, Sendable {
+        let version: String
+        let allowed: Bool
+        let source: String
+        let rawValidation: LengthUnitImageCheck.Result
+        let normalizedMathML: String?
+        let normalizedValidation: LengthUnitImageCheck.Result?
+        let operation: String?
+        let reason: String
+    }
+
+    static func normalize(source: String, mathML: String) -> Result {
+        let raw = LengthUnitImageCheck.check(source: source, mathML: mathML)
+        func withheld(_ reason: String) -> Result {
+            .init(version: version, allowed: false, source: source, rawValidation: raw,
+                  normalizedMathML: nil, normalizedValidation: nil, operation: nil, reason: reason)
+        }
+        guard let expected = raw.expected, raw.structureSupported == true, raw.structuredPowerCount == 1,
+              let base = raw.recognizedUnit, !base.isEmpty, let exponent = raw.recognizedExponent,
+              ["2", "3"].contains(exponent), raw.recognizedSuffix.isEmpty,
+              expected.unit.hasSuffix(base),
+              expected.explicitExponent == nil || expected.explicitExponent == exponent,
+              !["2", "3"].contains(expected.rawSuffix) || expected.rawSuffix == exponent else {
+            return withheld("No complete supported image power, or source exponent/unit conflict; no normalization generated")
+        }
+        let unitPrefix = String(expected.unit.dropLast(base.count))
+        guard raw.recognizedPrefix == expected.number + unitPrefix else {
+            return withheld("Image digits, separator or unit letters differ from complete source measurement; no token removed or supplied")
+        }
+        let normalized = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn>\(expected.number)</mn><msup><mi mathvariant=\"normal\" intent=\":unit\" class=\"MathML-unit\">\(expected.unit)</mi><mn>\(exponent)</mn></msup></mrow></math>"
+        let checked = LengthUnitImageCheck.check(source: source, mathML: normalized)
+        guard checked.allowed else { return withheld("Derived measurement failed strict whole-unit validation") }
+        return .init(version: version, allowed: true, source: source, rawValidation: raw,
+                     normalizedMathML: normalized, normalizedValidation: checked,
+                     operation: unitPrefix.isEmpty ? "annotate_complete_source_unit_for_mathcat" : "group_source_unit_prefix_with_image_power_base_and_annotate_unit",
+                     reason: "Exact source number/separator and complete known length unit agree with all image glyphs and one structured power; unit grouping and intent are explicit derivations. Original OCR, LaTeX and MathML retained; MathCAT supplies speech.")
     }
 }

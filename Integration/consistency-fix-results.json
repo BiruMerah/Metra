@@ -1,0 +1,933 @@
+{
+  "schema": "metra-consistency-fix-results-v1",
+  "date": "2026-10-26",
+  "job_id": "5cd51b38-9941-4d38-a618-0acd74a40b63",
+  "app_build": "20",
+  "device": {
+    "model": "iPhone 16 Pro Max",
+    "hardware": "iPhone17,2",
+    "udid_suffix": "2801C",
+    "os": "Version 27.0.1 (Build 24A446)"
+  },
+  "input_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+  "trials": [
+    {
+      "trial": 1,
+      "attempt_id": "9b2c9b4e-039d-4b99-b605-502a1edbc30a",
+      "run_id": "b3778d33-c1a1-4c90-b3e0-32040b8dae4a",
+      "saved_material_id": "B3778D33-C1A1-4C90-B3E0-32040B8DAE4A",
+      "runtime_completed": true,
+      "runtime_status": "partial",
+      "app_build": "20",
+      "started_at": "2026-10-26T16:45:55Z",
+      "completed_at": "2026-10-26T16:46:18Z",
+      "scope": "fresh app process; OS model cache/cold state not controllable; no output cache",
+      "OCR_observations": 43,
+      "formula_regions": 35,
+      "final_formula_statuses": {
+        "needs_review": 19,
+        "ready": 16
+      },
+      "chunk_count": 49,
+      "canonical_question_count": 5,
+      "canonical_choice_count": 20,
+      "topic_count": 1,
+      "powered_units_inspected": 9,
+      "powered_units_ready": 9,
+      "foundation_request_ms": 10117.111541666418,
+      "foundation_usage": {
+        "prompt_tokens": 2676,
+        "output_tokens": 151
+      },
+      "foundation_available": "available",
+      "foundation_vision": true,
+      "diagram_status": "needs_review",
+      "source_segments_preserved_once": true,
+      "source_heading_topic_policy": "source_headings_per_page_v1",
+      "diagram_raw_plan": {
+        "angles": [
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "E"
+            ],
+            "valueID": "v001"
+          },
+          {
+            "pointNames": [
+              "P",
+              "E",
+              "D"
+            ],
+            "valueID": "v002"
+          }
+        ],
+        "connections": [
+          {
+            "pointNames": [
+              "D",
+              "P"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "E"
+            ]
+          },
+          {
+            "pointNames": [
+              "E",
+              "F"
+            ]
+          }
+        ],
+        "overview": "Bentuk lingkaran dengan titik-titik yang saling terhubung.",
+        "uncertainties": [
+          "Terdapat kemungkinan kesalahan dalam pembacaan titik-titik tertentu."
+        ],
+        "visiblePointNames": [
+          "D",
+          "F",
+          "E",
+          "P"
+        ],
+        "visualType": "geometry"
+      },
+      "diagram_validation": {
+        "acceptedFacts": [
+          "image_overview_candidate",
+          "image_connection_candidate:D-P",
+          "image_connection_candidate:E-P",
+          "image_connection_candidate:E-F"
+        ],
+        "rejectedFacts": [
+          "angle_vertex_or_value_not_corroborated:DPE",
+          "angle_vertex_or_value_not_corroborated:PED"
+        ],
+        "sourceValueIDs": [
+          "v001",
+          "v002"
+        ],
+        "spoken": "Gambar geometri. Bentuk lingkaran dengan titik-titik yang saling terhubung. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Ruas garis menghubungkan P dan E. Ruas garis menghubungkan E dan F. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Nilai yang terbaca pada gambar atau keterangannya: buka kurung, 3 x tambah 4, tutup kurung derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+        "uncertainties": [
+          "relation_unconfirmed",
+          "visual_symbols_unresolved",
+          "model_reported_visual_uncertainty"
+        ],
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0031"
+        ],
+        "version": "foundation_diagram_evidence_v3",
+        "visualType": "geometry"
+      },
+      "request_fingerprint": {
+        "canonical_schema_sha256": "970d635f99632c6b4b6b8dacfae4bf866af635ba81a70970acc98896ebb84e3e",
+        "deadline_seconds": 60,
+        "encoding": "foundation_request_sorted_keys_v1",
+        "image_sha256": "a975cc23bd454532949f2f75c624b1fbae2930c278b68c438d9aa6de22236757",
+        "instructions_sha256": "f34df26f68152b132fa25018ac745311a5fdbfcec798914dc82608aa4cfd29c0",
+        "maximum_response_tokens": 1536,
+        "output_cache": "disabled",
+        "policy": "foundation_diagram_evidence_v3",
+        "prompt_sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+        "sampling": "greedy",
+        "schema": "metra-foundation-request-fingerprint-v1",
+        "schema_scope": "Canonical declared Generable schema; OS-internal schema serialization and checkpoint hash are not exposed",
+        "session": "fresh_per_diagram"
+      },
+      "native_prompt_sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+      "native_evidence_semantic_sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee"
+    },
+    {
+      "trial": 2,
+      "attempt_id": "3c0e861d-cec7-4cf8-bce2-f5c6d8423aa6",
+      "run_id": "5989fc44-8088-4eff-8849-5b9a41e5cb63",
+      "saved_material_id": "5989FC44-8088-4EFF-8849-5B9A41E5CB63",
+      "runtime_completed": true,
+      "runtime_status": "partial",
+      "app_build": "20",
+      "started_at": "2026-10-26T16:47:00Z",
+      "completed_at": "2026-10-26T16:47:20Z",
+      "scope": "fresh app process; OS model cache/cold state not controllable; no output cache",
+      "OCR_observations": 43,
+      "formula_regions": 35,
+      "final_formula_statuses": {
+        "needs_review": 19,
+        "ready": 16
+      },
+      "chunk_count": 49,
+      "canonical_question_count": 5,
+      "canonical_choice_count": 20,
+      "topic_count": 1,
+      "powered_units_inspected": 9,
+      "powered_units_ready": 9,
+      "foundation_request_ms": 8675.65412499971,
+      "foundation_usage": {
+        "prompt_tokens": 2676,
+        "output_tokens": 151
+      },
+      "foundation_available": "available",
+      "foundation_vision": true,
+      "diagram_status": "needs_review",
+      "source_segments_preserved_once": true,
+      "source_heading_topic_policy": "source_headings_per_page_v1",
+      "diagram_raw_plan": {
+        "angles": [
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "E"
+            ],
+            "valueID": "v001"
+          },
+          {
+            "pointNames": [
+              "P",
+              "E",
+              "D"
+            ],
+            "valueID": "v002"
+          }
+        ],
+        "connections": [
+          {
+            "pointNames": [
+              "D",
+              "P"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "E"
+            ]
+          },
+          {
+            "pointNames": [
+              "E",
+              "F"
+            ]
+          }
+        ],
+        "overview": "Bentuk lingkaran dengan titik-titik yang saling terhubung.",
+        "uncertainties": [
+          "Terdapat kemungkinan kesalahan dalam pembacaan titik-titik tertentu."
+        ],
+        "visiblePointNames": [
+          "D",
+          "F",
+          "E",
+          "P"
+        ],
+        "visualType": "geometry"
+      },
+      "diagram_validation": {
+        "acceptedFacts": [
+          "image_overview_candidate",
+          "image_connection_candidate:D-P",
+          "image_connection_candidate:E-P",
+          "image_connection_candidate:E-F"
+        ],
+        "rejectedFacts": [
+          "angle_vertex_or_value_not_corroborated:DPE",
+          "angle_vertex_or_value_not_corroborated:PED"
+        ],
+        "sourceValueIDs": [
+          "v001",
+          "v002"
+        ],
+        "spoken": "Gambar geometri. Bentuk lingkaran dengan titik-titik yang saling terhubung. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Ruas garis menghubungkan P dan E. Ruas garis menghubungkan E dan F. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Nilai yang terbaca pada gambar atau keterangannya: buka kurung, 3 x tambah 4, tutup kurung derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+        "uncertainties": [
+          "relation_unconfirmed",
+          "visual_symbols_unresolved",
+          "model_reported_visual_uncertainty"
+        ],
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0031"
+        ],
+        "version": "foundation_diagram_evidence_v3",
+        "visualType": "geometry"
+      },
+      "request_fingerprint": {
+        "canonical_schema_sha256": "970d635f99632c6b4b6b8dacfae4bf866af635ba81a70970acc98896ebb84e3e",
+        "deadline_seconds": 60,
+        "encoding": "foundation_request_sorted_keys_v1",
+        "image_sha256": "a975cc23bd454532949f2f75c624b1fbae2930c278b68c438d9aa6de22236757",
+        "instructions_sha256": "f34df26f68152b132fa25018ac745311a5fdbfcec798914dc82608aa4cfd29c0",
+        "maximum_response_tokens": 1536,
+        "output_cache": "disabled",
+        "policy": "foundation_diagram_evidence_v3",
+        "prompt_sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+        "sampling": "greedy",
+        "schema": "metra-foundation-request-fingerprint-v1",
+        "schema_scope": "Canonical declared Generable schema; OS-internal schema serialization and checkpoint hash are not exposed",
+        "session": "fresh_per_diagram"
+      },
+      "native_prompt_sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+      "native_evidence_semantic_sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee"
+    },
+    {
+      "trial": 3,
+      "attempt_id": "36ec2430-9276-46c0-bf79-7e05e465c908",
+      "run_id": "b899ac0b-a275-4b03-90bc-72ae2f51e4af",
+      "saved_material_id": "B899AC0B-A275-4B03-90BC-72AE2F51E4AF",
+      "runtime_completed": true,
+      "runtime_status": "partial",
+      "app_build": "20",
+      "started_at": "2026-10-26T16:48:29Z",
+      "completed_at": "2026-10-26T16:48:51Z",
+      "scope": "fresh app process; OS model cache/cold state not controllable; no output cache",
+      "OCR_observations": 43,
+      "formula_regions": 35,
+      "final_formula_statuses": {
+        "needs_review": 19,
+        "ready": 16
+      },
+      "chunk_count": 49,
+      "canonical_question_count": 5,
+      "canonical_choice_count": 20,
+      "topic_count": 1,
+      "powered_units_inspected": 9,
+      "powered_units_ready": 9,
+      "foundation_request_ms": 9428.305916667341,
+      "foundation_usage": {
+        "prompt_tokens": 2676,
+        "output_tokens": 151
+      },
+      "foundation_available": "available",
+      "foundation_vision": true,
+      "diagram_status": "needs_review",
+      "source_segments_preserved_once": true,
+      "source_heading_topic_policy": "source_headings_per_page_v1",
+      "diagram_raw_plan": {
+        "angles": [
+          {
+            "pointNames": [
+              "D",
+              "P",
+              "E"
+            ],
+            "valueID": "v001"
+          },
+          {
+            "pointNames": [
+              "P",
+              "E",
+              "D"
+            ],
+            "valueID": "v002"
+          }
+        ],
+        "connections": [
+          {
+            "pointNames": [
+              "D",
+              "P"
+            ]
+          },
+          {
+            "pointNames": [
+              "P",
+              "E"
+            ]
+          },
+          {
+            "pointNames": [
+              "E",
+              "F"
+            ]
+          }
+        ],
+        "overview": "Bentuk lingkaran dengan titik-titik yang saling terhubung.",
+        "uncertainties": [
+          "Terdapat kemungkinan kesalahan dalam pembacaan titik-titik tertentu."
+        ],
+        "visiblePointNames": [
+          "D",
+          "F",
+          "E",
+          "P"
+        ],
+        "visualType": "geometry"
+      },
+      "diagram_validation": {
+        "acceptedFacts": [
+          "image_overview_candidate",
+          "image_connection_candidate:D-P",
+          "image_connection_candidate:E-P",
+          "image_connection_candidate:E-F"
+        ],
+        "rejectedFacts": [
+          "angle_vertex_or_value_not_corroborated:DPE",
+          "angle_vertex_or_value_not_corroborated:PED"
+        ],
+        "sourceValueIDs": [
+          "v001",
+          "v002"
+        ],
+        "spoken": "Gambar geometri. Bentuk lingkaran dengan titik-titik yang saling terhubung. Titik yang terlihat: D, E, F, P. Ruas garis menghubungkan D dan P. Ruas garis menghubungkan P dan E. Ruas garis menghubungkan E dan F. Nilai yang terbaca pada gambar atau keterangannya: 47 derajat. Nilai yang terbaca pada gambar atau keterangannya: buka kurung, 3 x tambah 4, tutup kurung derajat. Hubungan sebagian label dan nilai belum dapat dipastikan. Sebagian simbol pada gambar belum dapat dibaca dengan pasti.",
+        "uncertainties": [
+          "relation_unconfirmed",
+          "visual_symbols_unresolved",
+          "model_reported_visual_uncertainty"
+        ],
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0031"
+        ],
+        "version": "foundation_diagram_evidence_v3",
+        "visualType": "geometry"
+      },
+      "request_fingerprint": {
+        "canonical_schema_sha256": "970d635f99632c6b4b6b8dacfae4bf866af635ba81a70970acc98896ebb84e3e",
+        "deadline_seconds": 60,
+        "encoding": "foundation_request_sorted_keys_v1",
+        "image_sha256": "a975cc23bd454532949f2f75c624b1fbae2930c278b68c438d9aa6de22236757",
+        "instructions_sha256": "f34df26f68152b132fa25018ac745311a5fdbfcec798914dc82608aa4cfd29c0",
+        "maximum_response_tokens": 1536,
+        "output_cache": "disabled",
+        "policy": "foundation_diagram_evidence_v3",
+        "prompt_sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+        "sampling": "greedy",
+        "schema": "metra-foundation-request-fingerprint-v1",
+        "schema_scope": "Canonical declared Generable schema; OS-internal schema serialization and checkpoint hash are not exposed",
+        "session": "fresh_per_diagram"
+      },
+      "native_prompt_sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+      "native_evidence_semantic_sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee"
+    }
+  ],
+  "comparisons": {
+    "source_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "normalized_image_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "6aa2cd681c4aff180b149fb03eeea71ee29ae896af8afe220a9a8975c8de9dd0",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "config": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "662c964d7a67db5823679bf0c5cf380e90101ebf345916f96d9e1396107284a6",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "model_manifest": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "107f8240da716de5b5d694f57f0b834a0bcda48ee58d2f9e440f375e75f5fe8f",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "layout_raw_tensor": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1bded3c5a8bd613d692ab0103daa01beea639ff12ff4bb9f9d7a936135a5b8fb",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "layout_regions": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "d7928b417df958e96985827ff705448e1d9736b5144fdeefbeae9ba8503f56c4",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "mfd_raw_tensor": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "6dabf3a9ef8db9797438662332c5c2a1e10e57d7a01b43f5ee13f564287d4acd",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "mfd_regions": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1a46d7ab89ee8b72311d1d56bfa9a3cd1fa3b57315b247485291b034901dda32",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "mfd_merge": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "7cd7ea04360b02ab1ea0c61c7109146cda9a58f08b8c989c595736b8032c8e08",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "working_OCR": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a1c4778f1baa98013b53e0cfdf345e0d4afb4df4e0b82f767fda98f989d3d1ee",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "formula_core": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "39d0e31fc5a6de6740c5ca418bf8cda08e2700a9c4a12ef972331d633698c537",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "formula_latex": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "525b7f38bbd1d7da83362904a22d0540aa9b14a44581e4e5f95fab1aeca3bd30",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "formula_speech_and_gate": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "c03abe1e29367735ef97c07f3f402f80b91b26c663c2817de714a1f00bc1e663",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "crop_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "ef8fce089409a86498cc0727d6b3fdbd62aaed7c27821c0f70f0ca78c2034e99",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "chunk_structure": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "5e0b464022f75807470e61da28c78e94bd84756146c6ce7fffd808cdac201833",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "non_visual_chunks": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "281f52e61d917fbd89e24b6c15c0892521244b7dbcc5ef05582d958d229a7dab",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "questions": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a327db8e1083785753a5cc100bf62b2423ca2463ac36515ef5bedc7bb1e06cc5",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "source_heading_topicIndex": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "0dbaf779e9e0aa52011e5e804c4e6e7dfeeccbd3d501cf2e8c8a41c1dd7249c4",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_prompt_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "8c1e8f7f70401d0e9c3bc43a04f1ab1f00b77c3e75f498d770a5761a2e18838d",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_prompt_prefix_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1886f1ee8b1e8c4df8f85a2c1604e299748947587da5c060044590f8cb74f8de",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_instructions_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "f34df26f68152b132fa25018ac745311a5fdbfcec798914dc82608aa4cfd29c0",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_evidence_semantic": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "39ce9821cdbf242f8a3e66a6147fea33a6d450e8f56347662543f0cb24ca6aee",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_image_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "a975cc23bd454532949f2f75c624b1fbae2930c278b68c438d9aa6de22236757",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_environment": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "6d34ae081e7bacad37791682ceefb3adc3259a984b69c04be18b1b5534553e38",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "request_fingerprint": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "1c162378b45cea8776481e748cdcf9839897472b6600f7e63793f3b2c56a4a30",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "declared_schema": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "f37a5c365a9341488ffc6eded0213b6e42892495fc9cc2a0914da7bfc3717b44",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "prompt_evidence_sha256": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "565737c88b36cea0800d3f516df3626b119f4288c7d9edd9b49e111b9cb19b83",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_plan": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "2e60f26d49c3a2da2972d33f423db98b5f1d7ab6c1fc2fab428b469589e4fc5f",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "native_fact_sets": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "f04642813008f3ef959bed0804d941a0ea27ec301afe789587bcb7883f4646d0",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "diagram_validated": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "3aec54dd8969c9a918984bffaf9a7b7ea813ede732047e2f10eabec69043acef",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "diagram_spoken": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "3aba2ca5e5e6e327fb374e1af0ae6e941f32578249e2ffcb775a21ea780b820f",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    "final_ready_content": {
+      "all_equal": true,
+      "unique_count": 1,
+      "groups": [
+        {
+          "sha256": "7810dc6659ba07a31682b736b65dbef4093501572c573587de00037868786223",
+          "trials": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    }
+  },
+  "execution_checks": {
+    "three_new_runtime_completions": true,
+    "three_distinct_run_ids": true,
+    "same_expected_build": true,
+    "same_source_and_normalized_image": true,
+    "same_config_and_model_inventory": true,
+    "every_trial_saved": true,
+    "source_segments_preserved": true,
+    "sources_still_match_compiled_build": true
+  },
+  "verdict": "Observed request fingerprints, parsed diagram plans, speech and final_ready content match across all three fresh-app runs after canonical prompt encoding. One image/device only; diagram correctness remains partial.",
+  "native_input_finding": "Prompt, source evidence, instructions, image and canonical declared schema hashes are compared independently after the fix. OS-internal serialization remains unexposed.",
+  "causality_limit": "Three fresh-app runs on one image/device; reproducibility is not proof of accuracy or all-device determinism.",
+  "scope_limits": [
+    "One real image, one iPhone, three serial fresh-app runs; not all devices or camera captures.",
+    "Equal incorrect recognition is repeatable, not correct. Existing unresolved notation/crop and footer limitations remain.",
+    "Topic comparison covers source-heading index in final_ready; no semantic Foundation topic generation was executed.",
+    "Model checkpoint hash is not exposed by Apple. OS and available metadata were recorded; OS model cache state was not controlled.",
+    "UUIDs/timestamps and telemetry excluded from content equality; timings are descriptive, not a performance benchmark. Completed run folders were transferred during later inference runs."
+  ],
+  "next_experiment": "Expand the fixed-input dataset and recheck on OS changes; address angle-notation routing and contaminated formula crops separately.",
+  "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-fix-v1/5cd51b38-9941-4d38-a618-0acd74a40b63",
+  "production_source_changed": true,
+  "encoding_policy": "foundation_request_sorted_keys_v1",
+  "baseline_evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-v1/4c61dda0-4cb9-46df-bd6d-a0c7c071a9d2",
+  "request_artifact_integrity": {
+    "1": {
+      "prompt": true,
+      "instructions": true,
+      "schema": true,
+      "image": true,
+      "evidence_bytes": true
+    },
+    "2": {
+      "prompt": true,
+      "instructions": true,
+      "schema": true,
+      "image": true,
+      "evidence_bytes": true
+    },
+    "3": {
+      "prompt": true,
+      "instructions": true,
+      "schema": true,
+      "image": true,
+      "evidence_bytes": true
+    }
+  },
+  "baseline19_regression_checks": {
+    "source_sha256": true,
+    "normalized_image_sha256": true,
+    "layout_raw_tensor": true,
+    "layout_regions": true,
+    "mfd_raw_tensor": true,
+    "mfd_regions": true,
+    "mfd_merge": true,
+    "working_OCR": true,
+    "formula_core": true,
+    "formula_latex": true,
+    "formula_speech_and_gate": true,
+    "crop_sha256": true,
+    "chunk_structure": true,
+    "non_visual_chunks": true,
+    "questions": true,
+    "source_heading_topicIndex": true,
+    "native_evidence_semantic": true,
+    "native_prompt_prefix_sha256": true,
+    "native_instructions_sha256": true,
+    "native_image_sha256": true
+  },
+  "previous_consistency": {
+    "native_prompt_sha256": 3,
+    "native_plan": 3,
+    "diagram_spoken": 2,
+    "final_ready_content": 2
+  },
+  "raw_response_byte_hashes": [
+    "ad13e52cd9f48f0a073e322b5e67ad05463bc996aea5656d0c1bca667ab1e668",
+    "6942403a6972976f3b35dbdac02c7913c65a222035b7236326515c02008dbb79",
+    "62bdc837dbbe2ee39760d41abb1a6dfd13ad65000e9b5497d8a6fcac5abc1d27"
+  ]
+}

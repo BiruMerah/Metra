@@ -9,21 +9,13 @@ final class OnDeviceExtractionService: MaterialExtractionProtocol {
     // MARK: - Dependencies
     private let coordinator = RunCoordinator()
     private let models = ModelAssetManager()
-    private let topicRuntime = QwenDiagramRuntime()
     private var busy = false
 
-    var diagramModelIsAvailable: Bool { models.modelDirectory != nil }
-    var diagramModelIsBundled: Bool { models.isBundledModel }
+    var diagramModelIsAvailable: Bool { models.isAvailable }
+    var diagramModelUsesSystem: Bool { true }
     var diagramModelStatus: String { models.status }
 
     // MARK: - Public Actions
-    func importDiagramModel(from folder: URL) async throws {
-        guard !busy, !coordinator.isRunning else { throw ExtractionServiceError.busy }
-        busy = true
-        defer { busy = false }
-        try await models.importVerifiedFolder(folder)
-    }
-
     func extract(pages: [MaterialImageInput], title: String,
                  onProgress: @escaping @MainActor (String) -> Void) async throws -> MathMaterialModel {
         guard !busy, !coordinator.isRunning else { throw ExtractionServiceError.busy }
@@ -44,23 +36,13 @@ final class OnDeviceExtractionService: MaterialExtractionProtocol {
             }
         }.value
         try Task.checkCancellation()
-        if models.modelDirectory != nil {
-            onProgress("Menyiapkan model diagram…")
-            do { try await models.prepareForInference() }
-            catch is CancellationError { throw CancellationError() }
-            catch {
-                // Preserve the independent OCR/formula path. The manager records
-                // verification failure and disables Qwen for this run.
-                onProgress("Model diagram belum siap; melanjutkan teks dan rumus…")
-            }
-        }
         try Task.checkCancellation()
         var completion: AnyCancellable?
         let progress = coordinator.$progressText.sink { raw in onProgress(Self.userProgress(raw)) }
         defer { progress.cancel(); completion?.cancel() }
 
         try await withTaskCancellationHandler {
-            coordinator.start(sources: sources, profile: .serialBaseline, modelDirectory: models.modelDirectory)
+            coordinator.start(sources: sources, profile: .serialBaseline, modelDirectory: nil)
             // Await the engine's terminal state, including its safe cancellation save.
             await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
                 completion = coordinator.$isRunning.filter { !$0 }.prefix(1).sink { _ in continuation.resume() }
@@ -71,7 +53,7 @@ final class OnDeviceExtractionService: MaterialExtractionProtocol {
         }
 
         guard let document = coordinator.latestReadyDocument,
-              document.schema == "metra-ready-chunks-v3",
+              ["metra-ready-chunks-v3", "metra-ready-chunks-v4"].contains(document.schema),
               let id = UUID(uuidString: document.id),
               let chunks = document.chunks, !chunks.isEmpty,
               Set(chunks.map(\.id)).count == chunks.count else {
@@ -111,30 +93,12 @@ final class OnDeviceExtractionService: MaterialExtractionProtocol {
         let previousIdleTimer = UIApplication.shared.isIdleTimerDisabled
         UIApplication.shared.isIdleTimerDisabled = true
         defer { UIApplication.shared.isIdleTimerDisabled = previousIdleTimer }
-        var dependencyError: String?
-        do { try await models.prepareForInference() }
-        catch is CancellationError { throw CancellationError() }
-        catch { dependencyError = error.localizedDescription }
-        do {
-            let index = try await TopicNavigationService.run(material: material, modelDirectory: models.modelDirectory,
-                dependencyError: dependencyError, runtime: topicRuntime, onProgress: onProgress)
-            await topicRuntime.unload()
-            var result = material
-            result.topicIndexJSON = try JSONEncoder().encode(index)
-            return result
-        } catch {
-            await topicRuntime.unload()
-            if error is CancellationError || Task.isCancelled { throw CancellationError() }
-            // A topic-stage/export failure must not discard independently
-            // completed OCR/formula content or make the user rerun extraction.
-            let baseline = MaterialTopicIndex.sourceHeadings(chunks: material.chunks, fallbackTitle: material.title)
-            let fallback = MaterialTopicIndex(policy: MaterialTopicIndex.qwenPolicy, topics: baseline.topics,
-                auxiliaryChunkIDs: baseline.auxiliaryChunkIDs, experimentStatus: "failed",
-                failureReason: error.localizedDescription)
-            var result = material
-            result.topicIndexJSON = try JSONEncoder().encode(fallback)
-            return result
-        }
+        // Source headings are deterministic and do not require a bundled LM.
+        // Existing saved indices are preserved on load; new imports use this index.
+        let index = MaterialTopicIndex.sourceHeadings(chunks: material.chunks, fallbackTitle: material.title)
+        var result = material
+        result.topicIndexJSON = try JSONEncoder().encode(index)
+        return result
     }
 
     func cancel() { coordinator.cancel() }

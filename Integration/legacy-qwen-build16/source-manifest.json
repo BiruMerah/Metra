@@ -1,0 +1,55 @@
+{
+  "archived_at": "2026-10-26T15:01:57.039624+00:00",
+  "source_build": "16",
+  "reason": "User requested Foundation Models diagram pipeline and removal of active Qwen VLM; preserve prior experiments",
+  "files": [
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/QwenDiagramRuntime.swift",
+      "sha256": "35c388d4775956b766001aa08a0a9d557659f5c3e35e643d356fd9121449925f"
+    },
+    {
+      "path": "Metra/Data/Extraction/TopicNavigationService.swift",
+      "sha256": "66b6ef13c43d3276a560e9947e9e33b122ce776e5b0ac0ffcd1f837bc16cdf58"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/TopicGroupingService.swift",
+      "sha256": "eec12020a3ea7374edffbbf6457773c5887852415d6e4a6ac1047fc9b0b9764d"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Storage/ModelAssetManager.swift",
+      "sha256": "ab82717f4e58448086fb720b6cad562bcb7e0c06507b05c1b0c5e8bd9ec9430c"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/RunCoordinator.swift",
+      "sha256": "c237bf013e8942111aaa14afd7556297c73c2c0fbdaa682259155b17db1de71d"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/DiagramProbeService.swift",
+      "sha256": "ace8006325a3c7fc42f70e5e613b3f640be76df16758e262e657d2d69c63af10"
+    },
+    {
+      "path": "Metra/Data/Extraction/OnDeviceExtractionService.swift",
+      "sha256": "8dae259942a595339626f44d502c22159bc4a6338aa42884a45d7fe00ab9a6b1"
+    },
+    {
+      "path": "Metra.xcodeproj/project.pbxproj",
+      "sha256": "aa1a15cecd6d8ef41dd8af1600ecae9240651322022752f8fff9fc5203f838b0"
+    },
+    {
+      "path": "Metra.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+      "sha256": "83b2563dd02a96d59f8cfbb43a7da3d1a53b90b49bc31f459a18e3bd17cf96ee"
+    },
+    {
+      "path": "Resources/model-manifest.json",
+      "sha256": "9afe2d5a88de7a5c1d089f9c10cf5658fcec06e2b133abb0d842e3d659a08411"
+    },
+    {
+      "path": "Tools/prepare-qwen-bundle.py",
+      "sha256": "e9dbb0a0773ade467c9ad1c6cd86eb60caeee6700bdbedca4b5d8c9fb3421691"
+    },
+    {
+      "path": "Tools/prepare-poc-assets.py",
+      "sha256": "99f80a9adecb68ec64b0a36a1ceeafa0be88a2688a81e78d1763913c48739d1a"
+    }
+  ]
+}

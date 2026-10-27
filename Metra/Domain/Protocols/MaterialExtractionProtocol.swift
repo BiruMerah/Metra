@@ -3,9 +3,8 @@ import Foundation
 @MainActor
 protocol MaterialExtractionProtocol {
     var diagramModelIsAvailable: Bool { get }
-    var diagramModelIsBundled: Bool { get }
+    var diagramModelUsesSystem: Bool { get }
     var diagramModelStatus: String { get }
-    func importDiagramModel(from folder: URL) async throws
     func extract(
         pages: [MaterialImageInput],
         title: String,

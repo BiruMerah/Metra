@@ -11,6 +11,8 @@ enum OCRMathROIProposer {
         let regex=try NSRegularExpression(pattern:pattern)
         let visualNumbers = try NSRegularExpression(pattern: #"(?<![\p{L}\p{N}_])[-+]?\d+(?:[.,]\d+)?(?:\s*[°º%*])?(?![\p{L}\p{N}_])"#)
         let wholeNumeric = try NSRegularExpression(pattern: #"(?s)^.+$"#)
+        let degreeLiteral = try NSRegularExpression(pattern: #"(?<![\p{L}\p{N}_])[-+]?\d+(?:[.,]\d+)?[ \t]*[°º](?![\p{L}\p{N}_])"#)
+        let degreeExpression = try NSRegularExpression(pattern: #"\([ \t]*[-+]?(?:[0-9]+)?[A-Za-z](?:[ \t]*[+−\-][ \t]*[0-9]+)?[ \t]*\)[ \t]*[°º]"#)
         // These patterns propose image crops only; they never manufacture LaTeX.
         let number = #"[0-9]+(?:[.,][0-9]+)?"#
         let power = #"(?:[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\s*\^\s*(?:\{\s*[+-]?[0-9]+\s*\}|[+-]?[0-9]+)|[ \t]*[0-9]+|['’′?%⅓⅔])?"#
@@ -21,6 +23,8 @@ enum OCRMathROIProposer {
         for observation in observations {
             let text=observation.selectedText as NSString
             let isVisual = DiagramSpokenService.owner(of:observation.bboxPageXYXY,regions:layout) != nil
+            let degreeExpressions = degreeExpression.matches(in:text as String,range:NSRange(location:0,length:text.length))
+            let degreeLiterals = isVisual ? [] : degreeLiteral.matches(in:text as String,range:NSRange(location:0,length:text.length))
             let numericMatches: [NSTextCheckingResult]
             if isVisual, VisualNumericLiteral.looksNumeric(text as String) {
                 numericMatches = wholeNumeric.matches(in:text as String,range:NSRange(location:0,length:text.length))
@@ -32,21 +36,25 @@ enum OCRMathROIProposer {
             let expressionMatches = isVisual ? [] : expressionRegex.matches(in:text as String,range:NSRange(location:0,length:text.length)).filter { expression in
                 let value = text.substring(with:expression.range)
                 return value.count > 1 && value.count <= 160 && value.rangeOfCharacter(from:.letters) != nil &&
+                    !degreeExpressions.contains { NSIntersectionRange($0.range,expression.range).length > 0 } &&
                     !unitMatches.contains { unit in NSIntersectionRange(unit.range, expression.range).length > 0 }
             }
             let otherMatches = (regex.matches(in:text as String,range:NSRange(location:0,length:text.length)) + numericMatches).filter { other in
                 !expressionMatches.contains { NSIntersectionRange($0.range,other.range).length > 0 } &&
+                    !(degreeExpressions + degreeLiterals).contains { NSIntersectionRange($0.range,other.range).length > 0 } &&
                     !unitMatches.contains { NSIntersectionRange($0.range,other.range).length > 0 }
             }
-            let matches = unitMatches + expressionMatches + otherMatches
+            let matches = degreeExpressions + degreeLiterals + unitMatches + expressionMatches + otherMatches
             for match in matches {
+                let isDegreeExpression = degreeExpressions.contains { $0.range == match.range }
+                let isDegreeLiteral = degreeLiterals.contains { $0.range == match.range }
                 let visualNumeric = numericMatches.contains { $0.range == match.range }
-                let expression = expressionMatches.contains { $0.range == match.range }
+                let expression = isDegreeExpression || expressionMatches.contains { $0.range == match.range }
                 let lengthUnit = unitMatches.contains { $0.range == match.range }
                 let ranges=(observation.rangeBoxes ?? []).filter { $0.rangeUTF16[0]>=match.range.location && $0.rangeUTF16[1]<=NSMaxRange(match.range) }
                 guard let first=ranges.first else {continue}
                 let box=ranges.dropFirst().reduce(first.bboxPageXYXY) { a,b in PixelBox(xmin:min(a.xmin,b.bboxPageXYXY.xmin),ymin:min(a.ymin,b.bboxPageXYXY.ymin),xmax:max(a.xmax,b.bboxPageXYXY.xmax),ymax:max(a.ymax,b.bboxPageXYXY.ymax)) }
-                guard box.area>0,(visualNumeric || expression || lengthUnit || box.xmax-box.xmin <= (observation.bboxPageXYXY.xmax-observation.bboxPageXYXY.xmin)*0.8) else {continue}
+                guard box.area>0,(isDegreeLiteral || visualNumeric || expression || lengthUnit || box.xmax-box.xmin <= (observation.bboxPageXYXY.xmax-observation.bboxPageXYXY.xmin)*0.8) else {continue}
                 let candidateText=text.substring(with:match.range)
                 if !visualNumeric,candidateText.count==1,box.xmax-box.xmin>1.5*(box.ymax-box.ymin) {continue}
                 if layout.contains(where:{$0.label=="formula" && $0.bboxPageXYXY.intersection(box)/max(1,box.area)>=0.15}) {continue}
@@ -60,7 +68,7 @@ enum OCRMathROIProposer {
                 guard let crop=image.cropping(to:CGRect(x:padded.xmin,y:padded.ymin,width:padded.xmax-padded.xmin,height:padded.ymax-padded.ymin)),let png=UIImage(cgImage:crop).pngData() else {continue}
                 try png.write(to:pageRoot.appendingPathComponent("crops/\(id).png"),options:.atomic)
                 let parent=layout.filter{$0.label != "formula" && $0.bboxPageXYXY.intersection(box)/max(1,box.area)>=0.8}.min{$0.bboxPageXYXY.area<$1.bboxPageXYXY.area}
-                let proposalSource = lengthUnit ? LengthUnitSource.version : (visualNumeric ? "vision_visual_numeric_proposal_v2" : (expression ? "vision_math_expression_proposal_v1" : "vision_range_math_proposal_v1"))
+                let proposalSource = isDegreeExpression ? "vision_degree_expression_proposal_v1" : (isDegreeLiteral ? "vision_degree_literal_proposal_v1" : (lengthUnit ? LengthUnitSource.version : (visualNumeric ? "vision_visual_numeric_proposal_v2" : (expression ? "vision_math_expression_proposal_v1" : "vision_range_math_proposal_v1"))))
                 let derivation = lengthUnit ? "Whole numeric quantity plus known length-unit OCR range; corrupt/flattened suffix is a crop hint only; no inferred exponent; horizontal margin max(2px,0.05*height), vertical margin max(3px,0.25*height); original source range retained" : (expression ? "Whole OCR math-expression character-box union; no largest-glyph tightening; margin max(3px, 0.25 * target height); image recognition required, no inferred power" : ((!visualNumeric && candidateText.count==1) ? "largest connected foreground glyph; retain vertically aligned components (i/j dots); one pixel padding; original Vision range retained" : (visualNumeric ? "valid Vision character box union; numeric margin max(3px, 0.25 * target height); source glyph bbox retained" : "valid Vision character box union; one pixel padding")))
                 proposed.append(LayoutRegion(id:id,classID:-1,label:"formula_candidate",score:Double(observation.candidates.first?.confidence ?? 0),bboxPageXYXY:padded,rawIndex:300+observation.rawOrder*1000+match.range.location,parentID:parent?.id,cropArtifact:"pages/\(pageID)/crops/\(id).png",detectionSource:proposalSource,sourceObservationID:observation.id,sourceRangeUTF16:[match.range.location,NSMaxRange(match.range)],proposalText:text.substring(with:match.range),rawVisionBBox:box,roiDerivation:derivation))
             }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare pinned ONNX and bundled Qwen assets. This script performs no inference."""
+"""Prepare pinned ONNX assets; diagrams use the on-device Apple system model. This script performs no inference."""
 from pathlib import Path
 import argparse
 import hashlib
@@ -13,7 +13,7 @@ repo = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--source", type=Path, default=repo.parent / "Approach-Latest-Metra",
                     help="PoC root containing MetraPipelinePoC/Resources")
-parser.add_argument("--qwen-source", type=Path, help="Optional local Qwen checkpoint folder")
+parser.add_argument("--mfd-source", type=Path, help="Optional local pinned Pix2Text-MFD ONNX file")
 args = parser.parse_args()
 
 def sha256(path):
@@ -42,8 +42,8 @@ for asset in manifest["files"]:
     finally:
         staging.unlink(missing_ok=True)
     print(f"Prepared {asset['destination']}")
-command = [sys.executable, str(repo / "Tools/prepare-qwen-bundle.py")]
-if args.qwen_source:
-    command += ["--source", str(args.qwen_source)]
+command = [sys.executable, str(repo / "Tools/prepare-mfd-assets.py")]
+if args.mfd_source:
+    command += ["--source", str(args.mfd_source)]
 subprocess.run(command, check=True)
-print("Pinned ONNX and bundled Qwen assets ready for the iPhone app.")
+print("Pinned ONNX assets ready; Foundation Models are managed by iOS, with no app-bundled VLM.")

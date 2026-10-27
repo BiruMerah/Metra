@@ -22,7 +22,7 @@ private struct PageWorkResult: Sendable {
     let error: String?
 
     func extractionBlock() -> [ExtractionBlock] {
-        if let layout { return LayoutMerge.blocks(pageID: pageID, regions: effectiveRegions ?? layout.regions, observations: ocr?.observations ?? [], formulas: formulaPage?.formulas ?? []) }
+        if let regions = effectiveRegions ?? layout?.regions { return LayoutMerge.blocks(pageID: pageID, regions: regions, observations: ocr?.observations ?? [], formulas: formulaPage?.formulas ?? []) }
         guard let ocr else { return [] }
         return ocr.observations.enumerated().compactMap { index, observation in
             guard !observation.selectedText.isEmpty else { return nil }
@@ -97,7 +97,7 @@ final class RunCoordinator: ObservableObject {
     @Published private(set) var recoverableRun: RecoverableRun?
 
     private let repository = RunRepository()
-    private let qwenRuntime = QwenDiagramRuntime()
+    private let diagramRuntime = FoundationDiagramRuntime()
     private let layoutRuntime = PPDocLayoutRuntime()
     private let formulaPipeline = FormulaPipeline()
     private let heavyGate = HeavyInferenceGate()
@@ -180,146 +180,6 @@ final class RunCoordinator: ObservableObject {
         } catch { progressText = "Ekstraksi tersimpan; penyusunan final_ready gagal: \(error.localizedDescription)" }
     }
 
-    func startDiagramCropProbe(source: ImportedSourcePage, modelDirectory: URL) {
-        guard !isRunning else { return }
-        isRunning = true
-        runtimeStatus = .running
-        progressText = "Menjalankan OCR label lalu observasi Qwen pada crop yang dipilih..."
-        workTask = Task { [weak self] in
-            guard let self else { return }
-            await self.executeDiagramCropProbe(source: source, modelDirectory: modelDirectory)
-        }
-    }
-
-    private func executeDiagramCropProbe(source: ImportedSourcePage, modelDirectory: URL) async {
-        latestFinalURL = nil
-        latestFinalDocument = nil
-        latestReadyDocument = nil; latestReadyURL = nil; latestTopicReportURL = nil
-        let runStart = ProcessInfo.processInfo.systemUptime
-        let startedAt = ISO8601DateFormatter().string(from: Date())
-        var paths: RunPaths?
-        var sampler: MemorySampler?
-        do {
-            let (createdPaths, manifest) = try repository.createRun(profile: .serialBaseline, sources: [source], mode: "diagram_crop_component_probe")
-            paths = createdPaths
-            latestRunRoot = createdPaths.root
-            latestReportURL = createdPaths.report
-            latestSourceURL = createdPaths.sourceExtraction
-            latestSpokenURL = createdPaths.spokenExtraction
-            sampler = MemorySampler(outputURL: createdPaths.memorySamples, runID: createdPaths.runID)
-            sampler?.start()
-            sampler?.sampleNow()
-
-            let pageEntry = manifest.pages[0]
-            let pageRoot = createdPaths.pages.appendingPathComponent(pageEntry.pageID, isDirectory: true)
-            let normalizedURL = pageRoot.appendingPathComponent("normalized.png")
-            progressText = "OCR Vision pada crop terpilih..."
-            let ocrStart = ProcessInfo.processInfo.systemUptime
-            let ocr = try await VisionOCRAdapter.recognize(imageURL: normalizedURL, pageID: pageEntry.pageID)
-            let ocrMilliseconds = (ProcessInfo.processInfo.systemUptime - ocrStart) * 1000
-            try repository.writeJSON(ocr, to: pageRoot.appendingPathComponent("ocr.raw.json"))
-
-            let modelInputDirectory = pageRoot.appendingPathComponent("diagram-model-input", isDirectory: true)
-            let boundedInput = try QwenDiagramRuntime.makeBoundedPNG(from: normalizedURL, outputDirectory: modelInputDirectory, maxSide: 1008)
-            let preparedPrompt = try DiagramProbeService.prompt(
-                pageID: pageEntry.pageID,
-                sourceSize: [source.normalizedWidth, source.normalizedHeight],
-                modelInputSize: boundedInput.size,
-                observations: ocr.observations
-            )
-            try preparedPrompt.text.write(to: pageRoot.appendingPathComponent("diagram-prompt.txt"), atomically: true, encoding: .utf8)
-            try repository.writeJSON(preparedPrompt.metadata, to: pageRoot.appendingPathComponent("diagram-input-metadata.json"))
-
-            progressText = "Qwen3-VL memuat/menjalankan satu generation pada gambar diagram 1008 px..."
-            let qwen = try await qwenRuntime.observe(
-                imageURL: normalizedURL,
-                modelDirectory: modelDirectory,
-                prompt: preparedPrompt.text,
-                outputDirectory: pageRoot.appendingPathComponent("diagram-attempt-001", isDirectory: true)
-            )
-            let rawURL = pageRoot.appendingPathComponent("diagram.raw.txt")
-            try qwen.rawText.write(to: rawURL, atomically: true, encoding: .utf8)
-
-            let validation = DiagramProbeService.validate(raw: qwen.rawText, labelIDs: preparedPrompt.labelIDs)
-            var diagramStatus = "needs_review"
-            var diagramError: String?
-            switch validation {
-            case .success(let output):
-                diagramStatus = "succeeded"
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-                encoder.keyEncodingStrategy = .convertToSnakeCase
-                try encoder.encode(output).write(to: pageRoot.appendingPathComponent("diagram.validated.json"), options: .atomic)
-                try DiagramProbeService.render(output, observations: ocr.observations)
-                    .write(to: pageRoot.appendingPathComponent("diagram-rendered.txt"), atomically: true, encoding: .utf8)
-            case .failure(let error):
-                diagramError = error.localizedDescription
-            }
-
-            let components = [
-                ComponentResult(component: "apple_vision_ocr", status: "succeeded", errorCode: nil, message: nil, rawArtifact: "pages/\(pageEntry.pageID)/ocr.raw.json", metrics: ["request_wall_ms": ocrMilliseconds]),
-                ComponentResult(component: "qwen3_vl_diagram", status: diagramStatus, errorCode: diagramError == nil ? nil : "diagram_response_validation_failed", message: diagramError, rawArtifact: "pages/\(pageEntry.pageID)/diagram.raw.txt", metrics: ["model_load_ms": qwen.loadMilliseconds, "preprocess_ms": qwen.preprocessMilliseconds, "inference_ms": qwen.inferenceMilliseconds, "time_to_first_text_ms": qwen.timeToFirstTextMilliseconds])
-            ]
-            let blocks = ocr.observations.enumerated().compactMap { index, observation -> ExtractionBlock? in
-                guard !observation.selectedText.isEmpty else { return nil }
-                let blockID = "\(pageEntry.pageID).b\(String(format: "%04d", index + 1))"
-                let segment = TextSegment(id: "\(blockID).s0001", kind: "text", textRaw: observation.selectedText, sourceObservationID: observation.id, sourceRangeUTF16: [0, observation.selectedText.utf16.count], status: "succeeded", spokenText: observation.selectedText)
-                return ExtractionBlock(id: blockID, pageID: pageEntry.pageID, kind: "unclassified_vision_line", bboxPageXYXY: observation.bboxPageXYXY, readingOrder: index + 1, parentID: nil, sourceRegionIDs: [observation.id], segments: [segment], children: [], status: "partial", uncertainties: ["diagram crop probe input; source completeness not assessed"])
-            }
-            let page = PageExtraction(id: pageEntry.pageID, source: source, runtimeStatus: .partial, sourceCoverageStatus: .notAssessed, contentQualityStatus: .notAssessed, readingOrderMethod: "Vision raw observation order; diagram probe does not classify page layout", rawOCR: ocr.observations, components: components, blocks: blocks, formulaCounts: FormulaCounts(detected: nil, recognized: 0, spoken: 0, unresolved: nil, missedOnReviewedPages: nil))
-            try repository.writePage(page, to: createdPaths)
-
-            sampler?.sampleNow()
-            let completedAt = ISO8601DateFormatter().string(from: Date())
-            let report: [String: Any] = [
-                "schema": "metra-device-report-v1",
-                "run_id": createdPaths.runID,
-                "mode": "diagram_crop_component_probe",
-                "status": "partial",
-                "started_at": startedAt,
-                "completed_at": completedAt,
-                "device": ["model": UIDevice.current.model, "hardware_model_identifier": DeviceIdentity.hardwareModelIdentifier() as Any? ?? NSNull(), "system_name": UIDevice.current.systemName, "system_version": UIDevice.current.systemVersion, "physical_memory_bytes": ProcessInfo.processInfo.physicalMemory],
-                "build": BuildIdentity.metadata,
-                "input": ["source_sha256": source.sourceSHA256, "normalized_sha256": source.normalizedSHA256, "page_size_px": [source.normalizedWidth, source.normalizedHeight], "qwen_input_size_px": qwen.inputSize],
-                "model": ["id": "mlx-community/Qwen3-VL-2B-Instruct-4bit", "revision": "9c4f5209e57b31f4b9dfba735de3fb983739c9cc", "runtime": "MLXVLM Swift", "vision_input": qwen.boundedImageURL.lastPathComponent, "model_was_warm": qwen.modelWasWarm, "cache_limit_bytes": qwen.cacheLimitBytes, "output_tokens": qwen.outputTokenCount as Any? ?? NSNull()],
-                "prompt_sha256": qwen.promptHash,
-                "spans_ms": ["apple_vision_request": ocrMilliseconds, "qwen_model_load": qwen.loadMilliseconds, "qwen_preprocess": qwen.preprocessMilliseconds, "qwen_inference_total": qwen.inferenceMilliseconds, "qwen_time_to_first_text": qwen.timeToFirstTextMilliseconds as Any? ?? NSNull(), "end_to_end": (ProcessInfo.processInfo.systemUptime - runStart) * 1000],
-                "memory": ["sampled_peak_bytes": Self.sampledPeak(in: createdPaths.memorySamples) as Any? ?? NSNull(), "interval_ms": 200, "scope": "app process only; WebContent/runtime-internal memory excluded"],
-                "thermal": ["final": MemorySampler.thermalString(ProcessInfo.processInfo.thermalState)],
-                "component_runtime_status": diagramStatus,
-                "source_coverage_status": "not_assessed",
-                "content_quality_status": "not_assessed",
-                "formula_regions": "not_available; diagram prompt received an empty math_regions list",
-                "artifacts": ["pages/\(pageEntry.pageID)/diagram.raw.txt", "pages/\(pageEntry.pageID)/diagram.validated.json", "pages/\(pageEntry.pageID)/diagram-rendered.txt"]
-            ]
-            let document = ExtractionDocument(schema: "metra-source-extraction-v1", runID: createdPaths.runID, profile: .serialBaseline, runtimeStatus: .partial, sourceCoverageStatus: .notAssessed, contentQualityStatus: .notAssessed, startedAt: startedAt, completedAt: completedAt, pages: [page])
-            let spokenDocument = ExtractionDocument(schema: "metra-spoken-extraction-v1", runID: createdPaths.runID, profile: .serialBaseline, runtimeStatus: .partial, sourceCoverageStatus: .notAssessed, contentQualityStatus: .notAssessed, startedAt: startedAt, completedAt: completedAt, pages: [page])
-            latestFinalDocument = try repository.writeDocuments(document, spoken: spokenDocument, report: report, to: createdPaths)
-            latestFinalURL = createdPaths.finalExtraction
-            repository.appendEvent(["run_id": createdPaths.runID, "stage": "qwen3_vl_diagram", "kind": "completed", "status": diagramStatus, "inference_ms": qwen.inferenceMilliseconds, "model_load_ms": qwen.loadMilliseconds], to: createdPaths.events)
-            latestRunRoot = createdPaths.root
-            latestReportURL = createdPaths.report
-            latestSourceURL = createdPaths.sourceExtraction
-            latestSpokenURL = createdPaths.spokenExtraction
-            runtimeStatus = .partial
-            progressText = diagramStatus == "succeeded"
-                ? "Generation diagram selesai dan JSON lolos validasi mekanik. Kesesuaian terhadap crop tetap belum dinilai."
-                : "Raw Qwen tersimpan; validasi gagal dan hasil ditandai perlu ditinjau."
-            sampler?.stop()
-        } catch {
-            sampler?.stop()
-            runtimeStatus = .failed
-            progressText = "Probe diagram gagal: \(error.localizedDescription)"
-            if let paths {
-                let failed = ["schema": "metra-device-report-v1", "run_id": paths.runID, "mode": "diagram_crop_component_probe", "status": "failed", "error": ["code": "diagram_probe_failed", "message": error.localizedDescription], "source_coverage_status": "not_assessed", "content_quality_status": "not_assessed"] as [String: Any]
-                try? repository.writeJSON(failed, to: paths.report)
-            }
-        }
-        await qwenRuntime.unload()
-        isRunning = false
-        workTask = nil
-    }
-
     private func execute(sources: [ImportedSourcePage], profile: RunProfile, resuming: RecoverableRun? = nil, reusingInputs: Bool = false, modelDirectory: URL? = nil) async {
         latestFinalURL = nil
         latestFinalDocument = nil
@@ -330,7 +190,7 @@ final class RunCoordinator: ObservableObject {
         latestLayoutOverlays = []
         latestFormulas = []
         await layoutRuntime.unload()
-        await qwenRuntime.unload()
+        await diagramRuntime.unload()
         do {
             let paths: RunPaths
             let manifest: RunManifest
@@ -431,8 +291,9 @@ final class RunCoordinator: ObservableObject {
                 "unresolved":allLayoutSucceeded ? unresolvedCount as Any : NSNull(),
                 "missed_on_reviewed_pages":NSNull(),
                 "pp_doclayout_formula_regions":allRegions.filter{$0.label=="formula"}.count,
-                "vision_math_roi_proposals":allRegions.filter{$0.label=="formula_candidate"}.count,
-                "count_scope":"PP-DocLayout-L regions plus unconfirmed Vision math ROI proposals; multiline/nested units differ from source reference spans"
+                "vision_math_roi_proposals":allRegions.filter{$0.label=="formula_candidate" && $0.detectionSource?.hasPrefix("vision_") == true}.count,
+                "mfd_active_crop_proposals":allRegions.filter{$0.detectionSource == Pix2TextMFDRuntime.proposalVersion}.count,
+                "count_scope":"Active DocLayout, Vision and MFD crop proposals after conservative merge; raw MFD and retired Vision proposals remain in separate artifacts. Counts are not unique correct source formulas."
             ]
             let report: [String: Any] = [
                 "schema": "metra-device-report-v1",
@@ -446,7 +307,7 @@ final class RunCoordinator: ObservableObject {
                 "input_page_count": manifest.pages.count,
                 "input_mode": reusingInputs ? "persisted_input_replay" : (resuming == nil ? "freshly_imported" : "resumed"),
                 "input_preparation_history_ms": ["input_ingest": sources.map(\.sandboxCopyMilliseconds).reduce(0, +), "normalization": sources.map(\.normalizationMilliseconds).reduce(0, +)],
-                "batch_timing_scope": "run source copy, layout/OCR/formula/Qwen vision, merge and per-page save; excludes picker/initial normalization and final document/report writes",
+                "batch_timing_scope": "run source copy, layout/OCR/formula/Foundation Models vision, merge and per-page save; excludes picker/initial normalization and final document/report writes",
                 "page_count_attempted": completedPages.count + results.count,
                 "runtime_completed_page_count": orderedPages.filter { $0.runtimeStatus == .partial || $0.runtimeStatus == .complete }.count,
                 "components": Self.aggregateComponents(orderedPages),
@@ -454,11 +315,11 @@ final class RunCoordinator: ObservableObject {
                     "input_ingest": resuming == nil && !reusingInputs ? sources.map(\.sandboxCopyMilliseconds).reduce(0, +) : 0,
                     "normalization": resuming == nil && !reusingInputs ? sources.map(\.normalizationMilliseconds).reduce(0, +) : 0,
                     "queue_wait": totalQueue,
-                    "model_load": ["layout_ms": layoutMetric("model_load_ms"),"unimernet_ms":formulaMetric("unimernet","model_load_ms"), "qwen_ms":formulaMetric("qwen3_vl_diagram","model_load_ms")],
-                    "preprocess": ["layout_ms": layoutMetric("preprocess_ms"), "qwen_ms":formulaMetric("qwen3_vl_diagram","preprocess_ms")],
-                    "inference": ["apple_vision_request_wall_ms": totalVision, "qwen_diagram_ms": formulaMetric("qwen3_vl_diagram","inference_ms"), "layout_ms": layoutMetric("inference_ms"), "formula_detector_ms": NSNull(), "unimernet_ms": formulaMetric("unimernet","inference_ms")],
+                    "model_load": ["layout_ms": layoutMetric("model_load_ms"),"unimernet_ms":formulaMetric("unimernet","model_load_ms"), "foundation_ms":NSNull()],
+                    "preprocess": ["layout_ms": layoutMetric("preprocess_ms"), "foundation_ms":formulaMetric("foundation_models_diagram","preprocess_ms")],
+                    "inference": ["apple_vision_request_wall_ms": totalVision, "foundation_diagram_request_ms": formulaMetric("foundation_models_diagram","request_wall_ms"), "layout_ms": layoutMetric("inference_ms"), "formula_detector_ms": NSNull(), "unimernet_ms": formulaMetric("unimernet","inference_ms")],
                     "postprocess": ["layout_ms": layoutMetric("postprocess_ms"), "layout_artifact_write_ms": layoutMetric("artifact_write_ms")],
-                    "qwen_grammar_prepare": formulaMetric("qwen3_vl_diagram","grammar_compile_ms"),
+                    "foundation_schema_prepare": NSNull(),
                     "math_parsing": formulaMetric("mathjax","parse_ms"),
                     "mathcat": formulaMetric("mathcat","inference_ms"),
                     "merge": mergeMS,
@@ -541,9 +402,9 @@ final class RunCoordinator: ObservableObject {
                 let enqueued = ProcessInfo.processInfo.systemUptime
                 let runtime = self.layoutRuntime
                 let formulaPipeline = self.formulaPipeline
-                let qwen = self.qwenRuntime
+                let diagramRuntime = self.diagramRuntime
                 let gate = self.heavyGate
-                group.addTask { await Self.processPage(input, enqueuedAt: enqueued, layoutRuntime: runtime, formulaPipeline: formulaPipeline, gate: gate, qwen: qwen, modelDirectory: modelDirectory, onProgress: { text in await MainActor.run { self.progressText = text } }) }
+                group.addTask { await Self.processPage(input, enqueuedAt: enqueued, layoutRuntime: runtime, formulaPipeline: formulaPipeline, gate: gate, diagramRuntime: diagramRuntime, modelDirectory: modelDirectory, onProgress: { text in await MainActor.run { self.progressText = text } }) }
                 next += 1
             }
             while let result = await group.next() {
@@ -558,9 +419,9 @@ final class RunCoordinator: ObservableObject {
                     let enqueued = ProcessInfo.processInfo.systemUptime
                     let runtime = self.layoutRuntime
                     let formulaPipeline = self.formulaPipeline
-                let qwen = self.qwenRuntime
+                let diagramRuntime = self.diagramRuntime
                     let gate = self.heavyGate
-                    group.addTask { await Self.processPage(input, enqueuedAt: enqueued, layoutRuntime: runtime, formulaPipeline: formulaPipeline, gate: gate, qwen: qwen, modelDirectory: modelDirectory, onProgress: { text in await MainActor.run { self.progressText = text } }) }
+                    group.addTask { await Self.processPage(input, enqueuedAt: enqueued, layoutRuntime: runtime, formulaPipeline: formulaPipeline, gate: gate, diagramRuntime: diagramRuntime, modelDirectory: modelDirectory, onProgress: { text in await MainActor.run { self.progressText = text } }) }
                     next += 1
                 }
             }
@@ -572,10 +433,11 @@ final class RunCoordinator: ObservableObject {
         return resultMap
     }
 
-    nonisolated private static func processPage(_ input: PageWorkInput, enqueuedAt: Double, layoutRuntime: PPDocLayoutRuntime, formulaPipeline: FormulaPipeline, gate: HeavyInferenceGate, qwen: QwenDiagramRuntime, modelDirectory: URL?, onProgress: @Sendable @escaping (String) async -> Void) async -> PageWorkResult {
+    nonisolated private static func processPage(_ input: PageWorkInput, enqueuedAt: Double, layoutRuntime: PPDocLayoutRuntime, formulaPipeline: FormulaPipeline, gate: HeavyInferenceGate, diagramRuntime: FoundationDiagramRuntime, modelDirectory: URL?, onProgress: @Sendable @escaping (String) async -> Void) async -> PageWorkResult {
         let queueWait = max(0, ProcessInfo.processInfo.systemUptime - enqueuedAt) * 1000
         let pageRoot = input.normalizedURL.deletingLastPathComponent()
         var layout: LayoutResult?
+        var mfd: MFDResult?
         var ocr: VisionOCRResult?
         var visionMS: Double?
         var components: [ComponentResult] = []
@@ -589,6 +451,20 @@ final class RunCoordinator: ObservableObject {
             components.append(ComponentResult(component: "layout", status: error is CancellationError ? "cancelled" : "failed", errorCode: error is CancellationError ? "run_cancelled" : "layout_runtime_failed", message: error.localizedDescription, rawArtifact: "pages/\(input.pageID)/layout.raw.json", metrics: [:]))
         }
         await layoutRuntime.unload()
+        let mfdRuntime = Pix2TextMFDRuntime()
+        do {
+            try Task.checkCancellation()
+            mfd = try await mfdRuntime.detect(imageURL:input.normalizedURL,pageID:input.pageID,pageRoot:pageRoot,
+                                               enqueuedAt:ProcessInfo.processInfo.systemUptime)
+            components.append(ComponentResult(component:"math_formula_detector",status:"succeeded",errorCode:nil,
+                message:"Pinned Pix2Text-MFD FP32 on-device; image crop proposals only; source quality unassessed",
+                rawArtifact:"pages/\(input.pageID)/mfd.raw.json",metrics:mfd!.metrics.mapValues { Optional($0) }))
+        } catch {
+            components.append(ComponentResult(component:"math_formula_detector",status:error is CancellationError ? "cancelled" : "failed",
+                errorCode:error is CancellationError ? "run_cancelled" : "mfd_runtime_failed",message:error.localizedDescription,
+                rawArtifact:nil,metrics:[:]))
+        }
+        await mfdRuntime.unload()
         await gate.release()
         do {
             try Task.checkCancellation()
@@ -628,14 +504,32 @@ final class RunCoordinator: ObservableObject {
             components.append(ComponentResult(component: "apple_vision_ocr", status: error is CancellationError ? "cancelled" : "failed", errorCode: error is CancellationError ? "run_cancelled" : "vision_request_failed", message: error.localizedDescription, rawArtifact: nil, metrics: [:]))
         }
         var effectiveRegions=routedRegions ?? layout?.regions
-        if let layout, let ocr {
+        var visionProposals: [LayoutRegion] = []
+        if let ocr {
             do {
-                let routed = routedRegions ?? layout.regions
+                let routed = routedRegions ?? layout?.regions ?? []
                 let proposals=try OCRMathROIProposer.propose(pageID:input.pageID,observations:ocr.observations,layout:routed,imageURL:input.normalizedURL,pageRoot:pageRoot)
+                visionProposals = proposals
                 effectiveRegions=(routed+proposals).sorted(by:LayoutMerge.precedes)
                 components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"succeeded",errorCode:nil,message:"Whole algebraic expressions, isolated Latin variables and numeric tuples from Vision range boxes; proposals require image recognition/source review; score is OCR confidence, not detector probability",rawArtifact:"pages/\(input.pageID)/formula-roi-proposals.raw.json",metrics:["proposals":Double(proposals.count)]))
             } catch {
                 components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"failed",errorCode:"roi_proposal_failed",message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
+            }
+        }
+        if let mfd {
+            do {
+                let start = ProcessInfo.processInfo.systemUptime
+                let merged = try FormulaCropMerger.combine(pageID:input.pageID,layout:routedRegions ?? layout?.regions ?? [],
+                    vision:visionProposals,mfd:mfd.regions,observations:ocr?.observations ?? [],imageURL:input.normalizedURL,pageRoot:pageRoot)
+                effectiveRegions = merged.regions
+                components.append(ComponentResult(component:"formula_crop_merge",status:"succeeded",errorCode:nil,
+                    message:merged.report.limitations,rawArtifact:"pages/\(input.pageID)/mfd-crop-merge.json",
+                    metrics:["merge_ms":(ProcessInfo.processInfo.systemUptime-start)*1000,
+                             "raw_mfd_regions":Double(mfd.regions.count),"active_mfd_regions":Double(merged.report.activeMFDRegionIDs.count),
+                             "retired_vision_proposals":Double(merged.report.retiredVisionProposalIDs.count)]))
+            } catch {
+                components.append(ComponentResult(component:"formula_crop_merge",status:"failed",errorCode:"mfd_crop_merge_failed",
+                    message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
             }
         }
         let formulaPage: FormulaPageResult?
@@ -643,11 +537,11 @@ final class RunCoordinator: ObservableObject {
             formulaPage = await formulaPipeline.process(pageID:input.pageID,regions:effectiveRegions,observations:ocr?.observations ?? [],pageRoot:pageRoot,gate:gate)
         } else { formulaPage = nil }
         components += formulaPage?.components ?? ["unimernet","mathjax","mathcat"].map { ComponentResult(component:$0,status:"skipped_dependency",errorCode:"layout_unavailable",message:nil,rawArtifact:nil,metrics:[:]) }
-        let formulaCount = layout?.regions.filter { $0.label == "formula" }.count
-        let (diagrams, diagramComponents) = await DiagramSpokenService.process(pageID: input.pageID, regions: effectiveRegions ?? [], observations: ocr?.observations ?? [], formulas: formulaPage?.formulas ?? [], pageRoot: pageRoot, modelDirectory: modelDirectory, runtime: qwen, gate: gate, onProgress: onProgress)
+        let formulaCount = effectiveRegions?.filter { ["formula","formula_candidate"].contains($0.label) }.count
+        let (diagrams, diagramComponents) = await DiagramSpokenService.process(pageID: input.pageID, regions: effectiveRegions ?? [], observations: ocr?.observations ?? [], formulas: formulaPage?.formulas ?? [], pageRoot: pageRoot, modelDirectory: modelDirectory, runtime: diagramRuntime, gate: gate, onProgress: onProgress)
         components += diagramComponents
         components += [
-            ComponentResult(component: "formula_detection", status: layout == nil ? "skipped_dependency" : "succeeded", errorCode: layout == nil ? "layout_failed" : nil, message: "PP-DocLayout-L formulas plus separate Vision range proposals; MFD not used. Proposal classification and full source coverage require review.", rawArtifact: "pages/\(input.pageID)/formula-detection.raw.json", metrics: ["detected_regions": formulaCount.map(Double.init)]),
+            ComponentResult(component: "formula_detection", status: effectiveRegions == nil ? "skipped_dependency" : "succeeded", errorCode: effectiveRegions == nil ? "detectors_unavailable" : nil, message: "DocLayout plus Vision and supplemental MFD crop proposals; conservative overlap decisions retained. Proposal classification and source coverage require review.", rawArtifact: "pages/\(input.pageID)/formula-detection.raw.json", metrics: ["detected_regions": formulaCount.map(Double.init)]),
             ComponentResult(component: "table", status: "unsupported", errorCode: "table_structure_unavailable", message: "Label tabel dari layout tidak memastikan grid sel; struktur belum tersedia.", rawArtifact: nil, metrics: [:])
         ]
         return PageWorkResult(pageID: input.pageID, source: input.source, ocr: ocr, layout: layout, formulaPage: formulaPage, effectiveRegions:effectiveRegions, diagrams:diagrams, components: components, visionMilliseconds: visionMS, queueWaitMilliseconds: queueWait, error: ocr == nil && layout == nil ? "all_page_components_failed" : nil)

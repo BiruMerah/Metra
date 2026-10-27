@@ -2,7 +2,17 @@
 
 ### Integrasi PoC aktif
 
-Branch `feat/poc-integration` membawa engine PoC build 29 ke alur galeri/kamera, daftar topik, pembaca chunk untuk VoiceOver dan penyimpanan SwiftData. Siapkan aset lokal dengan `python3 Tools/prepare-poc-assets.py`, lalu buka `Metra.xcodeproj`. Qwen disertakan sejak build 3 dan dikenali otomatis, tanpa impor model di iPhone. Navigasi topik build 6 memakai checkpoint yang sama. Hasil pengguna build 9 menunjukkan merge kedua sudut dan deduplikasi pada satu halaman; [status formula](Integration/FORMULA-MERGE.md). Build 10 menambahkan crop nilai+satuan berpangkat dan validasi hasil, sudah build/install, menunggu uji pengguna; [status satuan](Integration/UNIT-POWERS.md). [Arsitektur, persiapan aset, build dan batas bukti](Integration/README.md).
+Branch `feat/poc-integration` membawa engine PoC build 29 ke alur galeri/kamera, daftar topik, pembaca chunk untuk VoiceOver dan penyimpanan SwiftData. Siapkan aset lokal dengan `python3 Tools/prepare-poc-assets.py`, lalu buka `Metra.xcodeproj`. Build 17 memakai Apple Foundation Models lokal untuk diagram; Qwen dan dependency MLX sudah dikeluarkan dari aplikasi. Material baru memakai judul/subjudul sumber untuk navigasi topik. Hasil pengguna build 9 menunjukkan merge kedua sudut dan deduplikasi pada satu halaman; [status formula](Integration/FORMULA-MERGE.md). Build 10 menambahkan crop nilai+satuan berpangkat dan validasi hasil, sudah build/install, menunggu uji pengguna; [status satuan](Integration/UNIT-POWERS.md). [Arsitektur, persiapan aset, build dan batas bukti](Integration/README.md).
+
+**Build 14** menambahkan Pix2Text-MFD sebagai sumber kandidat crop sebelum UniMERNet, dengan merge dan jejak sumber. Sudah diuji pada iPhone: dua crop MFD ready tepat sekali, 88 tetap teks biasa, dan 6/8 rentang satuan ready dari jalur gabungan/yang sudah ada. Hasil masih parsial; diagram dan akurasi umum belum selesai dinilai. [Hasil dan persiapan aset MFD](Integration/MFD-CROP-MERGE.md).
+
+**Build 15** memuat eksperimen Debug Apple Foundation Models on-device. Dua permintaan Indonesia berhasil dengan bahasa utama English pada iPhone 17, iOS 27.0.1. Pilot topik menghasilkan referensi yang tidak valid; deskripsi diagram salah menempatkan satu sudut. Itu hasil historis sebelum migrasi produksi build 17. [Respons mentah, waktu dan batas bukti](Integration/FOUNDATION-MODELS.md).
+
+**Build 16** menormalkan pilihan A–B–C–D per soal menjadi satu chunk per pilihan, serta menambahkan grouping/intent satuan dengan validasi sumber sebelum MathCAT. Satu uji iPhone pada gambar yang sama menghasilkan 24 pilihan ready dan 8/8 satuan berpangkat ready, termasuk 616/324 cm². Raw OCR, raw LaTeX dan source refs tetap sama. [Hasil, JSON v4 dan batas normalisasi](Integration/READING-NORMALIZATION.md). Itu ukuran build 16 sebelum penghapusan Qwen pada build 17.
+
+**Build 17–19** mengganti diagram ke Foundation Models dengan hasil terstruktur, validasi referensi/relasi sudut dan MathCAT untuk nilai. Qwen, safetensors dan dependency MLX tidak ada dalam bundle baru. [Implementasi, uji iPhone dan keterbatasan](Integration/FOUNDATION-DIAGRAM.md).
+
+**Build 20** menstabilkan serialisasi evidence pada prompt Foundation. Pada tiga uji iPhone, prompt dan isi hasil akhir sama; diagram masih memiliki keterbatasan akurasi. [Hasil perbaikan konsistensi](Integration/CONSISTENCY-FIX.md).
 
 **Metra** is developed as part of **Apple Developer Academy (Final Project)**. An intuitive, accessibility-first iOS application that helps blind students to learn and understand math materials easily. 
 

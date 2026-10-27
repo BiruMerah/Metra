@@ -17,6 +17,8 @@ struct LayoutRegion: Codable, Identifiable, Sendable {
     var roiDerivation: String? = nil
     var originalLayoutLabel: String? = nil
     var routingPolicy: String? = nil
+    /// Raw detector/proposal IDs behind a derived recognition crop.
+    var proposalSourceIDs: [String]? = nil
 }
 
 /// A photographed document can be classified as one full-page image. Recover a
@@ -92,6 +94,7 @@ struct FormulaRegion: Codable, Identifiable, Sendable {
     var sourceConsistencyStatus: String? = nil
     var sourceConsistencyMessage: String? = nil
     var spokenMergeAllowed: Bool? = nil
+    var unitPowerAnchors: [UnitPowerSourceAnchor]? = nil
 }
 
 extension PixelBox {

@@ -1,0 +1,30 @@
+{
+  "modelID": "breezedeus/pix2text-mfd",
+  "sourceRevision": "fc3797af79391c32ed0d56f8b5f437b5a49271be",
+  "sourceFile": "mfd-v20240618.onnx",
+  "sha256": "51a8854743b17ae654729af8db82a630c1ccfa06debf4856c8b28055f87d02c1",
+  "bytes": 44573224,
+  "precision": "FP32, verified ONNX initializer type float",
+  "opset": 17,
+  "inputName": "images",
+  "outputName": "output0",
+  "labels": [
+    "embedding",
+    "isolated"
+  ],
+  "tensorLayout": "[1,6,N]: center_x,center_y,width,height,embedding_score,isolated_score; no objectness channel",
+  "targetWidth": 768,
+  "maxInputSide": 1536,
+  "stride": 32,
+  "scoreThreshold": 0.25,
+  "nmsSameClassIOU": 0.7,
+  "maxDetections": 300,
+  "paddingValue": 114,
+  "preprocessing": "Aspect-preserving width-768 target, stride-32 ceil canvas, half-pixel bilinear RGB rounded uint8, centered padding 114, float32 NCHW /255. Cap canvas long side at1536. Swift decode/resize parity with OpenCV not measured.",
+  "preprocessingReference": "Pix2Text text_formula_ocr.py computes H/W-scaled target width768; CnSTD YoloDetector delegates to Ultralytics. Explicit static canvas and no additional CnSTD dedup_boxes containment deletion.",
+  "licenseMetadata": {
+    "huggingFaceModelCard": "mit",
+    "embeddedOnnx": "AGPL-3.0 License (https://ultralytics.com/license)",
+    "note": "Both declarations retained verbatim as provenance; redistribution compatibility not assessed."
+  }
+}

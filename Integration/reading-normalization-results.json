@@ -1,0 +1,391 @@
+{
+  "schema": "metra-reading-normalization-results-v1",
+  "recorded_at": "2026-10-26T14:44:59.009642+00:00",
+  "app_build": "16",
+  "branch": "feat/poc-integration",
+  "device": {
+    "hardware": "iPhone18,3",
+    "name": "valentino",
+    "ios": "27.0.1"
+  },
+  "attempt_id": "ac8419aa-3997-443f-8483-1942f70758d3",
+  "fresh_run_id": "d1bc57d4-45d0-41a3-9bd9-13584ff0d7ab",
+  "saved_material_id": "D1BC57D4-45D0-41A3-9BD9-13584FF0D7AB",
+  "saved_title": "Materi — normalisasi bacaan",
+  "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+  "image_runs": 1,
+  "mac_inference": false,
+  "test_suite_added_or_run": false,
+  "cached_guard_checks": {
+    "all_choices_ABCD_in_source_question": true,
+    "all_eight_cached_measurements_normalize": true,
+    "all_source_segments_retained": true,
+    "baseline_bytes_unchanged": true,
+    "corrupt_suffix_needs_image_power": true,
+    "each_choice_one_chunk_with_source_slices": true,
+    "explicit_power_conflict_withheld": true,
+    "extra_operator_withheld": true,
+    "flattened_power_conflict_withheld": true,
+    "mathcat_reads_complete_unit_names": true,
+    "number_change_withheld": true,
+    "six_source_questions_normalized": true,
+    "split_C_300_read_label_first": true,
+    "wrong_unit_withheld": true
+  },
+  "checks": {
+    "same_source_hash": true,
+    "same_normalized_hash": true,
+    "six_questions_ABCD": true,
+    "all_24_choices_one_ready_chunk": true,
+    "all_eight_units_ready": true,
+    "raw_latex_identical_all_32_regions": true,
+    "raw_OCR_identical": true,
+    "final_source_references_identical_multiset": true,
+    "final_segment_ids_payloads_identical_multiset": true,
+    "all_14_cached_guards_passed": true,
+    "source_matches_compiled_build16": true,
+    "original_poc_fingerprints_unchanged": true
+  },
+  "before": {
+    "chunks": 53,
+    "ready_unit_ranges": 6,
+    "expected_unit_ranges": 8
+  },
+  "after": {
+    "schema": "metra-ready-chunks-v4",
+    "chunks": 44,
+    "questions": 6,
+    "choices": 24,
+    "ready_unit_ranges": 8,
+    "expected_unit_ranges": 8
+  },
+  "questions": [
+    {
+      "number": "31",
+      "id": "p0001.question.31.p0001.layout.0001",
+      "stem_chunk_ids": [
+        "p0001.layout.0001.c0001",
+        "p0001.layout.0001.c0002",
+        "p0001.layout.0026.c0001",
+        "p0001.layout.0036.c0001"
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "chunk_id": "p0001.layout.0024.c0001",
+          "source": "A. 40 cm",
+          "spoken": "A. 40 cm",
+          "status": "ready"
+        },
+        {
+          "label": "B",
+          "chunk_id": "p0001.layout.0021.c0001",
+          "source": "B. 44 cm",
+          "spoken": "B. 44 cm",
+          "status": "ready"
+        },
+        {
+          "label": "C",
+          "chunk_id": "p0001.layout.0020.c0001",
+          "source": "C. 48 cm",
+          "spoken": "C. 48 cm",
+          "status": "ready"
+        },
+        {
+          "label": "D",
+          "chunk_id": "p0001.layout.0013.c0001",
+          "source": "D. 52 cm",
+          "spoken": "D. 52 cm",
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "number": "32",
+      "id": "p0001.question.32.p0001.layout.0006",
+      "stem_chunk_ids": [
+        "p0001.layout.0006.c0001",
+        "p0001.layout.0006.c0002"
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "chunk_id": "p0001.layout.0032.c0001",
+          "source": "A. 30°",
+          "spoken": "A. 30°",
+          "status": "ready"
+        },
+        {
+          "label": "B",
+          "chunk_id": "p0001.layout.0016.c0001",
+          "source": "B. 40°",
+          "spoken": "B. 40°",
+          "status": "ready"
+        },
+        {
+          "label": "C",
+          "chunk_id": "p0001.layout.0033.c0001",
+          "source": "C. 50°",
+          "spoken": "C. 50°",
+          "status": "ready"
+        },
+        {
+          "label": "D",
+          "chunk_id": "p0001.layout.0015.c0001",
+          "source": "D. 60°",
+          "spoken": "D. 60°",
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "number": "33",
+      "id": "p0001.question.33.p0001.layout.0004",
+      "stem_chunk_ids": [
+        "p0001.layout.0004.c0001",
+        "p0001.layout.0004.c0002",
+        "p0001.layout.0004.c0003"
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "chunk_id": "p0001.layout.0039.c0001",
+          "source": "A. 154 cm2",
+          "spoken": "A. 154 senti-meter kuadrat",
+          "status": "ready"
+        },
+        {
+          "label": "B",
+          "chunk_id": "p0001.layout.0025.c0001",
+          "source": "B. 324 cm2",
+          "spoken": "B. 324 senti-meter kuadrat",
+          "status": "ready"
+        },
+        {
+          "label": "C",
+          "chunk_id": "p0001.layout.0034.c0001",
+          "source": "С. 616 cm2",
+          "spoken": "C. 616 senti-meter kuadrat",
+          "status": "ready"
+        },
+        {
+          "label": "D",
+          "chunk_id": "p0001.layout.0018.c0001",
+          "source": "D. 1.028 cm2",
+          "spoken": "D. 1028 senti-meter kuadrat",
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "number": "34",
+      "id": "p0001.question.34.p0001.layout.0003",
+      "stem_chunk_ids": [
+        "p0001.layout.0003.c0001",
+        "p0001.layout.0003.c0002",
+        "p0001.layout.0003.c0003"
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "chunk_id": "p0001.layout.0038.c0001",
+          "source": "A. 616 m2",
+          "spoken": "A. 616 meter kuadrat",
+          "status": "ready"
+        },
+        {
+          "label": "B",
+          "chunk_id": "p0001.layout.0027.c0001",
+          "source": "B. 770 mг",
+          "spoken": "B. 770 meter kuadrat",
+          "status": "ready"
+        },
+        {
+          "label": "C",
+          "chunk_id": "p0001.layout.0031.c0001",
+          "source": "C. 1.386 m2",
+          "spoken": "C. 1386 meter kuadrat",
+          "status": "ready"
+        },
+        {
+          "label": "D",
+          "chunk_id": "p0001.layout.0023.c0001",
+          "source": "D. 1.540 m2",
+          "spoken": "D. 1540 meter kuadrat",
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "number": "35",
+      "id": "p0001.question.35.p0001.layout.0002",
+      "stem_chunk_ids": [
+        "p0001.layout.0002.c0001",
+        "p0001.layout.0002.c0002",
+        "p0001.layout.0002.c0003"
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "chunk_id": "p0001.layout.0022.c0001",
+          "source": "A. 100",
+          "spoken": "A. 100",
+          "status": "ready"
+        },
+        {
+          "label": "B",
+          "chunk_id": "p0001.layout.0012.c0001",
+          "source": "B. 200",
+          "spoken": "B. 200",
+          "status": "ready"
+        },
+        {
+          "label": "C",
+          "chunk_id": "p0001.layout.0030.c0001",
+          "source": "C. 300",
+          "spoken": "C. 300",
+          "status": "ready"
+        },
+        {
+          "label": "D",
+          "chunk_id": "p0001.layout.0014.c0001",
+          "source": "D. 400",
+          "spoken": "D. 400",
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "number": "36",
+      "id": "p0001.question.36.p0001.layout.0010",
+      "stem_chunk_ids": [
+        "p0001.layout.0010.c0001",
+        "p0001.layout.0010.c0002",
+        "p0001.layout.0005.c0001",
+        "p0001.layout.0007.c0001"
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "chunk_id": "p0001.layout.0037.c0001",
+          "source": "A. 10",
+          "spoken": "A. 10",
+          "status": "ready"
+        },
+        {
+          "label": "B",
+          "chunk_id": "p0001.layout.0029.c0001",
+          "source": "B. 20",
+          "spoken": "B. 20",
+          "status": "ready"
+        },
+        {
+          "label": "C",
+          "chunk_id": "p0001.layout.0028.c0001",
+          "source": "C. 30",
+          "spoken": "C. 30",
+          "status": "ready"
+        },
+        {
+          "label": "D",
+          "chunk_id": "p0001.layout.0017.c0001",
+          "source": "D. 40",
+          "spoken": "D. 40",
+          "status": "ready"
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "formula_id": "p0001.formula.0012",
+      "source": "154 cm2",
+      "allowed": true,
+      "operation": "annotate_complete_source_unit_for_mathcat",
+      "spoken": "154 senti-meter kuadrat",
+      "raw_validation_allowed": true,
+      "artifact": "pages/p0001/formulas/p0001.formula.0012/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0013",
+      "source": "616 cm2",
+      "allowed": true,
+      "operation": "group_source_unit_prefix_with_image_power_base_and_annotate_unit",
+      "spoken": "616 senti-meter kuadrat",
+      "raw_validation_allowed": false,
+      "artifact": "pages/p0001/formulas/p0001.formula.0013/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0014",
+      "source": "1.028 cm2",
+      "allowed": true,
+      "operation": "annotate_complete_source_unit_for_mathcat",
+      "spoken": "1028 senti-meter kuadrat",
+      "raw_validation_allowed": true,
+      "artifact": "pages/p0001/formulas/p0001.formula.0014/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0015",
+      "source": "324 cm2",
+      "allowed": true,
+      "operation": "group_source_unit_prefix_with_image_power_base_and_annotate_unit",
+      "spoken": "324 senti-meter kuadrat",
+      "raw_validation_allowed": false,
+      "artifact": "pages/p0001/formulas/p0001.formula.0015/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0019",
+      "source": "616 m2",
+      "allowed": true,
+      "operation": "annotate_complete_source_unit_for_mathcat",
+      "spoken": "616 meter kuadrat",
+      "raw_validation_allowed": true,
+      "artifact": "pages/p0001/formulas/p0001.formula.0019/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0020",
+      "source": "1.386 m2",
+      "allowed": true,
+      "operation": "annotate_complete_source_unit_for_mathcat",
+      "spoken": "1386 meter kuadrat",
+      "raw_validation_allowed": true,
+      "artifact": "pages/p0001/formulas/p0001.formula.0020/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0021",
+      "source": "770 mг",
+      "allowed": true,
+      "operation": "annotate_complete_source_unit_for_mathcat",
+      "spoken": "770 meter kuadrat",
+      "raw_validation_allowed": true,
+      "artifact": "pages/p0001/formulas/p0001.formula.0021/unit-normalization.json"
+    },
+    {
+      "formula_id": "p0001.formula.0022",
+      "source": "1.540 m2",
+      "allowed": true,
+      "operation": "annotate_complete_source_unit_for_mathcat",
+      "spoken": "1540 meter kuadrat",
+      "raw_validation_allowed": true,
+      "artifact": "pages/p0001/formulas/p0001.formula.0022/unit-normalization.json"
+    }
+  ],
+  "reading_policy": "question_scoped_choice_reading_v1",
+  "unit_policy": "source_anchored_length_unit_normalization_v1",
+  "raw_models_changed": false,
+  "new_inference_provider": null,
+  "foundation_models_used_for_normalization": false,
+  "raw_source_unchanged": true,
+  "source_slice_multiset_count": 88,
+  "evidence_root": "Integration/verification/reading-normalization-v1/ac8419aa-3997-443f-8483-1942f70758d3",
+  "full_final_json": "Integration/verification/reading-normalization-v1/ac8419aa-3997-443f-8483-1942f70758d3/run/final_ready.json",
+  "limitations": [
+    "Single image pilot, not general OCR accuracy or VoiceOver gesture/audio verification.",
+    "Two unmapped existing formula detections remain as unresolved chunks; diagram geometry and other source errors remain.",
+    "Incomplete/ambiguous choice markers and multi-column question anchors keep their existing order.",
+    "Only source-anchored powered length units are normalized; plain prose units and general OCR spelling are not rewritten.",
+    "MathCAT returns senti-meter kuadrat in its current Indonesian rules; no custom speech replacement.",
+    "New chunk metadata and reference-only questions are available in JSON. SwiftData retains existing schema and stores ordered canonical chunks plus readyJSONPath; no separate question entities.",
+    "Saved older material is unchanged; reimport for the new normalization."
+  ]
+}

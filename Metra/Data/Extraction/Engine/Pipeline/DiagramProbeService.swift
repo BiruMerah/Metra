@@ -125,7 +125,7 @@ enum DiagramProbeError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .promptMissing: "Prompt diagram-v1.txt tidak ada di bundle aplikasi."
-        case .invalidUTF8: "Respons Qwen bukan UTF-8."
+        case .invalidUTF8: "Respons model bukan UTF-8."
         case .invalidJSONOrSchema: "Respons mentah tidak lolos decode JSON/schema; raw tetap disimpan."
         case .duplicateObjectID: "ID objek diagram tidak unik."
         case .invalidObject: "Jenis objek atau evidence box tidak valid."
@@ -186,6 +186,7 @@ struct DiagramRegionResult: Codable, Identifiable, Sendable {
     let metrics: [String: Double?]
     var relationPlan: DiagramRelationPlan? = nil
     var relationValidation: DiagramRelationValidation? = nil
+    var foundationDescription: FoundationDiagramDescription? = nil
 }
 
 struct FinalDiagram: Codable, Identifiable, Sendable {
@@ -205,7 +206,7 @@ struct FinalDiagram: Codable, Identifiable, Sendable {
 }
 
 enum DiagramSpokenService {
-    static let version = "diagram-relations-v4"
+    static let version = FoundationDiagramRuntime.version
     static let visualLabels: Set<String> = ["image", "diagram", "figure", "chart", "header_image", "footer_image", "seal"]
 
     static func owner(of box: PixelBox, regions: [LayoutRegion]) -> LayoutRegion? {
@@ -292,6 +293,13 @@ enum DiagramSpokenService {
     }
 
     static func render(_ result: DiagramRegionResult, formulas: [String:FinalFormula]) -> FinalDiagram {
+        if let description = result.foundationDescription {
+            let complete = description.uncertainties.isEmpty && description.rejectedFacts.isEmpty
+            return FinalDiagram(id:result.id,layoutRegionID:result.layoutRegionID,visualType:description.visualType,
+                status:complete ? "generated" : "needs_review",spokenText:complete ? description.spoken : nil,
+                spokenPreview:complete ? nil : description.spoken,unresolvedFormulaIDs:description.unresolvedFormulaIDs,
+                uncertainties:description.uncertainties,artifacts:result.artifacts,contentQualityStatus:.notAssessed)
+        }
         if result.relationPlan != nil, result.relationValidation != nil, result.input != nil { return DiagramRelationService.render(result,formulas:formulas) }
         guard let input = result.input else {
             return FinalDiagram(id:result.id,layoutRegionID:result.layoutRegionID,visualType:nil,status:result.status,
@@ -340,89 +348,10 @@ enum DiagramSpokenService {
     }
 
     static func process(pageID: String, regions: [LayoutRegion], observations: [OCRObservation], formulas: [FormulaRegion],
-                        pageRoot: URL, modelDirectory: URL?, runtime: QwenDiagramRuntime, gate: HeavyInferenceGate,
+                        pageRoot: URL, modelDirectory: URL?, runtime: FoundationDiagramRuntime, gate: HeavyInferenceGate,
                         onProgress: @Sendable @escaping (String) async -> Void) async -> ([DiagramRegionResult],[ComponentResult]) {
-        let visuals = regions.filter { visualLabels.contains($0.label) }.sorted(by:LayoutMerge.precedes)
-        guard !visuals.isEmpty else { return ([],[ComponentResult(component:"qwen3_vl_diagram",status:"skipped_no_input",errorCode:nil,message:"Tidak ada region gambar terdeteksi.",rawArtifact:nil,metrics:[:])]) }
-        var results: [DiagramRegionResult] = [], components: [ComponentResult] = []
-        for (index,region) in visuals.enumerated() {
-            await onProgress("\(pageID): gambar \(index+1)/\(visuals.count), Qwen vision → deskripsi spoken…")
-            let prefix = "pages/\(pageID)/diagrams/\(region.id)"
-            let directory = pageRoot.appendingPathComponent("diagrams/\(region.id)",isDirectory:true)
-            let formulaIDs = formulas.filter { owner(of:$0.bboxPageXYXY,regions:regions)?.id == region.id }.map(\.id)
-            let observationIDs = observations.filter { owner(of:$0.bboxPageXYXY,regions:regions)?.id == region.id }.map(\.id)
-            var metadata: DiagramSpokenInput?, plan: DiagramSpokenPlan?, errorText: String?
-            var relationPlan:DiagramRelationPlan?, relationValidation:DiagramRelationValidation?
-            var metrics: [String:Double?] = [:]
-            var status = "failed", artifacts: [String:String] = [:]
-            let queued = ProcessInfo.processInfo.systemUptime
-            await gate.acquire()
-            metrics["queue_wait_ms"] = (ProcessInfo.processInfo.systemUptime-queued)*1000
-            do {
-                try Task.checkCancellation()
-                try FileManager.default.createDirectory(at:directory,withIntermediateDirectories:true)
-                if let crop = region.cropArtifact { artifacts["crop"] = crop }
-                guard let crop = region.cropArtifact else { throw QwenDiagramError.imageDecodeFailed }
-                let cropURL = pageRoot.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent(crop)
-                let preparationStart = ProcessInfo.processInfo.systemUptime
-                let bounded = try QwenDiagramRuntime.makeBoundedPNG(from:cropURL,outputDirectory:directory,maxSide:1008)
-                let input = try Self.input(region:region,observations:observations,formulas:formulas,regions:regions,size:bounded.size)
-                metadata = input
-                let prompt = try Self.prompt(input)
-                try save(input,to:directory.appendingPathComponent("input.json"))
-                try save(input.labels,to:directory.appendingPathComponent("label-groups.json"))
-                try prompt.write(to:directory.appendingPathComponent("prompt.txt"),atomically:true,encoding:.utf8)
-                let source = CGImageSourceCreateWithURL(cropURL as CFURL,nil)
-                let properties = source.flatMap { CGImageSourceCopyPropertiesAtIndex($0,0,nil) as? [CFString:Any] }
-                let cropWidth = properties?[kCGImagePropertyPixelWidth] as? Int ?? bounded.size[0]
-                let cropHeight = properties?[kCGImagePropertyPixelHeight] as? Int ?? bounded.size[1]
-                try save(["target_bbox_page_xyxy":region.bboxPageXYXY.array,
-                          "crop_bbox_page_xyxy":[floor(region.bboxPageXYXY.xmin),floor(region.bboxPageXYXY.ymin),floor(region.bboxPageXYXY.xmin)+Double(cropWidth),floor(region.bboxPageXYXY.ymin)+Double(cropHeight)],
-                          "crop_size_px":[Double(cropWidth),Double(cropHeight)],
-                          "resize_scale_xy":[Double(bounded.size[0])/Double(cropWidth),Double(bounded.size[1])/Double(cropHeight)],
-                          "letterbox_padding":[0.0,0.0,0.0,0.0],
-                          "model_input_size_px":bounded.size.map(Double.init),"normalized_evidence_bounds":[0.0,0.0,1000.0,1000.0]],to:directory.appendingPathComponent("transform.json"))
-                metrics["prompt_and_crop_ms"] = (ProcessInfo.processInfo.systemUptime-preparationStart)*1000
-                artifacts = ["crop":crop,"input":"\(prefix)/input.json","prompt":"\(prefix)/prompt.txt","raw":"\(prefix)/generation/response.raw.txt","generation":"\(prefix)/generation.json","validated":"\(prefix)/plan.validated.json","transform":"\(prefix)/transform.json"]
-                artifacts["label_groups"] = "\(prefix)/label-groups.json"
-                guard let modelDirectory else { throw DiagramPipelineError.modelMissing }
-                let generated = try await runtime.observeCaption(imageURL:cropURL,modelDirectory:modelDirectory,prompt:prompt,outputDirectory:directory.appendingPathComponent("generation"),schemaOverride:try DiagramRelationService.schema(input))
-                try save(generated,to:directory.appendingPathComponent("generation.json"))
-                metrics["grammar_compile_ms"] = generated.grammarMilliseconds
-                metrics["model_load_ms"] = generated.loadMilliseconds
-                metrics["preprocess_ms"] = generated.preprocessMilliseconds
-                metrics["inference_ms"] = generated.inferenceMilliseconds
-                metrics["first_text_ms"] = generated.timeToFirstTextMilliseconds
-                metrics["prompt_tokens"] = Double(generated.promptTokenCount)
-                metrics["output_tokens"] = generated.outputTokenCount.map(Double.init)
-                guard generated.stopReason == "stop" else { throw DiagramPipelineError.generationStopped(generated.stopReason) }
-                let start = ProcessInfo.processInfo.systemUptime
-                let decoded = try DiagramRelationService.validate(generated.rawText,input:input)
-                relationPlan = decoded.0
-                relationValidation = decoded.1
-                metrics["validation_ms"] = (ProcessInfo.processInfo.systemUptime-start)*1000
-                try save(relationPlan!,to:directory.appendingPathComponent("plan.validated.json"))
-                try save(relationValidation!,to:directory.appendingPathComponent("relations.validation.json"))
-                artifacts["relation_validation"]="\(prefix)/relations.validation.json"
-                status = decoded.1.rejectedPairs.isEmpty ? "succeeded" : "needs_review"
-            } catch {
-                status = error is CancellationError ? "cancelled" : (modelDirectory == nil ? "skipped_dependency" : "failed")
-                errorText = error.localizedDescription + " [" + String(describing:error) + "]"
-            }
-            // Failed attempts must not advertise a validated/generation file that
-            // was never written. Raw and partial artifacts remain discoverable.
-            let runRoot = pageRoot.deletingLastPathComponent().deletingLastPathComponent()
-            artifacts = artifacts.filter { FileManager.default.fileExists(atPath:runRoot.appendingPathComponent($0.value).path) }
-            // Release visual weights before any queued page can load another heavy model.
-            await runtime.unload()
-            await gate.release()
-            let result = DiagramRegionResult(id:region.id,layoutRegionID:region.id,bboxPageXYXY:region.bboxPageXYXY,status:status,error:errorText,
-                                             sourceObservationIDs:observationIDs,formulaIDs:formulaIDs,input:metadata,plan:plan,artifacts:artifacts,metrics:metrics,relationPlan:relationPlan,relationValidation:relationValidation)
-            try? save(result,to:directory.appendingPathComponent("result.json"))
-            results.append(result)
-            components.append(ComponentResult(component:"qwen3_vl_diagram",status:status,errorCode:errorText == nil ? nil : "diagram_spoken_failed",message:errorText,rawArtifact:"\(prefix)/result.json",metrics:metrics))
-        }
-        return (results,components)
+        await FoundationDiagramService.process(pageID:pageID,regions:regions,observations:observations,formulas:formulas,
+            pageRoot:pageRoot,runtime:runtime,gate:gate,onProgress:onProgress)
     }
 
     private static func save<T:Encodable>(_ value: T, to url: URL) throws {
@@ -435,7 +364,7 @@ enum DiagramPipelineError: LocalizedError {
     case modelMissing, generationStopped(String)
     var errorDescription: String? {
         switch self {
-        case .modelMissing: "Checkpoint Qwen belum diimpor; crop dan konten sumber tetap tersedia."
+        case .modelMissing: "Foundation Models dengan dukungan gambar belum tersedia pada perangkat; crop dan konten sumber tetap tersedia."
         case .generationStopped(let reason): "Generation diagram tidak selesai normal: \(reason). Raw parsial tetap disimpan."
         }
     }

@@ -34,21 +34,7 @@ final class MathMaterialViewModel {
             material = try materialService.fetchSavedMaterial(id: materialID)
             if material == nil { errorMessage = "Materi tidak ditemukan." }
         } catch { errorMessage = error.localizedDescription }
-        guard let original = material, !original.chunks.isEmpty,
-              original.readingTopicIndex.policy != MaterialTopicIndex.qwenPolicy,
-              extractionService.diagramModelIsAvailable else { return }
-        isOrganizingTopics = true
-        defer { isOrganizingTopics = false; groupingTask = nil }
-        let task = Task { try await extractionService.organizeTopics(in: original) { _ in } }
-        groupingTask = task
-        do {
-            let updated = try await withTaskCancellationHandler { try await task.value } onCancel: { task.cancel() }
-            try Task.checkCancellation()
-            try materialService.addSavedMaterial(material: updated)
-            material = updated
-        } catch is CancellationError {
-            // Existing headings and content remain readable after cancellation.
-        } catch { topicError = "Bacaan tetap tersedia. \(error.localizedDescription)" }
+        // Loading stored material does not run an LM or rewrite saved topics.
     }
 
     func cancelGrouping() { groupingTask?.cancel() }

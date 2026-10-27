@@ -1,0 +1,476 @@
+{
+  "schema": "metra-doclayout-circle-page-observation-v1",
+  "recorded_at_utc": "2026-10-26T04:41:01.642208+00:00",
+  "attempt_id": "e6cf9bb5-b0c3-4ce7-960d-d7a35bfaca4c",
+  "app_build": {
+    "app_version": "1.0",
+    "build_number": "11",
+    "bundle_id": "id.birumerah.Metra",
+    "configuration": "Debug",
+    "debugger_attached": null
+  },
+  "device": {
+    "hardware_model_identifier": "iPhone18,3",
+    "system_version": "27.0.1"
+  },
+  "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+  "source_hash_matches_attachment": true,
+  "image_dimensions": [
+    1127,
+    1600
+  ],
+  "execution": "one new PP-DocLayout-L inference on physical iPhone; Mac build/transfer/report inspection only",
+  "model": {
+    "boxesOutputName": "fetch_name_0",
+    "countOutputName": "fetch_name_1",
+    "exportSHA256": "95730824e39491e1a56b40560c4288ca8ca96caea77ff16ebbfa289adb8c9b7a",
+    "inputNames": [
+      "im_shape",
+      "image",
+      "scale_factor"
+    ],
+    "iosResizeDifference": "Swift bilinear/sRGB decode instead of OpenCV INTER_LINEAR; numerical parity not measured",
+    "labels": [
+      "paragraph_title",
+      "image",
+      "text",
+      "number",
+      "abstract",
+      "content",
+      "figure_title",
+      "formula",
+      "table",
+      "table_title",
+      "reference",
+      "doc_title",
+      "footnote",
+      "header",
+      "algorithm",
+      "footer",
+      "seal",
+      "chart_title",
+      "chart",
+      "formula_number",
+      "header_image",
+      "footer_image",
+      "aside_text"
+    ],
+    "mergeMode": "union; retain nested formulas",
+    "modelID": "PaddlePaddle/PP-DocLayout-L",
+    "nmsDifferentClassIOU": 0.98,
+    "nmsSameClassIOU": 0.6,
+    "preprocessing": "RGB uint8 -> bilinear half-pixel 640x640 rounded uint8 -> float32 NCHW /255 (PaddleX is_scale=True default, mean=0 std=1); im_shape=[640,640]; scale_factor=[640/H,640/W]",
+    "scoreThreshold": 0.5,
+    "sourceRevision": "ca760c3336d922ee63cdbff85003181222e3911c"
+  },
+  "runtime": "ONNX Runtime 1.24.2",
+  "backend": "CPUExecutionProvider",
+  "intra_op_threads": 2,
+  "model_was_warm": false,
+  "raw_box_count": 300,
+  "accepted_region_count": 39,
+  "counts_by_label": {
+    "footer": 1,
+    "formula": 5,
+    "image": 1,
+    "number": 1,
+    "text": 31
+  },
+  "metrics_ms": {
+    "artifact_write_ms": 54.92416664492339,
+    "inference_ms": 350.40220827795565,
+    "model_load_ms": 363.39341662824154,
+    "postprocess_ms": 1.7469166778028011,
+    "preprocess_ms": 162.04299998935312,
+    "queue_wait_ms": 0.05995831452310085,
+    "total_ms": 932.5257500167936
+  },
+  "formulas": [
+    {
+      "question": 31,
+      "visually_identified_content": "∠AOB = 45°",
+      "region_id": "p0001.layout.0026",
+      "label": "formula",
+      "score": 0.5790925621986389,
+      "bbox_page_xyxy": {
+        "xmax": 714,
+        "xmin": 582,
+        "ymax": 218,
+        "ymin": 192
+      },
+      "parent_id": "p0001.layout.0035",
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 25,
+        "score": 0.5790925621986389,
+        "bbox_page_xyxy": [
+          582.4061279296875,
+          192.48202514648438,
+          713.9846801757812,
+          217.80335998535156
+        ],
+        "iou_with_region": 0.9707880475048718
+      }
+    },
+    {
+      "question": 31,
+      "visually_identified_content": "∠COD = 120°",
+      "region_id": "p0001.layout.0036",
+      "label": "formula",
+      "score": 0.5414977669715881,
+      "bbox_page_xyxy": {
+        "xmax": 913,
+        "xmin": 767,
+        "ymax": 219,
+        "ymin": 193
+      },
+      "parent_id": "p0001.layout.0035",
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 34,
+        "score": 0.5435895323753357,
+        "bbox_page_xyxy": [
+          582.3025512695312,
+          192.6463165283203,
+          912.7625732421875,
+          218.36585998535156
+        ],
+        "iou_with_region": 0.43003503639762275
+      }
+    },
+    {
+      "question": 31,
+      "visually_identified_content": "∠AOB = 45° dan ∠COD = 120° (enclosing duplicate)",
+      "region_id": "p0001.layout.0035",
+      "label": "formula",
+      "score": 0.5435895323753357,
+      "bbox_page_xyxy": {
+        "xmax": 913,
+        "xmin": 582,
+        "ymax": 219,
+        "ymin": 192
+      },
+      "parent_id": "p0001.layout.0001",
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 25,
+        "score": 0.5790925621986389,
+        "bbox_page_xyxy": [
+          582.4061279296875,
+          192.48202514648438,
+          713.9846801757812,
+          217.80335998535156
+        ],
+        "iou_with_region": 0.37280346637985007
+      }
+    },
+    {
+      "question": 31,
+      "visually_identified_content": "AB = 18 cm",
+      "region_id": "p0001.layout.0019",
+      "label": "formula",
+      "score": 0.6014418601989746,
+      "bbox_page_xyxy": {
+        "xmax": 506,
+        "xmin": 377,
+        "ymax": 255,
+        "ymin": 229
+      },
+      "parent_id": "p0001.layout.0001",
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 18,
+        "score": 0.6014418601989746,
+        "bbox_page_xyxy": [
+          377.5230712890625,
+          229.9185333251953,
+          505.8922119140625,
+          254.16921997070312
+        ],
+        "iou_with_region": 0.9281573656082296
+      }
+    },
+    {
+      "question": 32,
+      "visually_identified_content": "AOB = 314 cm²",
+      "region_id": "p0001.layout.0011",
+      "label": "formula",
+      "score": 0.7115492820739746,
+      "bbox_page_xyxy": {
+        "xmax": 862,
+        "xmin": 689,
+        "ymax": 392,
+        "ymin": 366
+      },
+      "parent_id": "p0001.layout.0006",
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 10,
+        "score": 0.7115492820739746,
+        "bbox_page_xyxy": [
+          689.7935791015625,
+          366.3708190917969,
+          861.1528930664062,
+          391.344970703125
+        ],
+        "iou_with_region": 0.9514347458806547
+      }
+    }
+  ],
+  "unit_answer_options": [
+    {
+      "question": 33,
+      "visually_identified_content": "A. 154 cm²",
+      "region_id": "p0001.layout.0039",
+      "label": "text",
+      "score": 0.5210225582122803,
+      "bbox_page_xyxy": {
+        "xmax": 352,
+        "xmin": 208,
+        "ymax": 636,
+        "ymin": 610
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 64,
+        "score": 0.3091965913772583,
+        "bbox_page_xyxy": [
+          261.8179931640625,
+          611.3590087890625,
+          350.9267578125,
+          634.9484252929688
+        ],
+        "iou_with_region": 0.5614379710044203
+      }
+    },
+    {
+      "question": 33,
+      "visually_identified_content": "B. 324 cm²",
+      "region_id": "p0001.layout.0025",
+      "label": "text",
+      "score": 0.5797948837280273,
+      "bbox_page_xyxy": {
+        "xmax": 352,
+        "xmin": 209,
+        "ymax": 672,
+        "ymin": 646
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 71,
+        "score": 0.27812039852142334,
+        "bbox_page_xyxy": [
+          258.93218994140625,
+          647.248291015625,
+          350.6353759765625,
+          671.0070190429688
+        ],
+        "iou_with_region": 0.5860008220145736
+      }
+    },
+    {
+      "question": 33,
+      "visually_identified_content": "C. 616 cm²",
+      "region_id": "p0001.layout.0034",
+      "label": "text",
+      "score": 0.5506664514541626,
+      "bbox_page_xyxy": {
+        "xmax": 761,
+        "xmin": 615,
+        "ymax": 636,
+        "ymin": 609
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 84,
+        "score": 0.19647639989852905,
+        "bbox_page_xyxy": [
+          672.3048095703125,
+          610.6168212890625,
+          758.4357299804688,
+          635.4518432617188
+        ],
+        "iou_with_region": 0.5426340184960267
+      }
+    },
+    {
+      "question": 33,
+      "visually_identified_content": "D. 1.028 cm²",
+      "region_id": "p0001.layout.0018",
+      "label": "text",
+      "score": 0.6029651165008545,
+      "bbox_page_xyxy": {
+        "xmax": 779,
+        "xmin": 616,
+        "ymax": 672,
+        "ymin": 646
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 124,
+        "score": 0.1076604425907135,
+        "bbox_page_xyxy": [
+          616.367919921875,
+          646.7817993164062,
+          778.1968994140625,
+          671.5385131835938
+        ],
+        "iou_with_region": 0.9453406655750448
+      }
+    },
+    {
+      "question": 34,
+      "visually_identified_content": "A. 616 m²",
+      "region_id": "p0001.layout.0038",
+      "label": "text",
+      "score": 0.5284856557846069,
+      "bbox_page_xyxy": {
+        "xmax": 341,
+        "xmin": 209,
+        "ymax": 881,
+        "ymin": 854
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 69,
+        "score": 0.2876722812652588,
+        "bbox_page_xyxy": [
+          257.8664855957031,
+          855.5462646484375,
+          339.974853515625,
+          879.7335815429688
+        ],
+        "iou_with_region": 0.5572337582973945
+      }
+    },
+    {
+      "question": 34,
+      "visually_identified_content": "B. 770 m²",
+      "region_id": "p0001.layout.0027",
+      "label": "text",
+      "score": 0.5776768326759338,
+      "bbox_page_xyxy": {
+        "xmax": 341,
+        "xmin": 209,
+        "ymax": 917,
+        "ymin": 890
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 58,
+        "score": 0.351432204246521,
+        "bbox_page_xyxy": [
+          261.0685729980469,
+          891.5364379882812,
+          340.13214111328125,
+          915.4526977539062
+        ],
+        "iou_with_region": 0.5305569116277025
+      }
+    },
+    {
+      "question": 34,
+      "visually_identified_content": "C. 1.386 m²",
+      "region_id": "p0001.layout.0031",
+      "label": "text",
+      "score": 0.5572769045829773,
+      "bbox_page_xyxy": {
+        "xmax": 768,
+        "xmin": 615,
+        "ymax": 880,
+        "ymin": 854
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 135,
+        "score": 0.09628167748451233,
+        "bbox_page_xyxy": [
+          615.5279541015625,
+          854.5257568359375,
+          767.3453979492188,
+          879.8711547851562
+        ],
+        "iou_with_region": 0.9672884690678782
+      }
+    },
+    {
+      "question": 34,
+      "visually_identified_content": "D. 1.540 m²",
+      "region_id": "p0001.layout.0023",
+      "label": "text",
+      "score": 0.5941466093063354,
+      "bbox_page_xyxy": {
+        "xmax": 767,
+        "xmin": 616,
+        "ymax": 916,
+        "ymin": 891
+      },
+      "parent_id": null,
+      "best_overlapping_raw_formula_candidate": {
+        "raw_index": 133,
+        "score": 0.0989040732383728,
+        "bbox_page_xyxy": [
+          616.840576171875,
+          891.153076171875,
+          766.3121948242188,
+          915.4812622070312
+        ],
+        "iou_with_region": 0.9632777074305032
+      }
+    }
+  ],
+  "diagram": {
+    "question": 36,
+    "visually_identified_content": "Circle diagram of question 36",
+    "region_id": "p0001.layout.0005",
+    "label": "image",
+    "score": 0.8924654722213745,
+    "bbox_page_xyxy": {
+      "xmax": 411,
+      "xmin": 212,
+      "ymax": 1414,
+      "ymin": 1205
+    },
+    "parent_id": null,
+    "best_overlapping_raw_formula_candidate": null
+  },
+  "geometry_question_text": {
+    "question": 36,
+    "visually_identified_content": "Jika ∠DFE besarnya adalah 47° dan ∠DPE adalah (3x + 4)° ...",
+    "region_id": "p0001.layout.0007",
+    "label": "text",
+    "score": 0.8474710583686829,
+    "bbox_page_xyxy": {
+      "xmax": 967,
+      "xmin": 451,
+      "ymax": 1277,
+      "ymin": 1214
+    },
+    "parent_id": null,
+    "best_overlapping_raw_formula_candidate": {
+      "raw_index": 143,
+      "score": 0.0906665027141571,
+      "bbox_page_xyxy": [
+        451.0810852050781,
+        1214.34130859375,
+        966.5966796875,
+        1276.8218994140625
+      ],
+      "iou_with_region": 0.9908243792403824
+    }
+  },
+  "interpretation": {
+    "content_descriptions": "Human visual identification of uploaded source/crops; not OCR or another model output.",
+    "raw_formula_spatial_match": "Highest raw formula score among candidates with bbox IoU >= 0.3 relative to each text region; diagnostic overlap, not proof of correct recognition.",
+    "finding": "All eight unit answer options remain text at score threshold 0.5. AOB = 314 cm² is an accepted formula elsewhere. Five accepted formula boxes include one enclosing duplicate. Geometry image is detected, with no geometry understanding assessed.",
+    "limitations": [
+      "One image and one cold model call; no repeatability or full-page recall claim.",
+      "No OCR, UniMERNet, spoken math, Qwen, or build10 unit crop path was executed.",
+      "Confidence is a model score, not measured accuracy."
+    ]
+  },
+  "artifacts": {
+    "report": "Integration/verification/layout-only-v1/e6cf9bb5-b0c3-4ce7-960d-d7a35bfaca4c/device/report.json",
+    "raw_layout": "Integration/verification/layout-only-v1/e6cf9bb5-b0c3-4ce7-960d-d7a35bfaca4c/device/pages/p0001/layout.raw.json",
+    "overlay": "Integration/verification/layout-only-v1/e6cf9bb5-b0c3-4ce7-960d-d7a35bfaca4c/device/pages/p0001/layout-overlay.png",
+    "compiled_source_hashes": "Integration/verification/layout-only-v1/e6cf9bb5-b0c3-4ce7-960d-d7a35bfaca4c/compiled-source-sha256.json"
+  },
+  "model_runtime_parameters_changed": false,
+  "old_runs_preserved": true,
+  "code_changes_pushed": false
+}
