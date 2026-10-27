@@ -76,7 +76,7 @@ struct ChunkCandidate: Codable, Sendable {
 }
 
 enum ReadingChunkBuilder {
-    static let version = "sentence_atomic_math_question_choices_v4"
+    static let version = "sentence_atomic_math_question_choices_v5"
 
     private struct Atom {
         let mask: String
@@ -90,6 +90,7 @@ enum ReadingChunkBuilder {
     static func build(_ document: FinalExtractionDocument, artifactPrefix: String) throws -> [ChunkCandidate] {
         var candidates: [ChunkCandidate] = []
         for page in document.pages {
+            var startedQuestions: Set<String> = []
             let formulas = Dictionary(uniqueKeysWithValues: page.formulas.map { ($0.id, $0) })
             for block in page.blocks.sorted(by: { $0.readingOrder < $1.readingOrder }) {
                 let readingSegments = block.segments.filter { segment in
@@ -160,6 +161,23 @@ enum ReadingChunkBuilder {
                 }
                 if !group.isEmpty { groups.append(group) }
                 if groups.isEmpty { groups = [[]] }
+                // A confirmed question marker is part of its initial sentence.
+                // Join atoms before projecting speech/slices so source coverage
+                // and unresolved-formula status follow the existing machinery.
+                let questionNumber = block.questionID.map { !startedQuestions.contains($0) } == true && block.choiceLabel == nil ? block.questionNumber : nil
+                if !preserveBlock, let number = questionNumber, groups.count >= 2,
+                   groups[0].allSatisfy({ $0.slice?.formulaID == nil }),
+                   ["\(number).", "\(number))"].contains(groups[0].map(\.source).joined().trimmingCharacters(in: .whitespacesAndNewlines)),
+                   !groups[1].map(\.source).joined().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    let initialSentence = groups.remove(at: 1)
+                    groups[0].append(contentsOf: initialSentence)
+                }
+                let firstSource = groups[0].map(\.source).joined().trimmingCharacters(in: .whitespacesAndNewlines)
+                let hasQuestionStart = !preserveBlock && questionNumber.map { number in
+                    firstSource.range(of: "^" + NSRegularExpression.escapedPattern(for: number) + #"[.)]\s+\S"#,
+                                      options: .regularExpression) != nil
+                } == true
+                if hasQuestionStart, let questionID = block.questionID { startedQuestions.insert(questionID) }
                 for (index, items) in groups.enumerated() {
                     let id = "\(block.id).c\(String(format: "%04d", index + 1))"
                     let source = items.map(\.source).joined().trimmingCharacters(in: .whitespacesAndNewlines)
@@ -168,7 +186,8 @@ enum ReadingChunkBuilder {
                     let missing = Array(Set(items.compactMap(\.unresolvedFormulaID))).sorted()
                     let complete = !unsupported && items.allSatisfy { $0.speech != nil }
                     let speech = complete ? choicePrefix(items.compactMap(\.speech).joined().trimmingCharacters(in: .whitespacesAndNewlines), label:block.choiceLabel) : nil
-                    let chunk = ReadyChunk(id: id, kind: preserveBlock ? block.kind : "sentence", pageID: page.id,
+                    let kind = hasQuestionStart && index == 0 ? "question_start" : (preserveBlock ? block.kind : "sentence")
+                    let chunk = ReadyChunk(id: id, kind: kind, pageID: page.id,
                                            status: unsupported ? "unsupported" : (complete ? "ready" : "needs_review"),
                                            sourceText: source, spokenText: speech,
                                            spokenPreview: complete ? nil : (unsupported && preview.isEmpty ? "[isi \(block.kind) belum tersedia]" : preview),
@@ -183,7 +202,7 @@ enum ReadingChunkBuilder {
                     }
                     candidates.append(ChunkCandidate(chunk: chunk, blockID: block.id, readingOrder: block.readingOrder, sourceSlices: slices,
                                                      isAuxiliary: ["footer", "header", "number"].contains(block.kind),
-                                                     derivation: "\(version): sentence boundaries on prose; each formula occurrence atomic; a confirmed answer_choice is one reading chunk including its source marker, even when the marker was separately proposed as math; marker homoglyph mapping is limited to choice context; original slices and payload retained"))
+                                                     derivation: "\(version): sentence boundaries on prose; a confirmed leading question marker joins the initial sentence within its source block and is tagged question_start; each formula occurrence atomic; a confirmed answer_choice is one reading chunk including its source marker, even when the marker was separately proposed as math; marker homoglyph mapping is limited to choice context; original slices and payload retained"))
                 }
             }
         }
@@ -311,6 +330,7 @@ enum OrderedChunkExport {
             "diagram_inference_requests":0,"source_snapshot":result.sourceArtifact,
             "generic_topics":topicIndex.topics.filter { $0.titleSource == "application_fallback" }.count,
             "chunks":candidates.count,"diagram_chunks":candidates.filter { $0.chunk.diagramID != nil }.count,
+            "question_starts":candidates.filter { $0.chunk.kind == "question_start" }.count,
             "reading_normalization":QuestionReadingNormalizer.version,"questions":result.questions?.count ?? 0,
             "answer_choices":candidates.filter { $0.chunk.kind == "answer_choice" }.count,
             "wall_ms":(ProcessInfo.processInfo.systemUptime-started)*1000,

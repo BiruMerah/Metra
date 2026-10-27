@@ -19,6 +19,8 @@ struct LayoutRegion: Codable, Identifiable, Sendable {
     var routingPolicy: String? = nil
     /// Raw detector/proposal IDs behind a derived recognition crop.
     var proposalSourceIDs: [String]? = nil
+    /// Source validation policy survives a supplemental detector crop fusion.
+    var sourceNotationPolicy: String? = nil
 }
 
 /// A photographed document can be classified as one full-page image. Recover a

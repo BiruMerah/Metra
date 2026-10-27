@@ -1,35 +1,62 @@
 {
   "schema": "metra-poc-integration-status-v1",
-  "recorded_at_utc": "2026-10-26T16:53:50.237258+00:00",
+  "recorded_at_utc": "2026-10-27T14:51:52.853957+00:00",
   "branch": "feat/poc-integration",
   "base_commit": "5c5a785",
   "poc_source_build": "29",
   "app_bundle": "id.birumerah.Metra",
-  "app_build": "20",
+  "app_build": 27,
   "build": {
     "status": "succeeded",
     "signed": true,
-    "device_installation": "succeeded",
     "configuration": "Debug",
     "sdk": "iphoneos27.0",
-    "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-fix-v1/5cd51b38-9941-4d38-a618-0acd74a40b63/build20.log"
+    "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/question-start-v1/99a2d7f8-eab0-4973-bf95-386c419ce572/build-01.log",
+    "device_installation": "succeeded"
   },
   "bundle_resources_verified": true,
   "bundle_info": {
-    "CFBundleIdentifier": "id.birumerah.Metra",
-    "CFBundleExecutable": "Metra",
-    "CFBundleVersion": "20",
-    "MinimumOSVersion": "27.0",
-    "NSCameraUsageDescription": "Metra memakai kamera untuk mengambil foto halaman matematika yang Anda pilih.",
-    "UIFileSharingEnabled": true,
-    "LSSupportsOpeningDocumentsInPlace": true,
-    "MetraBuildConfiguration": "Debug"
+    "build": "27",
+    "bundle_id": "id.birumerah.Metra",
+    "executable": "Metra",
+    "executable_exists": true,
+    "onnx_models": [
+      {
+        "path": "PP-DocLayout-L.onnx",
+        "bytes": 129523577
+      },
+      {
+        "path": "PaddleOCR-PP-OCRv5-mobile-rec.onnx",
+        "bytes": 16534782
+      },
+      {
+        "path": "Pix2Text-MFD.onnx",
+        "bytes": 44573224
+      },
+      {
+        "path": "UniMERNet/decoder_model.onnx",
+        "bytes": 325975220
+      },
+      {
+        "path": "UniMERNet/decoder_with_past_model.onnx",
+        "bytes": 325978820
+      },
+      {
+        "path": "UniMERNet/encoder_model.onnx",
+        "bytes": 105876820
+      }
+    ],
+    "qwen_or_mlx_or_safetensors_paths": [],
+    "app_file_bytes": 1004109851,
+    "paddle_model_sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092",
+    "device_installation": "succeeded",
+    "device_inference": "not_run_for_build27"
   },
   "source_poc_untouched": true,
   "model_runtime_pins_changed": true,
-  "device_inference": "three new one-image physical-device extractions; Foundation generation succeeded in builds18/19; quality partial",
+  "device_inference": "Build27 compiled/signed/installed only; no new extraction or VoiceOver interaction by agent. Build26 real-image evidence is retained in reader-symbol-fix-results.json.",
   "swiftdata_migration_and_reopen": "existing build-3 material saved and reopened with identical canonical fields and persisted v3 topic index; legacy schema migration not tested",
-  "tests_added_or_run": "User-authorized three new full on-device extractions for canonical request fix, stage comparisons, request-integrity checks and baseline core regression audit; no general test suite",
+  "tests_added_or_run": "No new tests added or run for this change. Build/sign/install and source/diff inspection only.",
   "onnx_models_ignored_by_git": true,
   "untracked_files_over_50MiB": [],
   "committed": false,
@@ -38,12 +65,14 @@
     "Prose crop of (3x+4) degree still has extra model token and is withheld; diagram crop succeeds",
     "Diagram 47 degree vertex wrong in raw response; source validator rejects; D-F connection omitted",
     "Footer OCR prevents question36 structural normalization; four choice chunks remain in source order",
-    "No general diagram benchmark, multi-page test, new camera capture, VoiceOver audio or restart/reopen proof in this task"
+    "No general diagram benchmark, multi-page test, new camera capture, VoiceOver audio or restart/reopen proof in this task",
+    "PaddleOCR recognizer supplements math-hinted Vision line crops only; not Paddle page/text detection.",
+    "Build26 threshold0.70 is not calibrated accuracy; only one new source image pilot. Other alignment failures such as314cm2 and diagram relationships remain partial."
   ],
   "native_mathcat_binary_unchanged": true,
   "diff_whitespace_check": "passed",
   "qwen_bundled": false,
-  "qwen_bundle_files_verified": "absent_in_fresh_bundle",
+  "qwen_bundle_files_verified": true,
   "iphone_model_import_required": false,
   "qwen_loading_from_bundle_on_device": "removed from production",
   "topic_navigation_results": "topic-navigation-results.json",
@@ -52,13 +81,13 @@
   "formula_overlap_results": "formula-overlap-results.json",
   "formula_merge_verification": "Observed AOB/COD ready, enclosing formula alias and source slice counts 1/0/1 in one user-run build9 extraction; first build7 audit failure preserved.",
   "internal_id_presentation_verification": "passed on cached iPhone artifact in build7; same implementation in build9",
-  "test_suite_added_or_run": false,
+  "test_suite_added_or_run": true,
   "device_safety_probe_added_and_run": true,
   "unit_powers_results": "unit-powers-status.json",
   "unit_powers_device_validation": "Build10 original user-run check remains separate; related build14 pilot on a different resolution of the same content recorded in mfd-crop-results.json.",
   "model_inventory_changed": true,
   "existing_model_runtime_pins_changed": "ONNX and MathCAT unchanged; MLX packages removed; OS-managed Foundation model replaces Qwen",
-  "additional_model": "breezedeus/pix2text-mfd at fc3797af79391c32ed0d56f8b5f437b5a49271be",
+  "additional_model": "PaddlePaddle/PP-OCRv5_mobile_rec_onnx at ed152b8b495f84de93cda5709d768548a9127622; existing Pix2Text-MFD retained",
   "mfd_crop_results": "mfd-crop-results.json",
   "mfd_crop_verification": {
     "same_attached_source": true,
@@ -97,7 +126,7 @@
   "reading_normalization_results": "reading-normalization-results.json",
   "reading_normalization_verification": "Build19: question32 degrees, question34 4/4 area units and 9/9 inspected powered units ready. 5 canonical questions/20 choices; question36 footer guard retains original chunks. Prior build16 results remain historical.",
   "production_qwen_bundle_bytes": 0,
-  "debug_app_bundle_bytes": 986776726,
+  "debug_app_bundle_bytes": 1004109851,
   "historical_build16_state": {
     "app_build": "16",
     "build": {
@@ -162,5 +191,206 @@
     "baseline19_core_regressions_passed": true,
     "quality": "diagram remains partial; wrong angle relations withheld",
     "scope": "one image/device; no guarantee for all inputs or OS versions"
+  },
+  "historical_pre_unicode_state": {
+    "app_build": "20",
+    "build": {
+      "status": "succeeded",
+      "signed": true,
+      "device_installation": "succeeded",
+      "configuration": "Debug",
+      "sdk": "iphoneos27.0",
+      "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/consistency-fix-v1/5cd51b38-9941-4d38-a618-0acd74a40b63/build20.log"
+    },
+    "device_inference": "three new one-image physical-device extractions; Foundation generation succeeded in builds18/19; quality partial",
+    "tests_added_or_run": "User-authorized three new full on-device extractions for canonical request fix, stage comparisons, request-integrity checks and baseline core regression audit; no general test suite",
+    "test_suite_added_or_run": false,
+    "debug_app_bundle_bytes": 986776726,
+    "source_files_match_last_compiled_build": true
+  },
+  "test_suite_scope": "Standalone Swift decoder/alignment fixtures and local JSON provenance audit; no XCTest target added.",
+  "source_files_match_scope": "Build27 production sources/project fingerprinted before compilation; Integration documentation updated afterwards.",
+  "unicode_math_results": "unicode-math-results.json",
+  "unicode_math_verification": {
+    "proposal_policy": "ocr_unicode_math_proposal_v2",
+    "validation_policy": "unicode_math_whole_source_check_v3",
+    "latest_build": 23,
+    "latest_device_installed_build": 22,
+    "latest_retrieved_device_result_build": 21,
+    "device_occurrences_processed": 8,
+    "device_occurrences_allowed": 7,
+    "current_cached_checks_passed": 8,
+    "logic_fixtures_passed": 38,
+    "actual_device_unicode_glyphs": {
+      "∠": 0,
+      "°": 10,
+      "²": 0,
+      "³": 0
+    },
+    "paddleocr_added": false,
+    "model_weights_or_runtime_pins_changed_in_this_pilot": false,
+    "qwen_in_bundle": false,
+    "source_accuracy": "not_assessed_globally",
+    "voiceover_comprehension": "not_assessed",
+    "user_device_preference": "Continue with first trial results; no further device calls attempted."
+  },
+  "historical_pre_paddle_state": {
+    "app_build": 23,
+    "build": {
+      "status": "succeeded",
+      "signed": true,
+      "device_installation": "not_attempted",
+      "configuration": "Debug",
+      "sdk": "iphoneos27.0",
+      "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/unicode-math-v1/53b68e3b-2e7b-4467-9d6f-971d09b12209/build-01.log"
+    },
+    "bundle_info": {
+      "build": "23",
+      "bundle_id": "id.birumerah.Metra",
+      "executable": "Metra",
+      "executable_exists": true,
+      "onnx_models": [
+        "Pix2Text-MFD.onnx",
+        "PP-DocLayout-L.onnx",
+        "UniMERNet/decoder_with_past_model.onnx",
+        "UniMERNet/decoder_model.onnx",
+        "UniMERNet/encoder_model.onnx"
+      ],
+      "qwen_or_mlx_or_safetensors_paths": [],
+      "app_file_bytes": 987047163,
+      "device_installation": "not_attempted",
+      "device_inference": "not_attempted"
+    },
+    "device_inference": "Build21: one new real-image physical iPhone extraction, page partial, 7/8 Unicode proposals allowed. Build22 installed/launched but result not retrieved after disconnection. Build23 not installed or run; current validator checked using recorded build21 OCR/MathML.",
+    "tests_added_or_run": "User-authorized standalone production matcher/validator checks: 38/38 fixtures; 8/8 cached real OCR/MathML checks. One completed/retrieved iPhone pilot; source ownership, preservation and nine existing unit readings audited. No new inference on Mac.",
+    "source_files_match_scope": "Build23 production Swift, resource manifest and project snapshot; verification tools fingerprinted separately in the same evidence folder."
+  },
+  "paddleocr_results": "Integration/paddleocr-results.json",
+  "paddleocr_verification": {
+    "latest_build": 26,
+    "installed": true,
+    "launched": true,
+    "device_model": "iPhone17,2",
+    "device_os": "27.0.1",
+    "attempted_lines": 17,
+    "line_failures": 0,
+    "selected_glyphs_latest": 7,
+    "policy": "paddle_unicode_symbol_selection_v3",
+    "symbol_threshold": 0.7,
+    "all_audit_checks_passed": true,
+    "dfe_dpe_spoken_ready": true,
+    "source_empty_formula_chunks": 0,
+    "global_source_accuracy": "not_assessed",
+    "diagram_quality": "needs_review"
+  },
+  "historical_build25_paddle_state": {
+    "app_build": 25,
+    "build": {
+      "status": "succeeded",
+      "signed": true,
+      "device_installation": "succeeded",
+      "configuration": "Debug",
+      "sdk": "iphoneos27.0",
+      "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/ac6ba76e-53ea-43e5-b251-b7db699f64bf/build-01.log"
+    },
+    "device_inference": "Build24 and25: two completed real-image extractions on connected iPhone16ProMax, same image, selector changed. Paddle 17/17 lines each; build25 selected one actual angle glyph. Full page remains partial; not repeatability or general accuracy evidence.",
+    "paddleocr_verification": {
+      "latest_build": 25,
+      "installed": true,
+      "launched": true,
+      "device_model": "iPhone17,2",
+      "device_os": "27.0.1",
+      "attempted_lines_per_run": 17,
+      "line_failures": 0,
+      "selected_glyphs_latest": 1,
+      "policy": "paddle_unicode_symbol_selection_v2",
+      "symbol_threshold": 0.85,
+      "all_audit_checks_passed": true,
+      "global_source_accuracy": "not_assessed",
+      "diagram_quality": "needs_review"
+    },
+    "source_files_match_scope": "Build25 production Swift, resource manifest/config/dictionary, project and preparation/check tools fingerprinted before build; Integration evidence documents updated afterwards."
+  },
+  "reader_symbol_fix_results": "Integration/reader-symbol-fix-results.json",
+  "reader_symbol_fix_verification": {
+    "build26_completed_on_iphone": true,
+    "same_original_user_image": true,
+    "threshold_lowered_to_070": true,
+    "paddle_runtime_no_line_failures": true,
+    "dfe_and_dpe_selected": true,
+    "dfe_spoken_ready": true,
+    "dpe_spoken_ready": true,
+    "cyrillic_marker_crop_filtered": true,
+    "raw_mfd_candidate_retained": true,
+    "bogus_empty_formula_chunk_removed": true,
+    "all_eight_ready_powered_units_preserved": true,
+    "same_six_complete_choice_sets": true,
+    "vision_candidates_and_boxes_preserved": true,
+    "normalization_preserves_source_segments": true,
+    "no_duplicate_formula_segment_owners": true,
+    "current_app_matches_compiled_snapshot": true,
+    "no_qwen_in_bundle": true
+  },
+  "historical_build26_reader_symbol_state": {
+    "app_build": 26,
+    "build": {
+      "status": "succeeded",
+      "signed": true,
+      "device_installation": "succeeded",
+      "configuration": "Debug",
+      "sdk": "iphoneos27.0",
+      "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/ddeabfff-c274-4244-9b5a-6bed597ead66/build-01.log"
+    },
+    "bundle_info": {
+      "build": "26",
+      "bundle_id": "id.birumerah.Metra",
+      "executable": "Metra",
+      "executable_exists": true,
+      "onnx_models": [
+        {
+          "path": "PP-DocLayout-L.onnx",
+          "bytes": 129523577
+        },
+        {
+          "path": "PaddleOCR-PP-OCRv5-mobile-rec.onnx",
+          "bytes": 16534782
+        },
+        {
+          "path": "Pix2Text-MFD.onnx",
+          "bytes": 44573224
+        },
+        {
+          "path": "UniMERNet/decoder_model.onnx",
+          "bytes": 325975220
+        },
+        {
+          "path": "UniMERNet/decoder_with_past_model.onnx",
+          "bytes": 325978820
+        },
+        {
+          "path": "UniMERNet/encoder_model.onnx",
+          "bytes": 105876820
+        }
+      ],
+      "qwen_or_mlx_or_safetensors_paths": [],
+      "app_file_bytes": 1004090171,
+      "paddle_model_sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092",
+      "device_installation": "succeeded",
+      "device_inference": "completed_real_image_pilot"
+    },
+    "device_inference": "Build26: one new full real-image run on iPhone16ProMax using exact original bytes from user build25 run. DFE/DPE ready; MFD choice-marker false chunk removed; eight powered-unit readings and six A-D sets preserved. Full page remains partial; diagram needs_review.",
+    "tests_added_or_run": "One authorized on-device pipeline follow-up and recorded JSON artifact audit; no new test target or standalone fixture added/run for this build. Prior 24 Paddle fixtures remain build25 evidence.",
+    "source_files_match_scope": "Build26 production sources, model/resource manifest and project fingerprinted before compilation; Integration evidence docs updated afterwards."
+  },
+  "question_start_status": "Integration/question-start-status.json",
+  "question_start_verification": {
+    "implementation": "completed",
+    "build": "succeeded",
+    "signed": true,
+    "installed": true,
+    "new_pipeline_export": "not_run",
+    "voiceover_interaction": "not_tested",
+    "model_runtime_pins_changed": false,
+    "swiftdata_schema_changed": false
   }
 }

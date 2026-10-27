@@ -43,6 +43,14 @@ struct MetraApp: App {
                         #if DEBUG
                         // Device experiments run only with an explicit launch flag.
                         let args = ProcessInfo.processInfo.arguments
+                        if let position = args.firstIndex(of: "--metra-paddle-probe"), args.indices.contains(position + 1) {
+                            await UnicodeMathDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator, paddleExperiment: true)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-unicode-probe"), args.indices.contains(position + 1) {
+                            await UnicodeMathDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
                         if let position = args.firstIndex(of: "--metra-foundation-probe"), args.indices.contains(position + 1) {
                             await FoundationModelsDeviceProbe.run(attemptID: args[position + 1])
                             return

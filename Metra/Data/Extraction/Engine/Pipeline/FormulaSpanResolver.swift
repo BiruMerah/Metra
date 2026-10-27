@@ -13,7 +13,7 @@ struct FormulaSourceSpan {
 /// Resolves an entire occurrence before any OCR characters are replaced. Vision may
 /// return the same word box for several characters; a box is only an alignment anchor.
 enum FormulaSpanResolver {
-    static let version = "whole_occurrence_utf16_v4"
+    static let version = "whole_occurrence_utf16_v5"
 
     struct Resolution {
         let spans: [FormulaSourceSpan]
@@ -227,6 +227,8 @@ enum FormulaSpanResolver {
     private static func normalized(_ character: Character) -> Character? {
         if character.isWhitespace || ["\u{2061}", "\u{2062}", "\u{2063}", "\u{2064}"].contains(String(character)) { return nil }
         // Matching only: preserve the original OCR and MathML characters in storage.
+        // FormulaPipeline checks explicit powers before speech may replace OCR.
+        if let index = Array("⁰¹²³⁴⁵⁶⁷⁸⁹").firstIndex(of:character) { return Character(String(index)) }
         return character == "−" ? "-" : character
     }
 

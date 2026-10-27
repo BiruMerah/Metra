@@ -1,0 +1,1113 @@
+{
+  "schema": "metra-paddleocr-pilot-results-v1",
+  "latest_app_build": 25,
+  "model": {
+    "modelID": "PaddlePaddle/PP-OCRv5_mobile_rec_onnx",
+    "sourceRevision": "ed152b8b495f84de93cda5709d768548a9127622",
+    "sourceFile": "inference.onnx",
+    "sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092",
+    "bytes": 16534782,
+    "dictionaryFile": "PaddleOCR-PP-OCRv5-mobile-rec.characters.json",
+    "dictionarySHA256": "14ccb8e120e701464bd3084acf3b398ffee767e515477ad27d3c80fd5996c180",
+    "dictionaryClasses": 18385,
+    "sourceConfigSHA256": "5dfeb2777f6d0db8177d8128a8acfcf6e6276dc4ac73ea3bf0dc06d6a5e85d8e",
+    "inputName": "x",
+    "outputName": "fetch_name_0",
+    "height": 48,
+    "minimumWidth": 320,
+    "maximumWidth": 3200,
+    "blankID": 0,
+    "intraOpThreads": 2,
+    "precision": "Official ONNX float32 input/output; no local quantization",
+    "opset": 7,
+    "license": "Apache-2.0",
+    "preprocessing": "BGR; aspect resize to height48, canvas max(320,floor(48*ratio)) capped3200; resized width ceil(48*ratio) clamped to canvas; uint8 half-pixel bilinear, float32 /127.5-1; normalized zero padding at right",
+    "resizeDifference": "Swift sRGB decode and bilinear instead of OpenCV INTER_LINEAR; numerical parity unmeasured",
+    "preprocessingReference": "https://raw.githubusercontent.com/PaddlePaddle/PaddleX/release/3.3/paddlex/inference/models/text_recognition/processors.py",
+    "preprocessingReferenceSHA256": "bc2f122d50385332888c239b228ed26fb13484ea8a67c2dba8fc0e339eb30a1c",
+    "dictionaryConstruction": "blank at0 + inference.yml PostProcess.character_dict + ASCII space, matching PaddleX CTCLabelDecode",
+    "supportedRequestedGlyphs": {
+      "∠": 16515,
+      "°": 16236,
+      "²": 16237,
+      "³": 16591
+    }
+  },
+  "trials": [
+    {
+      "attempt_id": "f7c762a9-c94d-4a43-b44b-192aa6edbda6",
+      "build": "24",
+      "run_id": "8f122f3c-052c-471b-9f2c-ebe087b4218d",
+      "device": {
+        "hardware_model_identifier": "iPhone17,2",
+        "system_version": "27.0.1"
+      },
+      "started_at": "2026-10-27T12:20:54Z",
+      "completed_at": "2026-10-27T12:21:20Z",
+      "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+      "source_hash_matches_request": true,
+      "runtime_status": "partial",
+      "saved_material_modified": false,
+      "paddle_components": [
+        {
+          "message": "On-device supplemental PP-OCRv5 mobile recognition; 0 explicit Unicode glyphs selected; source accuracy unassessed",
+          "metrics": {
+            "attempted_lines": 17,
+            "failed_lines": 0,
+            "inference_ms": 153.29724999901373,
+            "model_load_ms": 43.2708750013262,
+            "postprocess_ms": 1034.6902500023134,
+            "preprocess_ms": 113.73491665290203,
+            "request_wall_ms": 1395.1065416622441,
+            "selected_unicode_glyphs": 0,
+            "total_ms": 1345.0056666406454
+          },
+          "status": "succeeded"
+        }
+      ],
+      "paddle_selection_policy": "paddle_unicode_symbol_selection_v1",
+      "attempted_lines": 17,
+      "failed_lines": 0,
+      "selected_unicode_glyphs": 0,
+      "selected_changes": [],
+      "selected_source_unicode_route_decisions": [],
+      "existing_formula_routes_for_selected_sources": [],
+      "predictions": [
+        {
+          "observation_id": "p0001.ocr.0002",
+          "vision": "pada keliling lingkaran, sehingga LAOB = 45° dan LCOD = 120°. Jika",
+          "paddle": "pada keliling lingkaran, sehingga ∠AOB =45°dan ∠COD=120°. Jika",
+          "symbol_probabilities": [
+            {
+              "symbol": "∠",
+              "probability": 0.90898865
+            },
+            {
+              "symbol": "°",
+              "probability": 0.9630758
+            },
+            {
+              "symbol": "∠",
+              "probability": 0.7384305
+            },
+            {
+              "symbol": "°",
+              "probability": 0.9566651
+            }
+          ],
+          "selected": false,
+          "selected_text": "pada keliling lingkaran, sehingga LAOB = 45° dan LCOD = 120°. Jika",
+          "reason": "Unicode symbol probability below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0008",
+          "vision": "32. Pada suatu lingkaran diketahui luas juring AOB = 314 cm'. Jika jari-",
+          "paddle": "32. Pada suatu lingkaran diketahui luas juring AOB = 314 cm². Jika jari-",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.614408
+            }
+          ],
+          "selected": false,
+          "selected_text": "32. Pada suatu lingkaran diketahui luas juring AOB = 314 cm'. Jika jari-",
+          "reason": "Unicode symbol probability below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0010",
+          "vision": "A. 30°",
+          "paddle": "A.30^",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "A. 30°",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0011",
+          "vision": "C. 50°",
+          "paddle": "C.50°",
+          "symbol_probabilities": [
+            {
+              "symbol": "°",
+              "probability": 0.76240885
+            }
+          ],
+          "selected": false,
+          "selected_text": "C. 50°",
+          "reason": "No supported new Unicode glyph"
+        },
+        {
+          "observation_id": "p0001.ocr.0012",
+          "vision": "B. 40°",
+          "paddle": "B. 40{$",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "B. 40°",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0013",
+          "vision": "D. 60°",
+          "paddle": "D.60^",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "D. 60°",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0018",
+          "vision": "С. 616 cm2",
+          "paddle": "C.616cm2",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "С. 616 cm2",
+          "reason": "No supported new Unicode glyph"
+        },
+        {
+          "observation_id": "p0001.ocr.0016",
+          "vision": "A. 154 cm2",
+          "paddle": "A. 154cm²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.41991255
+            }
+          ],
+          "selected": false,
+          "selected_text": "A. 154 cm2",
+          "reason": "Unicode symbol probability below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0019",
+          "vision": "D. 1.028 cm2",
+          "paddle": "D.1.028 cm2",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "D. 1.028 cm2",
+          "reason": "No supported new Unicode glyph"
+        },
+        {
+          "observation_id": "p0001.ocr.0017",
+          "vision": "B. 324 cm2",
+          "paddle": "B. 324cm²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.4821219
+            }
+          ],
+          "selected": false,
+          "selected_text": "B. 324 cm2",
+          "reason": "Unicode symbol probability below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0023",
+          "vision": "A. 616 m2",
+          "paddle": "A. 616m{²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.26693645
+            }
+          ],
+          "selected": false,
+          "selected_text": "A. 616 m2",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0024",
+          "vision": "B. 770 mг",
+          "paddle": "B. 770m{",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "B. 770 mг",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0026",
+          "vision": "D. 1.540 m2",
+          "paddle": "D. 1.540m²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.46001735
+            }
+          ],
+          "selected": false,
+          "selected_text": "D. 1.540 m2",
+          "reason": "Unicode symbol probability below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0035",
+          "vision": "Jika LDFE besarnya adalah 47° dan LDPE",
+          "paddle": "Jika ∠DFE besarnya adalah 47° dan ∠DPE",
+          "symbol_probabilities": [
+            {
+              "symbol": "∠",
+              "probability": 0.634677
+            },
+            {
+              "symbol": "°",
+              "probability": 0.9809121
+            },
+            {
+              "symbol": "∠",
+              "probability": 0.8435485
+            }
+          ],
+          "selected": false,
+          "selected_text": "Jika LDFE besarnya adalah 47° dan LDPE",
+          "reason": "Unicode symbol probability below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0037",
+          "vision": "adalah (3x + 4)°, maka nilai x adalah ....",
+          "paddle": "adalah (3x + 4)°, maka nilaix adalah ……",
+          "symbol_probabilities": [
+            {
+              "symbol": "°",
+              "probability": 0.5554036
+            }
+          ],
+          "selected": false,
+          "selected_text": "adalah (3x + 4)°, maka nilai x adalah ....",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.layout.0005.ocr.0001",
+          "vision": "47°",
+          "paddle": "47",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "47°",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.layout.0005.ocr.0002",
+          "vision": "(3x + 4)°",
+          "paddle": "(3×+4)°",
+          "symbol_probabilities": [
+            {
+              "symbol": "°",
+              "probability": 0.31936803
+            }
+          ],
+          "selected": false,
+          "selected_text": "(3x + 4)°",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        }
+      ],
+      "vision_glyph_counts": {
+        "∠": 0,
+        "°": 10,
+        "²": 0,
+        "³": 0
+      },
+      "paddle_glyph_counts": {
+        "∠": 4,
+        "°": 6,
+        "²": 5,
+        "³": 0
+      },
+      "selected_glyph_counts": {
+        "∠": 0,
+        "°": 10,
+        "²": 0,
+        "³": 0
+      },
+      "original_vision_candidates_preserved": true,
+      "unicode_formula_rows": [
+        {
+          "id": "p0001.formula.0011",
+          "source": "30°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "30 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0012",
+          "source": "50°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "50 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0013",
+          "source": "40°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "40 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0014",
+          "source": "60°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "60 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0028",
+          "source": "47°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "47 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0029",
+          "source": "(3x + 4)°,",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0031",
+          "source": "47°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "47 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0034",
+          "source": "(3x + 4)°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+          "final_status": "ready"
+        }
+      ],
+      "unicode_merge_allowed": 8,
+      "unit_rows": [
+        {
+          "source": "154 cm2",
+          "status": "ready",
+          "spoken": "154 senti-meter kuadrat"
+        },
+        {
+          "source": "616 cm2",
+          "status": "ready",
+          "spoken": "616 senti-meter kuadrat"
+        },
+        {
+          "source": "1.028 cm2",
+          "status": "ready",
+          "spoken": "1028 senti-meter kuadrat"
+        },
+        {
+          "source": "324 cm2",
+          "status": "ready",
+          "spoken": "324 senti-meter kuadrat"
+        },
+        {
+          "source": "616 m2",
+          "status": "ready",
+          "spoken": "616 meter kuadrat"
+        },
+        {
+          "source": "1.386 młął",
+          "status": "ready",
+          "spoken": "1386 meter kuadrat"
+        },
+        {
+          "source": "1.540 m2",
+          "status": "ready",
+          "spoken": "1540 meter kuadrat"
+        },
+        {
+          "source": "770 mг",
+          "status": "ready",
+          "spoken": "770 meter kuadrat"
+        }
+      ],
+      "source_segments_preserved": true,
+      "duplicate_formula_segment_owners": {},
+      "chunk_count": 49,
+      "canonical_questions": [
+        {
+          "number": "31",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "32",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "33",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "34",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "35",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        }
+      ],
+      "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/f7c762a9-c94d-4a43-b44b-192aa6edbda6"
+    },
+    {
+      "attempt_id": "ac6ba76e-53ea-43e5-b251-b7db699f64bf",
+      "build": "25",
+      "run_id": "5c4461f3-be86-4e2a-a00c-d72bc0eef775",
+      "device": {
+        "hardware_model_identifier": "iPhone17,2",
+        "system_version": "27.0.1"
+      },
+      "started_at": "2026-10-27T12:25:32Z",
+      "completed_at": "2026-10-27T12:25:58Z",
+      "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+      "source_hash_matches_request": true,
+      "runtime_status": "partial",
+      "saved_material_modified": false,
+      "paddle_components": [
+        {
+          "message": "On-device supplemental PP-OCRv5 mobile recognition; 1 explicit Unicode glyphs selected; source accuracy unassessed",
+          "metrics": {
+            "attempted_lines": 17,
+            "failed_lines": 0,
+            "inference_ms": 150.7613333305926,
+            "model_load_ms": 42.505583332967944,
+            "postprocess_ms": 1046.1752499977592,
+            "preprocess_ms": 114.40829165803734,
+            "request_wall_ms": 1400.6338749968563,
+            "selected_unicode_glyphs": 1,
+            "total_ms": 1353.8626250010566
+          },
+          "status": "succeeded"
+        }
+      ],
+      "paddle_selection_policy": "paddle_unicode_symbol_selection_v2",
+      "attempted_lines": 17,
+      "failed_lines": 0,
+      "selected_unicode_glyphs": 1,
+      "selected_changes": [
+        {
+          "paddleGlyph": "∠",
+          "paddleProbability": 0.90898865,
+          "paddleRangeUTF16": [
+            34,
+            35
+          ],
+          "visionGlyph": "L",
+          "visionRangeUTF16": [
+            34,
+            35
+          ],
+          "observation_id": "p0001.ocr.0002"
+        }
+      ],
+      "selected_source_unicode_route_decisions": [
+        {
+          "decision": "existing_doclayout_route",
+          "kind": "angle",
+          "observation_id": "p0001.ocr.0002",
+          "range_utf16": [
+            34,
+            44
+          ],
+          "region_ids": [
+            "p0001.layout.0026",
+            "p0001.layout.0035"
+          ],
+          "source": "vision_with_paddle_unicode",
+          "source_selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0002/selection.json",
+          "source_text": "∠AOB = 45°",
+          "symbols": [
+            "°",
+            "∠"
+          ]
+        },
+        {
+          "decision": "existing_doclayout_route",
+          "kind": "degree",
+          "observation_id": "p0001.ocr.0002",
+          "range_utf16": [
+            56,
+            60
+          ],
+          "region_ids": [
+            "p0001.layout.0035",
+            "p0001.layout.0036"
+          ],
+          "source": "vision_with_paddle_unicode",
+          "source_selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0002/selection.json",
+          "source_text": "120°",
+          "symbols": [
+            "°"
+          ]
+        }
+      ],
+      "existing_formula_routes_for_selected_sources": [
+        {
+          "id": "p0001.formula.0007",
+          "source": "∠AOB = 45° dan LCOD = 120°.",
+          "status": "needs_review",
+          "spoken": null,
+          "review_reasons": [
+            "Overlapping formula occurrences claim the same OCR range; speech withheld"
+          ],
+          "route": [
+            "pp_doclayout_l",
+            "unimernet",
+            "mathjax",
+            "mathcat_id"
+          ]
+        },
+        {
+          "id": "p0001.formula.0006",
+          "source": "",
+          "status": "needs_review",
+          "spoken": null,
+          "review_reasons": [
+            "No unambiguous OCR source range; formula retained for review and speech withheld"
+          ],
+          "route": [
+            "pp_doclayout_l",
+            "unimernet",
+            "mathjax",
+            "mathcat_id"
+          ]
+        },
+        {
+          "id": "p0001.formula.0008",
+          "source": "",
+          "status": "needs_review",
+          "spoken": null,
+          "review_reasons": [
+            "No unambiguous OCR source range; formula retained for review and speech withheld"
+          ],
+          "route": [
+            "pp_doclayout_l",
+            "unimernet",
+            "mathjax",
+            "mathcat_id"
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "observation_id": "p0001.ocr.0002",
+          "vision": "pada keliling lingkaran, sehingga LAOB = 45° dan LCOD = 120°. Jika",
+          "paddle": "pada keliling lingkaran, sehingga ∠AOB =45°dan ∠COD=120°. Jika",
+          "symbol_probabilities": [
+            {
+              "symbol": "∠",
+              "probability": 0.90898865
+            },
+            {
+              "symbol": "°",
+              "probability": 0.9630758
+            },
+            {
+              "symbol": "∠",
+              "probability": 0.7384305
+            },
+            {
+              "symbol": "°",
+              "probability": 0.9566651
+            }
+          ],
+          "selected": true,
+          "selected_text": "pada keliling lingkaran, sehingga ∠AOB = 45° dan LCOD = 120°. Jika",
+          "reason": "Copy explicit Paddle glyphs at aligned source positions only; 1 below-threshold symbols left as Vision. Original Vision candidates, spacing and boxes retained. Image/formula fidelity still requires UniMERNet/source review."
+        },
+        {
+          "observation_id": "p0001.ocr.0008",
+          "vision": "32. Pada suatu lingkaran diketahui luas juring AOB = 314 cm'. Jika jari-",
+          "paddle": "32. Pada suatu lingkaran diketahui luas juring AOB = 314 cm². Jika jari-",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.614408
+            }
+          ],
+          "selected": false,
+          "selected_text": "32. Pada suatu lingkaran diketahui luas juring AOB = 314 cm'. Jika jari-",
+          "reason": "Unicode symbols below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0010",
+          "vision": "A. 30°",
+          "paddle": "A.30^",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "A. 30°",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0011",
+          "vision": "C. 50°",
+          "paddle": "C.50°",
+          "symbol_probabilities": [
+            {
+              "symbol": "°",
+              "probability": 0.76240885
+            }
+          ],
+          "selected": false,
+          "selected_text": "C. 50°",
+          "reason": "No supported new Unicode glyph"
+        },
+        {
+          "observation_id": "p0001.ocr.0012",
+          "vision": "B. 40°",
+          "paddle": "B. 40{$",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "B. 40°",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0013",
+          "vision": "D. 60°",
+          "paddle": "D.60^",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "D. 60°",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0018",
+          "vision": "С. 616 cm2",
+          "paddle": "C.616cm2",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "С. 616 cm2",
+          "reason": "No supported new Unicode glyph"
+        },
+        {
+          "observation_id": "p0001.ocr.0016",
+          "vision": "A. 154 cm2",
+          "paddle": "A. 154cm²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.41991255
+            }
+          ],
+          "selected": false,
+          "selected_text": "A. 154 cm2",
+          "reason": "Unicode symbols below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0019",
+          "vision": "D. 1.028 cm2",
+          "paddle": "D.1.028 cm2",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "D. 1.028 cm2",
+          "reason": "No supported new Unicode glyph"
+        },
+        {
+          "observation_id": "p0001.ocr.0017",
+          "vision": "B. 324 cm2",
+          "paddle": "B. 324cm²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.4821219
+            }
+          ],
+          "selected": false,
+          "selected_text": "B. 324 cm2",
+          "reason": "Unicode symbols below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0023",
+          "vision": "A. 616 m2",
+          "paddle": "A. 616m{²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.26693645
+            }
+          ],
+          "selected": false,
+          "selected_text": "A. 616 m2",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0024",
+          "vision": "B. 770 mг",
+          "paddle": "B. 770m{",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "B. 770 mг",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0026",
+          "vision": "D. 1.540 m2",
+          "paddle": "D. 1.540m²",
+          "symbol_probabilities": [
+            {
+              "symbol": "²",
+              "probability": 0.46001735
+            }
+          ],
+          "selected": false,
+          "selected_text": "D. 1.540 m2",
+          "reason": "Unicode symbols below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0035",
+          "vision": "Jika LDFE besarnya adalah 47° dan LDPE",
+          "paddle": "Jika ∠DFE besarnya adalah 47° dan ∠DPE",
+          "symbol_probabilities": [
+            {
+              "symbol": "∠",
+              "probability": 0.634677
+            },
+            {
+              "symbol": "°",
+              "probability": 0.9809121
+            },
+            {
+              "symbol": "∠",
+              "probability": 0.8435485
+            }
+          ],
+          "selected": false,
+          "selected_text": "Jika LDFE besarnya adalah 47° dan LDPE",
+          "reason": "Unicode symbols below recorded operating threshold; keep Vision"
+        },
+        {
+          "observation_id": "p0001.ocr.0037",
+          "vision": "adalah (3x + 4)°, maka nilai x adalah ....",
+          "paddle": "adalah (3x + 4)°, maka nilaix adalah ……",
+          "symbol_probabilities": [
+            {
+              "symbol": "°",
+              "probability": 0.5554036
+            }
+          ],
+          "selected": false,
+          "selected_text": "adalah (3x + 4)°, maka nilai x adalah ....",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.layout.0005.ocr.0001",
+          "vision": "47°",
+          "paddle": "47",
+          "symbol_probabilities": [],
+          "selected": false,
+          "selected_text": "47°",
+          "reason": "Non-whitespace character count differs; keep Vision"
+        },
+        {
+          "observation_id": "p0001.layout.0005.ocr.0002",
+          "vision": "(3x + 4)°",
+          "paddle": "(3×+4)°",
+          "symbol_probabilities": [
+            {
+              "symbol": "°",
+              "probability": 0.31936803
+            }
+          ],
+          "selected": false,
+          "selected_text": "(3x + 4)°",
+          "reason": "A non-symbol/prose/numeric change was recognized; keep Vision"
+        }
+      ],
+      "vision_glyph_counts": {
+        "∠": 0,
+        "°": 10,
+        "²": 0,
+        "³": 0
+      },
+      "paddle_glyph_counts": {
+        "∠": 4,
+        "°": 6,
+        "²": 5,
+        "³": 0
+      },
+      "selected_glyph_counts": {
+        "∠": 1,
+        "°": 10,
+        "²": 0,
+        "³": 0
+      },
+      "original_vision_candidates_preserved": true,
+      "unicode_formula_rows": [
+        {
+          "id": "p0001.formula.0011",
+          "source": "30°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "30 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0012",
+          "source": "50°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "50 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0013",
+          "source": "40°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "40 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0014",
+          "source": "60°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "60 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0028",
+          "source": "47°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "47 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0029",
+          "source": "(3x + 4)°,",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0031",
+          "source": "47°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "47 derajat",
+          "final_status": "ready"
+        },
+        {
+          "id": "p0001.formula.0034",
+          "source": "(3x + 4)°",
+          "selected_source_range_matches": true,
+          "merge_allowed": true,
+          "owner_count": 1,
+          "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+          "final_status": "ready"
+        }
+      ],
+      "unicode_merge_allowed": 8,
+      "unit_rows": [
+        {
+          "source": "154 cm2",
+          "status": "ready",
+          "spoken": "154 senti-meter kuadrat"
+        },
+        {
+          "source": "616 cm2",
+          "status": "ready",
+          "spoken": "616 senti-meter kuadrat"
+        },
+        {
+          "source": "1.028 cm2",
+          "status": "ready",
+          "spoken": "1028 senti-meter kuadrat"
+        },
+        {
+          "source": "324 cm2",
+          "status": "ready",
+          "spoken": "324 senti-meter kuadrat"
+        },
+        {
+          "source": "616 m2",
+          "status": "ready",
+          "spoken": "616 meter kuadrat"
+        },
+        {
+          "source": "1.386 młął",
+          "status": "ready",
+          "spoken": "1386 meter kuadrat"
+        },
+        {
+          "source": "1.540 m2",
+          "status": "ready",
+          "spoken": "1540 meter kuadrat"
+        },
+        {
+          "source": "770 mг",
+          "status": "ready",
+          "spoken": "770 meter kuadrat"
+        }
+      ],
+      "source_segments_preserved": true,
+      "duplicate_formula_segment_owners": {},
+      "chunk_count": 49,
+      "canonical_questions": [
+        {
+          "number": "31",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "32",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "33",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "34",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "number": "35",
+          "labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        }
+      ],
+      "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/ac6ba76e-53ea-43e5-b251-b7db699f64bf"
+    }
+  ],
+  "checks": {
+    "both_real_image_runs_completed": true,
+    "identical_requested_source": true,
+    "both_paddle_passes_no_line_failure": true,
+    "vision_candidates_retained": true,
+    "all_selected_symbol_probabilities_at_least_085": true,
+    "first_all_or_nothing_selector_recorded_without_changes": true,
+    "latest_selected_at_least_one_actual_symbol": true,
+    "unicode_ranges_match_selected_source": true,
+    "one_segment_owner_per_unicode_formula": true,
+    "no_duplicate_formula_segment_owners": true,
+    "normalization_preserved_source_segments": true,
+    "existing_unit_crop_readings_retained": true,
+    "same_five_complete_choice_sets": true,
+    "no_swiftdata_write_in_probes": true,
+    "latest_app_sources_match_compiled_fingerprint": true,
+    "all_24_decoder_alignment_fixtures_pass": true,
+    "no_qwen_in_latest_bundle": true
+  },
+  "all_checks_passed": true,
+  "bundle": {
+    "build": "25",
+    "bundle_id": "id.birumerah.Metra",
+    "executable": "Metra",
+    "executable_exists": true,
+    "onnx_models": [
+      {
+        "path": "PP-DocLayout-L.onnx",
+        "bytes": 129523577
+      },
+      {
+        "path": "PaddleOCR-PP-OCRv5-mobile-rec.onnx",
+        "bytes": 16534782
+      },
+      {
+        "path": "Pix2Text-MFD.onnx",
+        "bytes": 44573224
+      },
+      {
+        "path": "UniMERNet/decoder_model.onnx",
+        "bytes": 325975220
+      },
+      {
+        "path": "UniMERNet/decoder_with_past_model.onnx",
+        "bytes": 325978820
+      },
+      {
+        "path": "UniMERNet/encoder_model.onnx",
+        "bytes": 105876820
+      }
+    ],
+    "qwen_or_mlx_or_safetensors_paths": [],
+    "app_file_bytes": 1004090171,
+    "paddle_model_sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092"
+  },
+  "logic_fixture_scope": "Synthetic decoder/alignment guard fixtures only. No image/model inference or source accuracy claim.",
+  "reviewer": "agent",
+  "human_review": "not_assessed",
+  "voiceover_comprehension": "not_assessed",
+  "limits": [
+    "Two real-image runs on the same physical iPhone and image, with selection policy changed between runs; not a repeatability or general accuracy benchmark.",
+    "Paddle text recognition only on selected Vision line ROIs, not Paddle text detection or full-page OCR.",
+    "Paddle symbol probabilities are model output, not calibrated source accuracy. Below-threshold glyphs remain Vision even if visually plausible.",
+    "No Mac model inference; decoded tensor traces, model hashes, crop images, per-line decisions and full pipeline output retained.",
+    "Existing quantity/power success and corrected punctuation routing are prior pipeline behavior, not necessarily gains attributable to Paddle.",
+    "Selected angle AOB reuses existing DocLayout formula regions; broad overlapping angle formula is still withheld. OCR symbol selection is not proof of a new successful spoken angle occurrence.",
+    "Diagram relationships, incomplete final question choice normalization, unrelated formula review and source completeness remain unresolved."
+  ],
+  "evidence_roots": [
+    "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/f7c762a9-c94d-4a43-b44b-192aa6edbda6",
+    "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/ac6ba76e-53ea-43e5-b251-b7db699f64bf"
+  ]
+}

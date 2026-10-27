@@ -168,7 +168,7 @@ final class FormulaPipeline {
                 }
                 let embedded = EmbeddedLengthUnitNormalizer.normalize(mathML:parsed.mathML,target:target,observations:observations)
                 let wholeUnitRoute = sourceRegion?.detectionSource == LengthUnitSource.version ||
-                    (sourceRegion?.detectionSource == Pix2TextMFDRuntime.proposalVersion && LengthUnitSource.parse(structureSource) != nil)
+                    ((sourceRegion?.detectionSource == Pix2TextMFDRuntime.proposalVersion || sourceRegion?.sourceNotationPolicy == UnicodeMathSource.version) && LengthUnitSource.parse(structureSource) != nil)
                 if !wholeUnitRoute, let normalized = embedded.mathML {
                     try rawEncoder.encode(embedded).write(to:directory.appendingPathComponent("unit-normalization.json"),options:.atomic)
                     stages.append(ComponentResult(component:"formula_unit_normalization",status:"succeeded",errorCode:nil,message:EmbeddedLengthUnitNormalizer.version,
@@ -183,8 +183,7 @@ final class FormulaPipeline {
                     formulas[index].derivations = (formulas[index].derivations ?? []) + ["\(EmbeddedLengthUnitNormalizer.version): exact source quantity and image subtree; raw math preserved"]
                     stages.append(ComponentResult(component:"mathcat_unit_normalized",status:"succeeded",errorCode:nil,message:spoken.version,rawArtifact:"\(artifactPrefix)/mathcat.unit-normalized.json",metrics:["inference_ms":spoken.milliseconds]))
                 }
-                if sourceRegion?.detectionSource == LengthUnitSource.version ||
-                    (sourceRegion?.detectionSource == Pix2TextMFDRuntime.proposalVersion && LengthUnitSource.parse(structureSource) != nil) {
+                if wholeUnitRoute {
                     let normalized = LengthUnitNormalizer.normalize(source: structureSource, mathML: parsed.mathML)
                     let check = normalized.normalizedValidation ?? normalized.rawValidation
                     let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
@@ -211,7 +210,8 @@ final class FormulaPipeline {
                     stages.append(ComponentResult(component: "formula_unit_consistency", status: check.allowed ? "succeeded" : "needs_review",
                         errorCode: check.allowed ? nil : "unit_measurement_requires_review", message: check.reason,
                         rawArtifact: "\(artifactPrefix)/unit-consistency.json", metrics: [:]))
-                } else if sourceRegion?.detectionSource != "vision_degree_expression_proposal_v1", !structureSource.isEmpty, FormulaExponentCheck.needsCheck(structureSource,mathML:parsed.mathML) {
+                } else if sourceRegion?.detectionSource != "vision_degree_expression_proposal_v1", sourceRegion?.sourceNotationPolicy != UnicodeMathSource.version,
+                          !structureSource.isEmpty, FormulaExponentCheck.needsCheck(structureSource,mathML:parsed.mathML) {
                     let check = FormulaExponentCheck.check(source:structureSource,mathML:parsed.mathML)
                     let checkURL = directory.appendingPathComponent("exponent-consistency.json")
                     let checkEncoder = JSONEncoder(); checkEncoder.outputFormatting = [.prettyPrinted,.sortedKeys]
@@ -222,6 +222,17 @@ final class FormulaPipeline {
                     stages.append(ComponentResult(component:"formula_exponent_consistency",status:check.allowed ? "succeeded" : "needs_review",
                         errorCode:check.allowed ? nil : "exponent_structure_requires_review",message:check.message,
                         rawArtifact:"\(artifactPrefix)/exponent-consistency.json",metrics:[:]))
+                }
+                if sourceRegion?.sourceNotationPolicy == UnicodeMathSource.version {
+                    let check = UnicodeMathSource.check(source:structureSource,mathML:parsed.mathML)
+                    try rawEncoder.encode(check).write(to:directory.appendingPathComponent("unicode-source-consistency.json"),options:.atomic)
+                    formulas[index].spokenMergeAllowed = check.allowed && formulas[index].spokenMergeAllowed != false
+                    formulas[index].sourceConsistencyStatus = formulas[index].spokenMergeAllowed == true ? "complete_unicode_source_agrees" : "needs_review"
+                    formulas[index].sourceConsistencyMessage = check.reason
+                    formulas[index].derivations = (formulas[index].derivations ?? []) + ["\(UnicodeMathSource.validationVersion): explicit OCR source operators, digits and structured powers checked; no symbol substitution or inferred exponent"]
+                    stages.append(ComponentResult(component:"unicode_source_consistency",status:check.allowed ? "succeeded" : "needs_review",
+                        errorCode:check.allowed ? nil : "unicode_source_mismatch",message:check.reason,
+                        rawArtifact:"\(artifactPrefix)/unicode-source-consistency.json",metrics:[:]))
                 }
                 if formulas[index].spokenMergeAllowed != false, let proposal=regions.first(where:{$0.id==formulas[index].layoutRegionID})?.proposalText,proposal.count==1,proposal.rangeOfCharacter(from:.letters) != nil {
                     let check=FormulaIdentifierCheck.check(mathML:parsed.mathML,expected:proposal)

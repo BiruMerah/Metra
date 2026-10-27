@@ -39,7 +39,8 @@ struct MathTopicReaderView: View {
                                     }
                                     if !reading.isEmpty {
                                         Text(reading).font(MaterialTopicIndex.headingKinds.contains(chunk.kind) ? .title3.bold() : .body)
-                                            .accessibilityElement(children: .ignore).accessibilityLabel(reading)
+                                            .accessibilityElement(children: .ignore)
+                                            .accessibilityLabel(ReadingPresentation.accessibilityLabel(for: chunk))
                                             .accessibilityAddTraits(MaterialTopicIndex.headingKinds.contains(chunk.kind) ? .isHeader : [])
                                     }
                                 }

@@ -20,9 +20,16 @@ enum OCRMathROIProposer {
         let term = "(?:\(variable)|\(number))"
         let expressionRegex = try NSRegularExpression(pattern:"(?<![\\p{L}\\p{N}_])\(term)(?:\\s*[+−=\\-]\\s*\(term))*(?![\\p{L}\\p{N}_])")
         var proposed:[LayoutRegion]=[]
+        var unicodeDecisions: [[String:Any]] = []
         for observation in observations {
             let text=observation.selectedText as NSString
             let isVisual = DiagramSpokenService.owner(of:observation.bboxPageXYXY,regions:layout) != nil
+            let unicode = UnicodeMathSource.spans(in: text as String).map { span in
+                let last = observation.rangeBoxes?.first { $0.rangeUTF16 == [span.upper-1,span.upper] }
+                let next = observation.rangeBoxes?.first { $0.rangeUTF16 == [span.upper,span.upper+1] }
+                return UnicodeMathSource.includingSharedPunctuation(span,in:text as String,
+                    identicalBoxes:last != nil && next != nil && last!.bboxPageXYXY == next!.bboxPageXYXY)
+            }
             let degreeExpressions = degreeExpression.matches(in:text as String,range:NSRange(location:0,length:text.length))
             let degreeLiterals = isVisual ? [] : degreeLiteral.matches(in:text as String,range:NSRange(location:0,length:text.length))
             let numericMatches: [NSTextCheckingResult]
@@ -44,8 +51,26 @@ enum OCRMathROIProposer {
                     !(degreeExpressions + degreeLiterals).contains { NSIntersectionRange($0.range,other.range).length > 0 } &&
                     !unitMatches.contains { NSIntersectionRange($0.range,other.range).length > 0 }
             }
-            let matches = degreeExpressions + degreeLiterals + unitMatches + expressionMatches + otherMatches
+            let legacy = (degreeExpressions + degreeLiterals + unitMatches + expressionMatches + otherMatches).filter { match in
+                !unicode.contains { NSIntersectionRange(NSRange(location:$0.lower,length:$0.upper-$0.lower),match.range).length > 0 }
+            }
+            let matches: [(range:NSRange, unicode:UnicodeMathSource.Span?)] = unicode.map {
+                (NSRange(location:$0.lower,length:$0.upper-$0.lower),$0)
+            } + legacy.map { ($0.range,nil) }
             for match in matches {
+                var decision: [String:Any] = [:]
+                if let notation = match.unicode {
+                    decision = ["observation_id":observation.id,"source_text":notation.text,
+                        "range_utf16":[notation.lower,notation.upper],"symbols":notation.symbols,"kind":notation.kind,
+                        "source":observation.selectionEngine ?? "apple_vision_ocr","decision":"unavailable_character_geometry"]
+                    if let artifact = observation.selectionArtifact {
+                        decision["source_selection_artifact"] = artifact
+                    }
+                    if let punctuation = notation.sharedTrailingPunctuation {
+                        decision["shared_box_source_punctuation"] = punctuation
+                    }
+                }
+                defer { if match.unicode != nil { unicodeDecisions.append(decision) } }
                 let isDegreeExpression = degreeExpressions.contains { $0.range == match.range }
                 let isDegreeLiteral = degreeLiterals.contains { $0.range == match.range }
                 let visualNumeric = numericMatches.contains { $0.range == match.range }
@@ -54,27 +79,36 @@ enum OCRMathROIProposer {
                 let ranges=(observation.rangeBoxes ?? []).filter { $0.rangeUTF16[0]>=match.range.location && $0.rangeUTF16[1]<=NSMaxRange(match.range) }
                 guard let first=ranges.first else {continue}
                 let box=ranges.dropFirst().reduce(first.bboxPageXYXY) { a,b in PixelBox(xmin:min(a.xmin,b.bboxPageXYXY.xmin),ymin:min(a.ymin,b.bboxPageXYXY.ymin),xmax:max(a.xmax,b.bboxPageXYXY.xmax),ymax:max(a.ymax,b.bboxPageXYXY.ymax)) }
-                guard box.area>0,(isDegreeLiteral || visualNumeric || expression || lengthUnit || box.xmax-box.xmin <= (observation.bboxPageXYXY.xmax-observation.bboxPageXYXY.xmin)*0.8) else {continue}
+                guard box.area>0,(match.unicode != nil || isDegreeLiteral || visualNumeric || expression || lengthUnit || box.xmax-box.xmin <= (observation.bboxPageXYXY.xmax-observation.bboxPageXYXY.xmin)*0.8) else {continue}
                 let candidateText=text.substring(with:match.range)
                 if !visualNumeric,candidateText.count==1,box.xmax-box.xmin>1.5*(box.ymax-box.ymin) {continue}
-                if layout.contains(where:{$0.label=="formula" && $0.bboxPageXYXY.intersection(box)/max(1,box.area)>=0.15}) {continue}
-                if proposed.contains(where:{$0.bboxPageXYXY.iou(box)>0.8}) {continue}
-                let id="\(pageID).ocrmath.\(observation.rawOrder).\(match.range.location)"
+                let covered = layout.filter {$0.label=="formula" && $0.bboxPageXYXY.intersection(box)/max(1,box.area)>=0.15}
+                if !covered.isEmpty {
+                    decision["decision"]="existing_doclayout_route";decision["region_ids"]=covered.map(\.id)
+                    continue
+                }
+                if proposed.contains(where:{$0.bboxPageXYXY.iou(box)>0.8}) { decision["decision"]="existing_proposal_route";continue }
+                let id="\(pageID).\(match.unicode == nil ? "ocrmath" : "unicode").\(observation.rawOrder).\(match.range.location)"
                 let refined=(!visualNumeric && candidateText.count==1) ? (tightenGlyph(box,image:image) ?? box) : box
                 let margin = visualNumeric || expression ? max(3,(refined.ymax-refined.ymin)*0.25) : 1
-                let horizontalMargin = lengthUnit ? max(2, (refined.ymax-refined.ymin)*0.05) : margin
-                let verticalMargin = lengthUnit ? max(3, (refined.ymax-refined.ymin)*0.25) : margin
+                let horizontalMargin = match.unicode != nil || lengthUnit ? max(2, (refined.ymax-refined.ymin)*0.05) : margin
+                let verticalMargin = match.unicode != nil || lengthUnit ? max(3, (refined.ymax-refined.ymin)*0.25) : margin
                 let padded=PixelBox(xmin:max(0,floor(refined.xmin-horizontalMargin)),ymin:max(0,floor(refined.ymin-verticalMargin)),xmax:min(Double(image.width),ceil(refined.xmax+horizontalMargin)),ymax:min(Double(image.height),ceil(refined.ymax+verticalMargin)))
                 guard let crop=image.cropping(to:CGRect(x:padded.xmin,y:padded.ymin,width:padded.xmax-padded.xmin,height:padded.ymax-padded.ymin)),let png=UIImage(cgImage:crop).pngData() else {continue}
                 try png.write(to:pageRoot.appendingPathComponent("crops/\(id).png"),options:.atomic)
                 let parent=layout.filter{$0.label != "formula" && $0.bboxPageXYXY.intersection(box)/max(1,box.area)>=0.8}.min{$0.bboxPageXYXY.area<$1.bboxPageXYXY.area}
-                let proposalSource = isDegreeExpression ? "vision_degree_expression_proposal_v1" : (isDegreeLiteral ? "vision_degree_literal_proposal_v1" : (lengthUnit ? LengthUnitSource.version : (visualNumeric ? "vision_visual_numeric_proposal_v2" : (expression ? "vision_math_expression_proposal_v1" : "vision_range_math_proposal_v1"))))
+                let proposalSource = match.unicode != nil ? UnicodeMathSource.version : (isDegreeExpression ? "vision_degree_expression_proposal_v1" : (isDegreeLiteral ? "vision_degree_literal_proposal_v1" : (lengthUnit ? LengthUnitSource.version : (visualNumeric ? "vision_visual_numeric_proposal_v2" : (expression ? "vision_math_expression_proposal_v1" : "vision_range_math_proposal_v1")))))
                 let derivation = lengthUnit ? "Whole numeric quantity plus known length-unit OCR range; corrupt/flattened suffix is a crop hint only; no inferred exponent; horizontal margin max(2px,0.05*height), vertical margin max(3px,0.25*height); original source range retained" : (expression ? "Whole OCR math-expression character-box union; no largest-glyph tightening; margin max(3px, 0.25 * target height); image recognition required, no inferred power" : ((!visualNumeric && candidateText.count==1) ? "largest connected foreground glyph; retain vertically aligned components (i/j dots); one pixel padding; original Vision range retained" : (visualNumeric ? "valid Vision character box union; numeric margin max(3px, 0.25 * target height); source glyph bbox retained" : "valid Vision character box union; one pixel padding")))
-                proposed.append(LayoutRegion(id:id,classID:-1,label:"formula_candidate",score:Double(observation.candidates.first?.confidence ?? 0),bboxPageXYXY:padded,rawIndex:300+observation.rawOrder*1000+match.range.location,parentID:parent?.id,cropArtifact:"pages/\(pageID)/crops/\(id).png",detectionSource:proposalSource,sourceObservationID:observation.id,sourceRangeUTF16:[match.range.location,NSMaxRange(match.range)],proposalText:text.substring(with:match.range),rawVisionBBox:box,roiDerivation:derivation))
+                proposed.append(LayoutRegion(id:id,classID:-1,label:"formula_candidate",score:Double(observation.candidates.first?.confidence ?? 0),bboxPageXYXY:padded,rawIndex:300+observation.rawOrder*1000+match.range.location,parentID:parent?.id,cropArtifact:"pages/\(pageID)/crops/\(id).png",detectionSource:proposalSource,sourceObservationID:observation.id,sourceRangeUTF16:[match.range.location,NSMaxRange(match.range)],proposalText:text.substring(with:match.range),rawVisionBBox:box,roiDerivation:match.unicode != nil ? "Explicit OCR Unicode triggers a complete notation crop; source UTF-16 range and glyphs retained; horizontal margin max(2px,0.05*height), vertical max(3px,0.25*height); UniMERNet image recognition and whole-source validation required" : derivation,sourceNotationPolicy:match.unicode == nil ? nil : UnicodeMathSource.version))
+                decision["decision"]="proposed_unimernet_crop";decision["region_id"]=id
+                decision["source_bbox_page_xyxy"]=box.array;decision["crop_bbox_page_xyxy"]=padded.array
             }
         }
         let encoder=JSONEncoder();encoder.outputFormatting=[.prettyPrinted,.sortedKeys]
         try encoder.encode(proposed).write(to:pageRoot.appendingPathComponent("formula-roi-proposals.raw.json"),options:.atomic)
+        try JSONSerialization.data(withJSONObject:["version":UnicodeMathSource.version,"decisions":unicodeDecisions,
+            "limitations":"Explicit OCR Unicode only; no L/Z-to-angle, x2-to-power or missing-symbol recovery; existing overlapping DocLayout regions retain their route; OCR source accuracy unassessed"],options:[.prettyPrinted,.sortedKeys])
+            .write(to:pageRoot.appendingPathComponent("unicode-math-proposals.json"),options:.atomic)
         return proposed
     }
     private static func tightenGlyph(_ box:PixelBox,image:CGImage) -> PixelBox? {

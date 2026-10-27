@@ -1,6 +1,17 @@
 import Foundation
 
 enum ReadingPresentation {
+    /// question_start is assigned only from a confirmed source question marker.
+    /// The visible text keeps its number; VoiceOver receives an explicit role.
+    static func accessibilityLabel(for chunk: MathChunkModel) -> String {
+        let reading = text(for: chunk)
+        guard chunk.kind == "question_start",
+              let regex = try? NSRegularExpression(pattern: #"^([0-9]{1,4})[.)]\s+"#),
+              let match = regex.firstMatch(in: reading, range: NSRange(reading.startIndex..., in: reading)) else { return reading }
+        let source = reading as NSString
+        return "Soal \(source.substring(with: match.range(at: 1))). \(source.substring(from: NSMaxRange(match.range)))"
+    }
+
     /// Hide pipeline annotations only in the reader. Raw previews, status and
     /// unresolved IDs remain unchanged in SwiftData and extraction artifacts.
     static func text(for chunk: MathChunkModel) -> String {

@@ -1,0 +1,32 @@
+{
+  "modelID": "PaddlePaddle/PP-OCRv5_mobile_rec_onnx",
+  "sourceRevision": "ed152b8b495f84de93cda5709d768548a9127622",
+  "sourceFile": "inference.onnx",
+  "sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092",
+  "bytes": 16534782,
+  "dictionaryFile": "PaddleOCR-PP-OCRv5-mobile-rec.characters.json",
+  "dictionarySHA256": "14ccb8e120e701464bd3084acf3b398ffee767e515477ad27d3c80fd5996c180",
+  "dictionaryClasses": 18385,
+  "sourceConfigSHA256": "5dfeb2777f6d0db8177d8128a8acfcf6e6276dc4ac73ea3bf0dc06d6a5e85d8e",
+  "inputName": "x",
+  "outputName": "fetch_name_0",
+  "height": 48,
+  "minimumWidth": 320,
+  "maximumWidth": 3200,
+  "blankID": 0,
+  "intraOpThreads": 2,
+  "precision": "Official ONNX float32 input/output; no local quantization",
+  "opset": 7,
+  "license": "Apache-2.0",
+  "preprocessing": "BGR; aspect resize to height48, canvas max(320,floor(48*ratio)) capped3200; resized width ceil(48*ratio) clamped to canvas; uint8 half-pixel bilinear, float32 /127.5-1; normalized zero padding at right",
+  "resizeDifference": "Swift sRGB decode and bilinear instead of OpenCV INTER_LINEAR; numerical parity unmeasured",
+  "preprocessingReference": "https://raw.githubusercontent.com/PaddlePaddle/PaddleX/release/3.3/paddlex/inference/models/text_recognition/processors.py",
+  "preprocessingReferenceSHA256": "bc2f122d50385332888c239b228ed26fb13484ea8a67c2dba8fc0e339eb30a1c",
+  "dictionaryConstruction": "blank at0 + inference.yml PostProcess.character_dict + ASCII space, matching PaddleX CTCLabelDecode",
+  "supportedRequestedGlyphs": {
+    "∠": 16515,
+    "°": 16236,
+    "²": 16237,
+    "³": 16591
+  }
+}

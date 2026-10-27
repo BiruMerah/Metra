@@ -498,10 +498,27 @@ final class RunCoordinator: ObservableObject {
 
             visionMS = (ProcessInfo.processInfo.systemUptime - start) * 1000
             let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-            try encoder.encode(ocr!).write(to: pageRoot.appendingPathComponent("ocr.raw.json"), options: .atomic)
-            components.append(ComponentResult(component: "apple_vision_ocr", status: "succeeded", errorCode: nil, message: nil, rawArtifact: "pages/\(input.pageID)/ocr.raw.json", metrics: ["request_wall_ms": visionMS]))
+            try encoder.encode(ocr!).write(to: pageRoot.appendingPathComponent("ocr.vision-working.raw.json"), options: .atomic)
+            components.append(ComponentResult(component: "apple_vision_ocr", status: "succeeded", errorCode: nil, message: nil, rawArtifact: "pages/\(input.pageID)/ocr.vision-working.raw.json", metrics: ["request_wall_ms": visionMS]))
         } catch {
             components.append(ComponentResult(component: "apple_vision_ocr", status: error is CancellationError ? "cancelled" : "failed", errorCode: error is CancellationError ? "run_cancelled" : "vision_request_failed", message: error.localizedDescription, rawArtifact: nil, metrics: [:]))
+        }
+        if let original=ocr {
+            await gate.acquire()
+            do {
+                let supplementary=try await PaddleOCRService.supplement(original,pageID:input.pageID,pageRoot:pageRoot,imageURL:input.normalizedURL)
+                ocr=supplementary.ocr;components += supplementary.components
+            } catch {
+                components.append(ComponentResult(component:"paddleocr_text_recognition",status:error is CancellationError ? "cancelled" : "failed",
+                    errorCode:"paddle_ocr_supplement_failed",message:error.localizedDescription,rawArtifact:"pages/\(input.pageID)/ocr.vision-working.raw.json",metrics:[:]))
+            }
+            await gate.release()
+            do {
+                let encoder=JSONEncoder();encoder.outputFormatting=[.prettyPrinted,.sortedKeys]
+                try encoder.encode(ocr!).write(to:pageRoot.appendingPathComponent("ocr.raw.json"),options:.atomic)
+            } catch {
+                components.append(ComponentResult(component:"ocr_selection_write",status:"failed",errorCode:"ocr_selection_write_failed",message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
+            }
         }
         var effectiveRegions=routedRegions ?? layout?.regions
         var visionProposals: [LayoutRegion] = []
@@ -511,7 +528,10 @@ final class RunCoordinator: ObservableObject {
                 let proposals=try OCRMathROIProposer.propose(pageID:input.pageID,observations:ocr.observations,layout:routed,imageURL:input.normalizedURL,pageRoot:pageRoot)
                 visionProposals = proposals
                 effectiveRegions=(routed+proposals).sorted(by:LayoutMerge.precedes)
-                components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"succeeded",errorCode:nil,message:"Whole algebraic expressions, isolated Latin variables and numeric tuples from Vision range boxes; proposals require image recognition/source review; score is OCR confidence, not detector probability",rawArtifact:"pages/\(input.pageID)/formula-roi-proposals.raw.json",metrics:["proposals":Double(proposals.count)]))
+                components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"succeeded",errorCode:nil,message:"Whole expressions, explicit Unicode notation, isolated variables and numeric tuples from Vision range boxes; image recognition/source review required",rawArtifact:"pages/\(input.pageID)/formula-roi-proposals.raw.json",metrics:["proposals":Double(proposals.count)]))
+                components.append(ComponentResult(component:"unicode_math_roi_proposals",status:"succeeded",errorCode:nil,
+                    message:"Explicit Unicode triggers complete notation crops; no recovery from L/Z or flattened powers; raw OCR retained",
+                    rawArtifact:"pages/\(input.pageID)/unicode-math-proposals.json",metrics:["proposals":Double(proposals.filter{$0.sourceNotationPolicy == UnicodeMathSource.version}.count)]))
             } catch {
                 components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"failed",errorCode:"roi_proposal_failed",message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
             }

@@ -1,0 +1,814 @@
+{
+  "schema": "metra-reader-symbol-fix-results-v1",
+  "build": 26,
+  "attempt_id": "ddeabfff-c274-4244-9b5a-6bed597ead66",
+  "device_report": {
+    "attempt_id": "ddeabfff-c274-4244-9b5a-6bed597ead66",
+    "build": {
+      "app_version": "1.0",
+      "build_number": "26",
+      "bundle_id": "id.birumerah.Metra",
+      "configuration": "Debug",
+      "debugger_attached": null
+    },
+    "completed_at": "2026-10-27T12:52:03Z",
+    "device": {
+      "hardware_model_identifier": "iPhone17,2",
+      "system_version": "27.0.1"
+    },
+    "paddle_components": [
+      {
+        "message": "On-device supplemental PP-OCRv5 mobile recognition; 7 explicit Unicode glyphs selected; source accuracy unassessed",
+        "metrics": {
+          "attempted_lines": 17,
+          "failed_lines": 0,
+          "inference_ms": 140.3542916450533,
+          "model_load_ms": 44.02200000185985,
+          "postprocess_ms": 963.5797916780575,
+          "preprocess_ms": 102.40329166845186,
+          "request_wall_ms": 1304.9446666700533,
+          "selected_unicode_glyphs": 7,
+          "total_ms": 1250.3725416754605
+        },
+        "status": "succeeded"
+      }
+    ],
+    "paddle_selected_observations": [
+      {
+        "id": "p0001.ocr.0002",
+        "selected_text": "pada keliling lingkaran, sehingga ∠AOB = 45° dan ∠COD = 120°. Jika",
+        "selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0002/selection.json",
+        "vision_text": "pada keliling lingkaran, sehingga LAOB = 45° dan ZCOD = 120°. Jika"
+      },
+      {
+        "id": "p0001.ocr.0018",
+        "selected_text": "C. 616 cm²",
+        "selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0018/selection.json",
+        "vision_text": "C. 616 cm'"
+      },
+      {
+        "id": "p0001.ocr.0025",
+        "selected_text": "C. 1.386 m²",
+        "selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0025/selection.json",
+        "vision_text": "C. 1.386 m2"
+      },
+      {
+        "id": "p0001.ocr.0026",
+        "selected_text": "D. 1.540 m²",
+        "selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0026/selection.json",
+        "vision_text": "D. 1.540 m'"
+      },
+      {
+        "id": "p0001.ocr.0036",
+        "selected_text": "Jika ∠DFE besarnya adalah 47° dan ∠DPE",
+        "selection_artifact": "pages/p0001/paddleocr/p0001.ocr.0036/selection.json",
+        "vision_text": "Jika LDFE besarnya adalah 47° dan LDPE"
+      }
+    ],
+    "paddle_selection_artifact": "metra-runs/13705219-8343-4dc7-9659-0fb94e70c8cd/pages/p0001/paddleocr/selection.json",
+    "paddleocr_added": true,
+    "policy": "ocr_unicode_math_proposal_v2",
+    "run_id": "13705219-8343-4dc7-9659-0fb94e70c8cd",
+    "runtime_status": "partial",
+    "saved_material_modified": false,
+    "schema": "metra-paddleocr-device-v1",
+    "scope": "One real image through production layout, MFD, Vision plus native PaddleOCR line recognition, Unicode source proposals, UniMERNet, MathJax, MathCAT and normal diagram/topic handling. All inference on iPhone; no generated OCR or answer supplied.",
+    "source_hash_matches_request": true,
+    "source_sha256": "44ae7503ee560c6582171b4c33ea006ad69a656759a2495873d2ee409b4d5f9d",
+    "started_at": "2026-10-27T12:51:34Z",
+    "status": "completed_runtime; source_accuracy_requires_review",
+    "unicode_formula_results": [
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.10.3.png",
+        "id": "p0001.formula.0013",
+        "latex": "5 0 ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.10.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "source_text": "50°",
+        "spoken": "50 derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.11.3.png",
+        "id": "p0001.formula.0014",
+        "latex": "3 0 ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.11.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "source_text": "30°",
+        "spoken": "30 derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.12.3.png",
+        "id": "p0001.formula.0015",
+        "latex": "4 0 ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.12.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "source_text": "40°",
+        "spoken": "40 derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.13.3.png",
+        "id": "p0001.formula.0016",
+        "latex": "6 0 ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.13.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "source_text": "60°",
+        "spoken": "60 derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.17.3.png",
+        "id": "p0001.formula.0019",
+        "latex": "6 1 6 \\, c m ^ { 2 }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.17.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          10
+        ],
+        "source_text": "616 cm²",
+        "spoken": "616 senti-meter kuadrat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.24.3.png",
+        "id": "p0001.formula.0024",
+        "latex": "1 . 3 8 6 \\, \\mathrm { m } ^ { 2 }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.24.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          11
+        ],
+        "source_text": "1.386 m²",
+        "spoken": "1386 meter kuadrat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.26.3.png",
+        "id": "p0001.formula.0027",
+        "latex": "1 . 5 4 0 \\: \\mathrm { m } ^ { 2 }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.26.3",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          3,
+          11
+        ],
+        "source_text": "1.540 m²",
+        "spoken": "1540 meter kuadrat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.37.5.png",
+        "id": "p0001.formula.0030",
+        "latex": "\\angle D F E",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.37.5",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          5,
+          9
+        ],
+        "source_text": "∠DFE",
+        "spoken": "sudut,   d   f   e",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.37.26.png",
+        "id": "p0001.formula.0031",
+        "latex": "4 7 ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.37.26",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          26,
+          29
+        ],
+        "source_text": "47°",
+        "spoken": "47 derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.37.34.png",
+        "id": "p0001.formula.0032",
+        "latex": "\\angle D P E",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.37.34",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          34,
+          38
+        ],
+        "source_text": "∠DPE",
+        "spoken": "sudut,   d   p   e",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.38.7.png",
+        "id": "p0001.formula.0033",
+        "latex": "( 3 x + 4 ) ^ { \\circ } ,",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.38.7",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          7,
+          17
+        ],
+        "source_text": "(3x + 4)°,",
+        "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.unicode.39.0.png",
+        "id": "p0001.formula.0035",
+        "latex": "4 7 ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.unicode.39.0",
+        "route": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          0,
+          3
+        ],
+        "source_text": "47°",
+        "spoken": "47 derajat",
+        "status": "spoken_generated"
+      },
+      {
+        "consistency": "complete_unicode_source_agrees",
+        "crop": "pages/p0001/crops/p0001.mfd.11357.combined.png",
+        "id": "p0001.formula.0038",
+        "latex": "( 3 x + 4 ) ^ { \\circ }",
+        "merge_allowed": true,
+        "region_id": "p0001.mfd.11357",
+        "route": [
+          "pix2text_mfd_image_proposal_v1",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "source_range_utf16": [
+          0,
+          9
+        ],
+        "source_text": "(3x + 4)°",
+        "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+        "status": "spoken_generated"
+      }
+    ]
+  },
+  "baseline": {
+    "run": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/reader-placeholder-audit-v1/20261027-01/run-f23ae9fc",
+    "source_sha256": "44ae7503ee560c6582171b4c33ea006ad69a656759a2495873d2ee409b4d5f9d",
+    "page_status": "partial",
+    "paddle_threshold": 0.8500000238418579,
+    "paddle_policy": "paddle_unicode_symbol_selection_v2",
+    "paddle_lines": 17,
+    "paddle_line_failures": 0,
+    "paddle_selected_symbols": 3,
+    "angle_rows": [
+      {
+        "crop_bbox_page_xyxy": [
+          734,
+          1974,
+          1574,
+          2032
+        ],
+        "observation_id": "p0001.ocr.0036",
+        "paddle_mean_probability": 0.9605771899223328,
+        "paddle_text": "Jika ∠DFE besarnya adalah 47° dan ∠DPE",
+        "reason": "Copy explicit Paddle glyphs at aligned source positions only; 1 below-threshold symbols left as Vision. Original Vision candidates, spacing and boxes retained. Image/formula fidelity still requires UniMERNet/source review.",
+        "recognition_artifact": "pages/p0001/paddleocr/p0001.ocr.0036/recognition.raw.json",
+        "selected": true,
+        "selected_text": "Jika LDFE besarnya adalah 47° dan ∠DPE",
+        "vision_text": "Jika LDFE besarnya adalah 47° dan LDPE",
+        "symbol_probabilities": [
+          {
+            "symbol": "∠",
+            "probability": 0.744856
+          },
+          {
+            "symbol": "°",
+            "probability": 0.9808929
+          },
+          {
+            "symbol": "∠",
+            "probability": 0.9820764
+          }
+        ]
+      }
+    ],
+    "mfd_policy": "supplemental_mfd_crop_merge_v3",
+    "marker_decision": {
+      "action": "added_gap_crop",
+      "activeRegionID": "p0001.mfd.05202",
+      "detectionID": "p0001.mfd.05202",
+      "reason": "Additional image detector crop in an uncovered area. No OCR source range forced; complete image MathML/source alignment is still required for speech merge.",
+      "relatedRegionIDs": []
+    },
+    "active_marker_candidate": true,
+    "raw_marker_candidate_retained": true,
+    "source_empty_unresolved_chunks": [
+      {
+        "id": "p0001.mfd.05202.c0001",
+        "kind": "sentence",
+        "pageID": "p0001",
+        "questionID": "p0001.question.33.p0001.layout.0005",
+        "sourceBlockIDs": [
+          "p0001.mfd.05202"
+        ],
+        "sourceRef": "reading/exports/a8070060-8eee-4b55-b21a-d7360e31ae70/chunks/p0001.mfd.05202.c0001.json",
+        "sourceText": "",
+        "spokenPreview": "[perlu review: p0001.formula.0019]",
+        "status": "needs_review",
+        "unresolvedFormulaIDs": [
+          "p0001.formula.0019"
+        ]
+      }
+    ],
+    "angle_formulas": [
+      {
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.unicode.37.34.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0032/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0032/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0032/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0032/unimernet.raw.json"
+        },
+        "bboxPageXYXY": {
+          "xmax": 1574,
+          "xmin": 1453,
+          "ymax": 2038,
+          "ymin": 1968
+        },
+        "id": "p0001.formula.0032",
+        "latex": "\\angle D P E",
+        "mergeMethods": [
+          "explicit_ocr_proposal_range"
+        ],
+        "recognitionRoute": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "recognitionStatus": "spoken_generated",
+        "reviewReasons": [],
+        "segmentID": "p0001.layout.0007.s0004",
+        "sourceConsistencyStatus": "complete_unicode_source_agrees",
+        "sourceText": "∠DPE",
+        "spokenText": "sudut,   d   p   e",
+        "status": "ready"
+      }
+    ],
+    "powered_units": [
+      "1028 senti-meter kuadrat",
+      "1386 meter kuadrat",
+      "154 senti-meter kuadrat",
+      "1540 meter kuadrat",
+      "324 senti-meter kuadrat",
+      "616 meter kuadrat",
+      "616 senti-meter kuadrat",
+      "770 meter kuadrat"
+    ],
+    "formula_count": 40,
+    "chunk_count": 44,
+    "question_choices": [
+      {
+        "number": "31",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "32",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "33",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "34",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "35",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "36",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      }
+    ],
+    "source_segments_preserved": true,
+    "duplicate_formula_segment_owners": {},
+    "page_raw_ocr_matches_selected_artifact": true,
+    "paddle_metrics": {
+      "attempted_lines": 17,
+      "failed_lines": 0,
+      "inference_ms": 148.90370831562905,
+      "model_load_ms": 44.69458333187504,
+      "postprocess_ms": 1059.673166666471,
+      "preprocess_ms": 111.04558334045578,
+      "request_wall_ms": 1420.8800416599843,
+      "selected_unicode_glyphs": 3,
+      "total_ms": 1364.3292916822247
+    },
+    "diagram_statuses": [
+      "needs_review"
+    ]
+  },
+  "new": {
+    "run": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/ddeabfff-c274-4244-9b5a-6bed597ead66/run",
+    "source_sha256": "44ae7503ee560c6582171b4c33ea006ad69a656759a2495873d2ee409b4d5f9d",
+    "page_status": "partial",
+    "paddle_threshold": 0.699999988079071,
+    "paddle_policy": "paddle_unicode_symbol_selection_v3",
+    "paddle_lines": 17,
+    "paddle_line_failures": 0,
+    "paddle_selected_symbols": 7,
+    "angle_rows": [
+      {
+        "crop_bbox_page_xyxy": [
+          734,
+          1974,
+          1574,
+          2032
+        ],
+        "observation_id": "p0001.ocr.0036",
+        "paddle_mean_probability": 0.9605771899223328,
+        "paddle_text": "Jika ∠DFE besarnya adalah 47° dan ∠DPE",
+        "reason": "Copy explicit Paddle glyphs at aligned source positions only; 0 below-threshold symbols left as Vision. Original Vision candidates, spacing and boxes retained. Image/formula fidelity still requires UniMERNet/source review.",
+        "recognition_artifact": "pages/p0001/paddleocr/p0001.ocr.0036/recognition.raw.json",
+        "selected": true,
+        "selected_text": "Jika ∠DFE besarnya adalah 47° dan ∠DPE",
+        "vision_text": "Jika LDFE besarnya adalah 47° dan LDPE",
+        "symbol_probabilities": [
+          {
+            "symbol": "∠",
+            "probability": 0.744856
+          },
+          {
+            "symbol": "°",
+            "probability": 0.9808929
+          },
+          {
+            "symbol": "∠",
+            "probability": 0.9820764
+          }
+        ]
+      }
+    ],
+    "mfd_policy": "supplemental_mfd_crop_merge_v4",
+    "marker_decision": {
+      "action": "withheld_plain_source_literal",
+      "detectionID": "p0001.mfd.05202",
+      "reason": "Observed OCR source is an ordinary number, isolated letter/list marker or length-unit token (А.); keep Vision text and do not send this gap crop to formula recognition.",
+      "relatedRegionIDs": []
+    },
+    "active_marker_candidate": false,
+    "raw_marker_candidate_retained": true,
+    "source_empty_unresolved_chunks": [],
+    "angle_formulas": [
+      {
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.unicode.37.5.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0030/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0030/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0030/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0030/unimernet.raw.json"
+        },
+        "bboxPageXYXY": {
+          "xmax": 947,
+          "xmin": 826,
+          "ymax": 2038,
+          "ymin": 1968
+        },
+        "id": "p0001.formula.0030",
+        "latex": "\\angle D F E",
+        "mergeMethods": [
+          "explicit_ocr_proposal_range"
+        ],
+        "recognitionRoute": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "recognitionStatus": "spoken_generated",
+        "reviewReasons": [],
+        "segmentID": "p0001.layout.0007.s0002",
+        "sourceConsistencyStatus": "complete_unicode_source_agrees",
+        "sourceText": "∠DFE",
+        "spokenText": "sudut,   d   f   e",
+        "status": "ready"
+      },
+      {
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.unicode.37.34.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0032/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0032/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0032/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0032/unimernet.raw.json"
+        },
+        "bboxPageXYXY": {
+          "xmax": 1574,
+          "xmin": 1453,
+          "ymax": 2038,
+          "ymin": 1968
+        },
+        "id": "p0001.formula.0032",
+        "latex": "\\angle D P E",
+        "mergeMethods": [
+          "explicit_ocr_proposal_range"
+        ],
+        "recognitionRoute": [
+          "ocr_unicode_math_proposal_v2",
+          "unimernet",
+          "mathjax",
+          "mathcat_id"
+        ],
+        "recognitionStatus": "spoken_generated",
+        "reviewReasons": [],
+        "segmentID": "p0001.layout.0007.s0006",
+        "sourceConsistencyStatus": "complete_unicode_source_agrees",
+        "sourceText": "∠DPE",
+        "spokenText": "sudut,   d   p   e",
+        "status": "ready"
+      }
+    ],
+    "powered_units": [
+      "1028 senti-meter kuadrat",
+      "1386 meter kuadrat",
+      "154 senti-meter kuadrat",
+      "1540 meter kuadrat",
+      "324 senti-meter kuadrat",
+      "616 meter kuadrat",
+      "616 senti-meter kuadrat",
+      "770 meter kuadrat"
+    ],
+    "formula_count": 40,
+    "chunk_count": 43,
+    "question_choices": [
+      {
+        "number": "31",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "32",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "33",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "34",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "35",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "number": "36",
+        "labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      }
+    ],
+    "source_segments_preserved": true,
+    "duplicate_formula_segment_owners": {},
+    "page_raw_ocr_matches_selected_artifact": true,
+    "paddle_metrics": {
+      "attempted_lines": 17,
+      "failed_lines": 0,
+      "inference_ms": 140.3542916450533,
+      "model_load_ms": 44.02200000185985,
+      "postprocess_ms": 963.5797916780575,
+      "preprocess_ms": 102.40329166845186,
+      "request_wall_ms": 1304.9446666700533,
+      "selected_unicode_glyphs": 7,
+      "total_ms": 1250.3725416754605
+    },
+    "diagram_statuses": [
+      "needs_review"
+    ]
+  },
+  "checks": {
+    "build26_completed_on_iphone": true,
+    "same_original_user_image": true,
+    "threshold_lowered_to_070": true,
+    "paddle_runtime_no_line_failures": true,
+    "dfe_and_dpe_selected": true,
+    "dfe_spoken_ready": true,
+    "dpe_spoken_ready": true,
+    "cyrillic_marker_crop_filtered": true,
+    "raw_mfd_candidate_retained": true,
+    "bogus_empty_formula_chunk_removed": true,
+    "all_eight_ready_powered_units_preserved": true,
+    "same_six_complete_choice_sets": true,
+    "vision_candidates_and_boxes_preserved": true,
+    "normalization_preserves_source_segments": true,
+    "no_duplicate_formula_segment_owners": true,
+    "current_app_matches_compiled_snapshot": true,
+    "no_qwen_in_bundle": true
+  },
+  "all_checks_passed": true,
+  "bundle": {
+    "build": "26",
+    "bundle_id": "id.birumerah.Metra",
+    "executable": "Metra",
+    "executable_exists": true,
+    "onnx_models": [
+      {
+        "path": "PP-DocLayout-L.onnx",
+        "bytes": 129523577
+      },
+      {
+        "path": "PaddleOCR-PP-OCRv5-mobile-rec.onnx",
+        "bytes": 16534782
+      },
+      {
+        "path": "Pix2Text-MFD.onnx",
+        "bytes": 44573224
+      },
+      {
+        "path": "UniMERNet/decoder_model.onnx",
+        "bytes": 325975220
+      },
+      {
+        "path": "UniMERNet/decoder_with_past_model.onnx",
+        "bytes": 325978820
+      },
+      {
+        "path": "UniMERNet/encoder_model.onnx",
+        "bytes": 105876820
+      }
+    ],
+    "qwen_or_mlx_or_safetensors_paths": [],
+    "app_file_bytes": 1004090171,
+    "paddle_model_sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092"
+  },
+  "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/paddleocr-v1/ddeabfff-c274-4244-9b5a-6bed597ead66",
+  "limits": [
+    "One new real-image run compared with an existing user run of exactly the same bytes. This does not establish general OCR accuracy or repeatability.",
+    "Threshold0.70 is a user-requested operating choice, not calibrated precision/recall. Whole-line alignment and notation/image validation remain active.",
+    "The supplemental MFD veto adds punctuated Cyrillic choice-marker homoglyph hints only. It does not remove genuine failed formulas from the reader.",
+    "Inference took place on physical iPhone; Mac only built/transferred and audited recorded output. No new test target or synthetic model input added.",
+    "Diagram relationships, other OCR/MathML alignment failures such as314cm2, full source coverage and VoiceOver comprehension remain unassessed or partial."
+  ]
+}

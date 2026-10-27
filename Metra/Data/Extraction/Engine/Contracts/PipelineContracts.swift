@@ -89,8 +89,13 @@ struct OCRObservation: Codable, Identifiable, Sendable {
     let candidates: [OCRCandidate]
     var rangeBoxes: [OCRRangeBox]? = nil
     var numericEvidence: VisualNumericEvidence? = nil
+    /// Explicit secondary OCR selection. Original Vision candidates/confidence
+    /// and same-length UTF-16 boxes remain unchanged; derivation is separately saved.
+    var selectedTextOverride: String? = nil
+    var selectionEngine: String? = nil
+    var selectionArtifact: String? = nil
 
-    var selectedText: String { candidates.first?.text ?? "" }
+    var selectedText: String { selectedTextOverride ?? candidates.first?.text ?? "" }
 }
 
 struct ComponentResult: Codable, Sendable {

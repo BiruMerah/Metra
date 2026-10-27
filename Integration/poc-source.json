@@ -52,13 +52,13 @@
       "source": "MetraPipelinePoC/Contracts/PipelineContracts.swift",
       "destination": "Metra/Data/Extraction/Engine/Contracts/PipelineContracts.swift",
       "source_sha256": "d3218177b935f0a02e9a67206727c7fbfd7a0c60b2c4628fc6d4075968a83d8c",
-      "integrated_sha256": "10f3fbf502125e6d31091381b1267c22482b13fc86f6b778c0c198f74c40b502"
+      "integrated_sha256": "3cdfdd35747614bbcb2e238ed9cf85d36f9d8a540c95058760d76496e408f628"
     },
     {
       "source": "MetraPipelinePoC/Contracts/ReadyExtraction.swift",
       "destination": "Metra/Data/Extraction/Engine/Contracts/ReadyExtraction.swift",
       "source_sha256": "b0c7022a500e47a4876f5775d4a09b4234b7cce6be88349bb13d3363b2ce8e98",
-      "integrated_sha256": "711ae7e628dde90433fb742c80c92d85bdddeaec3b3b763ec700ec046a5016aa"
+      "integrated_sha256": "e3279353d5f679e86e9466e0c3a165935106c1d118b97659f8276a568c7cdca5"
     },
     {
       "source": "MetraPipelinePoC/Instrumentation/RunMetrics.swift",
@@ -82,13 +82,13 @@
       "source": "MetraPipelinePoC/Pipeline/FormulaPipeline.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/FormulaPipeline.swift",
       "source_sha256": "9bdb16f2fe27d958305c7c10dff68827c55d89bd6b366917d8f16da0b8e88358",
-      "integrated_sha256": "fd9b156d935de3b03af50ff0ceb710d935ccd4a4fb35c5b067a21dd0486f0965"
+      "integrated_sha256": "2f6e6203b14ccb620d92efed05c3db4dc6737f17a293a2fb8a2c2f6c99fd7e98"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/FormulaSpanResolver.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/FormulaSpanResolver.swift",
       "source_sha256": "6978d7f4eb33e8d1a207918cfb3d34475ecdec6a314a3c6a07b9acbea585f98d",
-      "integrated_sha256": "006394e4b867a4f56614b5c67c0e9dadb3ae98e5e3adc7dd3c4c817e5d749d46"
+      "integrated_sha256": "2d2843d0907b3420cc73ba335192f40fc13c4947cef1d0ea085d6a5bddc41961"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/HeadingTopicBuilder.swift",
@@ -100,19 +100,19 @@
       "source": "MetraPipelinePoC/Pipeline/LayoutMerge.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/LayoutMerge.swift",
       "source_sha256": "20be282dec5205477e62efbe3448f52905d2415d6f1824f8e2c9b5dd755ddada",
-      "integrated_sha256": "77efedfafb1d59d60f48b5924a89c794afa5c46b117deea511056898547ba5c1"
+      "integrated_sha256": "045c9aeb3413e94ad752fa385211da7b760fd7bbe95f311c888526aa286b2405"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/OCRMathROIProposer.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/OCRMathROIProposer.swift",
       "source_sha256": "fba1b37a9555ea7592bd1eca3526bcf5070fb6ecd50fc5a85ac846c966902e3b",
-      "integrated_sha256": "063e522be80de77b8c670510f2f7f28f6de9f1a268269f28dd8eeed980919fc9"
+      "integrated_sha256": "88a5ad32710b874356d39088a60c25f9ffb74b33032f829c45a2886ecab17d77"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/RunCoordinator.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/RunCoordinator.swift",
       "source_sha256": "6b3b6935519369e608a45a95c2374627d637c96ea0bff7031dd2b663b37de2fa",
-      "integrated_sha256": "1baae8973b20f0593e8f9b8db7334e13734b5730a9b754464cd119eb12ecc87e"
+      "integrated_sha256": "39dd4c6237c41dfd6c6c1934e9ff3bfdb49f4e490d01278e89665b7dc4b6a8b9"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/TopicGroupingService.swift",
@@ -139,7 +139,7 @@
       "source": "MetraPipelinePoC/Storage/RunRepository.swift",
       "destination": "Metra/Data/Extraction/Engine/Storage/RunRepository.swift",
       "source_sha256": "c921ebd4f4f885f06a3fae02af689005adf98b6c2d9044d2811bb0e3ed8233b8",
-      "integrated_sha256": "d9fc6a6714e92818ffc9a69aebe8a306a9b69eeb39fac0e6ec7c308940061edc"
+      "integrated_sha256": "68fe85aef4a7e670a5dce278a379d9b0572cda3cb856b2771174f87eb31f1346"
     }
   ],
   "integration_adaptations": {
@@ -147,15 +147,52 @@
     "Storage/ModelAssetManager.swift": "System Foundation model availability and vision capability; no external checkpoint import or Qwen load.",
     "Pipeline/FormulaSpanResolver.swift": "Exact observation/range unit suffix anchors may align existing image exponent only; all remaining expression tokens and geometry must agree.",
     "Pipeline/LayoutMerge.swift": "Retain coveredByFormulaIDs and optional raw proposalSourceIDs on derived crops; raw detectors stay separate.",
-    "Contracts/PipelineContracts.swift": "Optional coveredByFormulaIDs on derived TextSegment; old artifacts decode with nil.",
+    "Contracts/PipelineContracts.swift": "Optional coveredByFormulaIDs on derived TextSegment; old artifacts decode with nil. Optional OCR selectedTextOverride/selectionEngine/selectionArtifact preserve original candidates and identify hybrid symbol selection; old records decode with nil.",
     "Contracts/FinalExtraction.swift": "Question-scoped A–E choice order and marker/value joins; explicit source role/provenance and normalization report; all segment payloads/source refs preserved.",
-    "Contracts/ReadyExtraction.swift": "v4 one choice per chunk, structural source-marker speech, question and source-block references; strict source coverage retained.",
-    "Pipeline/OCRMathROIProposer.swift": "Whole numeric measurement plus length unit with explicit/flattened/corrupt power suffix; Vision range union and power-preserving margins; hint does not supply exponent or replacement text.",
+    "Contracts/ReadyExtraction.swift": "Chunk builder v5 joins a confirmed leading question marker and initial sentence within one source block. question_start kind persists through existing kind field, with original source slices, source question references and unresolved status. Choices remain atomic; schema v4 unchanged.",
+    "Pipeline/OCRMathROIProposer.swift": "Whole numeric measurement plus length unit with explicit/flattened/corrupt power suffix; Vision range union and power-preserving margins; hint does not supply exponent or replacement text. Explicit Unicode proposals record actual selection engine and Paddle artifact when present.",
     "Pipeline/FormulaPipeline.swift": "Explicit OCR degree literals to MathCAT; complete image degree-expression token check; source-anchored embedded unit normalization. Raw artifacts retained.",
-    "Storage/RunRepository.swift": "Record canonical request-encoding version and per-request fingerprint path, alongside native model/runtime and independent formula policies.",
-    "Pipeline/RunCoordinator.swift": "Serial Foundation diagram pipeline after existing on-device detectors/recognizer; independent text/math paths continue if native model unavailable.",
+    "Storage/RunRepository.swift": "Record canonical request-encoding version and per-request fingerprint path, alongside native model/runtime and independent formula policies. Build27 reading-export metadata records question-start chunk policy and source-preserving canonical role.",
+    "Pipeline/RunCoordinator.swift": "Serial Foundation diagram pipeline after existing on-device detectors/recognizer; independent text/math paths continue if native model unavailable. Native Paddle supplemental recognition after working Vision snapshot and before math proposals, within serial heavy inference gate; unload before UniMERNet.",
     "Pipeline/LengthUnitRecognition.swift": "Source-anchored grouping of known unit letters and one existing image power, exact numeric/separator checks, derived unit-intent MathML; raw validation/MathML/MathCAT preserved separately.",
-    "Pipeline/DiagramProbeService.swift": "Production delegates Foundation v2; legacy result contracts decode without loading Qwen."
+    "Pipeline/DiagramProbeService.swift": "Production delegates Foundation v2; legacy result contracts decode without loading Qwen.",
+    "unicode_math_notation": {
+      "app_build": 23,
+      "source": "Unmodified selected Vision Unicode and UTF-16 character geometry",
+      "proposal_policy": "ocr_unicode_math_proposal_v2",
+      "validation_policy": "unicode_math_whole_source_check_v3",
+      "changes": [
+        "Whole Unicode notation crops into the existing on-device UniMERNet/MathJax/MathCAT route",
+        "Optional sourceNotationPolicy retained through MFD fusion",
+        "Explicit punctuation binding only for identical final-glyph/punctuation Vision boxes",
+        "Whole token and power-base/attachment validation before speech merge",
+        "Superscript-to-digit alignment only after image structure validation"
+      ],
+      "models_added": false,
+      "paddleocr_added": false,
+      "results": "unicode-math-results.json",
+      "device_result_scope": "Build21 one real image; 7/8 Unicode proposals allowed. Build22 result unavailable; build23 only compiled. Current checks pass 38 fixtures and 8 cached iPhone OCR/MathML cases.",
+      "scope": "Historical build21–23 pilot before Paddle; new supplementary recognition is documented separately."
+    },
+    "paddleocr_supplement": {
+      "app_build": 26,
+      "model_id": "PaddlePaddle/PP-OCRv5_mobile_rec_onnx",
+      "revision": "ed152b8b495f84de93cda5709d768548a9127622",
+      "sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092",
+      "bytes": 16534782,
+      "runtime": "ONNX Runtime1.24.2 CPU, 2 intra-op threads, batch1",
+      "policy": "paddle_unicode_symbol_selection_v3",
+      "threshold": 0.7,
+      "source": "Real Vision line image crops; no OCR string or expected transcription passed into model",
+      "selection": "Explicit predicted Unicode per symbol with complete-line alignment; preserve original Vision candidates/geometry; prose/numeric conflicts veto line; lower-probability symbols unchanged",
+      "dictionary": "PaddleOCR-PP-OCRv5-mobile-rec.characters.json",
+      "dictionary_sha256": "14ccb8e120e701464bd3084acf3b398ffee767e515477ad27d3c80fd5996c180",
+      "results": "reader-symbol-fix-results.json",
+      "on_device_only": true,
+      "paddle_text_detector_added": false,
+      "qwen_in_bundle": false
+    },
+    "Pipeline/FormulaCropMerger.swift": "Supplemental MFD v4 preserves raw candidates and source geometry; adds punctuated Cyrillic choice-marker homoglyph veto to existing plain-source filter, without changing OCR or hiding real unresolved formulas."
   },
   "mathcat_static_library": {
     "source_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701",
@@ -176,7 +213,7 @@
     },
     {
       "path": "Metra/Data/Extraction/Engine/Pipeline/FormulaCropMerger.swift",
-      "sha256": "a13ce62d528583000c0badf0c5c921cfdd987650569249f4d4a9244ecdf45004"
+      "sha256": "a65809f58608e763eda981dffbefb281f2cdec32ebabcc8cb98c5b113344c73f"
     },
     {
       "path": "Metra/App/FoundationModelsDeviceProbe.swift",
@@ -205,9 +242,59 @@
     {
       "path": "Metra/Data/Extraction/Engine/Pipeline/EmbeddedLengthUnitNormalizer.swift",
       "sha256": "9670a233c35bb0f3cff279bb9094b178eb31726f9723e138217d096ff7548592"
+    },
+    {
+      "path": "Metra/App/UnicodeMathDeviceProbe.swift",
+      "sha256": "faf3265ec9c174cbc99e3583b4db3a6d2073b3a8c145d4e2733736369f93074f"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/PaddleOCRRuntime.swift",
+      "sha256": "f2ee819d8c4b40e07cab0808c192917ee2adcf5672d1fd8d3d4a5231ae28c4a5"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/PaddleOCRCTC.swift",
+      "sha256": "1e130898a6b0eb3b9a0e3a3c50c248c642aa4f0ee21e8a43eca77fda2479822d"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/PaddleOCRService.swift",
+      "sha256": "fa2a105ab6014c9228ef805eeee9b7be0dd2ce5dd9738ef7ca166eb93e401121"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/PaddleMathSymbolSelector.swift",
+      "sha256": "da9f7d45f84304a9024c5c775f757bba7072e674afecdb95f9dc16e3e902da5a"
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/UnicodeMathSource.swift",
+      "sha256": "019f1653a5cdc74b51d0777f0da8a33ce4d5cc9bf8dd7dda792509879a8a6f6a"
     }
   ],
   "foundation_diagram_migration_results": "Integration/foundation-diagram-results.json",
   "legacy_qwen_archive": "Integration/legacy-qwen-build16; weights local/ignored; not a target resource",
-  "consistency_fix_results": "Integration/consistency-fix-results.json"
+  "consistency_fix_results": "Integration/consistency-fix-results.json",
+  "unicode_math_results": "unicode-math-results.json",
+  "paddleocr_results": "paddleocr-results.json",
+  "reader_symbol_fix_results": "reader-symbol-fix-results.json",
+  "question_start_change": {
+    "app_build": 27,
+    "policy": "sentence_atomic_math_question_choices_v5",
+    "status": "question-start-status.json",
+    "modified_app_files": [
+      {
+        "path": "Metra/Data/Extraction/Engine/Contracts/ReadyExtraction.swift",
+        "sha256": "e3279353d5f679e86e9466e0c3a165935106c1d118b97659f8276a568c7cdca5"
+      },
+      {
+        "path": "Metra/Data/Extraction/Engine/Storage/RunRepository.swift",
+        "sha256": "68fe85aef4a7e670a5dce278a379d9b0572cda3cb856b2771174f87eb31f1346"
+      },
+      {
+        "path": "Metra/Presentation/ReadingPresentation.swift",
+        "sha256": "cbab3757db559011945411fcd00fdface0f2f43173cea9e8fa338b90d02e0919"
+      },
+      {
+        "path": "Metra/Presentation/Views/MathTopicReaderView.swift",
+        "sha256": "6f126eed97e2400ba876f7a872f7ccc46c5be5be4a610b6c8759b06ada47d6e6"
+      }
+    ]
+  }
 }

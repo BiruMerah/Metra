@@ -1,0 +1,465 @@
+{
+  "schema": "metra-unicode-math-pilot-results-v1",
+  "device_trial": {
+    "build": {
+      "app_version": "1.0",
+      "build_number": "21",
+      "bundle_id": "id.birumerah.Metra",
+      "configuration": "Debug",
+      "debugger_attached": null
+    },
+    "run_id": "c181f143-5d43-4de3-a6a1-13a9fe5cb7a9",
+    "attempt_id": "6577fb40-85fd-4af6-85db-1273c8ab6ec1",
+    "device": {
+      "hardware_model_identifier": "iPhone17,2",
+      "system_version": "27.0.1"
+    },
+    "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb",
+    "started_at": "2026-10-27T10:46:52Z",
+    "completed_at": "2026-10-27T10:47:29Z",
+    "runtime_status": "partial",
+    "unicode_occurrences": 8,
+    "unicode_merge_allowed": 7,
+    "unicode_rows": [
+      {
+        "formula_id": "p0001.formula.0011",
+        "region_id": "p0001.unicode.10.3",
+        "source": "30°",
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "3 0 ^ { \\circ }",
+        "spoken": "30 derajat",
+        "crop_sha256": "abb3e654e57d8a43a58598689cde629a861bff83226e31f5cb00fa369973bd9e",
+        "token_ids_sha256": "7184ff3188d1f2896c09f11af8a921c0e2436a3831c708b523e9633de0e10a73"
+      },
+      {
+        "formula_id": "p0001.formula.0012",
+        "region_id": "p0001.unicode.11.3",
+        "source": "50°",
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "5 0 ^ { \\circ }",
+        "spoken": "50 derajat",
+        "crop_sha256": "13a4be697298354e833f8ab852d1e1c4d4d3ba9e77cb5676f238403f9478eb18",
+        "token_ids_sha256": "3766d209d71f514f03225265e5c2a60bd32f5952adc19146dc902ae42966d4db"
+      },
+      {
+        "formula_id": "p0001.formula.0013",
+        "region_id": "p0001.unicode.12.3",
+        "source": "40°",
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "4 0 ^ { \\circ }",
+        "spoken": "40 derajat",
+        "crop_sha256": "1ccdb56b58290dfc3b0073219109bcde8d1897f16000315375836c8b95140bb2",
+        "token_ids_sha256": "25773ff55e55e3d49c6a345ca040d28c470327a04952ee80d2a32bbb77da1eee"
+      },
+      {
+        "formula_id": "p0001.formula.0014",
+        "region_id": "p0001.unicode.13.3",
+        "source": "60°",
+        "source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "6 0 ^ { \\circ }",
+        "spoken": "60 derajat",
+        "crop_sha256": "c50113e9d60dbe678bbb268e6083e802363d3b813df0b761938567d1ede83c76",
+        "token_ids_sha256": "c9911422490ad8e0b3e903647f8428ca368b9de5648c49b8151fa844ad522cd6"
+      },
+      {
+        "formula_id": "p0001.formula.0028",
+        "region_id": "p0001.unicode.35.26",
+        "source": "47°",
+        "source_range_utf16": [
+          26,
+          29
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "4 7 ^ { \\circ }",
+        "spoken": "47 derajat",
+        "crop_sha256": "e63588e4b95d6c852fb2a0426573e19933979f7812196d2e30a2c1ea6a6d7464",
+        "token_ids_sha256": "2cb35632406612d93356e358a21c95870c82cdb1df86aae30fa66901b2406c3a"
+      },
+      {
+        "formula_id": "p0001.formula.0029",
+        "region_id": "p0001.unicode.36.7",
+        "source": "(3x + 4)°",
+        "source_range_utf16": [
+          7,
+          16
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "needs_review",
+        "merge_allowed": false,
+        "image_check": false,
+        "latex": "( 3 x + 4 ) ^ { \\circ } ,",
+        "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+        "crop_sha256": "b422d1a11dd979d9700e37787b223cf9fdad0c59a65ce16f7b2a3199f8aa3849",
+        "token_ids_sha256": "8feb4b5696ffbf299765376253b95a35c961f9ecebd250c6157227e696ae7b71"
+      },
+      {
+        "formula_id": "p0001.formula.0031",
+        "region_id": "p0001.unicode.37.0",
+        "source": "47°",
+        "source_range_utf16": [
+          0,
+          3
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "4 7 ^ { \\circ }",
+        "spoken": "47 derajat",
+        "crop_sha256": "b0ebde1383dc6ba2999a070e88b3d7e4c712af434c483b721691af1b4ccdff7d",
+        "token_ids_sha256": "2cb35632406612d93356e358a21c95870c82cdb1df86aae30fa66901b2406c3a"
+      },
+      {
+        "formula_id": "p0001.formula.0034",
+        "region_id": "p0001.mfd.11260",
+        "source": "(3x + 4)°",
+        "source_range_utf16": [
+          0,
+          9
+        ],
+        "raw_ocr_range_matches_proposal": true,
+        "source_occurrence_owners": 1,
+        "final_status": "ready",
+        "merge_allowed": true,
+        "image_check": true,
+        "latex": "( 3 x + 4 ) ^ { \\circ }",
+        "spoken": "buka kurung, 3 x tambah 4, tutup kurung derajat",
+        "crop_sha256": "e5a703abc98f030fd1f83cc9502475473541c9d89ae6ae851ff26e3355b2cd7e",
+        "token_ids_sha256": "02869174a7602e83de22b7fab3a7e99ca37570ce62c8ee75fc6817dbcba06a0c"
+      }
+    ],
+    "actual_selected_ocr_unicode_counts": {
+      "∠": 0,
+      "°": 10,
+      "²": 0,
+      "³": 0
+    },
+    "source_preservation": true,
+    "duplicate_formula_segment_owners": {},
+    "unit_rows": [
+      {
+        "source": "154 cm2",
+        "ready": true,
+        "spoken": "154 senti-meter kuadrat"
+      },
+      {
+        "source": "616 cm2",
+        "ready": true,
+        "spoken": "616 senti-meter kuadrat"
+      },
+      {
+        "source": "1.028 cm2",
+        "ready": true,
+        "spoken": "1028 senti-meter kuadrat"
+      },
+      {
+        "source": "324 cm2",
+        "ready": true,
+        "spoken": "324 senti-meter kuadrat"
+      },
+      {
+        "source": "616 m2",
+        "ready": true,
+        "spoken": "616 meter kuadrat"
+      },
+      {
+        "source": "1.386 młął",
+        "ready": true,
+        "spoken": "1386 meter kuadrat"
+      },
+      {
+        "source": "1.540 m2",
+        "ready": true,
+        "spoken": "1540 meter kuadrat"
+      },
+      {
+        "source": "770 mг",
+        "ready": true,
+        "spoken": "770 meter kuadrat"
+      }
+    ],
+    "chunk_count": 49,
+    "canonical_question_count": 5,
+    "all_unicode_raw_ranges_retained": true,
+    "all_unicode_occurrences_have_one_segment_owner": true,
+    "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/unicode-math-v1/6577fb40-85fd-4af6-85db-1273c8ab6ec1",
+    "embedded_unit_rows": [
+      {
+        "source": "314 cm'",
+        "range_utf16": [
+          53,
+          60
+        ],
+        "ready": true,
+        "spoken": "huruf besar a  huruf besar o  huruf besar b; sama dengan, 314 senti-meter kuadrat"
+      }
+    ]
+  },
+  "latest_build": 23,
+  "device_followup": {
+    "build": 22,
+    "build_succeeded": true,
+    "installed": true,
+    "launched": true,
+    "device_result_retrieved": false,
+    "reason": "Device became unavailable while retrieving report; CoreDevice error 4016. User chose to continue with first trial results.",
+    "inference_completion": "not_observed",
+    "cached_source_validation": "8/8 recorded iPhone build21 mathML cases pass current source validation, no new model inference or final merge"
+  },
+  "latest_build_bundle": {
+    "build": "23",
+    "bundle_id": "id.birumerah.Metra",
+    "executable": "Metra",
+    "executable_exists": true,
+    "onnx_models": [
+      "Pix2Text-MFD.onnx",
+      "PP-DocLayout-L.onnx",
+      "UniMERNet/decoder_with_past_model.onnx",
+      "UniMERNet/decoder_model.onnx",
+      "UniMERNet/encoder_model.onnx"
+    ],
+    "qwen_or_mlx_or_safetensors_paths": [],
+    "app_file_bytes": 987047163,
+    "device_installation": "not_attempted",
+    "device_inference": "not_attempted"
+  },
+  "cached_artifact_validation": {
+    "all_passed": true,
+    "count": 8,
+    "no_model_inference_executed": true,
+    "rows": [
+      {
+        "current_check_allowed": true,
+        "current_source": "30°",
+        "current_source_range_utf16": [
+          3,
+          6
+        ],
+        "formula_id": "p0001.formula.0011",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "30°",
+        "original_source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "30°",
+        "source_observation_id": "p0001.ocr.0010"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "50°",
+        "current_source_range_utf16": [
+          3,
+          6
+        ],
+        "formula_id": "p0001.formula.0012",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "50°",
+        "original_source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "50°",
+        "source_observation_id": "p0001.ocr.0011"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "40°",
+        "current_source_range_utf16": [
+          3,
+          6
+        ],
+        "formula_id": "p0001.formula.0013",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "40°",
+        "original_source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "40°",
+        "source_observation_id": "p0001.ocr.0012"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "60°",
+        "current_source_range_utf16": [
+          3,
+          6
+        ],
+        "formula_id": "p0001.formula.0014",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "60°",
+        "original_source_range_utf16": [
+          3,
+          6
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "60°",
+        "source_observation_id": "p0001.ocr.0013"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "47°",
+        "current_source_range_utf16": [
+          26,
+          29
+        ],
+        "formula_id": "p0001.formula.0028",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "47°",
+        "original_source_range_utf16": [
+          26,
+          29
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "47°",
+        "source_observation_id": "p0001.ocr.0035"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "(3x + 4)°,",
+        "current_source_range_utf16": [
+          7,
+          17
+        ],
+        "formula_id": "p0001.formula.0029",
+        "identical_last_glyph_and_next_character_box": true,
+        "included_actual_source_punctuation": ",",
+        "original_check_allowed": false,
+        "original_source": "(3x + 4)°",
+        "original_source_range_utf16": [
+          7,
+          16
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "(3x+4)°,",
+        "source_observation_id": "p0001.ocr.0037"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "47°",
+        "current_source_range_utf16": [
+          0,
+          3
+        ],
+        "formula_id": "p0001.formula.0031",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "47°",
+        "original_source_range_utf16": [
+          0,
+          3
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "47°",
+        "source_observation_id": "p0001.layout.0005.ocr.0001"
+      },
+      {
+        "current_check_allowed": true,
+        "current_source": "(3x + 4)°",
+        "current_source_range_utf16": [
+          0,
+          9
+        ],
+        "formula_id": "p0001.formula.0034",
+        "identical_last_glyph_and_next_character_box": false,
+        "original_check_allowed": true,
+        "original_source": "(3x + 4)°",
+        "original_source_range_utf16": [
+          0,
+          9
+        ],
+        "raw_mathml_modified": false,
+        "recognized_tokens": "(3x+4)°",
+        "source_observation_id": "p0001.layout.0005.ocr.0002"
+      }
+    ],
+    "scope": "Reapply current source span/punctuation binding and validation to unmodified OCR boxes and raw MathML captured on iPhone build 21. No detector/recognizer request or final JSON merge executed.",
+    "source_run": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/unicode-math-v1/6577fb40-85fd-4af6-85db-1273c8ab6ec1/run"
+  },
+  "checks": {
+    "build21_runtime_report_retrieved": true,
+    "eight_actual_unicode_occurrences_processed": true,
+    "seven_allowed_one_withheld_in_actual_build21": true,
+    "raw_ocr_ranges_match_proposals": true,
+    "one_segment_owner_per_unicode_occurrence": true,
+    "no_duplicate_formula_segment_owners": true,
+    "source_segments_preserved": true,
+    "nine_existing_unit_readings_unchanged": true,
+    "build23_app_sources_match_checkout": true,
+    "all_38_logic_fixtures_passed": true,
+    "cached_eight_real_mathml_checks_pass_current_policy": true
+  },
+  "all_checks_passed": true,
+  "logic_fixture_count": 38,
+  "logic_fixture_scope": "Pure production matcher/MathML fixtures and optional cached iPhone artifact validation; no OCR/model inference or source accuracy measurement",
+  "reviewer_type": "agent",
+  "human_review": "not_assessed",
+  "voiceover_comprehension": "not_assessed",
+  "limits": [
+    "One completed/retrieved real-image extraction on one iPhone; not a repeatability or accuracy benchmark.",
+    "Build22 was built, installed and launched, but the iPhone disconnected before report retrieval; completion and final merge are not observed. User chose to continue with build21 results.",
+    "Eight-of-eight current source checks are a replay of cached build21 iPhone OCR boxes and MathML; not eight new device inference successes or a full pipeline replay.",
+    "Actual selected OCR contains degrees but no angle or superscript Unicode. Angle/power cases are text/MathML fixtures, not PaddleOCR or image-recognition evidence.",
+    "LDFE/LDPE and flattened/corrupt powered units are not repaired by this Unicode route.",
+    "Build23 is built and signed only; no new installation or iPhone inference attempted after user selected first trial evidence.",
+    "Full page remains partial: diagram relationships, unrelated OCR/formula review and unsupported tables remain.",
+    "Formula ownership checks do not establish general semantic deduplication or source photo completeness."
+  ],
+  "evidence_roots": [
+    "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/unicode-math-v1/6577fb40-85fd-4af6-85db-1273c8ab6ec1",
+    "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/unicode-math-v1/2202b62f-a99e-4091-a6f6-496e32495cf5",
+    "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/unicode-math-v1/53b68e3b-2e7b-4467-9d6f-971d09b12209"
+  ],
+  "validation_version": "unicode_math_whole_source_check_v3",
+  "reproduced_pre_fix_failures": [
+    "coefficient_inside_wrong_power_base_withheld",
+    "quantity_inside_wrong_power_base_withheld"
+  ]
+}

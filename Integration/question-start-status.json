@@ -1,0 +1,73 @@
+{
+  "schema": "metra-question-start-status-v1",
+  "recorded_at_utc": "2026-10-27T14:51:52.853957+00:00",
+  "app_build": 27,
+  "branch": "feat/poc-integration",
+  "implementation": "completed",
+  "chunk_policy": "sentence_atomic_math_question_choices_v5",
+  "canonical_schema": "metra-ready-chunks-v4",
+  "new_chunk_kind": "question_start",
+  "build": {
+    "status": "succeeded",
+    "signed": true,
+    "configuration": "Debug",
+    "sdk": "iphoneos27.0",
+    "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/question-start-v1/99a2d7f8-eab0-4973-bf95-386c419ce572/build-01.log"
+  },
+  "device_installation": {
+    "status": "succeeded",
+    "device": "iPhone16ProMax",
+    "device_udid_suffix": "2801C",
+    "log": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/question-start-v1/99a2d7f8-eab0-4973-bf95-386c419ce572/install.json"
+  },
+  "app_sources_match_compiled_snapshot": true,
+  "bundle": {
+    "build": "27",
+    "bundle_id": "id.birumerah.Metra",
+    "executable": "Metra",
+    "executable_exists": true,
+    "onnx_models": [
+      {
+        "path": "PP-DocLayout-L.onnx",
+        "bytes": 129523577
+      },
+      {
+        "path": "PaddleOCR-PP-OCRv5-mobile-rec.onnx",
+        "bytes": 16534782
+      },
+      {
+        "path": "Pix2Text-MFD.onnx",
+        "bytes": 44573224
+      },
+      {
+        "path": "UniMERNet/decoder_model.onnx",
+        "bytes": 325975220
+      },
+      {
+        "path": "UniMERNet/decoder_with_past_model.onnx",
+        "bytes": 325978820
+      },
+      {
+        "path": "UniMERNet/encoder_model.onnx",
+        "bytes": 105876820
+      }
+    ],
+    "qwen_or_mlx_or_safetensors_paths": [],
+    "app_file_bytes": 1004109851,
+    "paddle_model_sha256": "da72dc72ca4dc220df0dfde68c1dedc31c58d3e76a25871122e5056227d50092"
+  },
+  "voiceover_interaction_tested": false,
+  "device_inference_for_this_change": "not_run",
+  "new_tests_added_or_run": false,
+  "swiftdata_schema_changed": false,
+  "model_runtime_pins_changed_in_this_fix": false,
+  "source_poc_untouched": true,
+  "previous_experiments_preserved": true,
+  "previous_saved_materials": "Existing exports are retained; reimport as a new material to use new chunks.",
+  "scope": "Confirmed leading number-only sentence groups join their initial sentence within the same source block; source question metadata required; one question_start per question/page. Source slices and existing coverage validator retained.",
+  "limitations": [
+    "Build/sign/install are confirmed; no new pipeline export, device inference or VoiceOver interaction executed by agent for this change.",
+    "Separate layout blocks for number/body and unconfirmed question metadata are outside this merge rule."
+  ],
+  "evidence_root": "/Users/miuura/Documents/Devs/ADA@ilb/Challenge 6/Metra/Integration/verification/question-start-v1/99a2d7f8-eab0-4973-bf95-386c419ce572"
+}

@@ -5,7 +5,7 @@ import UIKit
 /// Adds MFD proposals while retaining raw detectors and Vision proposals in their
 /// own artifacts. Cross-model scores are never ranked against each other.
 enum FormulaCropMerger {
-    static let version = "supplemental_mfd_crop_merge_v2"
+    static let version = "supplemental_mfd_crop_merge_v4"
 
     struct Decision: Codable, Sendable {
         let detectionID: String
@@ -51,7 +51,8 @@ enum FormulaCropMerger {
             // supply a power. The entire Vision source range remains the crop.
             let supported = overlap.filter { proposal in
                 guard proposal.sourceObservationID != nil, proposal.sourceRangeUTF16 != nil,
-                      proposal.detectionSource == LengthUnitSource.version || proposal.detectionSource == "vision_math_expression_proposal_v1" else { return false }
+                      proposal.detectionSource == LengthUnitSource.version || proposal.detectionSource == "vision_math_expression_proposal_v1" ||
+                        proposal.sourceNotationPolicy == UnicodeMathSource.version else { return false }
                 let p = proposal.bboxPageXYXY, raw = proposal.rawVisionBBox ?? p
                 let near = p.intersection(box)/max(1,box.area) >= 0.80
                 let whole = box.intersection(raw)/max(1,raw.area) >= 0.85 && p.iou(box) >= 0.4
@@ -117,7 +118,7 @@ enum FormulaCropMerger {
             rawIndex:candidate.rawIndex,parentID:parentID,cropArtifact:"pages/\(pageID)/crops/\(name)",detectionSource:Pix2TextMFDRuntime.proposalVersion,
             sourceObservationID:source?.sourceObservationID,sourceRangeUTF16:source?.sourceRangeUTF16,proposalText:source?.proposalText,
             rawVisionBBox:source?.rawVisionBBox,roiDerivation:"\(version): original-image crop; source text/range retained when uniquely fused; no OCR symbol/power reconstruction",
-            proposalSourceIDs:source.map { [candidate.id,$0.id] } ?? [candidate.id])
+            proposalSourceIDs:source.map { [candidate.id,$0.id] } ?? [candidate.id],sourceNotationPolicy:source?.sourceNotationPolicy)
     }
 
     private static func padded(_ b:PixelBox,width:Int,height:Int) -> PixelBox {
@@ -162,6 +163,10 @@ enum FormulaCropMerger {
     }
 
     private static func isPlainSource(_ text:String) -> Bool {
+        // Vision can emit Cyrillic homoglyphs in A/B/C/E choice markers.
+        // Only punctuated marker hints veto this supplemental MFD crop. No OCR
+        // text is folded/replaced, and Cyrillic algebraic identifiers stay intact.
+        if text.range(of:#"^[АВСЕ][.)]$"#,options:.regularExpression) != nil { return true }
         let patterns = [#"^[+-]?[0-9]+(?:[.,][0-9]+)*[.,]?$"#,
                         #"^[A-Za-z](?:[.,]\s*[A-Za-z])*[.,)]?$"#,
                         #"^(?:dam|km|hm|dm|cm|mm|m)[,.]?$"#]
