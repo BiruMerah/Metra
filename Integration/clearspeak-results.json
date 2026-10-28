@@ -1,0 +1,54 @@
+{
+  "schema": "metra-clearspeak-verification-v1",
+  "date": "2026-10-28",
+  "mathcat_version": "0.7.5",
+  "profile": {
+    "BlockSeparators": ".  ",
+    "DecimalSeparator": ",",
+    "DecimalSeparators": ",",
+    "Language": "id",
+    "SpeechStyle": "ClearSpeak",
+    "TTS": "None",
+    "Verbosity": "Medium"
+  },
+  "native_ios_sha256": "8a4a596a82ef385b9b1489473716ff261f584cf8a6a0298eca9caa9511cf8462",
+  "ios_library_architecture": "arm64",
+  "ios_sdk_build": "succeeded; Debug; CODE_SIGNING_ALLOWED=NO",
+  "host_native_bridge_checks": [
+    {
+      "case": "half",
+      "mathml": "<math><mfrac><mn>1</mn><mn>2</mn></mfrac></math>",
+      "spoken": "1 perdua"
+    },
+    {
+      "case": "complex_fraction",
+      "mathml": "<math><mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac></math>",
+      "spoken": "pecahan dengan pembilang; x tambah 1; dan penyebut 2"
+    },
+    {
+      "case": "square",
+      "mathml": "<math><msup><mi>x</mi><mn>2</mn></msup></math>",
+      "spoken": "x kuadrat"
+    },
+    {
+      "case": "nested_root",
+      "mathml": "<math><msqrt><mfrac><mn>1</mn><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></mfrac></msqrt></math>",
+      "spoken": "akar kuadrat dari pecahan dengan pembilang 1; dan penyebut x tambah 1"
+    },
+    {
+      "case": "decimal_comma",
+      "mathml": "<math><mn>3,14</mn></math>",
+      "spoken": "3,14"
+    },
+    {
+      "case": "degrees",
+      "mathml": "<math><mn>60</mn><mo>°</mo></math>",
+      "spoken": "60 derajat"
+    }
+  ],
+  "complex_fraction_uses_clearspeak_numerator_denominator": true,
+  "repeated_conversion_is_consistent": true,
+  "missing_clearspeak_rules_rejected_with_simplespeak_present": true,
+  "device_runtime_tested": false,
+  "scope": "Native C ABI smoke checks ran on macOS with the same Rust bridge and bundled rules; iOS library and app compiled. No OCR/model inference, iPhone runtime or VoiceOver comprehension claim."
+}

@@ -7,7 +7,7 @@
       "source": "MetraPipelinePoC/Adapters/MathCATAdapter.swift",
       "destination": "Metra/Data/Extraction/Engine/Adapters/MathCATAdapter.swift",
       "source_sha256": "c74f5cc11ccd897533f6231a42f371f1a8502f687e8f1250474ef0993a4e5ed6",
-      "integrated_sha256": "c74f5cc11ccd897533f6231a42f371f1a8502f687e8f1250474ef0993a4e5ed6"
+      "integrated_sha256": "6d1aafc1e80868279526747c9f4e0d68f56f5b199a1b32758ded8abf4f3d10b0"
     },
     {
       "source": "MetraPipelinePoC/Adapters/MathJaxBridge.swift",
@@ -112,7 +112,7 @@
       "source": "MetraPipelinePoC/Pipeline/RunCoordinator.swift",
       "destination": "Metra/Data/Extraction/Engine/Pipeline/RunCoordinator.swift",
       "source_sha256": "6b3b6935519369e608a45a95c2374627d637c96ea0bff7031dd2b663b37de2fa",
-      "integrated_sha256": "39dd4c6237c41dfd6c6c1934e9ff3bfdb49f4e490d01278e89665b7dc4b6a8b9"
+      "integrated_sha256": "d42e4cfa7b5b6c8d60d9f900108567643b103dc6b11432cf496d011bf6aef0a5"
     },
     {
       "source": "MetraPipelinePoC/Pipeline/TopicGroupingService.swift",
@@ -139,7 +139,7 @@
       "source": "MetraPipelinePoC/Storage/RunRepository.swift",
       "destination": "Metra/Data/Extraction/Engine/Storage/RunRepository.swift",
       "source_sha256": "c921ebd4f4f885f06a3fae02af689005adf98b6c2d9044d2811bb0e3ed8233b8",
-      "integrated_sha256": "68fe85aef4a7e670a5dce278a379d9b0572cda3cb856b2771174f87eb31f1346"
+      "integrated_sha256": "48971f2e3c9f59b6d9510bc5e00c901050c92de6af3d885cda2e7420926bbabf"
     }
   ],
   "integration_adaptations": {
@@ -196,7 +196,9 @@
   },
   "mathcat_static_library": {
     "source_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701",
-    "integrated_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701"
+    "integrated_sha256": "8a4a596a82ef385b9b1489473716ff261f584cf8a6a0298eca9caa9511cf8462",
+    "speech_style": "ClearSpeak",
+    "change": "Rebuilt repository bridge with MathCAT 0.7.5, Language=id, ClearSpeak Medium; original PoC binary retained at source."
   },
   "mathcat_header": {
     "source_sha256": "a740949f86ac5d7e602dfd288d9a7b20b9e59f88c3baada23f5ebdf87a220c86",

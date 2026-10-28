@@ -12,18 +12,18 @@ pub unsafe extern "C" fn metra_mathcat_convert(rules: *const c_char, mathml: *co
         if rules.is_null() || mathml.is_null() { return Err("Null MathCAT input".into()); }
         let rules = CStr::from_ptr(rules).to_str().map_err(|e| e.to_string())?.to_string();
         let mathml = CStr::from_ptr(mathml).to_str().map_err(|e| e.to_string())?.to_string();
-        if !std::path::Path::new(&rules).join("Languages/id/SimpleSpeak_Rules.yaml").is_file() {
-            return Err("Bundled Indonesian SimpleSpeak rules missing; no language fallback allowed".into());
+        if !std::path::Path::new(&rules).join("Languages/id/ClearSpeak_Rules.yaml").is_file() {
+            return Err("Bundled Indonesian ClearSpeak rules missing; no language fallback allowed".into());
         }
         set_rules_dir(rules).map_err(|e| format!("{:#}", e))?;
-        let preferences = [("Language", "id"), ("SpeechStyle", "SimpleSpeak"), ("Verbosity", "Medium"),
+        let preferences = [("Language", "id"), ("SpeechStyle", "ClearSpeak"), ("Verbosity", "Medium"),
             ("TTS", "None"), ("DecimalSeparator", ","), ("DecimalSeparators", ","), ("BlockSeparators", ".\u{00a0}\u{202f}")];
         for (name, value) in preferences { set_preference(name.into(), value.into()).map_err(|e| format!("{name}: {e:#}"))?; }
         let canonical = set_mathml(mathml).map_err(|e| format!("{:#}", e))?;
         let spoken = get_spoken_text().map_err(|e| format!("{:#}", e))?;
         let mut effective = Map::new();
         for (name, _) in preferences { effective.insert(name.into(), json!(get_preference(name.into()).map_err(|e| format!("{:#}",e))?)); }
-        if effective.get("Language") != Some(&json!("id")) || effective.get("SpeechStyle") != Some(&json!("SimpleSpeak")) {
+        if effective.get("Language") != Some(&json!("id")) || effective.get("SpeechStyle") != Some(&json!("ClearSpeak")) {
             return Err(format!("Unexpected MathCAT profile: {effective:?}"));
         }
         Ok(json!({"ok":true, "spokenText":spoken, "canonicalMathML":canonical, "profile":effective, "version":get_version()}))

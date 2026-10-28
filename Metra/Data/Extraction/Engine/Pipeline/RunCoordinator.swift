@@ -334,7 +334,7 @@ final class RunCoordinator: ObservableObject {
                 "formula_counts": formulaSummary,
                 "resume_attempt": resumeAttempt,
                 "resumed_page_count": completedPages.count,
-                "warnings": ["PP-DocLayout-L and UniMERNet source fidelity require review. MathCAT id SimpleSpeak speech is runtime output, not human approval. Contradictory one-letter proposal outputs are retained but withheld from merged speech. Numerical resize parity, complete formula recall and table structure have not been established."]
+                "warnings": ["PP-DocLayout-L and UniMERNet source fidelity require review. MathCAT id ClearSpeak speech is runtime output, not human approval. Contradictory one-letter proposal outputs are retained but withheld from merged speech. Numerical resize parity, complete formula recall and table structure have not been established."]
             ]
             let document = ExtractionDocument(
                 schema: "metra-source-extraction-v1",

@@ -766,18 +766,20 @@
       "role": "mathml_to_spoken_text",
       "target_profile": {
         "language": "id",
-        "rules": "SimpleSpeak",
+        "rules": "ClearSpeak",
         "verbosity": "Medium",
         "TTS": "None",
         "DecimalSeparator": ",",
         "BlockSeparators": ". NBSP NNBSP"
       },
       "runtime": "Rust staticlib aarch64-apple-ios via C ABI; one fixed OS thread; no await inside transaction",
-      "status": "device_executed_single_page_needs_review",
+      "status": "clearspeak_native_and_ios_sdk_build_verified_device_validation_pending",
+      "profile_verification_report": "Integration/clearspeak-results.json",
       "version": "0.7.5",
       "rules_sha256_tree": "8bc06e1444089f35be99c94e63c6e4527d987809ae305220a68c5c07fce971a2",
-      "native_sha256": "7d1d158fdf4b8f0bc548af95966c696fdf4cfb3f448a9446b15f26d3816ae701",
-      "device_evidence": {
+      "native_sha256": "8a4a596a82ef385b9b1489473716ff261f584cf8a6a0298eca9caa9511cf8462",
+      "previous_profile_device_evidence": {
+        "speech_style": "SimpleSpeak",
         "run_id": "effdc3ef-c506-4016-a625-e966c8b70927",
         "build": "10 Debug",
         "report": "verification/formula-device-pilot-build10/report.json"

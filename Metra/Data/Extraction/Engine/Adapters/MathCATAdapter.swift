@@ -58,8 +58,8 @@ final class MathCATAdapter: @unchecked Sendable {
     private func convert(_ mathML: String) throws -> MathCATSpokenResult {
         guard Thread.current === worker else { throw MathCATError.failed("worker thread mismatch") }
         guard let rules = Bundle.main.resourceURL?.appendingPathComponent("MathCATRules"),
-              FileManager.default.fileExists(atPath: rules.appendingPathComponent("Languages/id/SimpleSpeak_Rules.yaml").path) else {
-            throw MathCATError.failed("Aturan id/SimpleSpeak tidak ada di bundle.")
+              FileManager.default.fileExists(atPath: rules.appendingPathComponent("Languages/id/ClearSpeak_Rules.yaml").path) else {
+            throw MathCATError.failed("Aturan id/ClearSpeak tidak ada di bundle.")
         }
         let start = ProcessInfo.processInfo.systemUptime
         let pointer = rules.path.withCString { rulesPointer in
