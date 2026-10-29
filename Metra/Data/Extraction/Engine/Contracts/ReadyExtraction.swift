@@ -40,15 +40,15 @@ struct ReadyTopic: Codable, Identifiable, Sendable {
 
 struct ReadyChunk: Codable, Identifiable, Sendable {
     let id: String
-    let kind: String
+    var kind: String
     let pageID: String
-    let status: String
-    let sourceText: String
+    var status: String
+    var sourceText: String
     /// Complete merged speech only. Never silently skip an unresolved formula.
-    let spokenText: String?
+    var spokenText: String?
     /// Present for incomplete speech; review markers are explicitly presentation text.
-    let spokenPreview: String?
-    let unresolvedFormulaIDs: [String]
+    var spokenPreview: String?
+    var unresolvedFormulaIDs: [String]
     let sourceRef: String
     var diagramID: String? = nil
     var imageArtifact: String? = nil
@@ -57,6 +57,8 @@ struct ReadyChunk: Codable, Identifiable, Sendable {
     var questionID: String? = nil
     var choiceLabel: String? = nil
     var sourceBlockIDs: [String]? = nil
+    var sourceChunkIDs: [String]? = nil
+    var formulaFallbackIDs: [String]? = nil
 }
 
 struct ChunkSourceSlice: Codable, Equatable, Sendable {
@@ -67,7 +69,7 @@ struct ChunkSourceSlice: Codable, Equatable, Sendable {
 }
 
 struct ChunkCandidate: Codable, Sendable {
-    let chunk: ReadyChunk
+    var chunk: ReadyChunk
     let blockID: String
     let readingOrder: Int
     let sourceSlices: [ChunkSourceSlice]
@@ -76,7 +78,7 @@ struct ChunkCandidate: Codable, Sendable {
 }
 
 enum ReadingChunkBuilder {
-    static let version = "sentence_atomic_math_question_choices_v5"
+    static let version = ReadingBoundaryPolicy.version
 
     private struct Atom {
         let mask: String
@@ -85,6 +87,8 @@ enum ReadingChunkBuilder {
         let preview: String
         let slice: ChunkSourceSlice?
         let unresolvedFormulaID: String?
+        var sourceLineStart: Bool = false
+        var fallbackID: String? = nil
     }
 
     static func build(_ document: FinalExtractionDocument, artifactPrefix: String) throws -> [ChunkCandidate] {
@@ -104,12 +108,12 @@ enum ReadingChunkBuilder {
                         return (segment.joinBefore ?? "") + content
                     }.joined().trimmingCharacters(in:.whitespacesAndNewlines)
                     let slices = readingSegments.map { ChunkSourceSlice(segmentID:$0.id,textRangeUTF16:$0.formulaID == nil ? [0,($0.text ?? "").utf16.count] : nil,formulaID:$0.formulaID) }
-                    let chunk = ReadyChunk(id:id,kind:"diagram",pageID:page.id,status:diagram.status,sourceText:source,
+                    let chunk = ReadyChunk(id:id,kind:diagram.status == "skipped_others" ? "ignored_visual" : "diagram",pageID:page.id,status:diagram.status,sourceText:source,
                         spokenText:diagram.spokenText,spokenPreview:diagram.spokenPreview,
                         unresolvedFormulaIDs:diagram.unresolvedFormulaIDs,sourceRef:"\(artifactPrefix)/chunks/\(id).json",
                         diagramID:diagram.id,imageArtifact:diagram.artifacts["crop"],uncertainties:diagram.uncertainties,diagramPairs:diagram.pairs,
                         questionID:block.questionID,sourceBlockIDs:block.sourceBlockIDs)
-                    candidates.append(ChunkCandidate(chunk:chunk,blockID:block.id,readingOrder:block.readingOrder,sourceSlices:slices,isAuxiliary:false,
+                    candidates.append(ChunkCandidate(chunk:chunk,blockID:block.id,readingOrder:block.readingOrder,sourceSlices:slices,isAuxiliary:diagram.status == "skipped_others",
                         derivation:"visual_chunk_projection_v2: copy the existing FinalDiagram speech, pairs and status into one visual chunk; no diagram inference during reading export; source slices retained"))
                     continue
                 }
@@ -126,41 +130,24 @@ enum ReadingChunkBuilder {
                                 slice:ChunkSourceSlice(segmentID:segment.id,textRangeUTF16:nil,formulaID:id),unresolvedFormulaID:nil))
                             continue
                         }
+                        let fallback = formula.spokenText == nil ? document.formulaFallbacks?[id]?.readerText : nil
                         atoms.append(Atom(mask: "\u{FFFC}", source: formula.sourceText, speech: formula.spokenText,
-                                          preview: formula.spokenText ?? "[perlu review: \(formula.sourceText.isEmpty ? id : formula.sourceText)]",
+                                          preview: formula.spokenText ?? fallback ?? (formula.sourceText.count == 1 && formula.sourceText.allSatisfy { $0.isASCII && $0.isLetter } ? "[perlu review: \(formula.sourceText)]" : "Rumus belum dapat dibaca."),
                                           slice: ChunkSourceSlice(segmentID: segment.id, textRangeUTF16: nil, formulaID: id),
-                                          unresolvedFormulaID: formula.spokenText == nil ? id : nil))
+                                          unresolvedFormulaID: formula.spokenText == nil ? id : nil,fallbackID:fallback == nil ? nil : id))
                     } else {
                         let text = segment.text ?? ""
                         for start in text.indices {
                             let end = text.index(after: start), part = String(text[start..<end])
                             atoms.append(Atom(mask: part, source: part, speech: part, preview: part,
-                                              slice: ChunkSourceSlice(segmentID: segment.id, textRangeUTF16: [start.utf16Offset(in: text), end.utf16Offset(in: text)], formulaID: nil), unresolvedFormulaID: nil))
+                                              slice: ChunkSourceSlice(segmentID: segment.id, textRangeUTF16: [start.utf16Offset(in: text), end.utf16Offset(in: text)], formulaID: nil), unresolvedFormulaID: nil,
+                                              sourceLineStart:start == text.startIndex && segment.sourceRefs.first?.rangeUTF16.first == 0))
                         }
                     }
                 }
                 let masked = atoms.map(\.mask).joined()
                 let preserveBlock = ["doc_title", "paragraph_title", "heading", "header", "footer", "number", "formula", "table", "image", "diagram", "answer_choice"].contains(block.kind)
-                var sentenceEnds: [Int] = []
-                if !preserveBlock, !masked.isEmpty {
-                    let tokenizer = NLTokenizer(unit: .sentence)
-                    tokenizer.string = masked
-                    tokenizer.enumerateTokens(in: masked.startIndex..<masked.endIndex) { range, _ in
-                        sentenceEnds.append(range.upperBound.utf16Offset(in: masked)); return true
-                    }
-                }
-                var groups: [[Atom]] = [], group: [Atom] = []
-                var offset = 0, sentenceIndex = 0
-                for atom in atoms {
-                    if sentenceIndex < sentenceEnds.count, offset >= sentenceEnds[sentenceIndex],
-                       !atom.mask.allSatisfy(\.isWhitespace), !group.isEmpty {
-                        groups.append(group); group = []
-                        while sentenceIndex < sentenceEnds.count && offset >= sentenceEnds[sentenceIndex] { sentenceIndex += 1 }
-                    }
-                    group.append(atom); offset += atom.mask.utf16.count
-                }
-                if !group.isEmpty { groups.append(group) }
-                if groups.isEmpty { groups = [[]] }
+                var groups = preserveBlock ? [atoms] : paragraphGroups(atoms,masked:masked)
                 // A confirmed question marker is part of its initial sentence.
                 // Join atoms before projecting speech/slices so source coverage
                 // and unresolved-formula status follow the existing machinery.
@@ -186,13 +173,16 @@ enum ReadingChunkBuilder {
                     let missing = Array(Set(items.compactMap(\.unresolvedFormulaID))).sorted()
                     let complete = !unsupported && items.allSatisfy { $0.speech != nil }
                     let speech = complete ? choicePrefix(items.compactMap(\.speech).joined().trimmingCharacters(in: .whitespacesAndNewlines), label:block.choiceLabel) : nil
-                    let kind = hasQuestionStart && index == 0 ? "question_start" : (preserveBlock ? block.kind : "sentence")
+                    let mathOnly = !items.compactMap(\.slice).isEmpty && items.compactMap(\.slice).allSatisfy { $0.formulaID != nil }
+                    let kind = hasQuestionStart && index == 0 ? "question_start" : (preserveBlock ? block.kind :
+                        (ReadingBoundaryPolicy.beginsListItem(source) ? "list_item" : (mathOnly ? "formula" : "paragraph")))
                     let chunk = ReadyChunk(id: id, kind: kind, pageID: page.id,
                                            status: unsupported ? "unsupported" : (complete ? "ready" : "needs_review"),
                                            sourceText: source, spokenText: speech,
                                            spokenPreview: complete ? nil : (unsupported && preview.isEmpty ? "[isi \(block.kind) belum tersedia]" : preview),
                                            unresolvedFormulaIDs: missing, sourceRef: "\(artifactPrefix)/chunks/\(id).json",
-                                           questionID:block.questionID,choiceLabel:block.choiceLabel,sourceBlockIDs:block.sourceBlockIDs)
+                                           questionID:block.questionID,choiceLabel:block.choiceLabel,sourceBlockIDs:block.sourceBlockIDs ?? [block.id],
+                                           formulaFallbackIDs:items.compactMap(\.fallbackID).isEmpty ? nil : Array(Set(items.compactMap(\.fallbackID))).sorted())
                     var slices: [ChunkSourceSlice] = []
                     for slice in items.compactMap(\.slice) {
                         if let last = slices.last, last.segmentID == slice.segmentID,
@@ -202,12 +192,59 @@ enum ReadingChunkBuilder {
                     }
                     candidates.append(ChunkCandidate(chunk: chunk, blockID: block.id, readingOrder: block.readingOrder, sourceSlices: slices,
                                                      isAuxiliary: ["footer", "header", "number"].contains(block.kind),
-                                                     derivation: "\(version): sentence boundaries on prose; a confirmed leading question marker joins the initial sentence within its source block and is tagged question_start; each formula occurrence atomic; a confirmed answer_choice is one reading chunk including its source marker, even when the marker was separately proposed as math; marker homoglyph mapping is limited to choice context; original slices and payload retained"))
+                                                     derivation: "\(version): bounded source paragraphs; explicit list boundaries; attached enumerators; atomic formula occurrences; confirmed question and choice boundaries; original source slices and review state retained"))
                 }
             }
         }
-        try validateCoverage(document, candidates: candidates)
-        return candidates
+        let grouped = ReadingContextGrouper.group(candidates,document:document)
+        try validateCoverage(document, candidates: grouped)
+        return grouped
+    }
+
+    private static func paragraphGroups(_ atoms:[Atom],masked:String) -> [[Atom]] {
+        guard !atoms.isEmpty else { return [[]] }
+        let proposed = ReadingBoundaryPolicy.sentenceEnds(masked)
+        var soft = Set<Int>(),forced = Set<Int>(),offset = 0,depth = 0,clause = ""
+        let long = ReadingBoundaryPolicy.wordCount(atoms.map { $0.speech ?? $0.source }.joined()) > ReadingBoundaryPolicy.preferredWords
+        for (i,atom) in atoms.enumerated() {
+            if atom.sourceLineStart,i > 0,
+               ReadingBoundaryPolicy.beginsListItem(atoms[i..<min(atoms.count,i+20)].map(\.source).joined()) {
+                forced.insert(offset)
+            }
+            if atom.mask == "(" || atom.mask == "[" || atom.mask == "{" { depth += 1 }
+            if atom.mask == ")" || atom.mask == "]" || atom.mask == "}" { depth = max(0,depth-1) }
+            clause += atom.speech ?? atom.source
+            offset += atom.mask.utf16.count
+            if depth == 0,proposed.contains(offset) { soft.insert(offset);clause = "" }
+            if long,depth == 0,[",",";"].contains(atom.mask),ReadingBoundaryPolicy.wordCount(clause) >= 35 {
+                soft.insert(offset);clause = ""
+            }
+        }
+        let cuts = soft.union(forced).sorted()
+        var units:[(items:[Atom],forced:Bool)] = [],unit:[Atom] = [],unitForced = false
+        var cutIndex = 0,pending = false,pendingForced = false
+        offset = 0
+        for atom in atoms {
+            while cutIndex < cuts.count,offset >= cuts[cutIndex] {
+                pending = true;pendingForced = pendingForced || forced.contains(cuts[cutIndex]);cutIndex += 1
+            }
+            if pending,!atom.mask.allSatisfy(\.isWhitespace),!unit.isEmpty {
+                units.append((unit,unitForced));unit = [];unitForced = pendingForced;pending = false;pendingForced = false
+            }
+            unit.append(atom);offset += atom.mask.utf16.count
+        }
+        if !unit.isEmpty { units.append((unit,unitForced)) }
+        var groups:[[Atom]] = [],group:[Atom] = []
+        for unit in units {
+            let words = ReadingBoundaryPolicy.wordCount((group+unit.items).map { $0.speech ?? $0.source }.joined())
+            let marker = ReadingBoundaryPolicy.isMarker(group.map(\.source).joined())
+            if !group.isEmpty,(unit.forced || (words > ReadingBoundaryPolicy.preferredWords && !marker)) {
+                groups.append(group);group = []
+            }
+            group += unit.items
+        }
+        if !group.isEmpty { groups.append(group) }
+        return groups.isEmpty ? [[]] : groups
     }
 
     private static func validateCoverage(_ document: FinalExtractionDocument, candidates: [ChunkCandidate]) throws {

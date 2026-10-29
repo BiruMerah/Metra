@@ -1,0 +1,93 @@
+{
+  "schema": "metra-formula-regression-audit-v1",
+  "scope": "Compare existing saved extraction results; no new model inference, app changes or rollback.",
+  "observed_regression": {
+    "old": {
+      "run_id": "34134240-d310-4b64-ad3c-debb45ab3360",
+      "build": {
+        "app_version": "1.0",
+        "build_number": "3",
+        "bundle_id": "id.birumerah.Metra",
+        "configuration": "Debug",
+        "debugger_attached": null
+      },
+      "device": {
+        "hardware_model_identifier": "iPhone18,3",
+        "model": "iPhone",
+        "physical_memory_bytes": 8045641728,
+        "system_name": "iOS",
+        "system_version": "27.0.1"
+      },
+      "source_sha256": "fc083f938fef33bb968f2332be51380b87e1f4cf5eb69c1b8231f11be2962c38",
+      "formula_id": "p0001.formula.0018",
+      "source_text": "x",
+      "latex": "x",
+      "spoken_text": "x",
+      "review_reasons": [],
+      "bbox": {
+        "xmax": 278,
+        "xmin": 260,
+        "ymax": 1021,
+        "ymin": 1005
+      },
+      "crop_artifact": "Integration/verification/topic-navigation-v1/device-before/run/pages/p0001/crops/p0001.ocrmath.27.6.png",
+      "crop_sha256": "ba988b41681f0dec9e37093ce5abd2bce796b4d71b39d4c58b14dfb6dbf684a6"
+    },
+    "latest": {
+      "run_id": "350fc27d-a9d1-4115-9f2e-cccf05b53375",
+      "build": {
+        "app_version": "1.0",
+        "build_number": "39",
+        "bundle_id": "id.birumerah.Metra",
+        "configuration": "Debug",
+        "debugger_attached": null
+      },
+      "device": {
+        "hardware_model_identifier": "iPhone17,2",
+        "model": "iPhone",
+        "physical_memory_bytes": 7992344576,
+        "system_name": "iOS",
+        "system_version": "27.0.1"
+      },
+      "source_sha256": "fc083f938fef33bb968f2332be51380b87e1f4cf5eb69c1b8231f11be2962c38",
+      "formula_id": "p0005.formula.0020",
+      "source_text": "x",
+      "latex": "_ x",
+      "spoken_text": null,
+      "review_reasons": [
+        "Vision proposed x; UniMERNet MathML has identifiers [\"\", \"x\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+      ],
+      "bbox": {
+        "xmax": 276,
+        "xmin": 260,
+        "ymax": 1021,
+        "ymin": 1005
+      },
+      "crop_artifact": "Integration/verification/image-only-diagram-v1/1a45f786-ce61-4214-995d-0c0cd9803e8d/fresh-run/pages/p0005/crops/p0005.ocrmath.27.6.png",
+      "crop_sha256": "7238c898382954b92171e6ccb46d215f948b9560d8dbda1ef7cb5a924231b63d"
+    },
+    "same_source_image": true,
+    "visual_review": "Both crops show the single letter x, without a printed subscript. The old accepted x matches this crop; the new recognizer produces _x and speech is withheld.",
+    "caveat": "The old snapshot is build 3 on iPhone18,3; the latest is build 39 on iPhone17,2. Crop width changed 18 to 16 pixels. This is an observed result regression, not a controlled attribution to one code change or to crop width alone."
+  },
+  "recent_baseline_comparison": {
+    "old_build": 35,
+    "latest_build": 39,
+    "outside_visual_formulas": 74,
+    "same_source_latex_and_speech": true,
+    "evidence": "Integration/verification/image-only-diagram-v1/1a45f786-ce61-4214-995d-0c0cd9803e8d/artifact-audit.json",
+    "interpretation": "No additional formula-content regression found from build35 to build39 outside visual regions. This does not establish preservation from all earlier builds, reader output, or correctness of formulas that were already withheld."
+  },
+  "recommendation": [
+    "Use source-verified previously successful expressions as regression cases, including full final reader text, not only runtime completion or raw MathCAT output.",
+    "Match cases by source image and source location instead of generated IDs, which change with extraction.",
+    "Isolate candidate detection/crop, recognizer, validation and reader regressions on the same device before selecting a targeted fix or rollback.",
+    "Recover correct readings without accepting wrong identifiers, invented subscripts or actual unsupported expressions."
+  ],
+  "repair_verification": {
+    "build": 41,
+    "report": "Integration/formula-regression-results.json",
+    "status": "Known x regression restored and 38/38 build39 successful formulas preserved through persisted reader output.",
+    "newly_accepted": 9
+  }
+}

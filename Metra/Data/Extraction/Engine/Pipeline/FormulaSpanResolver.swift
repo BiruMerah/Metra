@@ -13,11 +13,12 @@ struct FormulaSourceSpan {
 /// Resolves an entire occurrence before any OCR characters are replaced. Vision may
 /// return the same word box for several characters; a box is only an alignment anchor.
 enum FormulaSpanResolver {
-    static let version = "whole_occurrence_utf16_v5"
+    static let version = "whole_occurrence_utf16_v6"
 
     struct Resolution {
         let spans: [FormulaSourceSpan]
         let coveredByFormulaIDs: [String: [String]]
+        let independentFormulaIDs: Set<String>
     }
 
     private struct Glyph {
@@ -52,8 +53,13 @@ enum FormulaSpanResolver {
         }
         let byObservation = Dictionary(ordered.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         var output: [FormulaSourceSpan] = []
+        var independent = Set<String>()
 
         for formula in formulas {
+            let region = regions.first { $0.id == formula.layoutRegionID }
+            let imageDetected = FormulaEvidencePolicy.imageSource(region) != nil &&
+                formula.status == "spoken_generated" && formula.spokenText?.isEmpty == false &&
+                formula.spokenMergeAllowed != false && FormulaEvidencePolicy.structure(formula.mathML ?? "").allowed
             // An OCR proposal already has an exact source range, even if recognition failed.
             if let region = regions.first(where: { $0.id == formula.layoutRegionID }),
                let observationID = region.sourceObservationID,
@@ -115,12 +121,50 @@ enum FormulaSpanResolver {
                 continue
             }
 
-            // Partial geometric overlap never authorizes inserting the full speech.
-            // Keep its OCR text and mark the attachment for review instead of duplicating it.
+            // Geometry places image-recognized content even when OCR omits a
+            // fraction, exponent or multiplication glyph. It must own complete
+            // source ranges without consuming neighboring prose/shared boxes.
+            var geometric: [FormulaSourceSpan] = []
+            var ambiguousBoundary = false
             for observation in ordered {
                 let candidates = glyphs.filter { $0.observationID == observation.id && target.intersection($0.box) / max(1, $0.box.area) >= 0.65 }
                 guard let first = candidates.first, let last = candidates.last else { continue }
-                output.append(FormulaSourceSpan(observationID: observation.id, lower: first.lower, upper: last.upper, formulaID: formula.id, method: "ambiguous_geometry_withheld", allowsSpeech: false, note: matches.isEmpty ? "A complete OCR/MathML range could not be aligned; full formula speech withheld" : "Multiple source matches have similar spatial support; full formula speech withheld"))
+                let inRange = glyphs.filter { $0.observationID == observation.id && $0.lower >= first.lower && $0.upper <= last.upper }
+                if inRange.count != candidates.count { ambiguousBoundary = true }
+                let raw = (observation.selectedText as NSString).substring(with:NSRange(location:first.lower,length:last.upper-first.lower))
+                let imageTokens = String(pattern).lowercased()
+                let words = (try? NSRegularExpression(pattern: #"[A-Za-z]{3,}"#))?.matches(in:raw,range:NSRange(raw.startIndex...,in:raw)) ?? []
+                if words.contains(where: { !imageTokens.contains((raw as NSString).substring(with:$0.range).lowercased()) }) { ambiguousBoundary = true }
+                geometric.append(FormulaSourceSpan(observationID:observation.id,lower:first.lower,upper:last.upper,
+                    formulaID:formula.id,method:"image_detector_geometry_range",allowsSpeech:true,
+                    note:"Image model owns content; geometry owns OCR replacement. OCR/MathML token equality is not required; source fidelity unassessed"))
+            }
+            // A word box straddling the crop edge cannot safely be split by
+            // character index. The original OCR is never guessed or repaired.
+            if glyphs.contains(where: { glyph in
+                let x = (glyph.box.xmin+glyph.box.xmax)/2, y = (glyph.box.ymin+glyph.box.ymax)/2
+                return x >= target.xmin && x <= target.xmax && y >= target.ymin && y <= target.ymax &&
+                    target.intersection(glyph.box)/max(1,glyph.box.area) < 0.65
+            }) { ambiguousBoundary = true }
+            if imageDetected, !geometric.isEmpty, !ambiguousBoundary, matches.isEmpty {
+                output += geometric
+                continue
+            }
+            // A dedicated layout formula with no OCR at all may stand alone.
+            // MFD-only empty crops and competing detections remain review cases.
+            let competing = formulas.contains { other in
+                other.id != formula.id && target.intersection(other.bboxPageXYXY)/max(1,min(target.area,other.bboxPageXYXY.area)) >= 0.65
+            }
+            if imageDetected, FormulaEvidencePolicy.imageSource(region) == "pp_doclayout_l",
+               !competing, !glyphs.contains(where: { target.intersection($0.box) > 0 }) {
+                independent.insert(formula.id)
+                continue
+            }
+            output += geometric.map {
+                FormulaSourceSpan(observationID:$0.observationID,lower:$0.lower,upper:$0.upper,formulaID:$0.formulaID,
+                    method:"ambiguous_geometry_withheld",allowsSpeech:false,
+                    note:ambiguousBoundary ? "Crop ownership ambiguous: shared boundary or nonmath source word" :
+                        (matches.isEmpty ? "Formula source placement could not be established" : "Multiple source occurrences have similar spatial support"))
             }
         }
 
@@ -143,7 +187,7 @@ enum FormulaSpanResolver {
             output[i].allowsSpeech = false
             output[i].note = "Overlapping formula occurrences claim the same OCR range; speech withheld"
         }
-        return Resolution(spans: output, coveredByFormulaIDs: aliases)
+        return Resolution(spans: output, coveredByFormulaIDs: aliases, independentFormulaIDs:independent)
     }
 
     /// Suppress only a proven enclosing duplicate: explicit layout parent-child,

@@ -1,0 +1,540 @@
+{
+  "attempt_id": "9445bc35-bc8e-429b-8105-8fc92a668bc0",
+  "boundary_checks": {
+    "canonical_list_keeps_aligned_marker_and_body": true,
+    "choices_remain_individual": true,
+    "damaged_formula_not_exposed_in_reading_preview": true,
+    "decimal_is_not_list_item": true,
+    "different_columns_not_joined": true,
+    "different_questions_not_joined": true,
+    "enumerator_attached_to_body": true,
+    "example_label_attached": true,
+    "formula_intro_and_source_kept_together": true,
+    "heading_is_boundary": true,
+    "heading_path_avoids_empty_parent_topic": true,
+    "long_paragraph_split_at_sentences": true,
+    "separate_source_list_lines_remain_separate": true,
+    "short_paragraph_keeps_related_sentences": true,
+    "unresolved_formula_stays_under_review": true
+  },
+  "build": {
+    "app_version": "1.0",
+    "build_number": "35",
+    "bundle_id": "id.birumerah.Metra",
+    "configuration": "Debug",
+    "debugger_attached": null
+  },
+  "cached_exports": [
+    {
+      "before": {
+        "body_chunks": 79,
+        "chunks": 84,
+        "context_chunks": 0,
+        "list_items": 0,
+        "long_nonformula_chunks": 0,
+        "orphan_markers": 11,
+        "standalone_example_labels": 5
+      },
+      "body_chunks": 57,
+      "choice_count": 0,
+      "chunks": 62,
+      "context_chunks": 6,
+      "formula_occurrences": 56,
+      "formula_speech_preserved": true,
+      "list_items": 14,
+      "long_nonformula_chunks": 0,
+      "orphan_markers": 0,
+      "page_count": 4,
+      "pages": [
+        {
+          "chunks": {
+            "body_chunks": 20,
+            "chunks": 21,
+            "context_chunks": 2,
+            "list_items": 10,
+            "long_nonformula_chunks": 0,
+            "orphan_markers": 0,
+            "standalone_example_labels": 0
+          },
+          "id": "p0001",
+          "source_sha256": "e14dd05f289f3e5f7d41c9873ba795d979c6d0cc3c8f086a9948c5f18e2a73f5"
+        },
+        {
+          "chunks": {
+            "body_chunks": 16,
+            "chunks": 18,
+            "context_chunks": 1,
+            "list_items": 1,
+            "long_nonformula_chunks": 0,
+            "orphan_markers": 0,
+            "standalone_example_labels": 0
+          },
+          "id": "p0002",
+          "source_sha256": "99248ef8a860ac0eb515272d36f306ff31bc718d7f359584faead2dfaf96ea79"
+        },
+        {
+          "chunks": {
+            "body_chunks": 13,
+            "chunks": 14,
+            "context_chunks": 2,
+            "list_items": 3,
+            "long_nonformula_chunks": 0,
+            "orphan_markers": 0,
+            "standalone_example_labels": 0
+          },
+          "id": "p0003",
+          "source_sha256": "3954120c57e01a54b6917dd29ca01e8b7b7c9e795450c73091cd04f0a3c38e55"
+        },
+        {
+          "chunks": {
+            "body_chunks": 8,
+            "chunks": 9,
+            "context_chunks": 1,
+            "list_items": 0,
+            "long_nonformula_chunks": 0,
+            "orphan_markers": 0,
+            "standalone_example_labels": 0
+          },
+          "id": "p0004",
+          "source_sha256": "5086ad97b895616cbf732cb2955890fb6ee58d0375260278c8470334c5097ba9"
+        }
+      ],
+      "question_count": 0,
+      "reader_topic_membership_valid": true,
+      "source_sha256": "3b1aa8afa937daa7b724596ed20306000dd725cf0ac83c409b0cc95156c9824a",
+      "source_slice_coverage": "passed production validator",
+      "source_snapshot_unchanged": true,
+      "standalone_example_labels": 0,
+      "title": "Pecahan, aljabar, segitiga, grafik",
+      "topics": 13,
+      "unresolved_ids_preserved": true
+    },
+    {
+      "before": {
+        "body_chunks": 43,
+        "chunks": 44,
+        "context_chunks": 0,
+        "list_items": 0,
+        "long_nonformula_chunks": 0,
+        "orphan_markers": 6,
+        "standalone_example_labels": 0
+      },
+      "body_chunks": 34,
+      "choice_count": 24,
+      "chunks": 35,
+      "context_chunks": 0,
+      "formula_occurrences": 32,
+      "formula_speech_preserved": true,
+      "list_items": 0,
+      "long_nonformula_chunks": 0,
+      "orphan_markers": 0,
+      "page_count": 1,
+      "pages": [
+        {
+          "chunks": {
+            "body_chunks": 34,
+            "chunks": 35,
+            "context_chunks": 0,
+            "list_items": 0,
+            "long_nonformula_chunks": 0,
+            "orphan_markers": 0,
+            "standalone_example_labels": 0
+          },
+          "id": "p0001",
+          "source_sha256": "a9a40fccc471789ffaeffe64e0eac36bcf12bbce2a8d11fc4e8fab700307edcb"
+        }
+      ],
+      "question_count": 6,
+      "reader_topic_membership_valid": true,
+      "source_sha256": "345a20a509aaf5e7494bd82621a14ec3ad21198aeecd749d33a5f4d2975ced83",
+      "source_slice_coverage": "passed production validator",
+      "source_snapshot_unchanged": true,
+      "standalone_example_labels": 0,
+      "title": "Soal pilihan ganda dan satuan",
+      "topics": 1,
+      "unresolved_ids_preserved": true
+    },
+    {
+      "before": {
+        "body_chunks": 50,
+        "chunks": 51,
+        "context_chunks": 0,
+        "list_items": 0,
+        "long_nonformula_chunks": 0,
+        "orphan_markers": 14,
+        "standalone_example_labels": 0
+      },
+      "body_chunks": 32,
+      "choice_count": 0,
+      "chunks": 33,
+      "context_chunks": 0,
+      "formula_occurrences": 25,
+      "formula_speech_preserved": true,
+      "list_items": 27,
+      "long_nonformula_chunks": 0,
+      "orphan_markers": 0,
+      "page_count": 1,
+      "pages": [
+        {
+          "chunks": {
+            "body_chunks": 32,
+            "chunks": 33,
+            "context_chunks": 0,
+            "list_items": 27,
+            "long_nonformula_chunks": 0,
+            "orphan_markers": 0,
+            "standalone_example_labels": 0
+          },
+          "id": "p0001",
+          "source_sha256": "44ae7503ee560c6582171b4c33ea006ad69a656759a2495873d2ee409b4d5f9d"
+        }
+      ],
+      "question_count": 0,
+      "reader_topic_membership_valid": true,
+      "source_sha256": "0cc97493fde5c4aa9a8ea95888ad18fdb84970e0b71f5a3f4aea4d13624de7fb",
+      "source_slice_coverage": "passed production validator",
+      "source_snapshot_unchanged": true,
+      "standalone_example_labels": 0,
+      "title": "Regresi rumus dan satuan",
+      "topics": 1,
+      "unresolved_ids_preserved": true
+    }
+  ],
+  "chunk_policy": "paragraph_list_context_v6",
+  "fresh": {
+    "body_chunks": 69,
+    "choice_count": 0,
+    "chunks": 76,
+    "context_chunks": 8,
+    "formula_occurrences": 92,
+    "formula_speech_preserved": true,
+    "list_items": 15,
+    "long_nonformula_chunks": 0,
+    "orphan_markers": 0,
+    "page_count": 5,
+    "pages": [
+      {
+        "chunks": {
+          "body_chunks": 20,
+          "chunks": 21,
+          "context_chunks": 2,
+          "list_items": 10,
+          "long_nonformula_chunks": 0,
+          "orphan_markers": 0,
+          "standalone_example_labels": 0
+        },
+        "id": "p0001",
+        "source_sha256": "e14dd05f289f3e5f7d41c9873ba795d979c6d0cc3c8f086a9948c5f18e2a73f5"
+      },
+      {
+        "chunks": {
+          "body_chunks": 16,
+          "chunks": 18,
+          "context_chunks": 1,
+          "list_items": 1,
+          "long_nonformula_chunks": 0,
+          "orphan_markers": 0,
+          "standalone_example_labels": 0
+        },
+        "id": "p0002",
+        "source_sha256": "99248ef8a860ac0eb515272d36f306ff31bc718d7f359584faead2dfaf96ea79"
+      },
+      {
+        "chunks": {
+          "body_chunks": 13,
+          "chunks": 14,
+          "context_chunks": 2,
+          "list_items": 3,
+          "long_nonformula_chunks": 0,
+          "orphan_markers": 0,
+          "standalone_example_labels": 0
+        },
+        "id": "p0003",
+        "source_sha256": "3954120c57e01a54b6917dd29ca01e8b7b7c9e795450c73091cd04f0a3c38e55"
+      },
+      {
+        "chunks": {
+          "body_chunks": 8,
+          "chunks": 9,
+          "context_chunks": 1,
+          "list_items": 0,
+          "long_nonformula_chunks": 0,
+          "orphan_markers": 0,
+          "standalone_example_labels": 0
+        },
+        "id": "p0004",
+        "source_sha256": "5086ad97b895616cbf732cb2955890fb6ee58d0375260278c8470334c5097ba9"
+      },
+      {
+        "chunks": {
+          "body_chunks": 12,
+          "chunks": 14,
+          "context_chunks": 2,
+          "list_items": 1,
+          "long_nonformula_chunks": 0,
+          "orphan_markers": 0,
+          "standalone_example_labels": 0
+        },
+        "id": "p0005",
+        "source_sha256": "fc083f938fef33bb968f2332be51380b87e1f4cf5eb69c1b8231f11be2962c38"
+      }
+    ],
+    "question_count": 0,
+    "reader_topic_membership_valid": true,
+    "source_slice_coverage": "passed production validator",
+    "standalone_example_labels": 0,
+    "topics": 16
+  },
+  "fresh_input_pages": [
+    {
+      "fileName": "page_0012.png",
+      "pdfPage": 12,
+      "printedPage": 5,
+      "sourceSHA256": "e14dd05f289f3e5f7d41c9873ba795d979c6d0cc3c8f086a9948c5f18e2a73f5",
+      "topic": "Pecahan"
+    },
+    {
+      "fileName": "page_0116.png",
+      "pdfPage": 116,
+      "printedPage": 109,
+      "sourceSHA256": "99248ef8a860ac0eb515272d36f306ff31bc718d7f359584faead2dfaf96ea79",
+      "topic": "Aljabar"
+    },
+    {
+      "fileName": "page_0203.png",
+      "pdfPage": 203,
+      "printedPage": 196,
+      "sourceSHA256": "3954120c57e01a54b6917dd29ca01e8b7b7c9e795450c73091cd04f0a3c38e55",
+      "topic": "Segitiga"
+    },
+    {
+      "fileName": "page_0346.png",
+      "pdfPage": 346,
+      "printedPage": 339,
+      "sourceSHA256": "5086ad97b895616cbf732cb2955890fb6ee58d0375260278c8470334c5097ba9",
+      "topic": "Grafik"
+    },
+    {
+      "fileName": "materi_003.png",
+      "pdfPage": 0,
+      "printedPage": 6,
+      "sourceSHA256": "fc083f938fef33bb968f2332be51380b87e1f4cf5eb69c1b8231f11be2962c38",
+      "topic": "Penyelesaian persamaan linear dua variabel"
+    }
+  ],
+  "fresh_material_id": "036B565F-AF1A-402F-886E-3A8D0278B96A",
+  "fresh_run_id": "036b565f-af1a-402f-886e-3a8d0278b96a",
+  "human_student_testing": false,
+  "schema": "metra-chunking-device-v6",
+  "scope": "Several student materials/pages, as clarified by user. Cached structural replay and fresh on-device inference.",
+  "status": "passed_structural_checks; source_recognition_and_listening_quality_require_review",
+  "legacy_reader_checks": {
+    "count": 14,
+    "passed": true,
+    "scope": "Host Swift on immutable old 84-chunk reader fixture; no model execution."
+  },
+  "fresh_runtime_report": {
+    "status": "partial",
+    "completed_pages": 5,
+    "sampled_peak_bytes": 2681492080,
+    "spans_ms": {
+      "end_to_end_batch": 155219.81479166425,
+      "export_packaging": null,
+      "final_document_assembly": 10.909833334153518,
+      "final_document_write": 4.28045833541546,
+      "foundation_schema_prepare": null,
+      "inference": {
+        "apple_vision_request_wall_ms": 2449.1224166558823,
+        "formula_detector_ms": null,
+        "foundation_diagram_request_ms": 98610.89954167255,
+        "layout_ms": 1907.003916669055,
+        "unimernet_ms": 30509.398416703334
+      },
+      "input_ingest": 8.639416671940126,
+      "math_parsing": 836.8847500387346,
+      "mathcat": 264.6487082383828,
+      "merge": 204.22966666228604,
+      "model_load": {
+        "foundation_ms": null,
+        "layout_ms": 1876.7585416644579,
+        "unimernet_ms": 6505.658624999342
+      },
+      "normalization": 179.95066667208448,
+      "postprocess": {
+        "layout_artifact_write_ms": 429.71041667624377,
+        "layout_ms": 6.727833329932764
+      },
+      "preprocess": {
+        "foundation_ms": null,
+        "layout_ms": 1244.4991250085877
+      },
+      "queue_wait": 0.3062083414988592
+    }
+  },
+  "matched_four_page_cache_and_fresh_export_identical": true,
+  "examples": [
+    {
+      "id": "p0001.unassigned.1.c0001",
+      "pageID": "p0001",
+      "kind": "example",
+      "status": "ready",
+      "sourceText": "Contoh: 9+0 =9",
+      "spokenText": "Contoh: 9 tambah 0, sama dengan 9",
+      "spokenPreview": null,
+      "unresolvedFormulaIDs": [],
+      "sourceBlockIDs": [
+        "p0001.unassigned.1",
+        "p0001.layout.0022"
+      ],
+      "sourceChunkIDs": [
+        "p0001.unassigned.1.c0001",
+        "p0001.layout.0022.c0001"
+      ]
+    },
+    {
+      "id": "p0001.layout.0020.c0001",
+      "pageID": "p0001",
+      "kind": "example",
+      "status": "ready",
+      "sourceText": "Contoh: 8×1=8",
+      "spokenText": "Contoh: 8 kali 1, sama dengan 8",
+      "spokenPreview": null,
+      "unresolvedFormulaIDs": [],
+      "sourceBlockIDs": [
+        "p0001.layout.0020",
+        "p0001.unicode.6.0"
+      ],
+      "sourceChunkIDs": [
+        "p0001.layout.0020.c0001",
+        "p0001.unicode.6.0.c0001"
+      ]
+    },
+    {
+      "id": "p0002.layout.0021.c0001",
+      "pageID": "p0002",
+      "kind": "example",
+      "status": "needs_review",
+      "sourceText": "Contoh: 1. x+3 x : disebut variabel 3 : disebut konstanta",
+      "spokenText": null,
+      "spokenPreview": "Contoh: 1. x tambah 3 [perlu review: x] : disebut variabel 3 : disebut konstanta",
+      "unresolvedFormulaIDs": [
+        "p0002.formula.0007"
+      ],
+      "sourceBlockIDs": [
+        "p0002.layout.0021",
+        "p0002.layout.0018",
+        "p0002.layout.0013",
+        "p0002.layout.0014"
+      ],
+      "sourceChunkIDs": [
+        "p0002.layout.0021.c0001",
+        "p0002.layout.0018.c0001",
+        "p0002.layout.0013.c0001",
+        "p0002.layout.0014.c0001"
+      ]
+    },
+    {
+      "id": "p0003.layout.0014.c0001",
+      "pageID": "p0003",
+      "kind": "formula_context",
+      "status": "needs_review",
+      "sourceText": "Keliling segitiga (K): K = AB + BC + AC",
+      "spokenText": null,
+      "spokenPreview": "Keliling segitiga ([perlu review: K]): huruf besar k sama dengan;  huruf besar a  huruf besar b, tambah,  huruf besar b  huruf besar c, tambah,  huruf besar a  huruf besar c",
+      "unresolvedFormulaIDs": [
+        "p0003.formula.0008"
+      ],
+      "sourceBlockIDs": [
+        "p0003.layout.0014",
+        "p0003.layout.0007"
+      ],
+      "sourceChunkIDs": [
+        "p0003.layout.0014.c0001",
+        "p0003.layout.0007.c0001"
+      ]
+    },
+    {
+      "id": "p0003.layout.0010.c0001",
+      "pageID": "p0003",
+      "kind": "formula_context",
+      "status": "needs_review",
+      "sourceText": "Luas segitiga (L) L-_xaxt atau L- ¿XABXt",
+      "spokenText": null,
+      "spokenPreview": "Luas segitiga ([perlu review: L]) l sama dengan, 1 perdua kali a kali t atau l sama dengan, 1 perdua kali   a   b kali t",
+      "unresolvedFormulaIDs": [
+        "p0003.formula.0010"
+      ],
+      "sourceBlockIDs": [
+        "p0003.layout.0010",
+        "p0003.unassigned.22"
+      ],
+      "sourceChunkIDs": [
+        "p0003.layout.0010.c0001",
+        "p0003.unassigned.22.c0001"
+      ]
+    },
+    {
+      "id": "p0004.layout.0011.c0001",
+      "pageID": "p0004",
+      "kind": "example",
+      "status": "ready",
+      "sourceText": "Contoh: Data pengunjung perpustakaan SMP Bakti Garuda selama 1 minggu yang disajikan dalam bentuk diagram garis.",
+      "spokenText": "Contoh: Data pengunjung perpustakaan SMP Bakti Garuda selama 1 minggu yang disajikan dalam bentuk diagram garis.",
+      "spokenPreview": null,
+      "unresolvedFormulaIDs": [],
+      "sourceBlockIDs": [
+        "p0004.layout.0011",
+        "p0004.layout.0004"
+      ],
+      "sourceChunkIDs": [
+        "p0004.layout.0011.c0001",
+        "p0004.layout.0004.c0001"
+      ]
+    },
+    {
+      "id": "p0005.layout.0017.c0001",
+      "pageID": "p0005",
+      "kind": "formula_context",
+      "status": "ready",
+      "sourceText": "Misalkan m = 3.000 maka diperoleh: 3(3.000) + 5n = 19.000\n9.000 + 5n = 19.000\n5n = 19.000 - 9.000\n5n = 10.000\nn = 2.000",
+      "spokenText": "Misalkan m sama dengan 3000 maka diperoleh: 5 baris, baris 1; 3 kali 3000, tambah 5 n; sama dengan 19000; baris 2; 9000 positif 5 n, sama dengan 19000; baris 3; 5 n sama dengan, 19000 kurang 9000; baris 4; 5 n sama dengan 10000; baris 5; n sama dengan 2000",
+      "spokenPreview": null,
+      "unresolvedFormulaIDs": [],
+      "sourceBlockIDs": [
+        "p0005.layout.0017",
+        "p0005.layout.0014"
+      ],
+      "sourceChunkIDs": [
+        "p0005.layout.0017.c0001",
+        "p0005.layout.0014.c0001"
+      ]
+    },
+    {
+      "id": "p0005.layout.0028.c0001",
+      "pageID": "p0005",
+      "kind": "example",
+      "status": "ready",
+      "sourceText": "Contoh Tentukan himpunan penyelesaian dari persamaan linear dua variabel 2x + y =8, jika:",
+      "spokenText": "Contoh Tentukan himpunan penyelesaian dari persamaan linear dua variabel 2 x tambah y, sama dengan 8, jika:",
+      "spokenPreview": null,
+      "unresolvedFormulaIDs": [],
+      "sourceBlockIDs": [
+        "p0005.layout.0028",
+        "p0005.layout.0004"
+      ],
+      "sourceChunkIDs": [
+        "p0005.layout.0028.c0001",
+        "p0005.layout.0004.c0001"
+      ]
+    }
+  ],
+  "limitations": [
+    "Structural tests do not establish OCR/formula recognition accuracy or listening usability.",
+    "Source circled list numbers on the SPLDV page include OCR errors; grouping does not guess a correction.",
+    "Existing saved materials retain their previous canonical export; newly imported test material uses the new chunking.",
+    "Protected mathematical objects remain atomic and can exceed the preferred word budget."
+  ],
+  "artifacts_relative": "Integration/verification/chunking-v6/9445bc35-bc8e-429b-8105-8fc92a668bc0/",
+  "fresh_wall_ms": 155661.30187500676,
+  "saved_material_title": "Uji chunking — 5 halaman, build 35"
+}

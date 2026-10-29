@@ -68,6 +68,11 @@ final class MathJaxBridge: NSObject, WKScriptMessageHandler, WKNavigationDelegat
             // transport that value through evaluateJavaScript. Return null;
             // only the request-ID script message completes a conversion.
             webView.evaluateJavaScript("window.metraConvert(\(payload)); null;") { _, error in
+                // The JavaScript return value is not the conversion result.
+                // A Promise/unsupported acknowledgement can arrive before the
+                // request-ID postMessage; do not race it and discard valid MathML.
+                // Real execution failures still fail, and absent messages time out.
+                if let error,Self.isIgnorableAcknowledgementError(error) { return }
                 if let error, let continuation = self.pending.removeValue(forKey: requestID) {
                     self.requestStarts.removeValue(forKey: requestID)
                     self.activeRequestID = nil
@@ -75,6 +80,11 @@ final class MathJaxBridge: NSObject, WKScriptMessageHandler, WKNavigationDelegat
                 }
             }
         }
+    }
+
+    static func isIgnorableAcknowledgementError(_ error:Error) -> Bool {
+        let value = error as NSError
+        return value.domain == WKErrorDomain && value.code == WKError.Code.javaScriptResultTypeIsUnsupported.rawValue
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

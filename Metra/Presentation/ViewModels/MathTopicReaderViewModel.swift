@@ -17,6 +17,7 @@ final class MathTopicReaderViewModel {
         let lookup = Dictionary(uniqueKeysWithValues: material.chunks.map { ($0.id, $0) })
         return topic.chunkIDs.compactMap { lookup[$0] }
     }
+    var readingRows: [ReadingPresentation.Row] { ReadingPresentation.rows(for: chunks) }
 
     // MARK: - Dependencies
     private let materialID: UUID

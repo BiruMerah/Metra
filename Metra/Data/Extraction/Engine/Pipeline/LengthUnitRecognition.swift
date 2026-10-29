@@ -8,8 +8,10 @@ struct LengthUnitSource: Codable, Sendable {
     let explicitExponent: String?
     let rawSuffix: String
 
-    static let version = "vision_length_unit_power_proposal_v1"
-    private static let body = #"([0-9]+(?:[.,][0-9]+)*)[ \t]*(dam|km|hm|dm|cm|mm|m)[ \t]*([⁰¹²³⁴⁵⁶⁷⁸⁹]+|\^[ \t]*(?:\{[ \t]*[0-9]+[ \t]*\}|[0-9]+)|[23]|[гr'’′?]|[\p{L}\p{M}]{1,3}|-(?=[ \t]*$))"#
+    static let version = "vision_length_unit_power_proposal_v2"
+    // Keep explicit powers, flattened 2/3 and bounded single-glyph OCR
+    // confusions. Arbitrary word suffixes such as m + aka are not quantities.
+    private static let body = #"([0-9]+(?:[.,][0-9]+)*)[ \t]*(dam|km|hm|dm|cm|mm|m)[ \t]*([⁰¹²³⁴⁵⁶⁷⁸⁹]+|\^[ \t]*(?:\{[ \t]*[0-9]+[ \t]*\}|[0-9]+)|[23]|[гr'’′?])"#
 
     static func matches(in text: String) throws -> [NSTextCheckingResult] {
         let regex = try NSRegularExpression(pattern: #"(?<![\p{L}\p{N}_])"# + body + #"(?![\p{L}\p{N}_])"#)

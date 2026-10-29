@@ -1,0 +1,541 @@
+{
+  "schema": "metra-formula-regression-results-v1",
+  "date": "2026-10-28",
+  "build": 41,
+  "device": "iPhone 16 Pro Max / iPhone17,2 / iOS 27.0.1",
+  "material_title": "Uji pemulihan rumus — 5 halaman, build 41",
+  "baseline_build": 39,
+  "baseline_run_id": "350fc27d-a9d1-4115-9f2e-cccf05b53375",
+  "attempt_id": "834d0113-3baf-44cd-ae9e-fb0305ea314b",
+  "run_id": "f36d2543-20c5-42d8-8a0a-e5e52dc82d00",
+  "saved_material_id": "F36D2543-20C5-42D8-8A0A-E5E52DC82D00",
+  "status": "passed_regression_checks; human_listening_not_performed",
+  "changes": [
+    "One bounded original-image context retry after failed single-letter agreement; no edits to model tokens; first output retained.",
+    "Exact identifier agreement permits normal/italic/sans-serif/monospace; bold/script/blackboard and extra structure remain withheld.",
+    "Actual adjacent source period can join a Unicode span only with identical Vision glyph/punctuation boxes; complete MathML token agreement remains required.",
+    "Selected retry MathML is kept consistent in formula fields, artifact and MathCAT input; initial parsing remains separately archived."
+  ],
+  "counts": {
+    "baseline_accepted_formulas": 38,
+    "baseline_preserved": 38,
+    "current_candidates": 74,
+    "current_accepted": 47,
+    "still_held": 27,
+    "newly_accepted": 9,
+    "targeted_recovery_cases": 7,
+    "device_regression_checks_passed": 86,
+    "device_regression_checks_total": 86,
+    "image_routing_checks_passed": 30,
+    "image_routing_checks_total": 30,
+    "host_policy_reader_checks_passed": 26,
+    "host_unicode_checks_passed": 38
+  },
+  "wall_ms": 93720.11395833397,
+  "baseline_comparisons": [
+    {
+      "baseline_formula": "p0001.formula.0001",
+      "current_formula": "p0001.formula.0001",
+      "current_speech": "9 tambah 0, sama dengan 9",
+      "expected_speech": "9 tambah 0, sama dengan 9",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0001.formula.0003",
+      "current_formula": "p0001.formula.0003",
+      "current_speech": "8 kali 1, sama dengan 8",
+      "expected_speech": "8 kali 1, sama dengan 8",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0001.formula.0005",
+      "current_formula": "p0001.formula.0005",
+      "current_speech": "b",
+      "expected_speech": "b",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0001.formula.0014",
+      "current_formula": "p0001.formula.0014",
+      "current_speech": "c",
+      "expected_speech": "c",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0002.formula.0005",
+      "current_formula": "p0002.formula.0005",
+      "current_speech": "x tambah 3",
+      "expected_speech": "x tambah 3",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0002.formula.0008",
+      "current_formula": "p0002.formula.0008",
+      "current_speech": "bold i bold x kuadrat",
+      "expected_speech": "bold i bold x kuadrat",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0002.formula.0011",
+      "current_formula": "p0002.formula.0011",
+      "current_speech": "13 x kuadrat",
+      "expected_speech": "13 x kuadrat",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0003.formula.0002",
+      "current_formula": "p0003.formula.0002",
+      "current_speech": "90 derajat",
+      "expected_speech": "90 derajat",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0003.formula.0006",
+      "current_formula": "p0003.formula.0006",
+      "current_speech": "huruf besar k sama dengan;  huruf besar a  huruf besar b, tambah,  huruf besar b  huruf besar c, tambah,  huruf besar a  huruf besar c",
+      "expected_speech": "huruf besar k sama dengan; huruf besar a huruf besar b, tambah, huruf besar b huruf besar c, tambah, huruf besar a huruf besar c",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0003.formula.0008",
+      "current_formula": "p0003.formula.0008",
+      "current_speech": "l sama dengan, 1 perdua kali a kali t",
+      "expected_speech": "l sama dengan, 1 perdua kali a kali t",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0003.formula.0009",
+      "current_formula": "p0003.formula.0009",
+      "current_speech": "l sama dengan, 1 perdua kali   a   b kali t",
+      "expected_speech": "l sama dengan, 1 perdua kali a b kali t",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0001",
+      "current_formula": "p0005.formula.0001",
+      "current_speech": "3 m tambah 5 n; sama dengan 19000",
+      "expected_speech": "3 m tambah 5 n; sama dengan 19000",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0002",
+      "current_formula": "p0005.formula.0002",
+      "current_speech": "m",
+      "expected_speech": "m",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0003",
+      "current_formula": "p0005.formula.0003",
+      "current_speech": "m",
+      "expected_speech": "m",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0006",
+      "current_formula": "p0005.formula.0006",
+      "current_speech": "m sama dengan 3000",
+      "expected_speech": "m sama dengan 3000",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0005",
+      "current_formula": "p0005.formula.0005",
+      "current_speech": "5 baris, baris 1; 3 kali 3000, tambah 5 n; sama dengan 19000; baris 2; 9000 positif 5 n, sama dengan 19000; baris 3; 5 n sama dengan, 19000 kurang 9000; baris 4; 5 n sama dengan 10000; baris 5; n sama dengan 2000",
+      "expected_speech": "5 baris, baris 1; 3 kali 3000, tambah 5 n; sama dengan 19000; baris 2; 9000 positif 5 n, sama dengan 19000; baris 3; 5 n sama dengan, 19000 kurang 9000; baris 4; 5 n sama dengan 10000; baris 5; n sama dengan 2000",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0008",
+      "current_formula": "p0005.formula.0008",
+      "current_speech": "buka kurung, 3000 koma 2000, tutup kurung",
+      "expected_speech": "buka kurung, 3000 koma 2000, tutup kurung",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0009",
+      "current_formula": "p0005.formula.0009",
+      "current_speech": "3 m tambah 5 n; sama dengan 19000",
+      "expected_speech": "3 m tambah 5 n; sama dengan 19000",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0010",
+      "current_formula": "p0005.formula.0010",
+      "current_speech": "buka kurung, 3000 koma 2000, tutup kurung",
+      "expected_speech": "buka kurung, 3000 koma 2000, tutup kurung",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0011",
+      "current_formula": "p0005.formula.0011",
+      "current_speech": "m",
+      "expected_speech": "m",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0014",
+      "current_formula": "p0005.formula.0014",
+      "current_speech": "2 x tambah y, sama dengan 8",
+      "expected_speech": "2 x tambah y, sama dengan 8",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0016",
+      "current_formula": "p0005.formula.0016",
+      "current_speech": "x",
+      "expected_speech": "x",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0017",
+      "current_formula": "p0005.formula.0017",
+      "current_speech": "y",
+      "expected_speech": "y",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0019",
+      "current_formula": "p0005.formula.0019",
+      "current_speech": "y",
+      "expected_speech": "y",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0021",
+      "current_formula": "p0005.formula.0021",
+      "current_speech": "y",
+      "expected_speech": "y",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0022",
+      "current_formula": "p0005.formula.0022",
+      "current_speech": "x sama dengan 1",
+      "expected_speech": "x sama dengan 1",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0023",
+      "current_formula": "p0005.formula.0023",
+      "current_speech": "y sama dengan 5",
+      "expected_speech": "y sama dengan 5",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0024",
+      "current_formula": "p0005.formula.0024",
+      "current_speech": "y",
+      "expected_speech": "y",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0026",
+      "current_formula": "p0005.formula.0026",
+      "current_speech": "2 x tambah y; sama dengan 8",
+      "expected_speech": "2 x tambah y; sama dengan 8",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0027",
+      "current_formula": "p0005.formula.0027",
+      "current_speech": "x sama dengan 5",
+      "expected_speech": "x sama dengan 5",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0029",
+      "current_formula": "p0005.formula.0029",
+      "current_speech": "y sama dengan negatif 2",
+      "expected_speech": "y sama dengan negatif 2",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0028",
+      "current_formula": "p0005.formula.0028",
+      "current_speech": "2 x tambah y, sama dengan 8",
+      "expected_speech": "2 x tambah y, sama dengan 8",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0032",
+      "current_formula": "p0005.formula.0032",
+      "current_speech": "y",
+      "expected_speech": "y",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0030",
+      "current_formula": "p0005.formula.0030",
+      "current_speech": "x sama dengan 1",
+      "expected_speech": "x sama dengan 1",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0031",
+      "current_formula": "p0005.formula.0031",
+      "current_speech": "y sama dengan 6",
+      "expected_speech": "y sama dengan 6",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0033",
+      "current_formula": "p0005.formula.0033",
+      "current_speech": "2 x tambah y, sama dengan 8",
+      "expected_speech": "2 x tambah y, sama dengan 8",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0035",
+      "current_formula": "p0005.formula.0035",
+      "current_speech": "x",
+      "expected_speech": "x",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    },
+    {
+      "baseline_formula": "p0005.formula.0034",
+      "current_formula": "p0005.formula.0034",
+      "current_speech": "2 x tambah y, sama dengan 8",
+      "expected_speech": "2 x tambah y, sama dengan 8",
+      "iou": 1,
+      "reader_preserved": true,
+      "speech_preserved": true
+    }
+  ],
+  "targeted_recoveries": [
+    {
+      "actual_speech": "x",
+      "expected_speech": "x",
+      "formula_id": "p0005.formula.0020",
+      "name": "regressed_single_x",
+      "passed": true,
+      "reader_text": "Nilai x dan y adalah bilangan real."
+    },
+    {
+      "actual_speech": "90 derajat",
+      "expected_speech": "90 derajat",
+      "formula_id": "p0003.formula.0001",
+      "name": "degree_with_sentence_period_1",
+      "passed": true,
+      "reader_text": "• Segitiga siku-siku, yaitu segitiga yang besar salah satu sudutnya siku-siku atau 90 derajat"
+    },
+    {
+      "actual_speech": "90 derajat",
+      "expected_speech": "90 derajat",
+      "formula_id": "p0003.formula.0003",
+      "name": "degree_with_sentence_period_2",
+      "passed": true,
+      "reader_text": "• Segitiga tumpul, yaitu segitiga yang besar salah satu sudutnya lebih dari 90 derajat"
+    },
+    {
+      "actual_speech": "huruf besar l",
+      "expected_speech": "huruf besar l",
+      "formula_id": "p0003.formula.0007",
+      "name": "sans_serif_caption_L",
+      "passed": true,
+      "reader_text": "Luas segitiga (huruf besar l) l sama dengan, 1 perdua kali a kali t atau l sama dengan, 1 perdua kali   a   b kali t"
+    },
+    {
+      "actual_speech": "huruf besar k",
+      "expected_speech": "huruf besar k",
+      "formula_id": "p0003.formula.0005",
+      "name": "sans_serif_caption_K",
+      "passed": true,
+      "reader_text": "Keliling segitiga (huruf besar k): huruf besar k sama dengan;  huruf besar a  huruf besar b, tambah,  huruf besar b  huruf besar c, tambah,  huruf besar a  huruf besar c"
+    },
+    {
+      "actual_speech": "a",
+      "expected_speech": "a",
+      "formula_id": "p0001.formula.0009",
+      "name": "sans_serif_a_1",
+      "passed": true,
+      "reader_text": "1. Pecahan biasa yang mana a, b e bilangan bulat."
+    },
+    {
+      "actual_speech": "a",
+      "expected_speech": "a",
+      "formula_id": "p0001.formula.0013",
+      "name": "sans_serif_a_2",
+      "passed": true,
+      "reader_text": "2. Pecahan campuran a yang mana a, b, c € bilangan bulat."
+    }
+  ],
+  "artifact_audit": {
+    "selected_retry_checks": [
+      {
+        "formula": "p0005.formula.0036",
+        "selected_mathml_matches_formula_result": true,
+        "selected_mathml_matches_artifact": true,
+        "raw_initial_mathml_retained": true,
+        "raw_initial_recognition_retained": true
+      },
+      {
+        "formula": "p0005.formula.0018",
+        "selected_mathml_matches_formula_result": true,
+        "selected_mathml_matches_artifact": true,
+        "raw_initial_mathml_retained": true,
+        "raw_initial_recognition_retained": true
+      },
+      {
+        "formula": "p0005.formula.0020",
+        "selected_mathml_matches_formula_result": true,
+        "selected_mathml_matches_artifact": true,
+        "raw_initial_mathml_retained": true,
+        "raw_initial_recognition_retained": true
+      }
+    ],
+    "all_selected_retries_consistent": true,
+    "recovered_vs_build39": [
+      {
+        "id": "p0001.formula.0009",
+        "source": "a",
+        "speech": "a",
+        "latex": "\\mathsf { a }"
+      },
+      {
+        "id": "p0001.formula.0013",
+        "source": "a",
+        "speech": "a",
+        "latex": "\\mathsf { a }"
+      },
+      {
+        "id": "p0003.formula.0001",
+        "source": "90°.",
+        "speech": "90 derajat",
+        "latex": "9 0 ^ { \\circ } ."
+      },
+      {
+        "id": "p0003.formula.0003",
+        "source": "90°.",
+        "speech": "90 derajat",
+        "latex": "9 0 ^ { \\circ } ."
+      },
+      {
+        "id": "p0003.formula.0005",
+        "source": "K",
+        "speech": "huruf besar k",
+        "latex": "{ \\sf K }"
+      },
+      {
+        "id": "p0003.formula.0007",
+        "source": "L",
+        "speech": "huruf besar l",
+        "latex": "\\mathsf { L }"
+      },
+      {
+        "id": "p0005.formula.0018",
+        "source": "x",
+        "speech": "x",
+        "latex": "x"
+      },
+      {
+        "id": "p0005.formula.0020",
+        "source": "x",
+        "speech": "x",
+        "latex": "x"
+      },
+      {
+        "id": "p0005.formula.0036",
+        "source": "y",
+        "speech": "y",
+        "latex": "y"
+      }
+    ]
+  },
+  "earlier_snapshot_acceptance": {
+    "accepted": 28,
+    "total": 28,
+    "scope": "Existing build3 snapshot on iPhone18,3 versus fresh build41 on iPhone17,2, identical source hash; acceptance/location comparison only, not a controlled device test or speech-equivalence assertion across MathCAT profiles."
+  },
+  "first_device_trial": {
+    "build": 40,
+    "attempt_id": "ea1d5825-d640-4df4-b33d-1f6af9931bfc",
+    "run_id": "ad0d3457-0870-4b6b-bc25-196425307e7c",
+    "status": "86/86 regression checks passed; 47 accepted of 74; superseded by final MathML provenance correction in build41",
+    "full_run_transfer": "initial transfer interrupted by app reinstall; device completion report and persisted reader rows retained"
+  },
+  "evidence_root": "Integration/verification/formula-regression-v1/834d0113-3baf-44cd-ae9e-fb0305ea314b",
+  "source_metadata_updated_after_build": true,
+  "as_built_config_and_model_manifest_snapshots_retained": true,
+  "limitations": [
+    "Acceptance is not an independent accuracy measure for every formula. Seven targeted recoveries have explicit expected speech; remaining baseline comparisons check compatibility.",
+    "Twenty-seven candidates remain withheld. This change does not claim all printed formulas are readable.",
+    "Foundation visual-description errors documented in IMAGE-ONLY-DIAGRAM.md remain.",
+    "Reader text and accessibility labels are verified from persisted SwiftData material; no human listening/student comprehension test was performed.",
+    "Previous saved materials retain their original results; the new five-page material is saved separately."
+  ]
+}

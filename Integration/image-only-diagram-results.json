@@ -1,0 +1,424 @@
+{
+  "schema": "metra-image-only-diagram-results-v1",
+  "date": "2026-10-28",
+  "requested_route": "DocLayout visual → bounded original crop → Core ML visual classifier → Foundation image attachment with per-class guideline; others skipped; no visual OCR/formula recognition",
+  "latest_source_build": 39,
+  "latest_source_policy": "foundation_diagram_image_only_v8",
+  "latest_source_validation": {
+    "build": "succeeded",
+    "install": "succeeded",
+    "device_launch": "succeeded",
+    "attempt_id": "1a45f786-ce61-4214-995d-0c0cd9803e8d",
+    "completion": "retrieved_after_device_reconnection",
+    "run_id": "350fc27d-a9d1-4115-9f2e-cccf05b53375"
+  },
+  "latest_completed_device_probe": {
+    "attempt_id": "1a45f786-ce61-4214-995d-0c0cd9803e8d",
+    "build": {
+      "app_version": "1.0",
+      "build_number": "39",
+      "bundle_id": "id.birumerah.Metra",
+      "configuration": "Debug",
+      "debugger_attached": null
+    },
+    "checks": {
+      "complete_five_pages": true,
+      "deterministic_chunk_export": true,
+      "no_detached_markers": true,
+      "no_orphan_A_G_formula_chunks": true,
+      "p0001.visual_crop_vision_ocr.disabled": true,
+      "p0001.visual_numeric_vision_ocr.disabled": true,
+      "p0002.layout.0025.others_not_generated": true,
+      "p0002.visual_crop_vision_ocr.disabled": true,
+      "p0002.visual_numeric_vision_ocr.disabled": true,
+      "p0003.layout.0011.description_available": true,
+      "p0003.layout.0011.image_only_input": true,
+      "p0003.layout.0011.no_ocr_evidence": true,
+      "p0003.layout.0015.description_available": true,
+      "p0003.layout.0015.image_only_input": true,
+      "p0003.layout.0015.no_ocr_evidence": true,
+      "p0003.visual_crop_vision_ocr.disabled": true,
+      "p0003.visual_numeric_vision_ocr.disabled": true,
+      "p0004.layout.0001.description_available": true,
+      "p0004.layout.0001.image_only_input": true,
+      "p0004.layout.0001.no_ocr_evidence": true,
+      "p0004.layout.0010.description_available": true,
+      "p0004.layout.0010.image_only_input": true,
+      "p0004.layout.0010.no_ocr_evidence": true,
+      "p0004.visual_crop_vision_ocr.disabled": true,
+      "p0004.visual_numeric_vision_ocr.disabled": true,
+      "p0005.visual_crop_vision_ocr.disabled": true,
+      "p0005.visual_numeric_vision_ocr.disabled": true,
+      "zero_visual_formula_recognitions": true,
+      "zero_visual_ocr_requests": true,
+      "zero_visual_working_ocr_observations": true
+    },
+    "chunks": 74,
+    "container_routing_ocr_requests": 0,
+    "input_pages": [
+      {
+        "fileName": "page_0012.png",
+        "pdfPage": 12,
+        "printedPage": 5,
+        "sourceSHA256": "e14dd05f289f3e5f7d41c9873ba795d979c6d0cc3c8f086a9948c5f18e2a73f5",
+        "topic": "Pecahan"
+      },
+      {
+        "fileName": "page_0116.png",
+        "pdfPage": 116,
+        "printedPage": 109,
+        "sourceSHA256": "99248ef8a860ac0eb515272d36f306ff31bc718d7f359584faead2dfaf96ea79",
+        "topic": "Aljabar"
+      },
+      {
+        "fileName": "page_0203.png",
+        "pdfPage": 203,
+        "printedPage": 196,
+        "sourceSHA256": "3954120c57e01a54b6917dd29ca01e8b7b7c9e795450c73091cd04f0a3c38e55",
+        "topic": "Segitiga"
+      },
+      {
+        "fileName": "page_0346.png",
+        "pdfPage": 346,
+        "printedPage": 339,
+        "sourceSHA256": "5086ad97b895616cbf732cb2955890fb6ee58d0375260278c8470334c5097ba9",
+        "topic": "Grafik"
+      },
+      {
+        "fileName": "materi_003.png",
+        "pdfPage": 0,
+        "printedPage": 6,
+        "sourceSHA256": "fc083f938fef33bb968f2332be51380b87e1f4cf5eb69c1b8231f11be2962c38",
+        "topic": "Penyelesaian persamaan linear dua variabel"
+      }
+    ],
+    "policy": "foundation_diagram_image_only_v8",
+    "run_id": "350fc27d-a9d1-4115-9f2e-cccf05b53375",
+    "saved_material_id": "350FC27D-A9D1-4115-9F2E-CCCF05B53375",
+    "schema": "metra-image-only-diagram-v1",
+    "scope": "Five original pages through the production on-device pipeline; no visual OCR evidence or visual formula recognition.",
+    "status": "passed_routing_checks; direct_model_content_requires_source_review",
+    "visual_formula_recognitions": 0,
+    "visual_ocr_requests": 0,
+    "visuals": [
+      {
+        "class": "others",
+        "id": "p0002.layout.0025",
+        "page_id": "p0002",
+        "status": "skipped_others"
+      },
+      {
+        "class": "diagrams",
+        "description": "Gambar ini adalah tiga segitiga.\n• panel kiri. Label: A, B, C. Nilai: 60; 60; 60. Ada tanda sudut dan garis tegak lurus yang menandai sisi-sisi.\n• panel tengah. Label: D, E, F. Ada tanda sudut dan garis tegak lurus yang menandai sisi-sisi.\n• panel kanan. Label: G, H, I. Ada garis segitiga.",
+        "id": "p0003.layout.0011",
+        "input_mode": "image_only",
+        "model_reported_uncertainties": [],
+        "page_id": "p0003",
+        "status": "generated"
+      },
+      {
+        "class": "diagrams",
+        "description": "Gambar ini adalah diagram segitiga.\n• panel kiri. Label: A, B, C. Gambar berisi segitiga siku-siku dengan tanda sudut siku-siku di titik B.\n• panel tengah. Label: D, E, F. Gambar berisi segitiga tumpul dengan garis sisi yang tidak sejajar.\n• panel kanan. Label: G, H, I. Gambar berisi segitiga lancip dengan garis sisi yang tidak sejajar.",
+        "id": "p0003.layout.0015",
+        "input_mode": "image_only",
+        "model_reported_uncertainties": [],
+        "page_id": "p0003",
+        "status": "generated"
+      },
+      {
+        "class": "graph",
+        "description": "Gambar ini adalah grafik garis.\n• panel kiri. Label: Senin. Nilai: 35. Ada garis horizontal dan titik yang terhubung.\n• panel tengah. Label: Selasa. Nilai: 42. Ada garis horizontal dan titik yang terhubung.\n• panel tengah. Label: Rabu. Nilai: 40. Ada garis horizontal dan titik yang terhubung.\n• panel tengah. Label: Kamis. Nilai: 28. Ada garis horizontal dan titik yang terhubung.\n• panel tengah. Label: Jumat. Nilai: 25. Ada garis horizontal dan titik yang terhubung.\n• panel tengah. Label: Sabtu. Nilai: 30. Ada garis horizontal dan titik yang terhubung.\n• judul. Label: Banyaknya kunjungan. Ada teks yang tertulis di atas grafik.\n• sumbu horizontal. Label: Hari. Ada garis horizontal dengan label yang tertulis di bawahnya.\n• sumbu vertikal. Ada garis vertikal dengan angka yang tertulis di sisinya.",
+        "id": "p0004.layout.0001",
+        "input_mode": "image_only",
+        "model_reported_uncertainties": [],
+        "page_id": "p0004",
+        "status": "generated"
+      },
+      {
+        "class": "diagrams",
+        "description": "Gambar ini adalah diagram lingkaran.\n• panel kiri. Label: Sabtu. Nilai: 15%. Ada garis memanjang dan garis melintang yang membentuk sudut-sudut pada panel.\n• panel tengah atas. Label: Senin. Nilai: 17%. Ada garis memanjang dan garis melintang yang membentuk sudut-sudut pada panel.\n• panel tengah kanan. Label: Selasa. Nilai: 21%. Ada garis memanjang dan garis melintang yang membentuk sudut-sudut pada panel.\n• panel bawah kiri. Label: Rabu. Nilai: 20%. Ada garis memanjang dan garis melintang yang membentuk sudut-sudut pada panel.\n• panel bawah tengah. Label: Kamis. Nilai: 14%. Ada garis memanjang dan garis melintang yang membentuk sudut-sudut pada panel.\n• panel bawah kanan. Label: Jumat. Nilai: 13%. Ada garis memanjang dan garis melintang yang membentuk sudut-sudut pada panel.",
+        "id": "p0004.layout.0010",
+        "input_mode": "image_only",
+        "model_reported_uncertainties": [],
+        "page_id": "p0004",
+        "status": "generated"
+      }
+    ],
+    "wall_ms": 90217.4328333349
+  },
+  "artifact_audit": {
+    "scope": "Independent artifact audit; no model inference on host. Formula comparison ignores generated IDs and small OCR box shifts.",
+    "checks": {
+      "p0001.outside_visual_formula_content_preserved": true,
+      "p0002.layout.0025.original_crop_pixels_preserved": true,
+      "p0002.layout.0025.ocr_mask_white": true,
+      "p0002.outside_visual_formula_content_preserved": true,
+      "p0003.layout.0011.original_crop_pixels_preserved": true,
+      "p0003.layout.0011.ocr_mask_white": true,
+      "p0003.layout.0015.original_crop_pixels_preserved": true,
+      "p0003.layout.0015.ocr_mask_white": true,
+      "p0003.layout.0015.input_sha_matches_actual_crop": true,
+      "p0003.layout.0011.input_sha_matches_actual_crop": true,
+      "p0003.outside_visual_formula_content_preserved": true,
+      "p0004.layout.0001.original_crop_pixels_preserved": true,
+      "p0004.layout.0001.ocr_mask_white": true,
+      "p0004.layout.0010.original_crop_pixels_preserved": true,
+      "p0004.layout.0010.ocr_mask_white": true,
+      "p0004.layout.0010.input_sha_matches_actual_crop": true,
+      "p0004.layout.0001.input_sha_matches_actual_crop": true,
+      "p0004.outside_visual_formula_content_preserved": true,
+      "p0005.outside_visual_formula_content_preserved": true
+    },
+    "checks_passed": 19,
+    "checks_total": 19,
+    "formula_comparison_to_build35": [
+      {
+        "page_id": "p0001",
+        "baseline_formula_count": 16,
+        "outside_visual_formula_count": 16,
+        "current_formula_count": 16,
+        "same_source_latex_and_speech": true
+      },
+      {
+        "page_id": "p0002",
+        "baseline_formula_count": 14,
+        "outside_visual_formula_count": 13,
+        "current_formula_count": 13,
+        "same_source_latex_and_speech": true
+      },
+      {
+        "page_id": "p0003",
+        "baseline_formula_count": 12,
+        "outside_visual_formula_count": 9,
+        "current_formula_count": 9,
+        "same_source_latex_and_speech": true
+      },
+      {
+        "page_id": "p0004",
+        "baseline_formula_count": 14,
+        "outside_visual_formula_count": 0,
+        "current_formula_count": 0,
+        "same_source_latex_and_speech": true
+      },
+      {
+        "page_id": "p0005",
+        "baseline_formula_count": 36,
+        "outside_visual_formula_count": 36,
+        "current_formula_count": 36,
+        "same_source_latex_and_speech": true
+      }
+    ]
+  },
+  "host_presentation_checks": {
+    "passed": 7,
+    "scope": "Inline bullets, sentence boundaries, negative numeric sign, decimal values; no host model inference"
+  },
+  "manual_source_review_build38": {
+    "status": "insufficient_detail; routing_success_does_not_establish_description_accuracy",
+    "sources": [
+      "../_Temp Data/materi_matematika_smp_pages/page_0203.png",
+      "../_Temp Data/materi_matematika_smp_pages/page_0346.png"
+    ],
+    "observations": [
+      {
+        "id": "p0003.layout.0011",
+        "result": "incomplete_and_overgeneralized",
+        "evidence": "Source has ABC with three printed 60 angles, DEF with ticks but no printed angles, GHI without tick marks. Output incorrectly generalizes that every image has numbers and side marks and omits the actual labels/values."
+      },
+      {
+        "id": "p0003.layout.0015",
+        "result": "incomplete_and_overgeneralized",
+        "evidence": "Source DOES contain vertex labels A–I and captions left right-angle, middle obtuse, right acute. Output omits labels/captions and claims all diagrams have numbers; printed angle numbers are absent."
+      },
+      {
+        "id": "p0004.layout.0001",
+        "result": "incomplete",
+        "evidence": "Graph subtype and axis existence are correct, but axis meanings and all six day/value pairs are missing."
+      },
+      {
+        "id": "p0004.layout.0010",
+        "result": "incomplete",
+        "evidence": "Pie subtype and presence of weekday percentages are correct, but six day/percentage pairs are missing."
+      }
+    ]
+  },
+  "prior_trials": [
+    {
+      "attempt_id": "45ea36ad-0ba1-48fb-9790-45b830a27968",
+      "run_id": "3e5c5dab-9f4e-462a-a178-3e61b0f9bad6",
+      "build": "36",
+      "policy": "foundation_diagram_image_only_v5",
+      "routing_checks_passed": 30,
+      "routing_checks_total": 30,
+      "wall_ms": 78057.9558749887,
+      "visuals": [
+        {
+          "class": "others",
+          "id": "p0002.layout.0025",
+          "page_id": "p0002",
+          "status": "skipped_others"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar berisi tiga segitiga. Setiap segitiga memiliki tanda garis yang menunjukkan sifat sama sisi. Sudut pada segitiga pertama adalah 60 derajat, 60 derajat, dan 60 derajat. Sudut pada segitiga kedua adalah 60 derajat, 60 derajat, dan 60 derajat. Segitiga ketiga tidak memiliki tanda sudut atau garis khusus.",
+          "id": "p0003.layout.0011",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0003",
+          "status": "generated"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar berisi tiga segitiga. • Gambar pertama adalah segitiga siku-siku dengan titik A, B, C. • Gambar kedua adalah segitiga tumpul dengan titik D, E, F. • Gambar ketiga adalah segitiga lancip dengan titik G, H, I.",
+          "id": "p0003.layout.0015",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0003",
+          "status": "generated"
+        },
+        {
+          "class": "graph",
+          "description": "Gambar ini adalah grafik garis. • Sumbu horizontal diberi label Hari. • Nilai 35 terlihat pada Senin. • Nilai 42 terlihat pada Selasa. • Nilai 40 terlihat pada Rabu. • Nilai 28 terlihat pada Kamis. • Nilai 25 terlihat pada Jumat. • Nilai 30 terlihat pada Sabtu. • Label sumbu vertical adalah Jumlah kunjungan.",
+          "id": "p0004.layout.0001",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0004",
+          "status": "generated"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar adalah lingkaran diagram. Di dalamnya terdapat label hari dan persentase.",
+          "id": "p0004.layout.0010",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0004",
+          "status": "generated"
+        }
+      ]
+    },
+    {
+      "attempt_id": "ea00f26b-1607-49a1-a4a9-5ac717ecd676",
+      "run_id": "6cdbdc48-6e2f-4851-8f2f-2a4243a6a965",
+      "build": "37",
+      "policy": "foundation_diagram_image_only_v6",
+      "routing_checks_passed": 30,
+      "routing_checks_total": 30,
+      "wall_ms": 74204.37291666167,
+      "visuals": [
+        {
+          "class": "others",
+          "id": "p0002.layout.0025",
+          "page_id": "p0002",
+          "status": "skipped_others"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar berisi tiga bentuk geometri.\n• Setiap bentuk memiliki tanda garis.\n• Di bagian kiri, ada segitiga dengan tanda garis di sisi-sisinya.\n• Di bagian tengah, ada segitiga dengan tanda garis di sisi-sisinya.\n• Di bagian kanan, ada segitiga tanpa tanda garis.",
+          "id": "p0003.layout.0011",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0003",
+          "status": "generated"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar berisi tiga bentuk geometri.\n• Setiap bentuk memiliki garis.\n• Di bawah setiap bentuk tertulis nama jenisnya.",
+          "id": "p0003.layout.0015",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0003",
+          "status": "generated"
+        },
+        {
+          "class": "graph",
+          "description": "Gambar adalah grafik garis.\n• Ada tanda garis.\n• Ada angka 35, 42, 40, 28, 25, 30.\n• Ada label hari Senin, Selasa, Rabu, Kamis, Jumat, Sabtu.",
+          "id": "p0004.layout.0001",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0004",
+          "status": "generated"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar adalah lingkaran dengan pembagian sudut.\n• Setiap sudut memiliki teks.\n• Tanda garis menghubungkan sudut-sudut.\n• Teks berikut terlihat: Sabtu 15%, Senin 17%, Selasa 21%, Rabu 20%, Kamis 14%, Jumat 13%.",
+          "id": "p0004.layout.0010",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0004",
+          "status": "generated"
+        }
+      ]
+    },
+    {
+      "attempt_id": "953726bb-dd9a-4198-a653-d92fa0d90435",
+      "run_id": "b1cbf09b-427b-4cc9-8e8f-2515485507c9",
+      "build": "38",
+      "policy": "foundation_diagram_image_only_v7",
+      "routing_checks_passed": 30,
+      "routing_checks_total": 30,
+      "wall_ms": 70582.40258332808,
+      "visuals": [
+        {
+          "class": "others",
+          "id": "p0002.layout.0025",
+          "page_id": "p0002",
+          "status": "skipped_others"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar berisi tiga gambar geometri.\n• Setiap gambar memiliki titik, angka, dan tanda sisi.\n• Urutan dari kiri ke kanan: segitiga, segitiga, segitiga.",
+          "id": "p0003.layout.0011",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0003",
+          "status": "generated"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar berisi tiga diagram geometri.\n• Setiap diagram memiliki titik, angka, dan label sisi.\n• Diagram berbentuk segitiga.",
+          "id": "p0003.layout.0015",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0003",
+          "status": "generated"
+        },
+        {
+          "class": "graph",
+          "description": "Gambar ini adalah grafik garis.\n• Ada sumbu horizontal dan sumbu vertikal.",
+          "id": "p0004.layout.0001",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0004",
+          "status": "generated"
+        },
+        {
+          "class": "diagrams",
+          "description": "Gambar ini adalah diagram lingkaran.\n• Ada label hari dalam seminggu.\n• Setiap label memiliki angka dan persen.\n• Sumbu tidak terlihat.",
+          "id": "p0004.layout.0010",
+          "input_mode": "image_only",
+          "model_reported_uncertainties": [],
+          "page_id": "p0004",
+          "status": "generated"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Classifier predicts diagrams for both geometry groups and the pie chart; this is raw classifier output, not a validated semantic label.",
+    "Model-reported uncertainties were empty despite errors/omissions. They must not be interpreted as independent confidence.",
+    "A full-page image misclassification retains a separate routing-only OCR exception for dense prose recovery. Zero such requests occurred in the completed five-page test.",
+    "Formulas outside visuals retain earlier review limitations; the two A/G fallback formula chunks are specifically removed.",
+    "Existing saved material is not silently re-extracted. The new test material is saved separately."
+  ],
+  "manual_source_review_build39": {
+    "status": "more_source_detail; residual_visual_errors",
+    "observations": [
+      "The first triangle group now reports the A–I point labels and limits the three printed 60 values to the left panel. Its descriptions of tick marks as perpendicular lines are inaccurate.",
+      "The second triangle group reports the correct point groups, left-to-right captions and right-angle mark at B. Nonparallel-side descriptions are unhelpful inferred detail.",
+      "All six line-chart day/value pairs are correct. The vertical axis meaning is misplaced as a title and its wording is not the exact printed label.",
+      "All six pie-chart day/percentage pairs are correct. Several sector locations are wrong and descriptions of lines are generic.",
+      "Model uncertainty is still empty despite these errors."
+    ]
+  },
+  "formula_failure_audit": "Integration/formula-withholding-audit.json"
+}

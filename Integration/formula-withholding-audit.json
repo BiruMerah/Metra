@@ -1,0 +1,733 @@
+{
+  "schema": "metra-formula-withholding-audit-v1",
+  "run_id": "350fc27d-a9d1-4115-9f2e-cccf05b53375",
+  "build": 39,
+  "basis": "Existing five-page production result; no new inference and no changes to extraction or reader output.",
+  "pages": [
+    {
+      "page_id": "p0001",
+      "total": 16,
+      "statuses": {
+        "ready": 4,
+        "needs_review": 12
+      }
+    },
+    {
+      "page_id": "p0002",
+      "total": 13,
+      "statuses": {
+        "needs_review": 10,
+        "ready": 3
+      }
+    },
+    {
+      "page_id": "p0003",
+      "total": 9,
+      "statuses": {
+        "needs_review": 5,
+        "ready": 4
+      }
+    },
+    {
+      "page_id": "p0004",
+      "total": 0,
+      "statuses": {}
+    },
+    {
+      "page_id": "p0005",
+      "total": 36,
+      "statuses": {
+        "ready": 27,
+        "needs_review": 9
+      }
+    }
+  ],
+  "total_formula_candidates": 74,
+  "held_candidates": 36,
+  "held_recognition_statuses": {
+    "spoken_generated": 34,
+    "unresolved": 2
+  },
+  "categories": {
+    "source_mathml_alignment": [
+      {
+        "id": "p0001.formula.0002",
+        "segmentID": "p0001.layout.0021.s0001",
+        "sourceText": "ax1=a",
+        "latex": "\\mathsf { a } \\times \\mathsf { 1 } = \\mathsf { a }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld",
+          "Exponent structure is missing, conflicting or ambiguous in OCR (including flattened x2/prime). Keep raw recognition; withhold speech rather than infer or repair a power"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.layout.0021.png",
+          "exponent_consistency": "pages/p0001/formulas/p0001.formula.0002/exponent-consistency.json",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0002/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0002/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0002/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0002/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0011",
+        "segmentID": "p0001.layout.0015.s0002",
+        "sourceText": "a",
+        "latex": "\\left( a \\frac { \\mathbf { b } } { c } \\right)",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.layout.0018.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0011/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0011/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0011/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0011/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0015",
+        "segmentID": "p0001.layout.0012.s0002",
+        "sourceText": "(0,25; 0,375; 0,4; dsb).",
+        "latex": "( 0 , 2 5 ; 0 , 3 \\dot { 7 } 5 ; 0 , \\dot { 4 } ; 0 5 \\dot { 6 } ) .",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.mfd.15912.combined.png",
+          "crop_merge": "pages/p0001/mfd-crop-merge.json",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0015/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0015/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0015/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0015/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0001",
+        "segmentID": "p0002.layout.0020.s0001",
+        "sourceText": "• NEW EDITION BIG BOOK MATEMATIKA SMP",
+        "latex": "\\therefore \\vert V \\vert = V \\vert \\vert \\vert V \\vert = \\vert b \\vert \\vert V \\vert \\vert \\vert b \\vert = 3 [ 6 . \\vert 0 \\vert \\vert 0 \\vert ] = ( 1 . 1 ) / k g / m ^ { 3 } = 1 V / p ^ { 2 } = 9 V / k g / m ^ { 3 } = 3 \\sqrt { 3 } / ( k g / m ^ { 3 } )",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "image_recognized_power_ocr_structure_unassessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.mfd.17054.combined.png",
+          "crop_merge": "pages/p0002/mfd-crop-merge.json",
+          "exponent_consistency": "pages/p0002/formulas/p0002.formula.0001/exponent-consistency.json",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0001/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0001/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0001/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0001/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0007",
+        "segmentID": "p0002.layout.0022.s0002",
+        "sourceText": "5x + 2x",
+        "latex": "5 x ^ { 2 } + 2 x",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.layout.0022.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0007/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0007/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0007/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0007/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0010",
+        "segmentID": "p0002.layout.0015.s0001",
+        "sourceText": "4x3+2x +3x +3x+8",
+        "latex": "4 { x } ^ { 3 } + 2 { x } ^ { 2 } + 3 { x } + 3 { x } ^ { 2 } + 8",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.layout.0015.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0010/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0010/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0010/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0010/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0012",
+        "segmentID": "p0002.layout.0006.s0001",
+        "sourceText": "2x'",
+        "latex": "2 { \\bf { x } } ^ { 2 }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.layout.0026.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0012/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0012/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0012/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0012/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0013",
+        "segmentID": "p0002.layout.0016.s0002",
+        "sourceText": "2x' + 3x =",
+        "latex": "2 { \\times } ^ { 2 } + 3 { \\times } ^ { 2 } = 5 { \\times } ^ { 2 }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.layout.0016.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0013/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0013/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0013/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0013/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0015",
+        "segmentID": "p0005.layout.0007.s0001",
+        "sourceText": "•",
+        "latex": "\\underline { { \\bullet } }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "A complete OCR/MathML range could not be aligned; full formula speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.mfd.14215.combined.png",
+          "crop_merge": "pages/p0005/mfd-crop-merge.json",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0015/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0015/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0015/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0015/unimernet.raw.json"
+        }
+      }
+    ],
+    "upstream_parse_failure": [
+      {
+        "id": "p0001.formula.0004",
+        "segmentID": "p0001.layout.0007.s0001",
+        "sourceText": "f",
+        "latex": "\\fint",
+        "recognitionStatus": "unresolved",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "MathJax menolak LaTeX: MathJax returned an merror node."
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.7.0.png",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0004/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0004/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0004/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0007",
+        "segmentID": "p0001.mfd.15618.s0001",
+        "sourceText": "",
+        "latex": "\\begin{array} { r } { \\begin{array} { r l } { \\fil { \\bf \\Pi } ^ { \\parallel } { \\bf y } { \\bf q } { \\bf u } } & { { } } \\end{array} } \\\\ { \\begin{array} { r } { \\left( \\frac { \\partial \\bf { \\Pi } } { b } \\right) { \\bf \\hat { y } } } \\\\ { \\mathrm { \\bf \\nabla } { \\bf \\cdot } { \\bf u } } \\end{array} } \\end{array}",
+        "recognitionStatus": "unresolved",
+        "sourceConsistencyStatus": "not_assessed",
+        "reviewReasons": [
+          "No unambiguous OCR source range; formula retained for review and speech withheld"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.mfd.15618.combined.png",
+          "crop_merge": "pages/p0001/mfd-crop-merge.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0007/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0007/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0007/unimernet.raw.json"
+        }
+      }
+    ],
+    "single_identifier_check": [
+      {
+        "id": "p0001.formula.0006",
+        "segmentID": "p0001.layout.0011.s0001",
+        "sourceText": "a",
+        "latex": "\\pmb { \\mathrm { a } }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed a; UniMERNet MathML has identifiers [\"a\", \"a\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.18.0.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0006/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0006/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0006/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0006/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0009",
+        "segmentID": "p0001.layout.0016.s0003",
+        "sourceText": "a",
+        "latex": "\\mathsf { a }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed a; UniMERNet MathML has identifiers [\"a\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.20.10.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0009/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0009/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0009/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0009/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0008",
+        "segmentID": "p0001.layout.0016.s0005",
+        "sourceText": "b",
+        "latex": "\\boldsymbol { \\mathrm { b } }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed b; UniMERNet MathML has identifiers [\"b\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.20.13.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0008/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0008/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0008/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0008/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0010",
+        "segmentID": "p0001.layout.0016.s0007",
+        "sourceText": "e",
+        "latex": "\\in",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed e; UniMERNet MathML has identifiers [], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.20.15.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0010/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0010/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0010/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0010/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0013",
+        "segmentID": "p0001.layout.0015.s0004",
+        "sourceText": "a",
+        "latex": "\\mathsf { a }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed a; UniMERNet MathML has identifiers [\"a\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.22.12.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0013/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0013/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0013/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0013/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0012",
+        "segmentID": "p0001.layout.0015.s0006",
+        "sourceText": "b",
+        "latex": "\\boldsymbol { \\mathrm { b } }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed b; UniMERNet MathML has identifiers [\"b\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.22.15.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0012/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0012/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0012/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0012/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0001.formula.0016",
+        "segmentID": "p0001.layout.0009.s0001",
+        "sourceText": "b",
+        "latex": "\\Vdash",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed b; UniMERNet MathML has identifiers [], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0001/crops/p0001.ocrmath.28.0.png",
+          "mathcat": "pages/p0001/formulas/p0001.formula.0016/mathcat.raw.json",
+          "mathjax": "pages/p0001/formulas/p0001.formula.0016/mathml.xml",
+          "mathml": "pages/p0001/formulas/p0001.formula.0016/mathml.xml",
+          "recognition": "pages/p0001/formulas/p0001.formula.0016/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0002",
+        "segmentID": "p0002.layout.0003.s0001",
+        "sourceText": "A",
+        "latex": "\\textsf { R }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed A; UniMERNet MathML has identifiers [], extra structure=true, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.ocrmath.4.0.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0002/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0002/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0002/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0002/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0003",
+        "segmentID": "p0002.layout.0002.s0003",
+        "sourceText": "x",
+        "latex": "\\pmb { x }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed x; UniMERNet MathML has identifiers [\"x\", \"x\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.ocrmath.10.15.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0003/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0003/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0003/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0003/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0004",
+        "segmentID": "p0002.layout.0002.s0005",
+        "sourceText": "y",
+        "latex": "\\mathbf { y }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed y; UniMERNet MathML has identifiers [\"y\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.ocrmath.10.21.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0004/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0004/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0004/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0004/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0006",
+        "segmentID": "p0002.layout.0013.s0001",
+        "sourceText": "x",
+        "latex": "\\pmb { x }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed x; UniMERNet MathML has identifiers [\"x\", \"x\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.ocrmath.18.0.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0006/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0006/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0006/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0006/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0002.formula.0009",
+        "segmentID": "p0002.layout.0011.s0002",
+        "sourceText": "x",
+        "latex": "\\pmb { x }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed x; UniMERNet MathML has identifiers [\"x\", \"x\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0002/crops/p0002.ocrmath.22.26.png",
+          "mathcat": "pages/p0002/formulas/p0002.formula.0009/mathcat.raw.json",
+          "mathjax": "pages/p0002/formulas/p0002.formula.0009/mathml.xml",
+          "mathml": "pages/p0002/formulas/p0002.formula.0009/mathml.xml",
+          "recognition": "pages/p0002/formulas/p0002.formula.0009/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0003.formula.0004",
+        "segmentID": "p0003.layout.0008.s0001",
+        "sourceText": "c",
+        "latex": "\\pmb { \\mathbb { C } }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed c; UniMERNet MathML has identifiers [\"C\", \"C\"], extra structure=true, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0003/crops/p0003.ocrmath.12.0.png",
+          "mathcat": "pages/p0003/formulas/p0003.formula.0004/mathcat.raw.json",
+          "mathjax": "pages/p0003/formulas/p0003.formula.0004/mathml.xml",
+          "mathml": "pages/p0003/formulas/p0003.formula.0004/mathml.xml",
+          "recognition": "pages/p0003/formulas/p0003.formula.0004/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0003.formula.0005",
+        "segmentID": "p0003.layout.0014.s0002",
+        "sourceText": "K",
+        "latex": "{ \\sf K }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed K; UniMERNet MathML has identifiers [\"K\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0003/crops/p0003.ocrmath.13.19.png",
+          "mathcat": "pages/p0003/formulas/p0003.formula.0005/mathcat.raw.json",
+          "mathjax": "pages/p0003/formulas/p0003.formula.0005/mathml.xml",
+          "mathml": "pages/p0003/formulas/p0003.formula.0005/mathml.xml",
+          "recognition": "pages/p0003/formulas/p0003.formula.0005/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0003.formula.0007",
+        "segmentID": "p0003.layout.0010.s0002",
+        "sourceText": "L",
+        "latex": "\\mathsf { L }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed L; UniMERNet MathML has identifiers [\"L\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0003/crops/p0003.ocrmath.15.15.png",
+          "mathcat": "pages/p0003/formulas/p0003.formula.0007/mathcat.raw.json",
+          "mathjax": "pages/p0003/formulas/p0003.formula.0007/mathml.xml",
+          "mathml": "pages/p0003/formulas/p0003.formula.0007/mathml.xml",
+          "recognition": "pages/p0003/formulas/p0003.formula.0007/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0004",
+        "segmentID": "p0005.layout.0002.s0013",
+        "sourceText": "n",
+        "latex": "\\boldsymbol { n }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed n; UniMERNet MathML has identifiers [\"n\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.6.32.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0004/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0004/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0004/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0004/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0012",
+        "segmentID": "p0005.layout.0001.s0015",
+        "sourceText": "n",
+        "latex": "\\mathscr { n }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed n; UniMERNet MathML has identifiers [\"n\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.17.35.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0012/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0012/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0012/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0012/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0013",
+        "segmentID": "p0005.layout.0001.s0017",
+        "sourceText": "m",
+        "latex": "\\mathscr { m }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed m; UniMERNet MathML has identifiers [\"m\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.17.59.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0013/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0013/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0013/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0013/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0018",
+        "segmentID": "p0005.layout.0006.s0002",
+        "sourceText": "x",
+        "latex": "_ x",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed x; UniMERNet MathML has identifiers [\"\", \"x\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.26.8.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0018/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0018/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0018/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0018/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0020",
+        "segmentID": "p0005.layout.0005.s0002",
+        "sourceText": "x",
+        "latex": "_ x",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed x; UniMERNet MathML has identifiers [\"\", \"x\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.27.6.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0020/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0020/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0020/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0020/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0025",
+        "segmentID": "p0005.layout.0003.s0006",
+        "sourceText": "x",
+        "latex": "\\boldsymbol { \\mathcal { X } }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed x; UniMERNet MathML has identifiers [\"X\"], extra structure=false, special variant=true. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.29.38.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0025/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0025/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0025/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0025/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0005.formula.0036",
+        "segmentID": "p0005.layout.0003.s0033",
+        "sourceText": "y",
+        "latex": "_ y",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Vision proposed y; UniMERNet MathML has identifiers [\"\", \"y\"], extra structure=true, special variant=false. Raw speech retained but withheld from merged segments; no automatic correction"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.34.12.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0036/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0036/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0036/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0036/unimernet.raw.json"
+        }
+      }
+    ],
+    "unicode_whole_source_check": [
+      {
+        "id": "p0003.formula.0001",
+        "segmentID": "p0003.layout.0005.s0003",
+        "sourceText": "90°",
+        "latex": "9 0 ^ { \\circ } .",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Whole source/token/power-base disagreement or unsupported structure; original OCR and raw model output retained; no glyph, digit or exponent repaired"
+        ],
+        "artifacts": {
+          "crop": "pages/p0003/crops/p0003.unicode.7.24.png",
+          "mathcat": "pages/p0003/formulas/p0003.formula.0001/mathcat.raw.json",
+          "mathjax": "pages/p0003/formulas/p0003.formula.0001/mathml.xml",
+          "mathml": "pages/p0003/formulas/p0003.formula.0001/mathml.xml",
+          "recognition": "pages/p0003/formulas/p0003.formula.0001/unimernet.raw.json"
+        }
+      },
+      {
+        "id": "p0003.formula.0003",
+        "segmentID": "p0003.layout.0001.s0003",
+        "sourceText": "90°",
+        "latex": "9 0 ^ { \\circ } .",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Whole source/token/power-base disagreement or unsupported structure; original OCR and raw model output retained; no glyph, digit or exponent repaired"
+        ],
+        "artifacts": {
+          "crop": "pages/p0003/crops/p0003.unicode.11.20.png",
+          "mathcat": "pages/p0003/formulas/p0003.formula.0003/mathcat.raw.json",
+          "mathjax": "pages/p0003/formulas/p0003.formula.0003/mathml.xml",
+          "mathml": "pages/p0003/formulas/p0003.formula.0003/mathml.xml",
+          "recognition": "pages/p0003/formulas/p0003.formula.0003/unimernet.raw.json"
+        }
+      }
+    ],
+    "number_or_unit_check": [
+      {
+        "id": "p0005.formula.0007",
+        "segmentID": "p0005.layout.0001.s0002",
+        "sourceText": "000,00 maka",
+        "latex": "\\mathtt { R p 3 . 0 0 0 , 0 0 \\, \\ m a k a }",
+        "recognitionStatus": "spoken_generated",
+        "sourceConsistencyStatus": "needs_review",
+        "reviewReasons": [
+          "Withheld: number/unit mismatch, extra model token, missing/unsupported power, or explicit exponent conflict; raw model and source retained unchanged"
+        ],
+        "artifacts": {
+          "crop": "pages/p0005/crops/p0005.ocrmath.13.31.png",
+          "mathcat": "pages/p0005/formulas/p0005.formula.0007/mathcat.raw.json",
+          "mathjax": "pages/p0005/formulas/p0005.formula.0007/mathml.xml",
+          "mathml": "pages/p0005/formulas/p0005.formula.0007/mathml.xml",
+          "recognition": "pages/p0005/formulas/p0005.formula.0007/unimernet.raw.json",
+          "unit_consistency": "pages/p0005/formulas/p0005.formula.0007/unit-consistency.json",
+          "unit_normalization": "pages/p0005/formulas/p0005.formula.0007/unit-normalization.json"
+        }
+      }
+    ]
+  },
+  "findings": [
+    "The neutral reader message covers several different pipeline failures. Held formula count is not a count of visible placeholder messages.",
+    "The single-identifier check rejects sans-serif/bold/script variants as well as actual character or structure disagreements; the 22 held identifiers are not all safe to accept.",
+    "The complete-source alignment gate relies on linear OCR which can flatten powers or omit fractions, even when image recognition recovers structure.",
+    "Unrelated footer and bullet content was routed as formula candidates.",
+    "Two 90-degree expressions differ from the OCR token stream only by a trailing period in MathML.",
+    "Two candidates fail MathJax parsing of recognizer LaTeX; MathCAT is skipped for those.",
+    "Other valid raw MathCAT speech is withheld by consistency/merge gates, so changing ClearSpeak alone does not solve these failures."
+  ],
+  "proposed_priorities": [
+    "Separate ordinary text, heading/list markers and footers from formula proposals.",
+    "Handle a verified one-letter scalar/font presentation case without weakening checks for letter identity, case, vector semantics or extra structure.",
+    "Recognize complete expressions and associate sentence punctuation outside their mathematical token comparison.",
+    "Keep true recognition ambiguity visible and retain raw artifacts; do not hide it with guessed formulas."
+  ]
+}

@@ -22,12 +22,12 @@ struct ReadyTopicReference: Codable, Identifiable, Sendable {
 }
 
 enum HeadingTopicBuilder {
-    static let version = "source_headings_per_page_v1"
+    static let version = "source_heading_paths_per_page_v2"
     static let headingKinds: Set<String> = ["doc_title", "paragraph_title", "heading"]
 
     private struct Draft {
         let first: ChunkCandidate
-        let heading: ChunkCandidate?
+        var headings: [ChunkCandidate]
         var members: [ChunkCandidate]
     }
 
@@ -36,18 +36,18 @@ enum HeadingTopicBuilder {
         var draft: Draft?
         func finish() {
             guard let current = draft else { return }
-            let rawTitle = current.heading?.chunk.sourceText ?? ""
-            let sourceTitle = !rawTitle.isEmpty && rawTitle.count <= 160
+            let rawTitle = SourceHeadingPath.title(current.headings.map(\.chunk.sourceText))
+            let sourceTitle = rawTitle != nil
             var warnings: [String] = []
-            if current.heading == nil { warnings.append("no_source_heading; generic title is an application label, not an inferred topic") }
+            if current.headings.isEmpty { warnings.append("no_source_heading; generic title is an application label, not an inferred topic") }
             else if !sourceTitle { warnings.append("source_heading_empty_or_long; complete heading retained in its chunk") }
-            if let heading = current.heading, !["ready", "generated"].contains(heading.chunk.status) {
+            if current.headings.contains(where:{ !["ready", "generated"].contains($0.chunk.status) }) {
                 warnings.append("source_heading_needs_review")
             }
             let incomplete = current.members.contains { !["ready", "generated"].contains($0.chunk.status) }
             topics.append(.init(id:"topic.\(current.first.chunk.id)",
-                title:sourceTitle ? rawTitle : "Materi tanpa judul",titleSource:sourceTitle ? "source_heading" : "application_fallback",
-                headingChunkIDs:current.heading.map { [$0.chunk.id] } ?? [],chunkIDs:current.members.map { $0.chunk.id },
+                title:rawTitle ?? "Materi tanpa judul",titleSource:sourceTitle ? (current.headings.count > 1 ? "source_heading_path" : "source_heading") : "application_fallback",
+                headingChunkIDs:current.headings.map(\.chunk.id),chunkIDs:current.members.map { $0.chunk.id },
                 pageID:current.first.chunk.pageID,status:incomplete || !warnings.isEmpty ? "needs_review" : "draft",
                 uncertainties:warnings))
             draft = nil
@@ -56,10 +56,14 @@ enum HeadingTopicBuilder {
             if draft?.first.chunk.pageID != candidate.chunk.pageID { finish() }
             if candidate.isAuxiliary { auxiliary.append(candidate.chunk.id); continue }
             if headingKinds.contains(candidate.chunk.kind) {
+                if let current = draft,current.members.allSatisfy({ headingKinds.contains($0.chunk.kind) }),
+                   SourceHeadingPath.title((current.headings+[candidate]).map(\.chunk.sourceText)) != nil {
+                    draft?.headings.append(candidate);draft?.members.append(candidate);continue
+                }
                 finish()
-                draft = Draft(first:candidate,heading:candidate,members:[candidate])
+                draft = Draft(first:candidate,headings:[candidate],members:[candidate])
             } else if draft == nil {
-                draft = Draft(first:candidate,heading:nil,members:[candidate])
+                draft = Draft(first:candidate,headings:[],members:[candidate])
             } else { draft?.members.append(candidate) }
         }
         finish()
@@ -75,7 +79,7 @@ enum HeadingTopicBuilder {
               }) else { throw HeadingTopicError.invalidMembership }
         return .init(policy:version,membershipStatus:expectedBody.isEmpty ? "not_required" : "complete",
             qualityStatus:.notAssessed,topics:topics,auxiliaryChunkIDs:auxiliary,
-            limitations:["Boundaries follow detected source headings and existing reading order; no semantic LLM grouping.",
+            limitations:["Boundaries follow source headings and reading order. Consecutive headings form one source title path; no semantic LLM grouping.",
                 "Page boundaries start a new group; cross-page continuation and heading hierarchy are not inferred.",
                 "Generic titles are explicit application fallbacks. Source heading/OCR correctness remains unassessed."])
     }

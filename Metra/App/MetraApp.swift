@@ -43,6 +43,42 @@ struct MetraApp: App {
                         #if DEBUG
                         // Device experiments run only with an explicit launch flag.
                         let args = ProcessInfo.processInfo.arguments
+                        if let position = args.firstIndex(of: "--metra-formula-policy-probe"), args.indices.contains(position + 1) {
+                            await FormulaPolicyDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-visual-route-probe"), args.indices.contains(position + 1) {
+                            await VisualRouteDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-visual-classifier-probe"), args.indices.contains(position + 1) {
+                            await VisualClassifierDeviceProbe.run(attemptID: args[position + 1])
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-formula-fallback-review"), args.indices.contains(position + 1) {
+                            await FormulaFallbackDeviceProbe.run(attemptID:args[position + 1],coordinator:coordinator,reuseCompleted:true)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-formula-fallback-probe"), args.indices.contains(position + 1) {
+                            await FormulaFallbackDeviceProbe.run(attemptID:args[position + 1],coordinator:coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-formula-regression-probe"), args.indices.contains(position + 1) {
+                            await FormulaRegressionDeviceProbe.run(attemptID:args[position + 1],coordinator:coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-image-only-probe"), args.indices.contains(position + 1) {
+                            await ImageOnlyDiagramDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-chunking-probe"), args.indices.contains(position + 1) {
+                            await ChunkingDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
+                        if let position = args.firstIndex(of: "--metra-multipage-probe"), args.indices.contains(position + 1) {
+                            await MultiPageDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator)
+                            return
+                        }
                         if let position = args.firstIndex(of: "--metra-paddle-probe"), args.indices.contains(position + 1) {
                             await UnicodeMathDeviceProbe.run(attemptID: args[position + 1], coordinator: coordinator, paddleExperiment: true)
                             return

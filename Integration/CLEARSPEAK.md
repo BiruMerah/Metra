@@ -14,6 +14,6 @@ Bangun ulang library melalui `bash Tools/build-mathcat-ios.sh /path/to/mathcat-0
 
 Keluaran dan hash ada di [clearspeak-results.json](clearspeak-results.json). Peringatan compiler Rust berasal dari source MathCAT 0.7.5; build Xcode hanya melaporkan metadata AppIntents dilewati karena framework tersebut tidak dipakai.
 
-Pengecekan bridge dijalankan di Mac; tidak ada inference OCR/model, runtime iPhone atau uji pemahaman VoiceOver baru. Bukti perangkat SimpleSpeak sebelumnya disimpan di `previous_profile_device_evidence` pada manifest agar tidak dianggap bukti ClearSpeak.
+Pengecekan bridge awal di atas dijalankan di Mac. Uji berikutnya pada iPhone 16 Pro Max build 28 menyelesaikan batch empat halaman; 53 artefak MathCAT memverifikasi ClearSpeak Indonesia. Batch awal lima halaman berhenti saat UniMERNet membaca crop besar pada materi akar. [Hasil, kualitas parsial dan batas bukti](MULTIPAGE-CLEARSPEAK.md). Uji pemahaman VoiceOver belum dilakukan. Bukti perangkat SimpleSpeak sebelumnya disimpan di `previous_profile_device_evidence` pada manifest agar tidak dianggap bukti ClearSpeak.
 
 Ekstraksi baru memakai ClearSpeak. Materi tersimpan memakai spoken hasil run asal; impor ulang untuk menghasilkan spoken dengan profil baru.

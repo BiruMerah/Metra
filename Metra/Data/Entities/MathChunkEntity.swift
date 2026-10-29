@@ -16,6 +16,7 @@ final class MathChunkEntity {
     var imagePath: String?
     var unresolvedFormulaIDs: [String]
     var uncertainties: [String]
+    var formulaFallbackIDsJSON: Data?
     var material: MathMaterialEntity?
 
     init(materialID: UUID, chunk: MathChunkModel) {
@@ -33,12 +34,14 @@ final class MathChunkEntity {
         imagePath = chunk.imagePath
         unresolvedFormulaIDs = chunk.unresolvedFormulaIDs
         uncertainties = chunk.uncertainties
+        formulaFallbackIDsJSON = chunk.formulaFallbackIDs.flatMap { try? JSONEncoder().encode($0) }
     }
 
     func toDomain() -> MathChunkModel {
         MathChunkModel(id: sourceID, order: order, pageID: pageID, kind: kind, status: status,
                        sourceText: sourceText, spokenText: spokenText, spokenPreview: spokenPreview,
                        sourceReference: sourceReference, imagePath: imagePath,
-                       unresolvedFormulaIDs: unresolvedFormulaIDs, uncertainties: uncertainties)
+                       unresolvedFormulaIDs: unresolvedFormulaIDs, uncertainties: uncertainties,
+                       formulaFallbackIDs:formulaFallbackIDsJSON.flatMap { try? JSONDecoder().decode([String].self,from:$0) })
     }
 }

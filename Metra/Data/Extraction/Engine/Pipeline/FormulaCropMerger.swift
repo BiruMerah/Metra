@@ -5,7 +5,11 @@ import UIKit
 /// Adds MFD proposals while retaining raw detectors and Vision proposals in their
 /// own artifacts. Cross-model scores are never ranked against each other.
 enum FormulaCropMerger {
-    static let version = "supplemental_mfd_crop_merge_v4"
+    static let version = "supplemental_mfd_crop_merge_v6"
+
+    static func sameImageOccurrence(_ a: PixelBox, _ b: PixelBox) -> Bool {
+        a.intersection(b)/max(1,min(a.area,b.area)) >= 0.8
+    }
 
     struct Decision: Codable, Sendable {
         let detectionID: String
@@ -30,6 +34,7 @@ enum FormulaCropMerger {
               let image = CGImageSourceCreateImageAtIndex(source,0,nil) else { throw LayoutRuntimeError.invalid("Merge crop tidak dapat membaca gambar.") }
         let ppFormulas = layout.filter { $0.label == "formula" }
         var decisions: [Decision] = [], added: [LayoutRegion] = [], retired = Set<String>()
+        var activeRawBoxes: [String:PixelBox] = [:]
         for candidate in mfd.sorted(by: { $0.score == $1.score ? $0.rawIndex < $1.rawIndex : $0.score > $1.score }) {
             let box = candidate.bboxPageXYXY
             let ppOverlap = ppFormulas.filter { $0.bboxPageXYXY.intersection(box)/max(1,box.area) >= 0.15 }
@@ -38,7 +43,7 @@ enum FormulaCropMerger {
                     relatedRegionIDs:ppOverlap.map(\.id),reason:"Preserve existing DocLayout formula route; overlapping MFD remains raw evidence, not a second recognition or speech. Partial overlap is not proof of semantic duplication."))
                 continue
             }
-            if let previous = added.first(where: { $0.bboxPageXYXY.intersection(box)/max(1,min($0.bboxPageXYXY.area,box.area)) >= 0.8 }) {
+            if let previous = added.first(where: { activeRawBoxes[$0.id].map { sameImageOccurrence($0,box) } == true }) {
                 decisions.append(.init(detectionID:candidate.id,action:"withheld_overlapping_mfd_candidate",activeRegionID:previous.id,
                     relatedRegionIDs:[previous.id],reason:"Same-model overlapping candidates share one active crop; all raw boxes retained; no semantic equivalence claim."))
                 continue
@@ -64,7 +69,7 @@ enum FormulaCropMerger {
                 if !containsExtraSourceGlyph(crop,proposal:proposal,observations:observations) {
                     var fused = try region(candidate,box:crop,parentID:proposal.parentID,source:proposal,image:image,pageID:pageID,pageRoot:pageRoot)
                     fused.proposalSourceIDs = [candidate.id,proposal.id]
-                    added.append(fused); retired.insert(proposal.id)
+                    added.append(fused); activeRawBoxes[fused.id] = box; retired.insert(proposal.id)
                     decisions.append(.init(detectionID:candidate.id,action:"fused_with_explicit_vision_range",activeRegionID:fused.id,
                         relatedRegionIDs:[proposal.id],reason:"Union of MFD image box and complete Vision source crop; no extra observed source glyph introduced. Original crops retained. Image recognition and existing source checks still required."))
                 } else {
@@ -94,6 +99,7 @@ enum FormulaCropMerger {
             let addedRegion = try region(candidate,box:padded(box,width:image.width,height:image.height),parentID:parent?.id,
                                          source:nil,image:image,pageID:pageID,pageRoot:pageRoot)
             added.append(addedRegion)
+            activeRawBoxes[addedRegion.id] = box
             decisions.append(.init(detectionID:candidate.id,action:"added_gap_crop",activeRegionID:addedRegion.id,relatedRegionIDs:[],
                 reason:"Additional image detector crop in an uncovered area. No OCR source range forced; complete image MathML/source alignment is still required for speech merge."))
         }
@@ -163,6 +169,7 @@ enum FormulaCropMerger {
     }
 
     private static func isPlainSource(_ text:String) -> Bool {
+        if OCRFormulaCandidatePolicy.isStandaloneListMarker(text) { return true }
         // Vision can emit Cyrillic homoglyphs in A/B/C/E choice markers.
         // Only punctuated marker hints veto this supplemental MFD crop. No OCR
         // text is folded/replaced, and Cyrillic algebraic identifiers stay intact.

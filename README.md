@@ -2,9 +2,19 @@
 
 ### Integrasi PoC aktif
 
-MathCAT 0.7.5 kini memakai **ClearSpeak Indonesia**, termasuk library native yang dibangun ulang. Build iOS dan pengecekan bridge native berhasil; uji iPhone untuk profil baru belum dijalankan. [Perubahan dan hasil verifikasi](Integration/CLEARSPEAK.md).
+Build 41 memulihkan sembilan kandidat rumus yang sebelumnya ditahan melalui crop pemulihan huruf tunggal, kecocokan font presentasi dan tanda titik sumber. Pada lima halaman di iPhone 16 Pro Max, 38/38 bacaan build 39 tetap sampai ke reader; 47/74 kandidat kini diterima, 27 masih ditahan. Sebanyak 86 pemeriksaan regresi perangkat dan 64 pemeriksaan host lulus. Material uji baru: `Uji pemulihan rumus — 5 halaman, build 41`. [Perubahan dan batas bukti](Integration/FORMULA-REGRESSION.md).
 
-Branch `feat/poc-integration` membawa engine PoC build 29 ke alur galeri/kamera, daftar topik, pembaca chunk untuk VoiceOver dan penyimpanan SwiftData. Siapkan aset lokal dengan `python3 Tools/prepare-poc-assets.py`, lalu buka `Metra.xcodeproj`. Build 17 memakai Apple Foundation Models lokal untuk diagram; Qwen dan dependency MLX sudah dikeluarkan dari aplikasi. Material baru memakai judul/subjudul sumber untuk navigasi topik. Hasil pengguna build 9 menunjukkan merge kedua sudut dan deduplikasi pada satu halaman; [status formula](Integration/FORMULA-MERGE.md). Build 10 menambahkan crop nilai+satuan berpangkat dan validasi hasil, sudah build/install, menunggu uji pengguna; [status satuan](Integration/UNIT-POWERS.md). [Arsitektur, persiapan aset, build dan batas bukti](Integration/README.md).
+Build 39 mengubah visual ke jalur crop asli → classifier → Foundation dengan guideline per kelas, tanpa OCR gambar atau pengenalan rumus di dalam visual. Uji build 39 pada lima halaman meluluskan 30 pemeriksaan routing dan 19 pemeriksaan artefak; empat deskripsi tersedia dan artefak rumus A/G hilang. Rincian per bagian kini membaca label titik, enam nilai grafik garis dan enam persentase diagram lingkaran; kesalahan relasi, sumbu dan posisi masih ada. [Hasil dan batas bukti](Integration/IMAGE-ONLY-DIAGRAM.md).
+
+MathCAT 0.7.5 kini memakai **ClearSpeak Indonesia**, termasuk library native yang dibangun ulang. Uji build 28 pada iPhone 16 Pro Max: batch empat halaman selesai 65,7 detik, 54 chunk ready dan 30 review; batch awal lima halaman berhenti pada materi akar. [Hasil dan batas uji beberapa halaman](Integration/MULTIPAGE-CLEARSPEAK.md), [perubahan profil](Integration/CLEARSPEAK.md).
+
+Build 29 menggabungkan nomor daftar dengan awal kalimat di reader serta mengganti OCR rumus yang belum tervalidasi dengan pesan netral. Perbaikan ini sudah disertakan dalam build 33 di iPhone; 14 pengecekan cached material tetap lulus. [Detail perbaikan pembaca](Integration/READER-LIST-FALLBACK.md).
+
+Build 33 menambahkan classifier Core ML untuk crop visual DocLayout: `graph`, `diagrams`, `geometry`, dan `others`. Tiga kelas dideskripsikan dengan guideline per kelas; `others` dilewati. Pemisahan rumus pada kata “atau” kini memakai celah piksel dan validasi sumber; dua rumus luas segitiga terbaca lengkap dalam uji empat halaman build 32. Deskripsi diagram masih review dan satu diagram lingkaran salah kelas. [Hasil dan batas penerapan](Integration/VISUAL-CLASSIFIER-FORMULA.md).
+
+Build 35 memperbaiki chunking di hasil utama: paragraf dibatasi pada batas kalimat/klausa, nomor tetap dengan isi, pengantar bersama rumus, dan judul bertingkat menjadi satu jalur topik. Uji lima halaman di iPhone selesai; regresi tiga snapshot mempertahankan source slice, rumus, enam soal dan 24 pilihan. [Perubahan, perbandingan, dan batas bukti](Integration/CHUNKING.md).
+
+Branch `feat/poc-integration` membawa engine PoC build 41 ke alur galeri/kamera, daftar topik, pembaca chunk untuk VoiceOver dan penyimpanan SwiftData. Siapkan aset lokal dengan `python3 Tools/prepare-poc-assets.py`, lalu buka `Metra.xcodeproj`. Build 17 memakai Apple Foundation Models lokal untuk diagram; Qwen dan dependency MLX sudah dikeluarkan dari aplikasi. Material baru memakai judul/subjudul sumber untuk navigasi topik. Hasil pengguna build 9 menunjukkan merge kedua sudut dan deduplikasi pada satu halaman; [status formula](Integration/FORMULA-MERGE.md). Build 10 menambahkan crop nilai+satuan berpangkat dan validasi hasil, sudah build/install, menunggu uji pengguna; [status satuan](Integration/UNIT-POWERS.md). [Arsitektur, persiapan aset, build dan batas bukti](Integration/README.md).
 
 **Build 14** menambahkan Pix2Text-MFD sebagai sumber kandidat crop sebelum UniMERNet, dengan merge dan jejak sumber. Sudah diuji pada iPhone: dua crop MFD ready tepat sekali, 88 tetap teks biasa, dan 6/8 rentang satuan ready dari jalur gabungan/yang sudah ada. Hasil masih parsial; diagram dan akurasi umum belum selesai dinilai. [Hasil dan persiapan aset MFD](Integration/MFD-CROP-MERGE.md).
 
@@ -247,3 +257,10 @@ open Metra.xcodeproj
 * **Anggi Novitasari**
 * **Fidel Fausta Cavell**
 * **Valentino Hartanto**
+
+
+Current source has been returned to the pre-build46 pipeline for rule audit: Vision text OCR, supplemental Paddle Unicode recognition, and OCR-derived image-crop proposals are active again. Build 46's detector-only PP-OCR implementation and device results remain documented as a historical comparison in [DETECTOR-ONLY-PPOCR.md](Integration/DETECTOR-ONLY-PPOCR.md).
+
+Build48 fixes a restoration regression that discarded visual classifier metadata before Foundation. Same-page iPhone testing confirms descriptions reach the persisted reader; remaining description accuracy limitations are recorded in [VISUAL-ROUTE-REGRESSION.md](Integration/VISUAL-ROUTE-REGRESSION.md).
+
+Build50 separates detector-backed formula recognition from OCR placement and narrows OCR candidate generation. Five-page before/after results, retained baseline speech, recovered expressions and remaining limitations are recorded in [FORMULA-POLICY-AUDIT.md](Integration/FORMULA-POLICY-AUDIT.md).

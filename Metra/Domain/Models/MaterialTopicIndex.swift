@@ -20,7 +20,7 @@ struct MaterialTopicIndex: Codable, Hashable, Sendable {
 
     static let qwenPolicy = "qwen_topic_navigation_v3"
     static let headingKinds: Set<String> = ["heading", "doc_title", "paragraph_title"]
-    static let auxiliaryKinds: Set<String> = ["header", "footer", "number"]
+    static let auxiliaryKinds: Set<String> = ["header", "footer", "number", "ignored_visual"]
 
     func isValid(for chunks: [MathChunkModel]) -> Bool {
         let ordered = chunks.sorted { $0.order < $1.order }
@@ -43,21 +43,23 @@ struct MaterialTopicIndex: Codable, Hashable, Sendable {
         var members: [MathChunkModel] = []
         func finish() {
             guard let first = members.first else { return }
-            let heading = headingKinds.contains(first.kind) ? first : nil
-            let text = heading?.sourceText.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            let useHeading = !text.isEmpty && text.count <= 160 && !text.contains("\n")
-            topics.append(.init(id: "topic.\(first.id)", title: useHeading ? text : fallback,
-                                titleSource: useHeading ? "source_heading" : "application_fallback",
-                                headingChunkIDs: heading.map { [$0.id] } ?? [], chunkIDs: members.map(\.id)))
+            let headings = Array(members.prefix(while:{ headingKinds.contains($0.kind) }))
+            let text = SourceHeadingPath.title(headings.map(\.sourceText))
+            let useHeading = text != nil
+            topics.append(.init(id: "topic.\(first.id)", title: text ?? fallback,
+                                titleSource: useHeading ? (headings.count > 1 ? "source_heading_path" : "source_heading") : "application_fallback",
+                                headingChunkIDs: headings.map(\.id), chunkIDs: members.map(\.id)))
             members = []
         }
         let ordered = chunks.sorted { $0.order < $1.order }
         for chunk in ordered where !auxiliaryKinds.contains(chunk.kind) {
-            if members.last?.pageID != chunk.pageID || headingKinds.contains(chunk.kind) { finish() }
+            let headingRun = !members.isEmpty && members.allSatisfy { headingKinds.contains($0.kind) } &&
+                SourceHeadingPath.title((members+[chunk]).map(\.sourceText)) != nil
+            if members.last?.pageID != chunk.pageID || (headingKinds.contains(chunk.kind) && !headingRun) { finish() }
             members.append(chunk)
         }
         finish()
-        return .init(policy: "source_headings_navigation_v1", topics: topics,
+        return .init(policy: "source_heading_paths_navigation_v2", topics: topics,
                      auxiliaryChunkIDs: ordered.filter { auxiliaryKinds.contains($0.kind) }.map(\.id))
     }
 }

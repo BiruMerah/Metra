@@ -67,7 +67,7 @@ final class OnDeviceExtractionService: MaterialExtractionProtocol {
                            sourceReference: chunk.sourceRef,
                            imagePath: chunk.imageArtifact.map { "\(relativeRun)/\($0)" },
                            unresolvedFormulaIDs: chunk.unresolvedFormulaIDs,
-                           uncertainties: chunk.uncertainties ?? [])
+                           uncertainties: chunk.uncertainties ?? [],formulaFallbackIDs:chunk.formulaFallbackIDs)
         }
         let topicIndex = try document.topicIndex.map { try JSONEncoder().encode($0) }
         let cleanTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -115,6 +115,10 @@ final class OnDeviceExtractionService: MaterialExtractionProtocol {
 
     // MARK: - Presentation Mapping
     private static func userProgress(_ raw: String) -> String {
+        if let range = raw.range(of:"Deskripsi alternatif rumus ") {
+            let number = raw[range.upperBound...].prefix { $0.isNumber || $0 == "/" }
+            return "Menyiapkan deskripsi alternatif rumus \(number)…"
+        }
         if raw.contains("formula "), let range = raw.range(of: "formula ") {
             let number = raw[range.upperBound...].prefix { $0.isNumber || $0 == "/" }
             return "Membaca bagian matematika \(number)…"

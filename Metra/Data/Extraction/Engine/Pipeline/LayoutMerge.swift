@@ -5,7 +5,7 @@ struct LayoutRegion: Codable, Identifiable, Sendable {
     let classID: Int
     let label: String
     let score: Double
-    let bboxPageXYXY: PixelBox
+    var bboxPageXYXY: PixelBox
     let rawIndex: Int
     var parentID: String?
     var cropArtifact: String?
@@ -21,6 +21,10 @@ struct LayoutRegion: Codable, Identifiable, Sendable {
     var proposalSourceIDs: [String]? = nil
     /// Source validation policy survives a supplemental detector crop fusion.
     var sourceNotationPolicy: String? = nil
+    var visualClassification: MathVisualClassification? = nil
+    var originalLayoutBBoxPageXYXY: PixelBox? = nil
+    /// Original image detector retained when an explicit connector splits a crop.
+    var imageDetectionSource: String? = nil
 }
 
 /// A photographed document can be classified as one full-page image. Recover a
@@ -62,7 +66,7 @@ enum DenseDocumentRegionRouter {
                 detectionSource:region.detectionSource,sourceObservationID:region.sourceObservationID,sourceRangeUTF16:region.sourceRangeUTF16,
                 proposalText:region.proposalText,rawVisionBBox:region.rawVisionBBox,
                 roiDerivation:"Dense OCR document routing only; raw PP-DocLayout label/crop unchanged; embedded visuals not assessed",
-                originalLayoutLabel:region.label,routingPolicy:version)
+                originalLayoutLabel:region.label,routingPolicy:version,visualClassification:region.visualClassification,originalLayoutBBoxPageXYXY:region.originalLayoutBBoxPageXYXY)
         }
         return (routed,.init(version:version,decisions:decisions,
             limitation:"Heuristic document-container routing, not a new layout prediction. Embedded visuals and source completeness remain unassessed."))
@@ -197,7 +201,13 @@ enum LayoutMerge {
             if let formula=formulas.first(where:{$0.layoutRegionID==region.id}),!emitted.contains(formula.id) {
                 emitted.insert(formula.id)
                 let coveredBy = resolution.coveredByFormulaIDs[formula.id]
-                childrenSegments.append(TextSegment(id:"\(region.id).s\(String(format:"%04d",childrenSegments.count+1))",kind:"math",textRaw:"",sourceObservationID:nil,sourceRangeUTF16:[],status:coveredBy == nil ? "needs_review" : "duplicate_detection",spokenText:nil,formulaID:formula.id,mergeMethod:coveredBy == nil ? "unmapped_occurrence" : "nested_formula_alias",mergeNote:coveredBy == nil ? "No unambiguous OCR source range; formula retained for review and speech withheld" : "Enclosing detection decomposes exactly into disjoint child formula occurrences; retained as provenance without a second reading",coveredByFormulaIDs:coveredBy))
+                let independent = resolution.independentFormulaIDs.contains(formula.id)
+                childrenSegments.append(TextSegment(id:"\(region.id).s\(String(format:"%04d",childrenSegments.count+1))",kind:"math",textRaw:"",sourceObservationID:nil,sourceRangeUTF16:[],
+                    status:coveredBy != nil ? "duplicate_detection" : (independent ? "spoken_generated" : "needs_review"),
+                    spokenText:independent ? formula.spokenText : nil,formulaID:formula.id,
+                    mergeMethod:coveredBy != nil ? "nested_formula_alias" : (independent ? "image_detector_standalone" : "unmapped_occurrence"),
+                    mergeNote:coveredBy != nil ? "Enclosing detection decomposes exactly into disjoint child formula occurrences; retained as provenance without a second reading" :
+                        (independent ? "Dedicated image formula with no OCR overlap; image-recognized speech emitted once at its layout position" : "Formula source placement unavailable; raw recognition retained for review"),coveredByFormulaIDs:coveredBy))
             }
             return ExtractionBlock(id:region.id,pageID:pageID,kind:region.label,bboxPageXYXY:region.bboxPageXYXY,readingOrder:0,parentID:region.parentID,sourceRegionIDs:[region.id]+lines.map(\.id),segments:childrenSegments,children:regions.filter{$0.parentID==region.id}.map(\.id),status:"partial",uncertainties:["Whole-occurrence alignment uses OCR ranges, MathML tokens and geometry; source fidelity and reading order require review"])
         }

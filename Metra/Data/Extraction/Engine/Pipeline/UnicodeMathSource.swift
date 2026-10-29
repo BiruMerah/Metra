@@ -3,8 +3,8 @@ import Foundation
 /// Explicit OCR glyphs propose a complete source span. This does not recover an
 /// angle from L/Z, an exponent from x2, or a missing glyph from surrounding prose.
 enum UnicodeMathSource {
-    static let version = "ocr_unicode_math_proposal_v2"
-    static let validationVersion = "unicode_math_whole_source_check_v3"
+    static let version = "ocr_unicode_math_proposal_v3"
+    static let validationVersion = "unicode_math_whole_source_check_v4"
     private static let raised = Array("⁰¹²³⁴⁵⁶⁷⁸⁹")
     static let triggers = Set("∠°²³⁰¹⁴⁵⁶⁷⁸⁹≤≥≠×÷±")
 
@@ -45,13 +45,13 @@ enum UnicodeMathSource {
         }
     }
 
-    /// Vision can assign one word box to the final glyph and its adjacent comma.
+    /// Vision can assign one word box to the final glyph and adjacent punctuation.
     /// Include that actual source character only when the caller proves the two
     /// boxes are identical. Raw OCR and image MathML are never edited or stripped.
     static func includingSharedPunctuation(_ span:Span,in text:String,identicalBoxes:Bool) -> Span {
         let ns = text as NSString
         guard identicalBoxes, span.upper < ns.length,
-              [",",";"].contains(ns.substring(with:NSRange(location:span.upper,length:1))) else { return span }
+              [",",";","."].contains(ns.substring(with:NSRange(location:span.upper,length:1))) else { return span }
         var result = Span(lower:span.lower,upper:span.upper+1,
             text:ns.substring(with:NSRange(location:span.lower,length:span.upper+1-span.lower)),symbols:span.symbols,kind:span.kind)
         result.sharedTrailingPunctuation = ns.substring(with:NSRange(location:span.upper,length:1))
@@ -91,7 +91,7 @@ enum UnicodeMathSource {
     static func check(source: String, mathML: String) -> Check {
         let whole = spans(in: source).contains {
             $0.lower == 0 && ($0.upper == source.utf16.count ||
-                ($0.upper == source.utf16.count-1 && [",",";"].contains(String(source.suffix(1)))))
+                ($0.upper == source.utf16.count-1 && [",",";","."].contains(String(source.suffix(1)))))
         }
         let expected = sourceTokens(source)
         let powerRegex = try? NSRegularExpression(pattern: #"(?<![\p{L}_])(dam|km|hm|dm|cm|mm|m|[A-Za-z])([⁰¹²³⁴⁵⁶⁷⁸⁹]+)"#)

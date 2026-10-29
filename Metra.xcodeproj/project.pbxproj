@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B20000000000000000000041 /* PaddleOCR model in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000041; };
-		B20000000000000000000042 /* PaddleOCR config in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000042; };
-		B20000000000000000000043 /* PaddleOCR characters in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000043; };
 		B20000000000000000000001 /* MathJaxBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000001 /* MathJaxBridge.html */; };
 		B20000000000000000000003 /* model-manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000003 /* model-manifest.json */; };
 		B20000000000000000000004 /* tex-mml-chtml-nofont.js in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000004 /* tex-mml-chtml-nofont.js */; };
@@ -20,13 +17,13 @@
 		B20000000000000000000009 /* MathJaxExtensions in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000009 /* MathJaxExtensions */; };
 		B20000000000000000000023 /* Pix2Text-MFD.onnx in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000023 /* Pix2Text-MFD.onnx */; };
 		B20000000000000000000024 /* Pix2Text-MFD.config.json in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000024 /* Pix2Text-MFD.config.json */; };
+		B20000000000000000000041 /* PaddleOCR-PP-OCRv5-mobile-rec.onnx in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000041 /* PaddleOCR-PP-OCRv5-mobile-rec.onnx */; };
+		B20000000000000000000042 /* PaddleOCR-PP-OCRv5-mobile-rec.config.json in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000042 /* PaddleOCR-PP-OCRv5-mobile-rec.config.json */; };
+		B20000000000000000000043 /* PaddleOCR-PP-OCRv5-mobile-rec.characters.json in Resources */ = {isa = PBXBuildFile; fileRef = F20000000000000000000043 /* PaddleOCR-PP-OCRv5-mobile-rec.characters.json */; };
 		B30000000000000000000007 /* onnxruntime in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000007 /* onnxruntime */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F20000000000000000000041 = {isa = PBXFileReference; lastKnownFileType = file; path = "PaddleOCR-PP-OCRv5-mobile-rec.onnx"; sourceTree = "<group>"; };
-		F20000000000000000000042 = {isa = PBXFileReference; lastKnownFileType = text.json; path = "PaddleOCR-PP-OCRv5-mobile-rec.config.json"; sourceTree = "<group>"; };
-		F20000000000000000000043 = {isa = PBXFileReference; lastKnownFileType = text.json; path = "PaddleOCR-PP-OCRv5-mobile-rec.characters.json"; sourceTree = "<group>"; };
 		5FDAA23C3084E66A00242B25 /* Metra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20000000000000000000001 /* MathJaxBridge.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MathJaxBridge.html; sourceTree = "<group>"; };
 		F20000000000000000000003 /* model-manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "model-manifest.json"; sourceTree = "<group>"; };
@@ -38,6 +35,9 @@
 		F20000000000000000000009 /* MathJaxExtensions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MathJaxExtensions; sourceTree = "<group>"; };
 		F20000000000000000000023 /* Pix2Text-MFD.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pix2Text-MFD.onnx"; sourceTree = "<group>"; };
 		F20000000000000000000024 /* Pix2Text-MFD.config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Pix2Text-MFD.config.json"; sourceTree = "<group>"; };
+		F20000000000000000000041 /* PaddleOCR-PP-OCRv5-mobile-rec.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PaddleOCR-PP-OCRv5-mobile-rec.onnx"; sourceTree = "<group>"; };
+		F20000000000000000000042 /* PaddleOCR-PP-OCRv5-mobile-rec.config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "PaddleOCR-PP-OCRv5-mobile-rec.config.json"; sourceTree = "<group>"; };
+		F20000000000000000000043 /* PaddleOCR-PP-OCRv5-mobile-rec.characters.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "PaddleOCR-PP-OCRv5-mobile-rec.characters.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -78,9 +78,9 @@
 		D10000000000000000000008 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F20000000000000000000041,
-				F20000000000000000000042,
-				F20000000000000000000043,
+				F20000000000000000000041 /* PaddleOCR-PP-OCRv5-mobile-rec.onnx */,
+				F20000000000000000000042 /* PaddleOCR-PP-OCRv5-mobile-rec.config.json */,
+				F20000000000000000000043 /* PaddleOCR-PP-OCRv5-mobile-rec.characters.json */,
 				F20000000000000000000023 /* Pix2Text-MFD.onnx */,
 				F20000000000000000000024 /* Pix2Text-MFD.config.json */,
 				F20000000000000000000009 /* MathJaxExtensions */,
@@ -168,9 +168,9 @@
 		5FDAA23A3084E66A00242B25 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				B20000000000000000000041,
-				B20000000000000000000042,
-				B20000000000000000000043,
+				B20000000000000000000041 /* PaddleOCR-PP-OCRv5-mobile-rec.onnx in Resources */,
+				B20000000000000000000042 /* PaddleOCR-PP-OCRv5-mobile-rec.config.json in Resources */,
+				B20000000000000000000043 /* PaddleOCR-PP-OCRv5-mobile-rec.characters.json in Resources */,
 				B20000000000000000000023 /* Pix2Text-MFD.onnx in Resources */,
 				B20000000000000000000024 /* Pix2Text-MFD.config.json in Resources */,
 				B20000000000000000000001 /* MathJaxBridge.html in Resources */,
@@ -321,7 +321,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = U3CC574JGM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -372,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = U3CC574JGM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

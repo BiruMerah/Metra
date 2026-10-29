@@ -187,6 +187,7 @@ struct DiagramRegionResult: Codable, Identifiable, Sendable {
     var relationPlan: DiagramRelationPlan? = nil
     var relationValidation: DiagramRelationValidation? = nil
     var foundationDescription: FoundationDiagramDescription? = nil
+    var visualClassification: MathVisualClassification? = nil
 }
 
 struct FinalDiagram: Codable, Identifiable, Sendable {
@@ -293,11 +294,20 @@ enum DiagramSpokenService {
     }
 
     static func render(_ result: DiagramRegionResult, formulas: [String:FinalFormula]) -> FinalDiagram {
+        if result.status == "skipped_others" {
+            return FinalDiagram(id:result.id,layoutRegionID:result.layoutRegionID,visualType:"others",status:result.status,
+                spokenText:nil,spokenPreview:nil,unresolvedFormulaIDs:[],uncertainties:[],artifacts:result.artifacts,contentQualityStatus:.notAssessed)
+        }
         if let description = result.foundationDescription {
+            if description.inputMode == "image_only" {
+                return FinalDiagram(id:result.id,layoutRegionID:result.layoutRegionID,visualType:description.visualType,
+                    status:description.uncertainties.isEmpty ? "generated" : "partial",spokenText:description.spoken,spokenPreview:nil,
+                    unresolvedFormulaIDs:[],uncertainties:description.uncertainties,artifacts:result.artifacts,contentQualityStatus:.notAssessed)
+            }
             let complete = description.uncertainties.isEmpty && description.rejectedFacts.isEmpty
             return FinalDiagram(id:result.id,layoutRegionID:result.layoutRegionID,visualType:description.visualType,
                 status:complete ? "generated" : "needs_review",spokenText:complete ? description.spoken : nil,
-                spokenPreview:complete ? nil : description.spoken,unresolvedFormulaIDs:description.unresolvedFormulaIDs,
+                spokenPreview:complete ? nil : "Deskripsi gambar belum dapat dipastikan.",unresolvedFormulaIDs:description.unresolvedFormulaIDs,
                 uncertainties:description.uncertainties,artifacts:result.artifacts,contentQualityStatus:.notAssessed)
         }
         if result.relationPlan != nil, result.relationValidation != nil, result.input != nil { return DiagramRelationService.render(result,formulas:formulas) }

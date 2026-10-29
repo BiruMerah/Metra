@@ -14,6 +14,7 @@ struct FinalExtractionDocument: Codable, Sendable {
     let completedAt: String?
     let artifacts: [String: String]
     let pages: [FinalPage]
+    var formulaFallbacks: [String:FormulaFallbackDescription]? = nil
 }
 
 struct FinalPage: Codable, Identifiable, Sendable {
@@ -172,6 +173,12 @@ enum FinalExtractionBuilder {
                             artifacts["normalized_mathml"] = "pages/\(page.id)/formulas/\(formula.id)/mathml.unit-normalized.xml"
                         }
                         if let path = stage.rawArtifact, stage.component == "mfd_crop_provenance" { artifacts["crop_merge"] = path }
+                        if let path = stage.rawArtifact, stage.component == "formula_connector_source_check" { artifacts["connector_source_check"] = path }
+                        if let path = stage.rawArtifact, stage.component == "formula_recognition_acceptance" { artifacts["recognition_acceptance"] = path }
+                        if let path = stage.rawArtifact, stage.component == "mathcat_scalar_speech" {
+                            artifacts["scalar_mathcat"] = path
+                            artifacts["scalar_mathml"] = "pages/\(page.id)/formulas/\(formula.id)/mathml.scalar-speech.xml"
+                        }
                     }
                     var reasons = inputs.compactMap(\.mergeNote)
                     if let reason = formula.sourceConsistencyMessage, formula.spokenMergeAllowed == false { reasons.append(reason) }

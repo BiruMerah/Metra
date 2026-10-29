@@ -14,6 +14,7 @@ struct MathChunkModel: Codable, Identifiable, Hashable, Sendable {
     let imagePath: String?
     let unresolvedFormulaIDs: [String]
     let uncertainties: [String]
+    var formulaFallbackIDs: [String]? = nil
 
     var needsReview: Bool { !["ready", "generated"].contains(status) }
     var readingText: String { spokenText ?? spokenPreview ?? sourceText }

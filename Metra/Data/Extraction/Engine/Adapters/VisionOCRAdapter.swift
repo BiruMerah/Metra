@@ -93,11 +93,11 @@ extension VisionOCRAdapter {
     static func refineVisuals(_ page: VisionOCRResult, regions: [LayoutRegion], pageID: String, pageRoot: URL) async throws -> (VisionOCRResult,Int) {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
         try encoder.encode(page).write(to:pageRoot.appendingPathComponent("ocr.page.raw.json"),options:.atomic)
-        guard regions.contains(where: { DiagramSpokenService.visualLabels.contains($0.label) }) else { return (page,0) }
+        guard regions.contains(where: { DiagramSpokenService.visualLabels.contains($0.label) && $0.visualClassification?.predictedClass != .others }) else { return (page,0) }
         var selected = page.observations
         var selections: [[String:Any]] = []
         var requests = 0
-        for region in regions.filter({ DiagramSpokenService.visualLabels.contains($0.label) }).sorted(by:LayoutMerge.precedes) {
+        for region in regions.filter({ DiagramSpokenService.visualLabels.contains($0.label) && $0.visualClassification?.predictedClass != .others }).sorted(by:LayoutMerge.precedes) {
             try Task.checkCancellation()
             guard let cropArtifact = region.cropArtifact else { continue }
             let crop = pageRoot.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent(cropArtifact)
@@ -243,7 +243,7 @@ extension VisionOCRAdapter {
         var contextual:[String:[OCRObservation]]=[:]
         // Keep the surrounding chart as another OCR observation source. Tiny
         // isolated labels sometimes disappear entirely from Vision requests.
-        for region in regions where DiagramSpokenService.visualLabels.contains(region.label) {
+        for region in regions where DiagramSpokenService.visualLabels.contains(region.label) && region.visualClassification?.predictedClass != .others {
             guard input.observations.contains(where:{ VisualNumericLiteral.looksNumeric($0.selectedText) && DiagramSpokenService.owner(of:$0.bboxPageXYXY,regions:regions)?.id == region.id }),
                   let path=region.cropArtifact,
                   let cgSource=CGImageSourceCreateWithURL(pageRoot.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent(path) as CFURL,nil),

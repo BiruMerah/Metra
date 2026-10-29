@@ -4,14 +4,15 @@
   "target": "physical_iphone_ios",
   "inference_location": "on_device_only",
   "unicode_math_source_policy": {
-    "version": "ocr_unicode_math_proposal_v2",
-    "validation": "unicode_math_whole_source_check_v3",
+    "version": "ocr_unicode_math_proposal_v3",
+    "validation": "unicode_math_whole_source_check_v4",
     "source": "Original Vision candidates with explicit PaddleOCR Unicode selections where validated; UTF-16 character geometry remains Vision",
     "symbols": "∠ ° ⁰¹²³⁴⁵⁶⁷⁸⁹ ≤ ≥ ≠ × ÷ ±",
     "route": "complete notation crop -> pinned UniMERNet -> local MathJax -> MathCAT Indonesian -> whole-source and structured-power checks",
     "recovery_limits": "No Vision-string-only L/Z-to-angle or x2-to-power inference; supplemental Paddle selections require explicit recognized Unicode, threshold and complete-line alignment. Missing symbols, unsupported forms and conflicts retained for review",
     "paddleocr_added": true,
-    "status": "implementation_under_verification"
+    "status": "implementation_under_verification",
+    "shared_punctuation": "Actual OCR comma/semicolon/period only when final glyph and adjacent punctuation share an identical Vision box; complete recognized token agreement required"
   },
   "components": [
     {
@@ -773,7 +774,7 @@
         "BlockSeparators": ". NBSP NNBSP"
       },
       "runtime": "Rust staticlib aarch64-apple-ios via C ABI; one fixed OS thread; no await inside transaction",
-      "status": "clearspeak_native_and_ios_sdk_build_verified_device_validation_pending",
+      "status": "device_executed_multipage_partial_source_review_required",
       "profile_verification_report": "Integration/clearspeak-results.json",
       "version": "0.7.5",
       "rules_sha256_tree": "8bc06e1444089f35be99c94e63c6e4527d987809ae305220a68c5c07fce971a2",
@@ -783,6 +784,14 @@
         "run_id": "effdc3ef-c506-4016-a625-e966c8b70927",
         "build": "10 Debug",
         "report": "verification/formula-device-pilot-build10/report.json"
+      },
+      "device_evidence": {
+        "run_id": "d62d043c-9e3a-42d7-840a-1876ddc9cebc",
+        "attempt_id": "1d5b99dd-f121-437a-9693-b2d934cccafa",
+        "build": "28 Debug",
+        "hardware_model_identifier": "iPhone17,2",
+        "report": "Integration/multipage-clearspeak-results.json",
+        "scope": "53 native MathCAT artifacts confirm id/ClearSpeak/Medium in a completed four-page run; content partial. Separate five-page run stopped during UniMERNet before batch export."
       }
     },
     {
@@ -821,7 +830,7 @@
     },
     {
       "name": "apple_foundation_models_diagram",
-      "role": "image_evidence_description_with_source_references",
+      "role": "direct_original_image_description_with_class_guideline",
       "model": "SystemLanguageModel.default",
       "revision": "OS-managed; no exposed checkpoint hash",
       "runtime": "FoundationModels.framework",
@@ -829,19 +838,70 @@
       "cloud_fallback": false,
       "configuration": {
         "vision_capability_required": true,
+        "sampling": "greedy",
+        "max_response_tokens": 1536,
+        "request_deadline_seconds": 60,
+        "policy": "foundation_diagram_image_only_v8",
+        "schema": "FoundationImageDescription",
+        "input_mode": "image_only",
+        "ocr_input": false,
+        "mathcat_input": false,
+        "class_guidelines": "NCAM/DIAGRAM Center graph, math diagrams, geometry",
+        "output": "Indonesian overview and visible image parts: position, labels, values, visual appearance; rendered as navigable bullet lines",
+        "quality": "Model description candidate, not independently verified against source"
+      },
+      "status": "image_only_structured_parts_device_executed_build39; source_visual_accuracy_not_established",
+      "previous_evidence_configuration": {
+        "vision_capability_required": true,
         "supported_locale_id_ID_is_not_gate": true,
         "sampling": "greedy",
         "max_response_tokens": 1536,
         "request_deadline_seconds": 60,
-        "policy": "foundation_diagram_evidence_v3",
+        "policy": "foundation_diagram_class_guidelines_v4",
         "angle_validation": "three source point names; vertex and value corroborated by adjacent source angle annotation; MathCAT owns value speech",
         "quality": "image topology remains a model candidate; no unmarked center assumptions",
-        "request_encoding": "foundation_request_sorted_keys_v1"
+        "request_encoding": "foundation_request_sorted_keys_v1",
+        "class_guidelines": "NCAM/DIAGRAM Center graph, math diagrams, geometry; source-linked typed details and bullet rendering"
       },
-      "status": "runtime availability and quality recorded per run; native generation observed in prior device pilots"
+      "device_evidence_image_only": {
+        "build": "39 Debug",
+        "policy": "foundation_diagram_image_only_v8",
+        "attempt_id": "1a45f786-ce61-4214-995d-0c0cd9803e8d",
+        "run_id": "350fc27d-a9d1-4115-9f2e-cccf05b53375",
+        "report": "Integration/image-only-diagram-results.json",
+        "routing_checks": "30/30",
+        "artifact_checks": "19/19",
+        "content_quality": "Printed values and labels improved; visual relation, axis and position errors remain"
+      }
+    },
+    {
+      "name": "math_visual_representation_classifier",
+      "role": "route DocLayout visual crops before description generation",
+      "model": "MathVisualRepresentationClassifier.mlmodel",
+      "sha256": "f5a6837fc1649b99172f621b9873f15de139f83e17c6a4ef74b811756adbb062",
+      "runtime": "Core ML through Vision on iPhone",
+      "classes": [
+        "graph",
+        "diagrams",
+        "geometry",
+        "others"
+      ],
+      "input": "RGB 360x360",
+      "preprocessing": "Vision scaleFit, full visual crop",
+      "routing": "argmax on original-image context crop; others skips description; no OCR/UniMERNet route inside visuals; failure withholds description; raw probabilities retained",
+      "status": "device_executed_four_page_pilot; classification_accuracy_not_established",
+      "device_evidence": {
+        "build": "32 Debug",
+        "attempt_id": "7a0f7d84-31f0-4cda-9466-4ab0385a0962",
+        "run_id": "8b906a2c-3bf3-4903-be25-5f2a295b37e8",
+        "crop_count": 5,
+        "others_skip_verified": true,
+        "limitation": "The source pie chart was classified geometry; scores do not establish accuracy.",
+        "report": "Integration/visual-classifier-formula-results.json"
+      }
     }
   ],
-  "updated_at": "2026-10-26T09:08:07.986771+00:00",
+  "updated_at": "2026-10-28T14:12:25.666350+00:00",
   "post_execution_update": {
     "scope": "evidence metadata only after build24 pilot; no code/prompt/runtime changed",
     "installed_binary_and_run_snapshot": "build24/source-build24 and model-manifest.snapshot.json retain pre-execution status and prior build23 evidence",
@@ -902,10 +962,57 @@
     "runtime": "ONNX Runtime iOS 1.24.2 CPU, 2 threads, batch1",
     "role": "Supplemental text-line recognition on math-hinted existing Vision ROIs; no Paddle text detector",
     "selection_policy": "paddle_unicode_symbol_selection_v3",
-    "symbol_probability_threshold": 0.70,
+    "symbol_probability_threshold": 0.7,
     "selection_limit": "Only aligned explicit ∠ ° ² ³ from raw Paddle predictions; preserve Vision prose/digits/spacing/boxes and raw candidates; source image quality unassessed",
     "page_line_budget": 80,
     "on_device_only": true,
     "status": "implementation_under_device_verification"
+  },
+  "visual_formula_verification": {
+    "successful_path_build": "32 Debug",
+    "final_error_guard_build": "33 Debug",
+    "report": "Integration/visual-classifier-formula-results.json",
+    "source_metadata_updated_after_build": true,
+    "as_built_snapshots_retained_in_run_artifacts": true
+  },
+  "image_only_visual_routing": {
+    "policy": "visual_image_only_routing_v1",
+    "crop": "bounded original-image context margin, clamped before neighboring prose",
+    "text_ocr": "visual regions masked; no crop/numeric visual OCR requests",
+    "formula_recognition": "visual-owned proposals retained in raw detector artifacts but excluded from independent recognition",
+    "document_container_exception": "An ambiguous full-page image label can use page OCR solely to recover a dense prose container; this evidence is never passed to Foundation",
+    "status": "device_executed_five_pages_build39; 30_routing_checks_and_19_artifact_checks_passed",
+    "report": "Integration/image-only-diagram-results.json",
+    "source_metadata_updated_after_build": true,
+    "as_built_snapshots_retained_in_run_artifacts": true
+  },
+  "formula_regression_verification": {
+    "build": "41 Debug",
+    "report": "Integration/formula-regression-results.json",
+    "policies": [
+      "literal_identifier_agreement_v2",
+      "inline_glyph_context_recovery_v1",
+      "ocr_unicode_math_proposal_v3",
+      "unicode_math_whole_source_check_v4"
+    ],
+    "attempt_id": "834d0113-3baf-44cd-ae9e-fb0305ea314b",
+    "run_id": "f36d2543-20c5-42d8-8a0a-e5e52dc82d00",
+    "baseline_accepted_preserved": "38/38",
+    "accepted_candidates": "47/74",
+    "still_held": 27,
+    "device_regression_checks": "86/86",
+    "host_checks": "64/64",
+    "source_metadata_updated_after_build": true,
+    "as_built_snapshots_retained": true,
+    "scope": "Five original pages; actual persisted reader projection; no human listening or general accuracy claim"
+  },
+  "text_ocr_production": {
+    "policy": "vision_page_ocr_with_paddle_unicode_supplement_v1",
+    "primary": "Apple Vision accurate text recognition with language correction disabled",
+    "supplement": "PaddlePaddle/PP-OCRv5_mobile_rec_onnx on selected Vision text-line crops",
+    "supplement_scope": "Explicit Unicode math symbols only when all other non-whitespace characters align",
+    "ocr_math_proposals": "explicit_ocr_formula_candidates_v2; explicit operator expressions, numeric tuples, complete Unicode notation and bounded measured powers; isolated letters and implicit coefficient-letter fragments remain text",
+    "recognition_acceptance": "image_detector_recognition_authority_v1; OCR content checks advisory for detector-backed crops; OCR-only candidates retain strict checks; separate complete-range placement and duplicate validation",
+    "validation": "Build50 formula policy audit; per-run results and fidelity limitations recorded separately"
   }
 }

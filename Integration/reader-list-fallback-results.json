@@ -1,0 +1,42 @@
+{
+  "schema": "metra-reader-list-fallback-v1",
+  "date": "2026-10-28",
+  "build": 29,
+  "source_run_id": "d62d043c-9e3a-42d7-840a-1876ddc9cebc",
+  "source_ready_sha256": "72dd5ad830d1f49ef86afcc6efb143f3a4f1205ae7f2e903a6e77051589ec85e",
+  "source_ready_unchanged": true,
+  "checks": {
+    "area_raw_source_is_preserved": true,
+    "canonical_order_and_coverage_preserved": true,
+    "damaged_area_formula_uses_neutral_fallback": true,
+    "eleven_confirmed_source_list_starts_joined": true,
+    "fallback_keeps_inline_number": true,
+    "inline_prose_not_replaced": true,
+    "nested_literal_brackets_preserved": true,
+    "nonadjacent_source_order_not_joined": true,
+    "number_and_prose_have_one_accessibility_label": true,
+    "other_page_not_joined": true,
+    "other_source_block_not_joined": true,
+    "question_voiceover_role_preserved": true,
+    "six_fraction_enumerators_join_their_body": true,
+    "validated_formula_unchanged": true
+  },
+  "canonical_chunk_count": 84,
+  "projected_row_count_before_topic_filter": 73,
+  "joined_pairs": 11,
+  "fraction_list_display": [
+    "1. Pecahan biasa yang mana a, b e bilangan bulat.",
+    "2. Pecahan campuran a yang mana a, b, c € bilangan bulat.",
+    "3. Pecahan campuran berasal dari pecahan biasa, yang mana nilai pembilang lebih besar daripada penyebutnya.",
+    "4. Pecahan desimal (0,25; 0,375; 0,4; dsb).",
+    "5. Persen (%) yaitu pecahan per seratus (25%, 10%, 90%, dsb).",
+    "6. Permil (%%) yaitu pecahan per seribu (25%o, 40%o, 15%o, dsb)."
+  ],
+  "area_formula_fallback": "Rumus belum dapat dibaca.",
+  "ios_sdk_build": "succeeded; signed Debug; generic iOS destination",
+  "device_installation": "not attempted; iPhone 16 Pro Max was unavailable",
+  "device_ui_or_voiceover_tested": false,
+  "inference_rerun": false,
+  "raw_formula_explanation": "Source PDF203/printed196: L=1/2 × a × t or L=1/2 × AB × t; the displayed L-_xaxt was an unvalidated OCR fallback, not accepted MathCAT speech.",
+  "local_evidence": "verification/reader-list-fallback-v1/d951843c-4978-4919-969b-165a0bcfc944"
+}

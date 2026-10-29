@@ -132,11 +132,54 @@ final class FormulaPipeline {
                     let log:[String:String]=["operation":"tex_numeric_whitespace_compaction_v1","input":recognized.latexRaw,"output":compacted]
                     try JSONSerialization.data(withJSONObject:log,options:[.prettyPrinted,.sortedKeys]).write(to:directory.appendingPathComponent("latex-transport-derivation.json"),options:.atomic)
                 }
-                let parsed = try await mathJax!.convert(latex:compacted,formulaID:formulaID)
+                var parsed = try await mathJax!.convert(latex:compacted,formulaID:formulaID)
                 formulas[index].mathML = parsed.mathML
                 try parsed.mathML.write(to:directory.appendingPathComponent("mathml.xml"),atomically:true,encoding:.utf8)
-                stages.append(ComponentResult(component:"mathjax",status:parsed.hasMathErrorNode ? "failed" : "succeeded",errorCode:parsed.hasMathErrorNode ? "mathml_merror" : nil,message:parsed.parseError,rawArtifact:"\(artifactPrefix)/mathml.xml",metrics:["parse_ms":parsed.parseMilliseconds]))
+                try parsed.mathML.write(to:directory.appendingPathComponent("mathml.initial.xml"),atomically:true,encoding:.utf8)
+                stages.append(ComponentResult(component:"mathjax",status:parsed.hasMathErrorNode ? "failed" : "succeeded",errorCode:parsed.hasMathErrorNode ? "mathml_merror" : nil,message:parsed.parseError,rawArtifact:"\(artifactPrefix)/mathml.initial.xml",metrics:["parse_ms":parsed.parseMilliseconds]))
                 guard !parsed.hasMathErrorNode else { throw MathJaxBridgeError.parseFailed(parsed.parseError ?? "merror") }
+                let sourceRegion = regions.first { $0.id == formulas[index].layoutRegionID }
+                if let region = sourceRegion,let proposal = region.proposalText,proposal.count == 1,
+                   !FormulaIdentifierCheck.check(mathML:parsed.mathML,expected:proposal).allowed {
+                    let retryDirectory = directory.appendingPathComponent("glyph-context-retry")
+                    let retryPrefix = "\(artifactPrefix)/glyph-context-retry"
+                    do {
+                        try FileManager.default.createDirectory(at:retryDirectory,withIntermediateDirectories:true)
+                        let retryImage = retryDirectory.appendingPathComponent("crop.png")
+                        if let box = try OCRMathROIProposer.contextGlyphCrop(region:region,
+                            imageURL:pageRoot.appendingPathComponent("normalized.png"),outputURL:retryImage) {
+                            let retry = try await runtime.recognize(cropURL:retryImage,formulaID:formulaID,artifacts:retryDirectory)
+                            let retryParsed = try await mathJax!.convert(latex:Self.compactNumericWhitespace(retry.latexRaw),formulaID:formulaID)
+                            try retryParsed.mathML.write(to:retryDirectory.appendingPathComponent("mathml.xml"),atomically:true,encoding:.utf8)
+                            let check = FormulaIdentifierCheck.check(mathML:retryParsed.mathML,expected:proposal)
+                            let selected = retry.eosReached && !retryParsed.hasMathErrorNode && check.allowed
+                            try DiagramArtifactStore().writeJSON(["policy":"inline_glyph_context_recovery_v1",
+                                "source_box":region.rawVisionBBox?.array ?? [],"original_crop_box":region.bboxPageXYXY.array,
+                                "retry_crop_box":box.array,"selected":selected,"source_identifier":proposal,
+                                "check":check.message,"raw_initial_attempt_preserved":true] as [String:Any],
+                                to:retryDirectory.appendingPathComponent("selection.json"))
+                            stages.append(ComponentResult(component:"unimernet_glyph_context_recovery",status:selected ? "succeeded" : "needs_review",
+                                errorCode:selected ? nil : "retry_identifier_disagrees",message:check.message,
+                                rawArtifact:"\(retryPrefix)/selection.json",metrics:retry.metrics.mapValues { Optional($0) }))
+                            if selected {
+                                parsed = retryParsed
+                                formulas[index].latex = retry.latexRaw
+                                formulas[index].latexForMathJax = Self.compactNumericWhitespace(retry.latexRaw)
+                                formulas[index].recognitionArtifact = "\(retryPrefix)/unimernet.raw.json"
+                                formulas[index].recognitionCropArtifact = "\(retryPrefix)/crop.png"
+                                formulas[index].recognitionBBoxPageXYXY = box
+                                formulas[index].derivations = (formulas[index].derivations ?? []) + ["inline_glyph_context_recovery_v1: one expanded original-image retry for a failed isolated letter; selected only after exact case-sensitive identifier and structure agreement; raw first attempt retained"]
+                                try parsed.mathML.write(to:directory.appendingPathComponent("mathml.xml"),atomically:true,encoding:.utf8)
+                            }
+                        }
+                    } catch {
+                        if Task.isCancelled { throw error }
+                        try? DiagramArtifactStore().writeJSON(["error":String(reflecting:error),"selected":false] as [String:Any],to:retryDirectory.appendingPathComponent("error.json"))
+                        stages.append(ComponentResult(component:"unimernet_glyph_context_recovery",status:"failed",errorCode:"retry_failed",
+                            message:error.localizedDescription,rawArtifact:"\(retryPrefix)/error.json",metrics:[:]))
+                    }
+                }
+                formulas[index].mathML = parsed.mathML
                 currentStage = "mathcat"
                 let rawSpoken = try await MathCATAdapter.shared.speak(mathML:parsed.mathML)
                 var spoken = rawSpoken
@@ -148,11 +191,20 @@ final class FormulaPipeline {
                 formulas[index].mathCATProfile = spoken.profile
                 formulas[index].status = "spoken_generated"
                 formulas[index].errorCode = nil
-                let sourceRegion = regions.first { $0.id == formulas[index].layoutRegionID }
                 let target = formulas[index].recognitionBBoxPageXYXY ?? formulas[index].bboxPageXYXY
                 let containedOCR = observations.filter { target.intersection($0.bboxPageXYXY)/max(1,$0.bboxPageXYXY.area) >= 0.8 }
                     .sorted { $0.rawOrder < $1.rawOrder }.map(\.selectedText).joined(separator:"\n")
                 let structureSource = sourceRegion?.proposalText ?? containedOCR
+                if sourceRegion?.detectionSource == CompoundFormulaSplitter.version {
+                    let check = CompoundFormulaSplitter.check(source:structureSource,mathML:parsed.mathML)
+                    formulas[index].spokenMergeAllowed = check.allowed
+                    formulas[index].sourceConsistencyStatus = check.allowed ? "source_connector_anchors_agree" : "needs_review"
+                    formulas[index].sourceConsistencyMessage = check.limitation
+                    try rawEncoder.encode(check).write(to:directory.appendingPathComponent("connector-source-check.json"),options:.atomic)
+                    stages.append(ComponentResult(component:"formula_connector_source_check",status:check.allowed ? "succeeded" : "needs_review",
+                        errorCode:check.allowed ? nil : "connector_formula_anchor_mismatch",message:check.limitation,
+                        rawArtifact:"\(artifactPrefix)/connector-source-check.json",metrics:[:]))
+                }
                 if sourceRegion?.detectionSource == "vision_degree_expression_proposal_v1" {
                     let recognizedTokens = MathMLSourceTree.read(parsed.mathML).map { MathMLSourceTree.compact($0.tokens) }
                     let expectedTokens = MathMLSourceTree.compact(structureSource)
@@ -236,6 +288,10 @@ final class FormulaPipeline {
                 }
                 if formulas[index].spokenMergeAllowed != false, let proposal=regions.first(where:{$0.id==formulas[index].layoutRegionID})?.proposalText,proposal.count==1,proposal.rangeOfCharacter(from:.letters) != nil {
                     let check=FormulaIdentifierCheck.check(mathML:parsed.mathML,expected:proposal)
+                    try rawEncoder.encode(check).write(to:directory.appendingPathComponent("identifier-consistency.json"),options:.atomic)
+                    stages.append(ComponentResult(component:"formula_identifier_consistency",status:check.allowed ? "succeeded" : "needs_review",
+                        errorCode:check.allowed ? nil : "identifier_source_mismatch",message:check.message,
+                        rawArtifact:"\(artifactPrefix)/identifier-consistency.json",metrics:[:]))
                     formulas[index].sourceConsistencyStatus=check.allowed ? "consistent_with_ocr_proposal" : "needs_review"
                     formulas[index].sourceConsistencyMessage=check.message
                     formulas[index].spokenMergeAllowed=check.allowed && formulas[index].spokenMergeAllowed != false
@@ -246,6 +302,46 @@ final class FormulaPipeline {
                     formulas[index].sourceConsistencyStatus = check.allowed ? "consistent_with_ocr_numeric_proposal" : "needs_review"
                     formulas[index].sourceConsistencyMessage = check.message
                     formulas[index].spokenMergeAllowed = check.allowed && formulas[index].spokenMergeAllowed != false
+                }
+                if let detector = FormulaEvidencePolicy.imageSource(sourceRegion) {
+                    let structure = FormulaEvidencePolicy.structure(parsed.mathML)
+                    let tokens = MathMLSourceTree.read(parsed.mathML)?.tokens.lowercased() ?? ""
+                    let splitIsComplete = sourceRegion?.detectionSource != CompoundFormulaSplitter.version ||
+                        (!tokens.contains("atau") && tokens.filter { $0 == "=" }.count == 1)
+                    let allowed = structure.allowed && splitIsComplete
+                    let disagreements = stages.filter {
+                        ["formula_connector_source_check", "formula_unit_consistency", "formula_exponent_consistency",
+                         "unicode_source_consistency", "formula_identifier_consistency"].contains($0.component) && $0.status != "succeeded"
+                    }.map(\.component)
+                    try DiagramArtifactStore().writeJSON(["version":FormulaEvidencePolicy.version,
+                        "detector":detector,"allowed":allowed,"structure":structure.reason,
+                        "split_part_complete":splitIsComplete,"ocr_disagreements":disagreements,
+                        "policy":"Image recognition owns formula content; OCR disagreements remain advisory. Source placement and duplicate/crop ownership are validated separately."] as [String:Any],
+                        to:directory.appendingPathComponent("recognition-acceptance.json"))
+                    formulas[index].spokenMergeAllowed = allowed
+                    formulas[index].sourceConsistencyStatus = allowed ? "image_recognized_ocr_unassessed" : "needs_review"
+                    formulas[index].sourceConsistencyMessage = allowed ?
+                        "Image-detector crop recognized by UniMERNet/MathJax/MathCAT; OCR content is advisory, source fidelity unassessed" : structure.reason
+                    stages.append(ComponentResult(component:"formula_recognition_acceptance",status:allowed ? "succeeded" : "needs_review",
+                        errorCode:allowed ? nil : "image_recognition_structure_ambiguous",message:formulas[index].sourceConsistencyMessage,
+                        rawArtifact:"\(artifactPrefix)/recognition-acceptance.json",metrics:[:]))
+                }
+                if formulas[index].spokenMergeAllowed != false,sourceRegion?.detectionSource == CompoundFormulaSplitter.version,
+                   let scalar = CompoundFormulaSplitter.scalarSpeech(mathML:parsed.mathML,target:target,observations:observations) {
+                    // A failed second conversion must not expose the raw vector
+                    // interpretation as the scalar formula's accepted speech.
+                    formulas[index].spokenMergeAllowed = false
+                    try rawEncoder.encode(scalar).write(to:directory.appendingPathComponent("scalar-speech-normalization.json"),options:.atomic)
+                    try scalar.mathML.write(to:directory.appendingPathComponent("mathml.scalar-speech.xml"),atomically:true,encoding:.utf8)
+                    spoken = try await MathCATAdapter.shared.speak(mathML:scalar.mathML)
+                    try rawEncoder.encode(spoken).write(to:directory.appendingPathComponent("mathcat.scalar-speech.json"),options:.atomic)
+                    formulas[index].spokenText = spoken.spokenText
+                    formulas[index].canonicalMathML = spoken.canonicalMathML
+                    formulas[index].mathCATProfile = spoken.profile
+                    formulas[index].derivations = (formulas[index].derivations ?? []) + [scalar.derivation]
+                    stages.append(ComponentResult(component:"mathcat_scalar_speech",status:"succeeded",errorCode:nil,message:scalar.derivation,
+                        rawArtifact:"\(artifactPrefix)/mathcat.scalar-speech.json",metrics:["inference_ms":spoken.milliseconds]))
+                    formulas[index].spokenMergeAllowed = true
                 }
                 let encoder=JSONEncoder();encoder.outputFormatting=[.prettyPrinted,.sortedKeys]
             } catch {
@@ -351,33 +447,6 @@ private final class FormulaExponentCheck: NSObject, XMLParserDelegate {
         }
     }
 }
-
-// Cross-check the recognizer against the literal one-letter Vision proposal.
-// This only flags contradictions; it never changes LaTeX, MathML or MathCAT text.
-private final class FormulaIdentifierCheck: NSObject, XMLParserDelegate {
-    var identifiers:[String]=[]
-    var token:String?
-    var buffer=""
-    var extraStructure=false
-    var specialVariant=false
-    static func check(mathML:String,expected:String) -> (allowed:Bool,message:String) {
-        let check=FormulaIdentifierCheck()
-        let parser=XMLParser(data:Data(mathML.utf8));parser.delegate=check
-        let valid=parser.parse()
-        let allowed=valid && check.identifiers==[expected] && !check.extraStructure && !check.specialVariant
-        return (allowed,allowed ? "MathML is one identifier matching the Vision proposal; source fidelity still requires visual review" : "Vision proposed \(expected); UniMERNet MathML has identifiers \(check.identifiers), extra structure=\(check.extraStructure), special variant=\(check.specialVariant). Raw speech retained but withheld from merged segments; no automatic correction")
-    }
-    func parser(_ parser:XMLParser,didStartElement name:String,namespaceURI:String?,qualifiedName:String?,attributes:[String:String]) {
-        if ["mn","mo","mfrac","msqrt","mroot","msub","msup","msubsup","munder","mover","munderover","mtable","mtext"].contains(name) {extraStructure=true}
-        if let variant=attributes["mathvariant"],!["normal","italic"].contains(variant) {specialVariant=true}
-        if name=="mi" {token=name;buffer=""}
-    }
-    func parser(_ parser:XMLParser,foundCharacters text:String) {if token != nil {buffer+=text}}
-    func parser(_ parser:XMLParser,didEndElement name:String,namespaceURI:String?,qualifiedName:String?) {
-        if name=="mi",token != nil {identifiers.append(buffer);token=nil}
-    }
-}
-
 
 // Mechanical disagreement check, never a numeric correction or speech engine.
 private final class FormulaNumericCheck: NSObject, XMLParserDelegate {

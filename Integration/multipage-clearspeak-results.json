@@ -1,0 +1,366 @@
+{
+  "schema": "metra-multipage-clearspeak-results-v1",
+  "date": "2026-10-28",
+  "device": {
+    "marketing_name": "iPhone 16 Pro Max",
+    "hardware_model_identifier": "iPhone17,2",
+    "system_version": "27.0.1"
+  },
+  "build": {
+    "app_version": "1.0",
+    "build_number": "28",
+    "bundle_id": "id.birumerah.Metra",
+    "configuration": "Debug",
+    "debugger_attached": null
+  },
+  "baseline_commit": "f3aab84",
+  "production_pipeline_modified_for_experiment": false,
+  "instrumentation": "Debug-only MultiPageDeviceProbe invokes the existing OnDeviceExtractionService once with four or five pages; app build incremented to 28.",
+  "source_kind": "Original 300-dpi full-page PNG renders from one SMP book; not camera photos or a representative accuracy test.",
+  "all_inference_on_device": true,
+  "attempts": [
+    {
+      "attempt_id": "99aad38a-97d4-4209-bd71-f53734085d24",
+      "run_id": "20abe8a3-2489-401f-8f83-6a4d166d552a",
+      "pdf_pages": [
+        12,
+        60,
+        116,
+        203,
+        346
+      ],
+      "outcome": "app_process_disappeared_before_batch_export",
+      "page_results_saved": 1,
+      "ready_export_exists": false,
+      "failure_location": "First UniMERNet crop on second input, PDF60 (printed53), a 981×2103 pixel tall combined formula region.",
+      "sampled_peak_app_bytes": 3387659032,
+      "sampled_peak_app_gib": 3.1550033316016197,
+      "last_memory_sample_at": "2026-10-28T05:04:25Z",
+      "cause": "Unconfirmed; memory pressure suspected. No contemporaneous crash/Jetsam log retrieved.",
+      "local_artifacts": "verification/multipage-clearspeak-v1/99aad38a-97d4-4209-bd71-f53734085d24"
+    },
+    {
+      "attempt_id": "1d5b99dd-f121-437a-9693-b2d934cccafa",
+      "run_id": "d62d043c-9e3a-42d7-840a-1876ddc9cebc",
+      "pdf_pages": [
+        12,
+        116,
+        203,
+        346
+      ],
+      "outcome": "runtime_completed_partial_content",
+      "wall_ms_including_import_export_and_save": 65711.79012500215,
+      "pipeline_batch_ms": 65312.4429583404,
+      "saved_material_id": "D62D043C-9E3A-42D7-840A-1876DDC9CEBC",
+      "saved_material_title": "Uji 4 halaman SMP — ClearSpeak",
+      "chunk_count": 84,
+      "chunk_status_counts": {
+        "ready": 54,
+        "needs_review": 30
+      },
+      "formula_counts": {
+        "count_scope": "Active DocLayout, Vision and MFD crop proposals after conservative merge; raw MFD and retired Vision proposals remain in separate artifacts. Counts are not unique correct source formulas.",
+        "detected": 55,
+        "detected_in_successful_pages": 55,
+        "literal_numeric_parsed": 16,
+        "mfd_active_crop_proposals": 5,
+        "missed_on_reviewed_pages": null,
+        "pp_doclayout_formula_regions": 10,
+        "recognized": 55,
+        "recognized_count_scope": "successful UniMERNet or literal Vision numeric parsing, not source correctness",
+        "source_consistency_flags": 26,
+        "spoken": 53,
+        "spoken_merge_allowed": 27,
+        "unimernet_recognized": 39,
+        "unresolved": 2,
+        "vision_math_roi_proposals": 36
+      },
+      "mathcat_artifact_count": 53,
+      "effective_mathcat_styles": {
+        "ClearSpeak": 53
+      },
+      "all_mathcat_id_clearspeak_medium": true,
+      "diagram_status_counts": {
+        "needs_review": 5
+      },
+      "sampled_peak_app_bytes": 2445365368,
+      "sampled_peak_app_gib": 2.277423970401287,
+      "thermal_sample_counts": {
+        "nominal": 313
+      },
+      "spans_ms": {
+        "end_to_end_batch": 65312.4429583404,
+        "export_packaging": null,
+        "final_document_assembly": 7.924999998067506,
+        "final_document_write": 2.568541676737368,
+        "foundation_schema_prepare": null,
+        "inference": {
+          "apple_vision_request_wall_ms": 2322.614208329469,
+          "formula_detector_ms": null,
+          "foundation_diagram_request_ms": 33747.944333343185,
+          "layout_ms": 1423.36083331611,
+          "unimernet_ms": 14028.507124938187
+        },
+        "input_ingest": 6.083833344746381,
+        "math_parsing": 338.22791662532836,
+        "mathcat": 144.1802916524466,
+        "merge": 132.5044999975944,
+        "model_load": {
+          "foundation_ms": null,
+          "layout_ms": 1264.707875016029,
+          "unimernet_ms": 4181.022875010967
+        },
+        "normalization": 174.4592083414318,
+        "postprocess": {
+          "layout_artifact_write_ms": 282.4816666543484,
+          "layout_ms": 6.6218749998370185
+        },
+        "preprocess": {
+          "foundation_ms": null,
+          "layout_ms": 971.4248750096885
+        },
+        "queue_wait": 0.05920835246797651
+      },
+      "pages": [
+        {
+          "page_id": "p0001",
+          "pdf_page": 12,
+          "printed_page": 5,
+          "topic": "Jenis pecahan dan aturan operasi",
+          "input_sha256_matches": true,
+          "page_result_saved": true,
+          "runtime_status": "partial",
+          "formula_counts": {
+            "detected": 16,
+            "recognized": 16,
+            "spoken": 14,
+            "unresolved": 2
+          },
+          "merge_candidate_spoken": 6,
+          "stage_statuses": {
+            "layout": "succeeded",
+            "math_formula_detector": "succeeded",
+            "document_container_routing": "succeeded",
+            "visual_crop_vision_ocr": "succeeded",
+            "visual_numeric_vision_ocr": "succeeded",
+            "apple_vision_ocr": "succeeded",
+            "paddleocr_text_recognition": "skipped_no_input",
+            "ocr_math_roi_proposals": "succeeded",
+            "unicode_math_roi_proposals": "succeeded",
+            "formula_crop_merge": "succeeded",
+            "unimernet": "succeeded",
+            "mathjax": "partial",
+            "mathcat": "partial",
+            "vision_numeric_mathml": "skipped_no_input",
+            "foundation_models_diagram": "skipped_no_input",
+            "formula_detection": "succeeded",
+            "table": "unsupported"
+          },
+          "component_failures": [],
+          "diagram_statuses": {},
+          "chunk_count": 34,
+          "chunk_statuses": {
+            "ready": 26,
+            "needs_review": 8
+          },
+          "chunks_with_complete_spoken": 26,
+          "chunks_with_unresolved_formulas": 8,
+          "final_formulas_with_spoken": 4
+        },
+        {
+          "page_id": "p0002",
+          "pdf_page": 116,
+          "printed_page": 109,
+          "topic": "Bentuk aljabar dan istilah",
+          "input_sha256_matches": true,
+          "page_result_saved": true,
+          "runtime_status": "partial",
+          "formula_counts": {
+            "detected": 14,
+            "recognized": 14,
+            "spoken": 14,
+            "unresolved": 0
+          },
+          "merge_candidate_spoken": 8,
+          "stage_statuses": {
+            "layout": "succeeded",
+            "math_formula_detector": "succeeded",
+            "document_container_routing": "succeeded",
+            "visual_crop_vision_ocr": "succeeded",
+            "visual_numeric_vision_ocr": "succeeded",
+            "apple_vision_ocr": "succeeded",
+            "paddleocr_text_recognition": "succeeded",
+            "ocr_math_roi_proposals": "succeeded",
+            "unicode_math_roi_proposals": "succeeded",
+            "formula_crop_merge": "succeeded",
+            "unimernet": "succeeded",
+            "mathjax": "succeeded",
+            "mathcat": "succeeded",
+            "vision_numeric_mathml": "succeeded",
+            "foundation_models_diagram": "needs_review",
+            "formula_detection": "succeeded",
+            "table": "unsupported"
+          },
+          "component_failures": [],
+          "diagram_statuses": {
+            "needs_review": 1
+          },
+          "chunk_count": 23,
+          "chunk_statuses": {
+            "needs_review": 10,
+            "ready": 13
+          },
+          "chunks_with_complete_spoken": 13,
+          "chunks_with_unresolved_formulas": 10,
+          "final_formulas_with_spoken": 3
+        },
+        {
+          "page_id": "p0003",
+          "pdf_page": 203,
+          "printed_page": 196,
+          "topic": "Jenis segitiga dan rumus",
+          "input_sha256_matches": true,
+          "page_result_saved": true,
+          "runtime_status": "partial",
+          "formula_counts": {
+            "detected": 11,
+            "recognized": 11,
+            "spoken": 11,
+            "unresolved": 0
+          },
+          "merge_candidate_spoken": 5,
+          "stage_statuses": {
+            "layout": "succeeded",
+            "math_formula_detector": "succeeded",
+            "document_container_routing": "succeeded",
+            "visual_crop_vision_ocr": "succeeded",
+            "visual_numeric_vision_ocr": "succeeded",
+            "apple_vision_ocr": "succeeded",
+            "paddleocr_text_recognition": "succeeded",
+            "ocr_math_roi_proposals": "succeeded",
+            "unicode_math_roi_proposals": "succeeded",
+            "formula_crop_merge": "succeeded",
+            "unimernet": "succeeded",
+            "mathjax": "succeeded",
+            "mathcat": "succeeded",
+            "vision_numeric_mathml": "succeeded",
+            "foundation_models_diagram": "needs_review",
+            "formula_detection": "succeeded",
+            "table": "unsupported"
+          },
+          "component_failures": [],
+          "diagram_statuses": {
+            "needs_review": 2
+          },
+          "chunk_count": 16,
+          "chunk_statuses": {
+            "ready": 6,
+            "needs_review": 10
+          },
+          "chunks_with_complete_spoken": 6,
+          "chunks_with_unresolved_formulas": 9,
+          "final_formulas_with_spoken": 2
+        },
+        {
+          "page_id": "p0004",
+          "pdf_page": 346,
+          "printed_page": 339,
+          "topic": "Diagram garis dan diagram lingkaran",
+          "input_sha256_matches": true,
+          "page_result_saved": true,
+          "runtime_status": "partial",
+          "formula_counts": {
+            "detected": 14,
+            "recognized": 14,
+            "spoken": 14,
+            "unresolved": 0
+          },
+          "merge_candidate_spoken": 8,
+          "stage_statuses": {
+            "layout": "succeeded",
+            "math_formula_detector": "succeeded",
+            "document_container_routing": "succeeded",
+            "visual_crop_vision_ocr": "succeeded",
+            "visual_numeric_vision_ocr": "succeeded",
+            "apple_vision_ocr": "succeeded",
+            "paddleocr_text_recognition": "skipped_no_input",
+            "ocr_math_roi_proposals": "succeeded",
+            "unicode_math_roi_proposals": "succeeded",
+            "formula_crop_merge": "succeeded",
+            "unimernet": "skipped_no_input",
+            "mathjax": "skipped_no_input",
+            "mathcat": "succeeded",
+            "vision_numeric_mathml": "succeeded",
+            "foundation_models_diagram": "needs_review",
+            "formula_detection": "succeeded",
+            "table": "unsupported"
+          },
+          "component_failures": [],
+          "diagram_statuses": {
+            "needs_review": 2
+          },
+          "chunk_count": 11,
+          "chunk_statuses": {
+            "ready": 9,
+            "needs_review": 2
+          },
+          "chunks_with_complete_spoken": 9,
+          "chunks_with_unresolved_formulas": 2,
+          "final_formulas_with_spoken": 8
+        }
+      ],
+      "local_artifacts": "verification/multipage-clearspeak-v1/1d5b99dd-f121-437a-9693-b2d934cccafa",
+      "final_ready_json": "verification/multipage-clearspeak-v1/1d5b99dd-f121-437a-9693-b2d934cccafa/run/final_ready.json",
+      "spoken_review_text": "verification/multipage-clearspeak-v1/1d5b99dd-f121-437a-9693-b2d934cccafa/spoken-review.txt"
+    }
+  ],
+  "manual_spot_checks": [
+    {
+      "pdf_page": 12,
+      "finding": "Simple equations 9+0=9 and 8×1=8 have complete ClearSpeak output. Ordinary/mixed fractions and decimal list remain withheld; permille is flattened to %%/%o in a ready prose chunk.",
+      "chunk_id": "p0001.layout.0013.c0002",
+      "classification": "partial extraction; ready status does not establish source accuracy"
+    },
+    {
+      "pdf_page": 116,
+      "finding": "UniMERNet correctly recognizes 5x²+2x, but final speech is withheld by ambiguous_geometry_withheld after OCR loses the exponent.",
+      "formula_id": "p0002.formula.0008",
+      "classification": "OCR/MathML range alignment blocks a correct raw recognition"
+    },
+    {
+      "pdf_page": 116,
+      "finding": "The source says coefficient of x²; a ready chunk speaks an extra bold i before x². Another review chunk reads 3x² as 13x².",
+      "chunk_id": "p0002.layout.0007.c0001",
+      "related_formula_ids": [
+        "p0002.formula.0009",
+        "p0002.formula.0012"
+      ],
+      "classification": "source recognition error, not proof of a ClearSpeak style error"
+    },
+    {
+      "pdf_page": 203,
+      "finding": "Perimeter K=AB+BC+AC is spoken. The area expression remains needs_review, and the two groups of triangles have incomplete label/relationship descriptions.",
+      "formula_ids": [
+        "p0003.formula.0009",
+        "p0003.formula.0011"
+      ],
+      "classification": "partial formula merge and diagram grounding"
+    },
+    {
+      "pdf_page": 346,
+      "finding": "The line and pie charts have generic overview previews; day/value pairs from the printed labels are not conveyed in the final speech. Both diagrams remain needs_review.",
+      "chunk_ids": [
+        "p0004.layout.0001.c0001",
+        "p0004.layout.0010.c0001"
+      ],
+      "classification": "chart description incomplete"
+    }
+  ],
+  "limitations": [
+    "Selected diagnostic follow-up excluded the failed roots page; it is not a five-page success.",
+    "Ready chunk and successful raw speech counts are not source accuracy or completeness.",
+    "Sampled footprint covers only the application process; WebContent and OS model services are excluded.",
+    "No VoiceOver listening/comprehension or save/reopen after app restart test.",
+    "Source images and old run outputs were retained; no model/recognition/merge/diagram rules were changed for this experiment."
+  ]
+}

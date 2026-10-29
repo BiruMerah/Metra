@@ -359,6 +359,16 @@ final class RunCoordinator: ObservableObject {
                 pages: orderedPages
             )
             latestFinalDocument = try repository.writeDocuments(document, spoken: spokenDocument, report: report, to: paths)
+            if let primary = latestFinalDocument, !Task.isCancelled {
+                try repository.writeJSON(primary,to:paths.root.appendingPathComponent("final-extraction.primary.json"))
+                if var completedReport = try? JSONSerialization.jsonObject(with:Data(contentsOf:paths.report)) as? [String:Any] {
+                    completedReport["formula_fallback"] = ["enabled":false,
+                        "attempted":0,"descriptions_available":0,
+                        "reason":"Automatic Foundation formula fallback disabled; retain primary MathCAT results and review reasons",
+                        "primary_mathcat_results_unchanged":true]
+                    try repository.writeJSON(completedReport,to:paths.report)
+                }
+            }
             latestFinalURL = paths.finalExtraction
             memorySampler?.stop()
             repository.appendEvent([
@@ -442,6 +452,8 @@ final class RunCoordinator: ObservableObject {
         var visionMS: Double?
         var components: [ComponentResult] = []
         var routedRegions: [LayoutRegion]?
+        var classifiedRegions: [LayoutRegion]?
+        var preparedVisualRegions: [LayoutRegion]?
         await gate.acquire()
         do {
             try Task.checkCancellation()
@@ -451,6 +463,22 @@ final class RunCoordinator: ObservableObject {
             components.append(ComponentResult(component: "layout", status: error is CancellationError ? "cancelled" : "failed", errorCode: error is CancellationError ? "run_cancelled" : "layout_runtime_failed", message: error.localizedDescription, rawArtifact: "pages/\(input.pageID)/layout.raw.json", metrics: [:]))
         }
         await layoutRuntime.unload()
+        if let layout, layout.regions.contains(where: { DiagramSpokenService.visualLabels.contains($0.label) }) {
+            do {
+                await onProgress("\(input.pageID): klasifikasi graph, diagram, geometry, atau others…")
+                preparedVisualRegions = try VisualImageRoute.prepare(regions:layout.regions,imageURL:input.normalizedURL,pageRoot:pageRoot,pageID:input.pageID)
+                classifiedRegions = try MathVisualClassifier.classify(regions: preparedVisualRegions!, pageRoot: pageRoot)
+                try DiagramArtifactStore().writeJSON(classifiedRegions!.filter { $0.visualClassification != nil },
+                    to: pageRoot.appendingPathComponent("visual-classification.json"))
+                let failed = classifiedRegions!.filter { $0.visualClassification?.status == "failed" }.count
+                components.append(ComponentResult(component: "math_visual_classifier", status: failed == 0 ? "succeeded" : "partial",
+                    errorCode: failed == 0 ? nil : "visual_classification_failed", message: "On-device Core ML classification before visual description; argmax routing; raw probabilities retained.",
+                    rawArtifact: "pages/\(input.pageID)/visual-classification.json", metrics: ["failed_crops": Double(failed)]))
+            } catch {
+                components.append(ComponentResult(component: "math_visual_classifier", status: "failed", errorCode: "visual_classifier_unavailable",
+                    message: error.localizedDescription, rawArtifact: nil, metrics: [:]))
+            }
+        }
         let mfdRuntime = Pix2TextMFDRuntime()
         do {
             try Task.checkCancellation()
@@ -466,36 +494,39 @@ final class RunCoordinator: ObservableObject {
         }
         await mfdRuntime.unload()
         await gate.release()
+        // Carry the classifier result and its exact source crop through every
+        // later routing/merge stage. Raw layout regions have neither field.
+        let sourceRegions = classifiedRegions ?? preparedVisualRegions ?? layout?.regions
+        var textOCRImageURL = input.normalizedURL
         do {
             try Task.checkCancellation()
             let start = ProcessInfo.processInfo.systemUptime
-            ocr = try await VisionOCRAdapter.recognize(imageURL: input.normalizedURL, pageID: input.pageID)
-            if let layout {
-                do {
-                    let routing = DenseDocumentRegionRouter.route(regions:layout.regions,observations:ocr!.observations,
-                        pageWidth:input.source.normalizedWidth,pageHeight:input.source.normalizedHeight)
-                    routedRegions = routing.regions
-                    let routingEncoder = JSONEncoder(); routingEncoder.outputFormatting = [.prettyPrinted,.sortedKeys]
-                    try routingEncoder.encode(routing.report).write(to:pageRoot.appendingPathComponent("document-routing.json"),options:.atomic)
-                    components.append(ComponentResult(component:"document_container_routing",status:"succeeded",errorCode:nil,
-                        message:"Dense full-page visual containers may enter the text/formula path; raw model predictions preserved; source coverage unassessed",
-                        rawArtifact:"pages/\(input.pageID)/document-routing.json",metrics:["recovered_containers":Double(routing.report.decisions.filter(\.routedAsTextContainer).count)]))
-                    let refined = try await VisionOCRAdapter.refineVisuals(ocr!,regions:routing.regions,pageID:input.pageID,pageRoot:pageRoot)
-                    ocr = refined.0
-                    components.append(ComponentResult(component:"visual_crop_vision_ocr",status:"succeeded",errorCode:nil,
-                        message:"Working visual labels selected from dedicated crop requests; original page OCR retained in ocr.page.raw.json",
-                        rawArtifact:"pages/\(input.pageID)/ocr-selection.json",metrics:["requests":Double(refined.1)]))
-                    let numeric = try await VisionOCRAdapter.refineNumericLabels(ocr!,regions:routing.regions,pageID:input.pageID,pageRoot:pageRoot)
-                    ocr = numeric.0
-                    components.append(ComponentResult(component:"visual_numeric_vision_ocr",status:"succeeded",errorCode:nil,
-                        message:"Two recorded numeric ROI variants; literal agreement required; no inferred symbols or values",
-                        rawArtifact:"pages/\(input.pageID)/numeric-ocr-selection.json",metrics:["requests":Double(numeric.1)]))
-                } catch {
-                    components.append(ComponentResult(component:"visual_crop_vision_ocr",status:error is CancellationError ? "cancelled" : "failed",
-                        errorCode:"visual_crop_ocr_failed",message:error.localizedDescription,rawArtifact:"pages/\(input.pageID)/ocr.page.raw.json",metrics:[:]))
-                }
+            let base = sourceRegions ?? []
+            var routingObservations: [OCRObservation] = []
+            var containerRoutingRequests = 0
+            // Only a potential full-page document container needs unmasked
+            // routing OCR. Actual visual content goes directly to Foundation.
+            if VisualImageRoute.hasLargeContainer(base,width:input.source.normalizedWidth,height:input.source.normalizedHeight) {
+                let containerOCR = try await VisionOCRAdapter.recognize(imageURL:input.normalizedURL,pageID:input.pageID)
+                routingObservations = containerOCR.observations
+                containerRoutingRequests = 1
+                try DiagramArtifactStore().writeJSON(containerOCR,to:pageRoot.appendingPathComponent("ocr.container-routing.raw.json"))
             }
-
+            let routing = DenseDocumentRegionRouter.route(regions:base,observations:routingObservations,
+                pageWidth:input.source.normalizedWidth,pageHeight:input.source.normalizedHeight)
+            routedRegions = routing.regions
+            try DiagramArtifactStore().writeJSON(routing.report,to:pageRoot.appendingPathComponent("document-routing.json"))
+            components.append(ComponentResult(component:"document_container_routing",status:"succeeded",errorCode:nil,
+                message:"Classified visual regions and source crops retained; only ambiguous full-page containers use routing OCR.",
+                rawArtifact:"pages/\(input.pageID)/document-routing.json",metrics:["recovered_containers":Double(routing.report.decisions.filter(\.routedAsTextContainer).count),"container_routing_ocr_requests":Double(containerRoutingRequests)]))
+            textOCRImageURL = try VisualImageRoute.maskForTextOCR(imageURL:input.normalizedURL,regions:routing.regions,pageRoot:pageRoot)
+            let recognized = try await VisionOCRAdapter.recognize(imageURL:textOCRImageURL,pageID:input.pageID)
+            ocr = VisualImageRoute.textOnly(recognized,regions:routing.regions)
+            try DiagramArtifactStore().writeJSON(recognized,to:pageRoot.appendingPathComponent("ocr.page.raw.json"))
+            for name in ["visual_crop_vision_ocr","visual_numeric_vision_ocr"] {
+                components.append(ComponentResult(component:name,status:"skipped_image_only",errorCode:nil,
+                    message:"Visuals retain their classification and go directly to Foundation as original image crops.",rawArtifact:nil,metrics:["requests":0]))
+            }
             visionMS = (ProcessInfo.processInfo.systemUptime - start) * 1000
             let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
             try encoder.encode(ocr!).write(to: pageRoot.appendingPathComponent("ocr.vision-working.raw.json"), options: .atomic)
@@ -506,7 +537,7 @@ final class RunCoordinator: ObservableObject {
         if let original=ocr {
             await gate.acquire()
             do {
-                let supplementary=try await PaddleOCRService.supplement(original,pageID:input.pageID,pageRoot:pageRoot,imageURL:input.normalizedURL)
+                let supplementary=try await PaddleOCRService.supplement(original,pageID:input.pageID,pageRoot:pageRoot,imageURL:textOCRImageURL)
                 ocr=supplementary.ocr;components += supplementary.components
             } catch {
                 components.append(ComponentResult(component:"paddleocr_text_recognition",status:error is CancellationError ? "cancelled" : "failed",
@@ -520,15 +551,15 @@ final class RunCoordinator: ObservableObject {
                 components.append(ComponentResult(component:"ocr_selection_write",status:"failed",errorCode:"ocr_selection_write_failed",message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
             }
         }
-        var effectiveRegions=routedRegions ?? layout?.regions
+        var effectiveRegions=routedRegions ?? sourceRegions
         var visionProposals: [LayoutRegion] = []
         if let ocr {
             do {
-                let routed = routedRegions ?? layout?.regions ?? []
+                let routed = routedRegions ?? sourceRegions ?? []
                 let proposals=try OCRMathROIProposer.propose(pageID:input.pageID,observations:ocr.observations,layout:routed,imageURL:input.normalizedURL,pageRoot:pageRoot)
                 visionProposals = proposals
                 effectiveRegions=(routed+proposals).sorted(by:LayoutMerge.precedes)
-                components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"succeeded",errorCode:nil,message:"Whole expressions, explicit Unicode notation, isolated variables and numeric tuples from Vision range boxes; image recognition/source review required",rawArtifact:"pages/\(input.pageID)/formula-roi-proposals.raw.json",metrics:["proposals":Double(proposals.count)]))
+                components.append(ComponentResult(component:"ocr_math_roi_proposals",status:"succeeded",errorCode:nil,message:"Explicit operator expressions, complete Unicode notation, bounded measured powers and numeric tuples; isolated letters remain OCR text",rawArtifact:"pages/\(input.pageID)/formula-roi-proposals.raw.json",metrics:["proposals":Double(proposals.count)]))
                 components.append(ComponentResult(component:"unicode_math_roi_proposals",status:"succeeded",errorCode:nil,
                     message:"Explicit Unicode triggers complete notation crops; no recovery from L/Z or flattened powers; raw OCR retained",
                     rawArtifact:"pages/\(input.pageID)/unicode-math-proposals.json",metrics:["proposals":Double(proposals.filter{$0.sourceNotationPolicy == UnicodeMathSource.version}.count)]))
@@ -539,7 +570,7 @@ final class RunCoordinator: ObservableObject {
         if let mfd {
             do {
                 let start = ProcessInfo.processInfo.systemUptime
-                let merged = try FormulaCropMerger.combine(pageID:input.pageID,layout:routedRegions ?? layout?.regions ?? [],
+                let merged = try FormulaCropMerger.combine(pageID:input.pageID,layout:routedRegions ?? sourceRegions ?? [],
                     vision:visionProposals,mfd:mfd.regions,observations:ocr?.observations ?? [],imageURL:input.normalizedURL,pageRoot:pageRoot)
                 effectiveRegions = merged.regions
                 components.append(ComponentResult(component:"formula_crop_merge",status:"succeeded",errorCode:nil,
@@ -550,6 +581,29 @@ final class RunCoordinator: ObservableObject {
             } catch {
                 components.append(ComponentResult(component:"formula_crop_merge",status:"failed",errorCode:"mfd_crop_merge_failed",
                     message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
+            }
+        }
+        if let regions = effectiveRegions {
+            do {
+                effectiveRegions = try VisualImageRoute.excludeVisualFormulas(regions,pageRoot:pageRoot)
+                components.append(ComponentResult(component:"visual_formula_routing",status:"succeeded",errorCode:nil,
+                    message:"Visual-owned formula candidates are handled inside the image description; no separate formula recognition.",
+                    rawArtifact:"pages/\(input.pageID)/visual-formula-routing.json",metrics:["suppressed_candidates":Double(regions.count-effectiveRegions!.count)]))
+            } catch {
+                // No visual-owned proposal may fall back to standalone speech.
+                effectiveRegions = regions.filter { !["formula","formula_candidate"].contains($0.label) || VisualImageRoute.owner(of:$0.bboxPageXYXY,regions:regions) == nil }
+                components.append(ComponentResult(component:"visual_formula_routing",status:"failed",errorCode:"visual_routing_write_failed",message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
+            }
+        }
+        if let regions = effectiveRegions {
+            do {
+                let split = try CompoundFormulaSplitter.split(regions:regions,observations:ocr?.observations ?? [],imageURL:input.normalizedURL,pageRoot:pageRoot,pageID:input.pageID)
+                effectiveRegions = split.regions
+                components.append(ComponentResult(component:"formula_connector_split",status:"succeeded",errorCode:nil,
+                    message:"Explicit source connector separates original image crops; both sides recognized independently; raw detector crops retained.",
+                    rawArtifact:"pages/\(input.pageID)/formula-connector-splits.json",metrics:["split_parents":Double(split.plans.count)]))
+            } catch {
+                components.append(ComponentResult(component:"formula_connector_split",status:"failed",errorCode:"formula_split_failed",message:error.localizedDescription,rawArtifact:nil,metrics:[:]))
             }
         }
         let formulaPage: FormulaPageResult?

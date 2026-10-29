@@ -1,0 +1,1055 @@
+{
+  "schema": "metra-pipeline-source-inventory-v1",
+  "date": "2026-10-28",
+  "build": 45,
+  "production_entrypoint": "OnDeviceExtractionService.extract -> RunCoordinator.processPage",
+  "audit": "Integration/PIPELINE-AUDIT-BUILD45.md",
+  "notes": [
+    "Source inventory includes legacy helpers; active status is documented in audit",
+    "All YAML bundle files listed; not all bundled languages/styles are active",
+    "No inference or application behavior change performed by this audit"
+  ],
+  "source_files": [
+    {
+      "path": "Libraries/MathCATNative/src/lib.rs",
+      "sha256": "c904fe727031a76c9027d1dbe347c9dcef6af57ebbc75556bf0280d3eec50688",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Entities/MathChunkEntity.swift",
+      "sha256": "caa9597fc3217f2e0ecfb1d1bfc46c112fadfaddb961977e550d45dab65ff190",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/FoundationDiagramRuntime.swift",
+      "sha256": "fb0ab2a8e8259c3afe18b71670692fe14f1916d837591e9792308fd0f21a5a33",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "foundation_diagram_image_only_v8",
+        "foundation_request_sorted_keys_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/FoundationFormulaRuntime.swift",
+      "sha256": "aa1e7e85a60e77ca6bda3190732e96ac3cf69d622e28946b9f564dba28697732",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "foundation_formula_image_fallback_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/MathCATAdapter.swift",
+      "sha256": "6d1aafc1e80868279526747c9f4e0d68f56f5b199a1b32758ded8abf4f3d10b0",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/MathJaxBridge.swift",
+      "sha256": "3bc7cb6884cf7352670140f716cee62e70ed1b7b4529eff93ad5e925f845ad29",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/MathVisualClassifier.swift",
+      "sha256": "1d7be2390b06b6d9d16f85a7e404c3c56efeb4d4acdab6f9674f170f74d001cb",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "math_visual_classifier_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/PPDocLayoutRuntime.swift",
+      "sha256": "af28309957dac8c88d7ca82da523e410427bd4674d37da7b0b1324979906a2e8",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/PaddleOCRCTC.swift",
+      "sha256": "1e130898a6b0eb3b9a0e3a3c50c248c642aa4f0ee21e8a43eca77fda2479822d",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/PaddleOCRRuntime.swift",
+      "sha256": "f2ee819d8c4b40e07cab0808c192917ee2adcf5672d1fd8d3d4a5231ae28c4a5",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/Pix2TextMFDRuntime.swift",
+      "sha256": "6640cc37a6cc09a88e76889ade8e993b83acca85f746ef69489923035586094f",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "pix2text_mfd_image_proposal_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/UniMERNetRuntime.swift",
+      "sha256": "a152b84305f9fc03be61f9f67abb412ad9ed9e3c1f4d367ab0c16f34bae3e270",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Adapters/VisionOCRAdapter.swift",
+      "sha256": "e92d9b39caccf8627bd5debbed18c1eda33ce86f2b05750125cbfd2dddbe3f49",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "numeric_corroboration_merge_v2",
+        "visual_crop_vision_selection_v1",
+        "visual_numeric_ocr_agreement_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Contracts/FinalExtraction.swift",
+      "sha256": "f7457ded753e2e0c21ae274eec95296bd2e649f921683807e6b7c5cc66f55aae",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "literal_numeric_mathml_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Contracts/FormulaFallbackDescription.swift",
+      "sha256": "b32856d4611746864f9334e5b02e3f1bac901c7bdb2f5b05596cd312d8add7c4",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Contracts/PipelineContracts.swift",
+      "sha256": "3cdfdd35747614bbcb2e238ed9cf85d36f9d8a540c95058760d76496e408f628",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Contracts/ReadyExtraction.swift",
+      "sha256": "7097f439b420cc521d8495174b20ecdb2a637c0ee2eae58e0e48d7ade5745f7c",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Instrumentation/RunMetrics.swift",
+      "sha256": "d22afb5fa9b8645e8503c200f54f6c40b6ae4e16e51e18f0393c263edc315ce6",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/CompoundFormulaSplitter.swift",
+      "sha256": "f8b641d39393288d3df7c2c4fd5029219363a53cc909aedbe059efb38a7d8ae4",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "source_connector_formula_split_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/DiagramLabelGrouper.swift",
+      "sha256": "858b4d5baea20980c3d290c9365ef2505261ac966d7523117b6e654fe4c34761",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "spatial_label_lines_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/DiagramProbeService.swift",
+      "sha256": "9f4ce82d63608230fa2cbf1f7d0501b8c9b192fb08d3da73f863b68f87b11bf3",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "pie_reference_geometry_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/EmbeddedLengthUnitNormalizer.swift",
+      "sha256": "9670a233c35bb0f3cff279bb9094b178eb31726f9723e138217d096ff7548592",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "embedded_source_unit_normalization_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FormulaCropMerger.swift",
+      "sha256": "a65809f58608e763eda981dffbefb281f2cdec32ebabcc8cb98c5b113344c73f",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "supplemental_mfd_crop_merge_v4",
+        "vision_math_expression_proposal_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FormulaIdentifierCheck.swift",
+      "sha256": "b8eb7c6a756261b4f32e5ce68a5cc574466c8715b892e02e1586c5693075717e",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "literal_identifier_agreement_v4"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FormulaPipeline.swift",
+      "sha256": "1c8350edfc616fa3cc3b000cdbca472fa9f52c1af85b7c7ae26fa0f150f236da",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "explicit_ocr_degree_literal_v1",
+        "image_exponent_consistency_v2",
+        "inline_glyph_context_recovery_v1",
+        "literal_numeric_mathml_v1",
+        "numeric_corroboration_merge_v2",
+        "tex_numeric_whitespace_compaction_v1",
+        "vision_degree_expression_proposal_v1",
+        "vision_degree_literal_proposal_v1",
+        "vision_visual_numeric_proposal_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FormulaSpanResolver.swift",
+      "sha256": "2d2843d0907b3420cc73ba335192f40fc13c4947cef1d0ea085d6a5bddc41961",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "whole_occurrence_utf16_v5"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FoundationDiagramService.swift",
+      "sha256": "23edf34c334e6c4bb67405185cb7b32763ea484affb54c79d9f4c0b3c035fcef",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FoundationFormulaFallbackService.swift",
+      "sha256": "0476b4053191f20c9fc87ab3c87be42a1df019ff0b9af78e1f88b128346f108e",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/FoundationImageTextLayout.swift",
+      "sha256": "5ba57843b8ef7506594ca9136b8af13e36f7f7c80935ac5e25ff98e711c9ad5f",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/HeadingTopicBuilder.swift",
+      "sha256": "7bf3e87841df3ec649c873a9adb52770d6ee187f4767cef27c3e20b4a740f186",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "source_heading_paths_per_page_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/LayoutMerge.swift",
+      "sha256": "5736d954e5d7490488e0f1d173f639510fe6a16ce5f1636912eb617ed3cb71eb",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "dense_document_container_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/LengthUnitRecognition.swift",
+      "sha256": "8349b8369d824abb7908837a6bf3fdd19d834c6a7324f63397d171ce8b7c8ed2",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "image_length_unit_consistency_v2",
+        "source_anchored_length_unit_normalization_v1",
+        "vision_length_unit_power_proposal_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/MathMLSourceTree.swift",
+      "sha256": "36f183a9567de55b8f4e75ea0490e1bf974762c9fe04851dca89f0b809af1a7b",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/OCRMathROIProposer.swift",
+      "sha256": "cc1ddd8f63412901b95dda9f84e0606ff082351fe9fbb0ca3d319c91b6a93599",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "vision_degree_expression_proposal_v1",
+        "vision_degree_literal_proposal_v1",
+        "vision_math_expression_proposal_v1",
+        "vision_range_math_proposal_v1",
+        "vision_visual_numeric_proposal_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/PaddleMathSymbolSelector.swift",
+      "sha256": "da9f7d45f84304a9024c5c775f757bba7072e674afecdb95f9dc16e3e902da5a",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "paddle_unicode_symbol_selection_v3"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/PaddleOCRService.swift",
+      "sha256": "fa2a105ab6014c9228ef805eeee9b7be0dd2ce5dd9738ef7ca166eb93e401121",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/QuestionReadingNormalizer.swift",
+      "sha256": "68515c03fd23c4f10e62b2cee15c572d78cb47e0285e40eb568f909313fa9371",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "question_scoped_choice_reading_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/ReadingBoundaryPolicy.swift",
+      "sha256": "53b1092cc81231bc25788ed1502756f64330ef7537c64d94afd0bd4492b37309",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "paragraph_list_context_v6"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/RunCoordinator.swift",
+      "sha256": "d29280338f34af0b7013523d939a62504aa83fe3410cbb215b7c237293fc38f1",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/UnicodeMathSource.swift",
+      "sha256": "ce31f15cc77cd17450aa4cd440c7cb7cc6417c4493f22575bc4a44978a78a4d9",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "ocr_unicode_math_proposal_v3",
+        "unicode_math_whole_source_check_v4"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Pipeline/VisualImageRoute.swift",
+      "sha256": "a03a53c4abfbc4b5d477fa4fd52db3d5da5359d312a2225e3b82849c3f2e62ad",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "visual_image_only_routing_v1"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Storage/ImageIngestor.swift",
+      "sha256": "47754b06a0f2c8e4cd725511af9b4e256f9eb914fc5858a3c4a01f445c5c737c",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Storage/ModelAssetManager.swift",
+      "sha256": "913955f5215e75f06507d424f12b1bb8dd1533eade7050a46efe26679b0b14bf",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Data/Extraction/Engine/Storage/RunRepository.swift",
+      "sha256": "85bf15dbdf9ade0291e30802b239c328fb5e41d745872f3cc0d0825f3f9a7a01",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "image_exponent_consistency_v2",
+        "numeric_corroboration_merge_v2",
+        "vision_math_expression_proposal_v1",
+        "visual_numeric_ocr_agreement_v2"
+      ]
+    },
+    {
+      "path": "Metra/Data/Extraction/OnDeviceExtractionService.swift",
+      "sha256": "ea33f0e942edc70f20e04543861ae36e498a2f27a53fff3313f7daba6d332851",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Domain/Models/MaterialImageInput.swift",
+      "sha256": "36b18e1fdc5727612753ab52c41f78d8a67e08428d097c6c8c502f390e5b5afb",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Domain/Models/MaterialTopicIndex.swift",
+      "sha256": "04be4a7db52b033ec223d15bf16f68726d6ca5a210150988901387eba374f517",
+      "policy_literals_in_file_not_proof_of_active_execution": [
+        "qwen_topic_navigation_v3",
+        "source_heading_paths_navigation_v2"
+      ]
+    },
+    {
+      "path": "Metra/Domain/Models/MathChunkModel.swift",
+      "sha256": "7d7a3eed3088e18e3b49a8dea6d6f871265e64f4d8297e36ce1514815ead15e8",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Domain/Models/MathMaterialModel.swift",
+      "sha256": "3320e76a1d50516604f6d775653b4f4e3f2cf71098778b50b4c6c9556684667c",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Domain/Models/MathTopicModel.swift",
+      "sha256": "526c21283a69f62204bac3ede26d7d0914798617bdd73f4ffd163ebd2b467175",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Domain/Models/SourceHeadingPath.swift",
+      "sha256": "48f247010405c657ff8e85595c6cfeaeda75ebae3d8eb775c8eb8ea02b19a6d3",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/ReadingPresentation.swift",
+      "sha256": "cf80dc3b5bfbffc500d33b724bae9b331a5f70ba02cea1c7ecd7239d116dd07c",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/ViewModels/MaterialImportViewModel.swift",
+      "sha256": "daf77979cffbfd4eace149d3fecdfeb37cf2e74325e5a5296f43485ba1a7be14",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/ViewModels/MathMaterialViewModel.swift",
+      "sha256": "a88fcca3fb77b61ee0417dc2a8b6ad64a0e27b939f8d756c5025f50351dde759",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/ViewModels/MathTopicReaderViewModel.swift",
+      "sha256": "2bf307e61516b1481a1e50fd3246570e5e0c635308681b002eeec8bf375a9ec9",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/ViewModels/SavedMaterialViewModel.swift",
+      "sha256": "fa04211f3a73948a58cf5be9ae1481928180918731162d2337d64bf9963cfe7f",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/Views/CameraPicker.swift",
+      "sha256": "19447d8b87a1f93c01b4910b1c8f7c59dcd7dddb5016950c84328bf106bebf77",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/Views/HomeView.swift",
+      "sha256": "76258e4cd2f1194576686caccb912b3c8f28937ae946d91830fe32eb3a8bd31e",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/Views/MaterialImportView.swift",
+      "sha256": "a3bc5a7c6e49dc1c340e5d9ba9627b41279ea057b7145229b1f102d2a5553500",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/Views/MathMaterialView.swift",
+      "sha256": "55a664401b2bb1f9de537ace4bcbceb608a68ad9144be5ff09edc88d39695c38",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/Views/MathTopicReaderView.swift",
+      "sha256": "32eb18b0cd9996fdb9c103bb449d6f0463beeb101831a11eb63b1864b23548ca",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Metra/Presentation/Views/SavedMaterialView.swift",
+      "sha256": "5093ab6664c4c97a40aae4de17fb4c345e213372311b1bb3a4a317fdff34865b",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Resources/PP-DocLayout-L.config.json",
+      "sha256": "5a7d54f4aeef5cb95f37dfa0fc0be494af96196731e01cdfc933a7565cdf51cb",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Resources/PaddleOCR-PP-OCRv5-mobile-rec.config.json",
+      "sha256": "ddb66094937b6f5634a9a80dd359ff2fd5d48ae1abdd4b8c6d8393235ad60733",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Resources/Pix2Text-MFD.config.json",
+      "sha256": "24df2223feeba771ab34e6b58ade87c29e097c20914b57db29ef68308b90ec94",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    },
+    {
+      "path": "Resources/UniMERNet/unimernet-manifest.json",
+      "sha256": "662d171966488aa96a7fafaa009446fe667e59374319b19b795aac6d75f8089b",
+      "policy_literals_in_file_not_proof_of_active_execution": []
+    }
+  ],
+  "bundled_mathcat_yaml": [
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath/ASCIIMath_Rules.yaml",
+      "sha256": "b928d4db7ca6f566f1349bc3a42279b02139675972b26bbbf5fa2c7d423a87d6"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath/definitions.yaml",
+      "sha256": "853a4f8b4e6cb1e21d90f648a39bccf7bcd65f10ea09e1a3bd392d864882ae36"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath/unicode-full.yaml",
+      "sha256": "b3c5694d5415622d9eefa1b3da923f41fc3408433d4924a1fba4073243bca83e"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath/unicode.yaml",
+      "sha256": "4550d1f1d85b7cc0faed054b4553b27900542d7995e95e914b32ffe2b4cafafd"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath-fi/ASCIIMath_Rules.yaml",
+      "sha256": "b928d4db7ca6f566f1349bc3a42279b02139675972b26bbbf5fa2c7d423a87d6"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath-fi/definitions.yaml",
+      "sha256": "84f29fea9b06d9d960be10e0db0068f77d911407be17df2364ee015939ba8906"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath-fi/unicode-full.yaml",
+      "sha256": "f6dabfa99cf8fc69e3473b3f7151a2a0400d4afd8cbc09e5caecc1175a108c64"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/ASCIIMath-fi/unicode.yaml",
+      "sha256": "4789a7f7d9b3047712c0f9c6990a7fcabe2e55e6b077afa3fc1d87a7dc16a30e"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/CMU/CMU_Rules.yaml",
+      "sha256": "14d181538816afba731c0019eaa35efe65b1d1272bcfd4e443fb99c95dc477fa"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/CMU/definitions.yaml",
+      "sha256": "a671593e562546761f3f4d1fcb7cb388ad850e19a5045d028f80b35af371262d"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/CMU/unicode-full.yaml",
+      "sha256": "a03439ee38e16932f07bf176b4b8f6fd58ed2511719601b04c09a348f6e50803"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/CMU/unicode.yaml",
+      "sha256": "19d0621b7ec1c31ee5bdbd797b5b7bd1548da0c47d09c4329de10bd2987f73c8"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/LaTeX/LaTeX_Rules.yaml",
+      "sha256": "ef47a1dcb0a0c28f2b33a0641d3c7bb3ee72f39a699d5ca01c1611a4ae0a9ebf"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/LaTeX/definitions.yaml",
+      "sha256": "4a384ff82447343830dfa54abba314aa9240c8a85cef592a5b00a92c78b3cb7c"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/LaTeX/unicode-full.yaml",
+      "sha256": "073db438e1ba80b9e6817e83d7c2b850534fec3fcb04032fadc9d9c20a90f15d"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/LaTeX/unicode.yaml",
+      "sha256": "8450bf53c257928aeab43f23666bdb866294625e9cf16cf8cd34e233c9400f91"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Nemeth/Nemeth_Rules.yaml",
+      "sha256": "1487e14aaaffa1cdb80bcd3a6b3f67d29d24b16a35723e209b2409dd6659e849"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Nemeth/definitions.yaml",
+      "sha256": "335f39c9734203081edb0fb37313c900129ec29684371d27337b75621ae26c4a"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Nemeth/unicode-full.yaml",
+      "sha256": "6b19367d15d27642c6b3432d231ab405e4c19f77ed4e7ccef4fec4644922efbf"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Nemeth/unicode.yaml",
+      "sha256": "ee724b2615813b4f5ecd352649bbc2f748b39c46abef22d809dfd5b6759ff046"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Swedish/Swedish_Rules.yaml",
+      "sha256": "170cf006eb8f9e6d66448f161c7b077605daa65931c0e637e2a4402b16f33f66"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Swedish/definitions.yaml",
+      "sha256": "8d2383a4806cf332b40cb35518967fa736117376ca23245fc3eaa182eaca7662"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Swedish/unicode-full.yaml",
+      "sha256": "21ba4648bb9fb7250e878cd40fc93dcd95662e3449b9680d484c8d2e3c696662"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Swedish/unicode.yaml",
+      "sha256": "001971761100745bd40663decc8217c042e8cf3c303c3b0e74662c5d1d3888e3"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/UEB/UEB_Rules.yaml",
+      "sha256": "996f15e4aa38c8193343e2d41593a77545e1d563ff156078ee47ef612ca6bbf2"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/UEB/definitions.yaml",
+      "sha256": "705521f6dd24181d3176ff1f2ea45cdc612031f7c9ea4104b694233133d7d79e"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/UEB/unicode-full.yaml",
+      "sha256": "ce824eeb1f8c2648ea85c90202084c45d0dc717c2c8e54e86970e7fdb3df884e"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/UEB/unicode.yaml",
+      "sha256": "3f50f120026eaf4e9653625ae84f54c331dfc6d4bc5fefbc077260306b1960b2"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Vietnam/Vietnam_Rules.yaml",
+      "sha256": "e25bde673ed18f04afc607e851c71b2277b81322ed6cd80628c5c893820d89ea"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Vietnam/definitions.yaml",
+      "sha256": "508bab75e761b92c20a8113618bb5f238756d475ee16ae990a641189a610a903"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Vietnam/unicode-full.yaml",
+      "sha256": "06c97b74037dc82318786cf8a6cf46d107b3726bb196e4f06ee8ffde7ebcc9ba"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/Vietnam/unicode.yaml",
+      "sha256": "65b9875d0dfd41ac9616cef7899bdd590dc4c4b1f6c24953b7afeee1d6fb4c2b"
+    },
+    {
+      "path": "Resources/MathCATRules/Braille/definitions.yaml",
+      "sha256": "86b5ff97731e781bed2a7485d5a9e029e84133bae299c8f5b51e2c9f68f8b48e"
+    },
+    {
+      "path": "Resources/MathCATRules/Intent/calculus.yaml",
+      "sha256": "413390cf114daef1c095d16985b662257e14af9e905f3a5f3d692c0e955ea3ac"
+    },
+    {
+      "path": "Resources/MathCATRules/Intent/general.yaml",
+      "sha256": "796fd86960d043e5862afab939075ed5e543ab42fbe11039c584fd3adc4ff4e8"
+    },
+    {
+      "path": "Resources/MathCATRules/Intent/geometry.yaml",
+      "sha256": "8574896251c92465e08c38338f4a02d271d9053fc43f9049a93e29de78e9b952"
+    },
+    {
+      "path": "Resources/MathCATRules/Intent/linear-algebra.yaml",
+      "sha256": "a76c577a0d6fde9324ae0d9dede71a1f2c736a569aa7d07158a286e3b72cffba"
+    },
+    {
+      "path": "Resources/MathCATRules/Intent/probability.yaml",
+      "sha256": "1b729a5742a786771b8d1d98d286db0de7d7ac3c053f0d1fa33b5c67b72b50d3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/ClearSpeak_Rules.yaml",
+      "sha256": "7445f737f6a714ef93add3c65e28328d3c4461260362dbd3c731d5b0013ec042"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/SharedRules/calculus.yaml",
+      "sha256": "9c5d7b6f102cf29cb204b6674f9c3b5210f9eb6bd39ce1e5beb5738c1ff1188b"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/SharedRules/default.yaml",
+      "sha256": "7fd830724ee03f52b6b9bf6fd7bacb3e1f0caa4bc676273f45beb527463b826c"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/SharedRules/general.yaml",
+      "sha256": "6319f261d877e8689c96b4998ed2247447d8a81c5436b50f4de4ada5bd1b2bef"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/SharedRules/geometry.yaml",
+      "sha256": "2c9a32d4efcc95deb3139c08a2d07124a21d69782bbaa1329668f5dc2b71d11d"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/SharedRules/linear-algebra.yaml",
+      "sha256": "8fc739504f74897a604bf323ab1443c6e883ece63b2469cbb7b2e994b58a2297"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/SimpleSpeak_Rules.yaml",
+      "sha256": "69d57752873b3b510f6aed8027036f59d9a65b3dc0d09ec37be41b7e63780fe7"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/definitions.yaml",
+      "sha256": "1aca67e3a6c1fe7719aa28dc22cda346d57e25cba8753fa006e0e0a0659350b4"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/navigate.yaml",
+      "sha256": "8ecfee3fd623b418f4cc975c30713c079909f6abf21badcdda5dd24b584a62cb"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/overview.yaml",
+      "sha256": "62542fb013854b7ecb1d5d4c0418279e900bb463bb332eee6d1aefad6f77edbd"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/unicode-full.yaml",
+      "sha256": "f1c179688823ffeb04513bb8a3cda83c96a5e2da9e54c465245d95664f963387"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/de/unicode.yaml",
+      "sha256": "30605bca5e80ce44b15129843db5bc7760580e08f7ff834c00ce9f88404d1718"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/ClearSpeak_Rules.yaml",
+      "sha256": "4cb20d7b22d6844621e496f3bd2e127199408ad499fd63468248088592a4679e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/SharedRules/calculus.yaml",
+      "sha256": "6539a5c9764153dde5af04d492297b1c689ec68c54ca9b15bddda5b9d7cbe5d4"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/SharedRules/default.yaml",
+      "sha256": "f6afe94e0d9b056008281b176ab69734f0415763bec215c7da1c0f9f9ad46e16"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/SharedRules/general.yaml",
+      "sha256": "389af684c032381eaf86f9ca3187cc82d7d566f29ada7cf48bd3cb8d99696915"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/SharedRules/geometry.yaml",
+      "sha256": "12c0f5a028260f74fa30c096fcfae079bd7c0d8cb83339462e97379f86215e52"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/SharedRules/linear-algebra.yaml",
+      "sha256": "1a98a8f01bc81a86a6fdd8d1e5df634c6a1f4fcc58a54e43205882ddc60e62c2"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/SimpleSpeak_Rules.yaml",
+      "sha256": "ad3e339dbb9147769b262bb04c8ac7bb63b9c2a8a139547d94b40687005f5fd0"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/definitions.yaml",
+      "sha256": "c4132acc98a69dd154c73ef4ced0577e93e12a2f4571c5c352e338ef1017b408"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/gb/unicode.yaml",
+      "sha256": "4c4bb667224971ec35cf9dac4cd5f48311086b71e21320326f7f0a497ade30c6"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/navigate.yaml",
+      "sha256": "9809a4ed23dd842e05408ba6730eaf25a7fd3aa7dc3957c61f3136a08a230379"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/overview.yaml",
+      "sha256": "8f2ca5f71e163192cbeca129133e4840e38e588499519f7ebfdc114cba768ecd"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/unicode-full.yaml",
+      "sha256": "b0e49099fa3f25c5ea9b93053dde0535af7ac426c65d220b3137a9fc6acd8879"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/en/unicode.yaml",
+      "sha256": "8eea56853dd141136b60b274bfde2ac67c4db691a0f0df4b73c9ec883a0d1798"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/ClearSpeak_Rules.yaml",
+      "sha256": "8fe2fdcac85245d7592f1faba6f37f32bd94aa59e85bf56bfec7bf2a96cfd9a7"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/SharedRules/calculus.yaml",
+      "sha256": "27a79c3c83c25bce7d60f5c85e75c900e3039a3abea1462cd5fa8bc48195bec3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/SharedRules/default.yaml",
+      "sha256": "7c32daeed4e97cda7f924c4073a96b4a61418325699e6021a6fa9b39ed56d37d"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/SharedRules/general.yaml",
+      "sha256": "e5a075ef2457c8f004ad247e7bc135139dc55ddef0ad01ac9082c62b4431192c"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/SharedRules/geometry.yaml",
+      "sha256": "e081363a2efd394592972bfc747d01a3edc427ebd8ce987ceb3cd0e1dbff74ff"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/SharedRules/linear-algebra.yaml",
+      "sha256": "a4f86dab2c53c31074ee1c6e77b1125d9b272d3197d534f2f67681ce9876498e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/SimpleSpeak_Rules.yaml",
+      "sha256": "29808c492995ce3a70e3ea72c434f114eaec1923912b3d35b44719396c654ca9"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/definitions.yaml",
+      "sha256": "f6bcb29335b67f38235540442dc7c0351c68ca35740df5e6b5dcd99bbcb9ce69"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/navigate.yaml",
+      "sha256": "1b246ddf5b44cfb2b30d989580ebb000ec185fbf0c1584179eda99a8121ecb4c"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/overview.yaml",
+      "sha256": "a92c66e60535fa27e39967fc2ae94ce33a423eca650e3d84d6d285c611cc07f9"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/unicode-full.yaml",
+      "sha256": "c5b078209a53c90298e3bed6fc40ee3747ccbf478f3b803ef0b82f242fdf0716"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/es/unicode.yaml",
+      "sha256": "82c6f4b6be7d43ffa38074126f4d7b9dc0e2602c1ef5c7ccfc32705cfa5fd31e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/ClearSpeak_Rules.yaml",
+      "sha256": "2884bff13afa05128dc0de7def7eb6db675c7e78a7e162c5d18c60acb98bf348"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/SharedRules/calculus.yaml",
+      "sha256": "27a79c3c83c25bce7d60f5c85e75c900e3039a3abea1462cd5fa8bc48195bec3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/SharedRules/default.yaml",
+      "sha256": "25d96eb04eec1f4a7dd264778f2f62455e06c39752a343ed5b2e23bc16124e9e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/SharedRules/general.yaml",
+      "sha256": "645810d321e6a5fbec71840e8d6b8683ea6ee2f98035d74a5797846549aa715e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/SharedRules/geometry.yaml",
+      "sha256": "63daf8ae243e3b998654dd5dab136c53b7e9ca76f7d3b3a73927e2c35ddf1fac"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/SharedRules/linear-algebra.yaml",
+      "sha256": "696bd1ff1b5a2eb2281cb2154dc90662a454ab0feab8ffd6f06215a075168803"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/SimpleSpeak_Rules.yaml",
+      "sha256": "d15986d95104c0721fb91c2480fe570026bca97a4156174fe564cd92bd17e5f6"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/definitions.yaml",
+      "sha256": "0b56f6987717269d9ce76106f741996ac687c624a759092cdd617347a5c14f2f"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/navigate.yaml",
+      "sha256": "33f61ce19cfdc94fc838804f3931259dacc4fdd183779b9e05c34fcec0edcdb8"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/overview.yaml",
+      "sha256": "3a8a598a7b080d7651dad19af8ffab85030b521f0c239fa525d1bf415110c83e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/unicode-full.yaml",
+      "sha256": "e3a373b551edb8557bc82e2a29b41f82b69a3ae00fb0485051b7fb39fa2c3267"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/fi/unicode.yaml",
+      "sha256": "a3bce435c206ed7509ad6c71ffdaa1c7d6f786f0e00b07b70d7a2993269f2ae4"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/ClearSpeak_Rules.yaml",
+      "sha256": "390b34f18badf893e3c5bde80115dd7bb4bc94c2da44853480fb97f6947f7f48"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/SharedRules/calculus.yaml",
+      "sha256": "27a79c3c83c25bce7d60f5c85e75c900e3039a3abea1462cd5fa8bc48195bec3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/SharedRules/default.yaml",
+      "sha256": "512cb7c18b8e556eb225071181a10f1dff5d33a0e7d8a963738483e9d0b982be"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/SharedRules/general.yaml",
+      "sha256": "e3b1be3ec71adc4d02fc4bf1d3e6df3424dd5f72fd19c96407ecb98ebda93b8a"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/SharedRules/geometry.yaml",
+      "sha256": "bbe3d7b426f49e330bbc7d705ddf09117bf2fc106175e53c703410312bb1f303"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/SharedRules/linear-algebra.yaml",
+      "sha256": "7f62cb17fb289fe9f5befc522c304e88c765eb424019520111dd5f345e74f552"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/SimpleSpeak_Rules.yaml",
+      "sha256": "5e747ccdc7ecdea2359b745c213e1f8d747559fe6f931f16509874c00bae89ce"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/definitions.yaml",
+      "sha256": "d002368477aba0162a2dbc5185cd5ced43f571e7416803f0486f25622f05451f"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/navigate.yaml",
+      "sha256": "d7f73ea79415c336b53b97850763c71f5bd01b10203b6819eedbdf32aa6b11df"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/overview.yaml",
+      "sha256": "9e1e1a55a7549dd25ffa5572011481e6cfb14e545739adf363f02aa8f581f866"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/unicode-full.yaml",
+      "sha256": "0337bb0bd4dd83bfb6560edb060bae19f1c18352e43a5284f3c35aa3217b55db"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/id/unicode.yaml",
+      "sha256": "d6048985302d6410242081e01c0f515ea258a39b937ff874cb708392fa21041d"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/ClearSpeak_Rules.yaml",
+      "sha256": "1326bda386b27d530842731ab3a2669f731531b87667738b21e28573a27e79df"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/SharedRules/calculus.yaml",
+      "sha256": "d706e9682974175943c5f45e3f069a569f19a36a29250a72eea00dbaa96c47f0"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/SharedRules/default.yaml",
+      "sha256": "365260810dfbafaf60d2bc65ec187ee952f6e525143e06f6e6f83af1500eb5ea"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/SharedRules/general.yaml",
+      "sha256": "5e59f72e9c9d6892d45d834808321073e0d25d368cb6ae29fce9df5fe19d2b69"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/SharedRules/geometry.yaml",
+      "sha256": "ab2c7b725d7b6d77b36274af6b1046dddd0de3f5a381567065006c2b793b5f00"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/SharedRules/linear-algebra.yaml",
+      "sha256": "f41226d5c0d5766a12a5823cbc0b08fb290461bc43106b5924b3f92346c94f0a"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/SimpleSpeak_Rules.yaml",
+      "sha256": "8a221df1a81e83e528c3b877fc603ce0d446a85e8806b10adbff2fab978f0ca8"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/definitions.yaml",
+      "sha256": "0713936e177f903fe5b17fb7c0195e124a83a1ffd0c607b30d0eeeb36c8a26c2"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/navigate.yaml",
+      "sha256": "eb39b72b2b13f2b8ce425bf8ec46dede76ce26a6a658b52baaf04983deadc179"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/overview.yaml",
+      "sha256": "ccba40e4abc53ee97544b10d9bbe2dd8277412aaa7a2b411e6ca64742bc4f449"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/unicode-full.yaml",
+      "sha256": "16673d7c610023cd876a48f6072dc996e29977a758fe426ab7323b4529b64353"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/nb/unicode.yaml",
+      "sha256": "1b8cf10b58199c4f96babdbf7aff9695db1e601198b3d3eae7595b9cacd7cb29"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/ClearSpeak_Rules.yaml",
+      "sha256": "7ce579fc2f14e36e74ca522e36c3333a876457cf0cdd34c7c5c386c36e5fa0da"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/SharedRules/calculus.yaml",
+      "sha256": "27a79c3c83c25bce7d60f5c85e75c900e3039a3abea1462cd5fa8bc48195bec3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/SharedRules/default.yaml",
+      "sha256": "29f14effcc439cff58eca0ad31b2377db6985acf873bf15ffd5512bd6b416812"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/SharedRules/general.yaml",
+      "sha256": "4959741108f4f1f920c26f4ae51b241f204c44030859782ab751a84a61724d9f"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/SharedRules/geometry.yaml",
+      "sha256": "5c2840e0ef86d0ed58e35244c93a12f98f777f08cee899e63cfd7a5caa359551"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/SharedRules/linear-algebra.yaml",
+      "sha256": "4ac5a309e3c293d0281f9bfa1cf851e1664ad3e1d268ab1b33da00dc3d586528"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/SimpleSpeak_Rules.yaml",
+      "sha256": "c304abb44c28fb3c91c6835601b5e97888c2da4e576fd8b0b3ec4f960ba1a30b"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/definitions.yaml",
+      "sha256": "73d3d8997edfdadd622b4a853916aebd927338b5f50772c4bb0d709bc7346c32"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/navigate.yaml",
+      "sha256": "23242c9ec05a00e384ad8a8bd4611b8113d18d83ca955ffbfb2785bfbf9c475c"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/overview.yaml",
+      "sha256": "0eaeb6726c6e3641d259466ad182679b7ee2a126e58d8f9a75cefcbe9f63bc14"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/unicode-full.yaml",
+      "sha256": "dcad56c50a9e25adb07a5fcbb629275adb86790022cf6622600f42f2d1ecfbfb"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/sv/unicode.yaml",
+      "sha256": "ba814771d083b7d494426681891657490e50de1ed12b6911d5f62d3f3b17135a"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/ClearSpeak_Rules.yaml",
+      "sha256": "bd11570ba412e7a769a386b02bed1bcc530830fb54eb9c9e1aafa6995230529e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/SharedRules/calculus.yaml",
+      "sha256": "27a79c3c83c25bce7d60f5c85e75c900e3039a3abea1462cd5fa8bc48195bec3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/SharedRules/default.yaml",
+      "sha256": "e8eef3abee0ed78907e475ff096662d448c460ab854a004f952cb942eefa3dab"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/SharedRules/general.yaml",
+      "sha256": "a3893963eb412c061511546055a591d5a29cd7f366c5f301fb5dd1819e7c504b"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/SharedRules/geometry.yaml",
+      "sha256": "416e31c3542224cace9637dbb684739b434f4359f0884f5c0fb6057399d66d40"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/SharedRules/linear-algebra.yaml",
+      "sha256": "6a05b926a38fccaf8a42fe3cedac3eb00105de90a56677aab1a5f916f9f7400f"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/SimpleSpeak_Rules.yaml",
+      "sha256": "3394f27bbe0984b807b7c72a275912f512822b41ad53fdcafec19360851be704"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/definitions.yaml",
+      "sha256": "35591ba426771b639049caf0a09ea89f1da733c332eb317d4ba682f91f811c4b"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/navigate.yaml",
+      "sha256": "0e498e876c3b94dbf43a22e105b9f70962be4e12a59b1f4f2a341000f4c62ab3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/overview.yaml",
+      "sha256": "ddf1fc28c4bef7e2441a69e12f23c911c43d242c84f88916e26a69e7556cd74e"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/unicode-full.yaml",
+      "sha256": "c670897dfe5ebbfdedaf904625bc26392b927f8fe069ef40becb255f0c4a672d"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/vi/unicode.yaml",
+      "sha256": "7c2eae2753c7e9b7b9b160ffa5a7d7d32097a87c9b9f8e16fdf12c004090a8ca"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/SharedRules/calculus.yaml",
+      "sha256": "27a79c3c83c25bce7d60f5c85e75c900e3039a3abea1462cd5fa8bc48195bec3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/SharedRules/default.yaml",
+      "sha256": "9d92e4eb34b3c09ecbbebaa5486b2591ab144b839bf577d0fffe523a59a9a79b"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/SharedRules/general.yaml",
+      "sha256": "cd07823b259bba18a236cd4c125942c53fab59bfce4d3f13c7dacd73815a5d77"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/SharedRules/geometry.yaml",
+      "sha256": "aa68752c35161e4f6d5ae66d34f1b066a414194cbbe98d100a70192f5b6a4854"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/SharedRules/linear-algebra.yaml",
+      "sha256": "803e86398ab0cba988d11ebd99b248b4ccf1e9ad4f57ce4623f3db0bd66c4857"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/SimpleSpeak_Rules.yaml",
+      "sha256": "c9d9320f23d6b9a798c8e3dc34f5d3006d83e9e0a60b64f091c87d01b1a5e26a"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/definitions.yaml",
+      "sha256": "db4102ad436a39a2fbc864f7647e7c27765cff3ac9519bf8a24fe60fb38939fe"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/navigate.yaml",
+      "sha256": "bcaf9f7d103c84a4d4fd6d417548b05500e4da3104c0c5c9585e23771975079d"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/overview.yaml",
+      "sha256": "45fec1dbd58bd183bfc8976b10c60656824dc7a1c3b28292e4ce762b571d96e3"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/unicode-full.yaml",
+      "sha256": "f01dbf3999d94d64204fb592c5c443f22324b018a7a8126901315a55d6f45885"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zh/tw/unicode.yaml",
+      "sha256": "fcd860c6a0ba303d947d59d12a48f02897392231870a80532145eaf30ca33b78"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/ClearSpeak_Rules.yaml",
+      "sha256": "f796eea7173f4b7d84f26d6cd6eb59153ce1a4c2800f34a7c9f708c3329012da"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/SimpleSpeak_Rules.yaml",
+      "sha256": "d6f9cb6632a2b061f88869f4ee5c3d2d3ea8905f9a47c7726d9727454a38f2cc"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/aa/ClearSpeak_Rules.yaml",
+      "sha256": "364ba070f49faa7ccd570afed9a1964becad3fe4c9f91b8b79284937b27dd0ae"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/aa/definitions.yaml",
+      "sha256": "f4357a3b760f0b6838cace6377db1ab28e605a7caf1d9c238299d788d1894dff"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/aa/unicode.yaml",
+      "sha256": "14bfb97a96823b90ec5d0061122bd6911493304141c6f50e6bfe94d89a3a4845"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/definitions.yaml",
+      "sha256": "6777a353f2f0a01f53657621375e617ad69c390b05d2b994bfe47a2cc02eb3ed"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/navigate.yaml",
+      "sha256": "293323b031866a91c04d2e49d44f558fd1ce509b043785b86c42757c6fd3d57a"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/overview.yaml",
+      "sha256": "070e7b4f13aa0a2119c8e45509f4adf3c9a71c0077663ff02a6b25f3d13a4416"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/unicode-full.yaml",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Resources/MathCATRules/Languages/zz/unicode.yaml",
+      "sha256": "b40c9c0ee7cfaab12d5a61a81a9874a1e2bdc44f5a9f63d5792330f6b95ddd28"
+    },
+    {
+      "path": "Resources/MathCATRules/definitions.yaml",
+      "sha256": "1cd5d7cd64053fe724fa89bfd2aebb019ae1e1886794caa9f61a25bf005a1692"
+    },
+    {
+      "path": "Resources/MathCATRules/intent.yaml",
+      "sha256": "871cd27b4bd152dab11255547fbf6e07458c41fb9bc7dd6a1eb37745748d8683"
+    },
+    {
+      "path": "Resources/MathCATRules/prefs.yaml",
+      "sha256": "b11f3ff2a7c5083d8dcc497eb512448085eec7dae606f47099809f8349c81002"
+    }
+  ]
+}

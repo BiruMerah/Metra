@@ -1,0 +1,170 @@
+{
+  "schema": "metra-visual-classifier-compound-formula-v1",
+  "device_run": {
+    "attempt_id": "7a0f7d84-31f0-4cda-9466-4ab0385a0962",
+    "run_id": "8b906a2c-3bf3-4903-be25-5f2a295b37e8",
+    "build": {
+      "app_version": "1.0",
+      "build_number": "32",
+      "bundle_id": "id.birumerah.Metra",
+      "configuration": "Debug",
+      "debugger_attached": null
+    },
+    "page_count": 4,
+    "device": {
+      "hardware_model_identifier": "iPhone17,2",
+      "model": "iPhone",
+      "physical_memory_bytes": 7992344576,
+      "system_name": "iOS",
+      "system_version": "27.0.1"
+    },
+    "sampled_peak_bytes": 2545160360
+  },
+  "host_verification": {
+    "compound_formula_assertions": 18,
+    "reader_checks": 14,
+    "result": "passed"
+  },
+  "formulas": [
+    {
+      "id": "p0003.formula.0011",
+      "latex": "\\mathbf { L } { = } { \\frac { 1 } { 2 } } { \\times } \\mathbf { a } { \\times } \\mathbf { t }",
+      "source_merge_allowed": true,
+      "source_consistency_status": "source_connector_anchors_agree",
+      "raw_mathcat_speech": "bold huruf besar l sama dengan, 1 perdua kali bold a cross product bold t",
+      "final_speech": "l sama dengan, 1 perdua kali a kali t",
+      "profile": {
+        "BlockSeparators": ".  ",
+        "DecimalSeparator": ",",
+        "DecimalSeparators": ",",
+        "Language": "id",
+        "SpeechStyle": "ClearSpeak",
+        "TTS": "None",
+        "Verbosity": "Medium"
+      },
+      "derivations": [
+        "captioned_triangle_area_scalar_font_v1: nearby explicit Luas segitiga caption; complete L equation uniformly bold; scalar-only structure; remove font variants for speech only. Identifiers, numbers, fractions and operators unchanged; raw MathML retained."
+      ],
+      "source_anchor_check": {
+        "allowed": true,
+        "imageAnchors": "Lat",
+        "limitation": "Explicit source range and non-x Latin anchors only; x/X in damaged OCR may denote multiplication. Numeric/fraction fidelity remains image recognition, not an OCR reconstruction.",
+        "sourceAnchors": "Lat"
+      }
+    },
+    {
+      "id": "p0003.formula.0012",
+      "latex": "L = \\frac { 1 } { 2 } { \\times } A B \\times t",
+      "source_merge_allowed": true,
+      "source_consistency_status": "source_connector_anchors_agree",
+      "raw_mathcat_speech": "l sama dengan, 1 perdua kali   a   b kali t",
+      "final_speech": "l sama dengan, 1 perdua kali   a   b kali t",
+      "profile": {
+        "BlockSeparators": ".  ",
+        "DecimalSeparator": ",",
+        "DecimalSeparators": ",",
+        "Language": "id",
+        "SpeechStyle": "ClearSpeak",
+        "TTS": "None",
+        "Verbosity": "Medium"
+      },
+      "derivations": [],
+      "source_anchor_check": {
+        "allowed": true,
+        "imageAnchors": "LABt",
+        "limitation": "Explicit source range and non-x Latin anchors only; x/X in damaged OCR may denote multiplication. Numeric/fraction fidelity remains image recognition, not an OCR reconstruction.",
+        "sourceAnchors": "LABt"
+      }
+    }
+  ],
+  "ready_area_chunk": {
+    "id": "p0003.unassigned.22.c0001",
+    "kind": "sentence",
+    "pageID": "p0003",
+    "sourceRef": "reading/exports/54f93c66-beb5-4b12-8039-82e56be574f1/chunks/p0003.unassigned.22.c0001.json",
+    "sourceText": "L-_xaxt atau L- ¿XABXt",
+    "spokenText": "l sama dengan, 1 perdua kali a kali t atau l sama dengan, 1 perdua kali   a   b kali t",
+    "status": "ready",
+    "unresolvedFormulaIDs": []
+  },
+  "visuals": [
+    {
+      "id": "p0002.layout.0025",
+      "predicted_class": "others",
+      "probabilities": {
+        "diagrams": 2.677990096344729e-07,
+        "geometry": 0.0003510809619911015,
+        "graph": 3.8723348971814175e-09,
+        "others": 0.9996486306190491
+      },
+      "status": "skipped_others",
+      "generation_requested": false,
+      "rejected_facts_count": 0
+    },
+    {
+      "id": "p0003.layout.0011",
+      "predicted_class": "geometry",
+      "probabilities": {
+        "diagrams": 0.12220535427331924,
+        "geometry": 0.8733970522880554,
+        "graph": 0.004300023894757032,
+        "others": 9.760149259818718e-05
+      },
+      "status": "needs_review",
+      "generation_requested": true,
+      "rejected_facts_count": 42
+    },
+    {
+      "id": "p0003.layout.0015",
+      "predicted_class": "diagrams",
+      "probabilities": {
+        "diagrams": 0.7524623870849609,
+        "geometry": 0.08141301572322845,
+        "graph": 0.166111022233963,
+        "others": 1.3564887922257185e-05
+      },
+      "status": "needs_review",
+      "generation_requested": true,
+      "rejected_facts_count": 16
+    },
+    {
+      "id": "p0004.layout.0001",
+      "predicted_class": "graph",
+      "probabilities": {
+        "diagrams": 0.009384696371853352,
+        "geometry": 0.0001707562041701749,
+        "graph": 0.978598952293396,
+        "others": 0.011845584027469158
+      },
+      "status": "needs_review",
+      "generation_requested": true,
+      "rejected_facts_count": 22
+    },
+    {
+      "id": "p0004.layout.0010",
+      "predicted_class": "geometry",
+      "probabilities": {
+        "diagrams": 0.08201146125793457,
+        "geometry": 0.9020695090293884,
+        "graph": 0.01409670989960432,
+        "others": 0.0018223108490929008
+      },
+      "status": "needs_review",
+      "generation_requested": true,
+      "rejected_facts_count": 22
+    }
+  ],
+  "ready_chunk_counts": {
+    "ready": 55,
+    "needs_review": 28,
+    "skipped_others": 1
+  },
+  "limitations": [
+    "Four-page pilot only, no general accuracy claim.",
+    "Source pie chart classified geometry; classifier requires further validation.",
+    "Supported visual descriptions remain under review; main reader uses neutral preview.",
+    "Source anchors do not establish all numeric/fraction glyph accuracy.",
+    "Build 33 adds an error-path guard for failed scalar MathCAT conversion; successful recognition path tested in build 32."
+  ],
+  "report": "Integration/VISUAL-CLASSIFIER-FORMULA.md"
+}

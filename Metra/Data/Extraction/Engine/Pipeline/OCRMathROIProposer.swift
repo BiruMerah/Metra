@@ -7,7 +7,7 @@ import UIKit
 enum OCRMathROIProposer {
     static func propose(pageID:String, observations:[OCRObservation], layout:[LayoutRegion], imageURL:URL, pageRoot:URL) throws -> [LayoutRegion] {
         guard let source=CGImageSourceCreateWithURL(imageURL as CFURL,nil),let image=CGImageSourceCreateImageAtIndex(source,0,nil) else { throw FormulaRecognitionError.failed("Proposal ROI tidak dapat membaca halaman") }
-        let pattern=#"(?<![\p{L}\p{N}_])[A-Za-z](?![\p{L}\p{N}_])|\(\s*[-+]?\d[\d.,]*(?:\s*[,;]\s*[-+]?\d[\d.,]*)+\s*\)"#
+        let pattern=#"\(\s*[-+]?\d[\d.,]*(?:\s*[,;]\s*[-+]?\d[\d.,]*)+\s*\)"#
         let regex=try NSRegularExpression(pattern:pattern)
         let visualNumbers = try NSRegularExpression(pattern: #"(?<![\p{L}\p{N}_])[-+]?\d+(?:[.,]\d+)?(?:\s*[°º%*])?(?![\p{L}\p{N}_])"#)
         let wholeNumeric = try NSRegularExpression(pattern: #"(?s)^.+$"#)
@@ -18,7 +18,7 @@ enum OCRMathROIProposer {
         let power = #"(?:[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\s*\^\s*(?:\{\s*[+-]?[0-9]+\s*\}|[+-]?[0-9]+)|[ \t]*[0-9]+|['’′?%⅓⅔])?"#
         let variable = "(?:\(number))?[A-Za-z]\(power)"
         let term = "(?:\(variable)|\(number))"
-        let expressionRegex = try NSRegularExpression(pattern:"(?<![\\p{L}\\p{N}_])\(term)(?:\\s*[+−=\\-]\\s*\(term))*(?![\\p{L}\\p{N}_])")
+        let expressionRegex = try NSRegularExpression(pattern:"(?<![\\p{L}\\p{N}_])\(term)(?:\\s*[+−=\\-×÷≤≥<>]\\s*\(term))*(?![\\p{L}\\p{N}_])")
         var proposed:[LayoutRegion]=[]
         var unicodeDecisions: [[String:Any]] = []
         for observation in observations {
@@ -42,7 +42,7 @@ enum OCRMathROIProposer {
             let unitMatches: [NSTextCheckingResult] = isVisual ? [] : (try LengthUnitSource.matches(in: text as String))
             let expressionMatches = isVisual ? [] : expressionRegex.matches(in:text as String,range:NSRange(location:0,length:text.length)).filter { expression in
                 let value = text.substring(with:expression.range)
-                return value.count > 1 && value.count <= 160 && value.rangeOfCharacter(from:.letters) != nil &&
+                return OCRFormulaCandidatePolicy.expressionHasOperator(value) &&
                     !degreeExpressions.contains { NSIntersectionRange($0.range,expression.range).length > 0 } &&
                     !unitMatches.contains { unit in NSIntersectionRange(unit.range, expression.range).length > 0 }
             }
@@ -106,11 +106,38 @@ enum OCRMathROIProposer {
         }
         let encoder=JSONEncoder();encoder.outputFormatting=[.prettyPrinted,.sortedKeys]
         try encoder.encode(proposed).write(to:pageRoot.appendingPathComponent("formula-roi-proposals.raw.json"),options:.atomic)
+        try DiagramArtifactStore().writeJSON(["version":OCRFormulaCandidatePolicy.version,
+            "isolated_letter_proposals":false,"implicit_coefficient_letter_proposals":false,
+            "expression_policy":"Explicit arithmetic/relation operator required; complete Unicode notation and numeric tuples retained",
+            "unit_policy":LengthUnitSource.version,"proposals":proposed.count] as [String:Any],
+            to:pageRoot.appendingPathComponent("ocr-formula-candidate-policy.json"))
         try JSONSerialization.data(withJSONObject:["version":UnicodeMathSource.version,"decisions":unicodeDecisions,
             "limitations":"Explicit OCR Unicode only; no L/Z-to-angle, x2-to-power or missing-symbol recovery; existing overlapping DocLayout regions retain their route; OCR source accuracy unassessed"],options:[.prettyPrinted,.sortedKeys])
             .write(to:pageRoot.appendingPathComponent("unicode-math-proposals.json"),options:.atomic)
         return proposed
     }
+    /// A bounded second image attempt only after an isolated letter failed its
+    /// agreement check. Expand the original Vision box before finding the full
+    /// connected glyph so a tight OCR edge cannot cut its anti-aliased strokes.
+    static func contextGlyphCrop(region:LayoutRegion,imageURL:URL,outputURL:URL) throws -> PixelBox? {
+        guard region.detectionSource == "vision_range_math_proposal_v1",
+              let text = region.proposalText,text.count == 1,text.allSatisfy({ $0.isASCII && $0.isLetter }),
+              let raw = region.rawVisionBBox,
+              let source = CGImageSourceCreateWithURL(imageURL as CFURL,nil),
+              let image = CGImageSourceCreateImageAtIndex(source,0,nil) else { return nil }
+        let margin = max(2,min(5,(raw.ymax-raw.ymin)*0.12))
+        let search = PixelBox(xmin:max(0,floor(raw.xmin-margin)),ymin:max(0,floor(raw.ymin-margin)),
+            xmax:min(Double(image.width),ceil(raw.xmax+margin)),ymax:min(Double(image.height),ceil(raw.ymax+margin)))
+        guard let glyph = tightenGlyph(search,image:image) else { return nil }
+        let box = PixelBox(xmin:max(0,glyph.xmin-1),ymin:max(0,glyph.ymin-1),
+            xmax:min(Double(image.width),glyph.xmax+1),ymax:min(Double(image.height),glyph.ymax+1))
+        guard box != region.bboxPageXYXY,
+              let crop = image.cropping(to:CGRect(x:box.xmin,y:box.ymin,width:box.xmax-box.xmin,height:box.ymax-box.ymin)),
+              let png = UIImage(cgImage:crop).pngData() else { return nil }
+        try png.write(to:outputURL,options:.atomic)
+        return box
+    }
+
     private static func tightenGlyph(_ box:PixelBox,image:CGImage) -> PixelBox? {
         let rect=CGRect(x:floor(box.xmin),y:floor(box.ymin),width:ceil(box.xmax)-floor(box.xmin),height:ceil(box.ymax)-floor(box.ymin))
         guard let crop=image.cropping(to:rect) else {return nil}
